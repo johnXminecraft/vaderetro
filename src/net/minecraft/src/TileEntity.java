@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import net.minecraft.src.vaderetro.tileentity.TileEntityOpenHearthFurnace;
+
 import java.util.HashMap;
 import java.util.Map;
 

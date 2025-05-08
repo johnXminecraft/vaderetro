@@ -1,8 +1,12 @@
-package net.minecraft.src;
+package net.minecraft.src.vaderetro.gui;
 
+import net.minecraft.src.GuiContainer;
+import net.minecraft.src.InventoryPlayer;
+import net.minecraft.src.vaderetro.container.ContainerOpenHearthFurnace;
+import net.minecraft.src.vaderetro.tileentity.TileEntityOpenHearthFurnace;
 import org.lwjgl.opengl.GL11;
 
-public class GuiOpenHearthFurnace extends GuiContainer{
+public class GuiOpenHearthFurnace extends GuiContainer {
 
     private TileEntityOpenHearthFurnace oHFurnaceInventory;
 

@@ -1,4 +1,8 @@
-package net.minecraft.src;
+package net.minecraft.src.vaderetro.tileentity;
+
+import net.minecraft.src.*;
+import net.minecraft.src.vaderetro.block.BlockOpenHearthFurnace;
+import net.minecraft.src.vaderetro.recipes.OpenHearthFurnaceRecipes;
 
 public class TileEntityOpenHearthFurnace extends TileEntity implements IInventory {
 

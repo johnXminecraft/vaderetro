@@ -1,4 +1,9 @@
-package net.minecraft.src;
+package net.minecraft.src.vaderetro.slot;
+
+import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.IInventory;
+import net.minecraft.src.ItemStack;
+import net.minecraft.src.Slot;
 
 public class SlotOpenHearthFurnace extends Slot {
 

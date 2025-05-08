@@ -1,5 +1,6 @@
 package net.minecraft.src;
 
+import net.minecraft.src.vaderetro.block.BlockOpenHearthFurnace;
 import java.util.ArrayList;
 import java.util.Random;
 

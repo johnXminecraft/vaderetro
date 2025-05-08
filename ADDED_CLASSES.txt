@@ -1,0 +1,6 @@
+BlockOpenHearthFurnace.class
+ContainerOpenHearthFurnace.class
+GuiOpenHearthFurnace.class
+OpenHearthFurnaceRecipes.class
+SlotOpenHearthFurnace.class
+TileEntityOpenHearthFurnace.class

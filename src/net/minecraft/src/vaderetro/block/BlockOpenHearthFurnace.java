@@ -1,4 +1,7 @@
-package net.minecraft.src;
+package net.minecraft.src.vaderetro.block;
+
+import net.minecraft.src.*;
+import net.minecraft.src.vaderetro.tileentity.TileEntityOpenHearthFurnace;
 
 import java.util.Random;
 

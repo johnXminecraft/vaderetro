@@ -1,4 +1,8 @@
-package net.minecraft.src;
+package net.minecraft.src.vaderetro.container;
+
+import net.minecraft.src.*;
+import net.minecraft.src.vaderetro.slot.SlotOpenHearthFurnace;
+import net.minecraft.src.vaderetro.tileentity.TileEntityOpenHearthFurnace;
 
 public class ContainerOpenHearthFurnace extends Container {
 

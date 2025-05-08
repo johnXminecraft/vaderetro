@@ -1,4 +1,8 @@
-package net.minecraft.src;
+package net.minecraft.src.vaderetro.recipes;
+
+import net.minecraft.src.Block;
+import net.minecraft.src.Item;
+import net.minecraft.src.ItemStack;
 
 import java.util.HashMap;
 import java.util.Map;
