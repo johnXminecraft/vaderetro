@@ -5,6 +5,7 @@ public enum EnumToolMaterial {
 	STONE(1, 131, 4.0F, 1),
 	IRON(2, 250, 6.0F, 2),
 	EMERALD(3, 1561, 8.0F, 3),
+	STAINED_STEEL(3, 2500, 12.0F, 4),
 	GOLD(0, 32, 12.0F, 0);
 
 	private final int harvestLevel;

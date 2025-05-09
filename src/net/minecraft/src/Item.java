@@ -111,7 +111,18 @@ public class Item {
 	public static ItemShears shears = (ItemShears)(new ItemShears(103)).setIconCoord(13, 5).setItemName("shears");
 	public static Item record13 = (new ItemRecord(2000, "13")).setIconCoord(0, 15).setItemName("record");
 	public static Item recordCat = (new ItemRecord(2001, "cat")).setIconCoord(1, 15).setItemName("record");
-	public static Item ingotSteel = (new Item(104)).setIconCoord(0, 9).setItemName("ingotSteel");
+	public static Item ingotStainedSteel = (new Item(104)).setIconCoord(0, 9).setItemName("ingotStainedSteel");
+	public static Item helmetStainedSteel = (new ItemArmor(105, 4, 5, 0)).setIconCoord(1, 9).setItemName("helmetStainedSteel");
+	public static Item plateStainedSteel = (new ItemArmor(106, 4, 5, 1)).setIconCoord(1, 10).setItemName("chestplateStainedSteel");
+	public static Item legsStainedSteel = (new ItemArmor(107, 4, 5, 2)).setIconCoord(1, 11).setItemName("leggingsStainedSteel");
+	public static Item bootsStainedSteel = (new ItemArmor(108, 4, 5, 3)).setIconCoord(1, 12).setItemName("bootsStainedSteel");
+	public static Item chain = (new Item(109)).setIconCoord(0, 11).setItemName("chain");
+	public static Item swordStainedSteel = (new ItemSword(110, EnumToolMaterial.STAINED_STEEL)).setIconCoord(0, 10).setItemName("swordStainedSteel");
+	public static Item shovelStainedSteel = (new ItemSpade(111, EnumToolMaterial.STAINED_STEEL)).setIconCoord(2, 10).setItemName("shovelStainedSteel");
+	public static Item pickaxeStainedSteel = (new ItemPickaxe(112, EnumToolMaterial.STAINED_STEEL)).setIconCoord(2, 11).setItemName("pickaxeStainedSteel");
+	public static Item axeStainedSteel = (new ItemAxe(113, EnumToolMaterial.STAINED_STEEL)).setIconCoord(2, 12).setItemName("hatchetStainedSteel");
+	public static Item hoeStainedSteel = (new ItemHoe(114, EnumToolMaterial.STAINED_STEEL)).setIconCoord(2, 9).setItemName("hoeStainedSteel");
+
 	public final int shiftedIndex;
 	protected int maxStackSize = 64;
 	private int maxDamage = 0;

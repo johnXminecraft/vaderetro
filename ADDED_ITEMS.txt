@@ -1,1 +1,11 @@
 Steel Ingot
+Chain
+Topfhelm
+Cuirass
+Cuisse
+Sabatons
+Montante
+Stained Steel Shovel
+Stained Steel Pickaxe
+Stained Steel Hatchet
+Stained Steel Hoe

@@ -1,7 +1,13 @@
 Block.class
+CraftingManager.class
 EntityPlayer.class
 EntityPlayerSP.class
+EnumToolMaterial.class
 Item.class
+ItemArmor.class
+RecipesArmor.class
 RecipesCrafting.class
+RecipesTools.class
+RecipesWeapons.class
 StatList.class
 TileEntity.class

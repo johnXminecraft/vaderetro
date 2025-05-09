@@ -1,1 +1,7 @@
 Cartridges for the game console
+Stained steel armor textures
+Chain texture rework
+Readme rework (?)
+Church stuff
+The game console
+CRT

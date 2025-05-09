@@ -17,8 +17,7 @@ public class OpenHearthFurnaceRecipes {
     }
 
     private OpenHearthFurnaceRecipes() {
-        this.addSmelting(Item.ingotIron.shiftedIndex, new ItemStack(Item.ingotSteel));
-        this.addSmelting(Block.wood.blockID, new ItemStack(Item.ingotSteel));
+        this.addSmelting(Item.ingotIron.shiftedIndex, new ItemStack(Item.ingotStainedSteel));
     }
 
     public void addSmelting(int var1, ItemStack var2) {

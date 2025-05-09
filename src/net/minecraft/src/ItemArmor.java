@@ -11,8 +11,8 @@ public class ItemArmor extends Item {
 	public ItemArmor(int var1, int var2, int var3, int var4) {
 		super(var1);
 		this.armorLevel = var2;
-		this.armorType = var4;
 		this.renderIndex = var3;
+		this.armorType = var4;
 		this.damageReduceAmount = damageReduceAmountArray[var4];
 		this.setMaxDamage(maxDamageArray[var4] * 3 << var2);
 		this.maxStackSize = 1;
