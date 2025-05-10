@@ -1,2 +1,13 @@
-# Project exclude paths
+.classpath
+.project
+
+Client.launch
+Minecraft Client.iml
+
+/.idea/
+/.settings/
+
+/bin/
+/md5/
+/source/
 /output/
