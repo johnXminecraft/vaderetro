@@ -7,7 +7,14 @@ public class RenderPlayer extends RenderLiving {
 	private ModelBiped modelBipedMain = (ModelBiped)this.mainModel;
 	private ModelBiped modelArmorChestplate = new ModelBiped(1.0F);
 	private ModelBiped modelArmor = new ModelBiped(0.5F);
-	private static final String[] armorFilenamePrefix = new String[]{"cloth", "chain", "iron", "diamond", "gold"};
+	private static final String[] armorFilenamePrefix = new String[]{
+			"cloth",
+			"chain",
+			"iron",
+			"diamond",
+			"gold",
+			"stained_steel"
+	};
 
 	public RenderPlayer() {
 		super(new ModelBiped(0.0F), 0.5F);

@@ -9,5 +9,6 @@ RecipesArmor.class
 RecipesCrafting.class
 RecipesTools.class
 RecipesWeapons.class
+RenderPlayer.class
 StatList.class
 TileEntity.class
