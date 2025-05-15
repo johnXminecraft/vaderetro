@@ -1,5 +1,6 @@
 package net.minecraft.src;
 
+import net.minecraft.src.vaderetro.block.BlockCrtTvSet;
 import net.minecraft.src.vaderetro.block.BlockOpenHearthFurnace;
 import java.util.ArrayList;
 import java.util.Random;
@@ -118,11 +119,14 @@ public class Block {
 	public static final Block redstoneRepeaterActive = (new BlockRedstoneRepeater(94, true)).setHardness(0.0F).setLightValue(10.0F / 16.0F).setStepSound(soundWoodFootstep).setBlockName("diode").disableStats().disableNeighborNotifyOnMetadataChange();
 	public static final Block lockedChest = (new BlockLockedChest(95)).setHardness(0.0F).setLightValue(1.0F).setStepSound(soundWoodFootstep).setBlockName("lockedchest").setTickOnLoad(true).disableNeighborNotifyOnMetadataChange();
 	public static final Block trapdoor = (new BlockTrapDoor(96, Material.wood)).setHardness(3.0F).setStepSound(soundWoodFootstep).setBlockName("trapdoor").disableStats().disableNeighborNotifyOnMetadataChange();
-	public static final Block openHearthFurnaceIdle = (new BlockOpenHearthFurnace(97, false)).setHardness(3.5F).setStepSound(soundStoneFootstep).setBlockName("openHearthFurnace").disableNeighborNotifyOnMetadataChange();
-	public static final Block openHearthFurnaceActive = (new BlockOpenHearthFurnace(98, true)).setHardness(3.5F).setStepSound(soundStoneFootstep).setLightValue(1.0F).setBlockName("openHearthFurnace").disableNeighborNotifyOnMetadataChange();
+
+	public static final Block openHearthFurnaceIdle = (new BlockOpenHearthFurnace(97, false)).setHardness(2.0F).setStepSound(soundStoneFootstep).setBlockName("openHearthFurnace").disableNeighborNotifyOnMetadataChange();
+	public static final Block openHearthFurnaceActive = (new BlockOpenHearthFurnace(98, true)).setHardness(2.0F).setStepSound(soundStoneFootstep).setLightValue(1.0F).setBlockName("openHearthFurnace").disableNeighborNotifyOnMetadataChange();
 	public static final Block oreCopper = (new BlockOre(99, 136)).setHardness(3.0F).setResistance(5.0F).setStepSound(soundStoneFootstep).setBlockName("oreCopper");
 	public static final Block oilMoving = (new BlockFlowing(100, Material.oil)).setHardness(100.0F).setLightOpacity(3).setBlockName("oil").disableStats().disableNeighborNotifyOnMetadataChange();
 	public static final Block oilStill = (new BlockStationary(101, Material.oil)).setHardness(100.0F).setLightOpacity(3).setBlockName("oil").disableStats().disableNeighborNotifyOnMetadataChange();
+	public static final Block crtTvSetIdle = (new BlockCrtTvSet(102, false, 154)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("crtTvSet").disableNeighborNotifyOnMetadataChange();
+	public static final Block crtTvSetActive = (new BlockCrtTvSet(103, true, 154)).setHardness(2.0F).setStepSound(soundWoodFootstep).setLightValue(1.0F).setBlockName("crtTvSet").disableNeighborNotifyOnMetadataChange();
 
 	public int blockIndexInTexture;
 	public final int blockID;

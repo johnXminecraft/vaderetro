@@ -1,5 +1,6 @@
 package net.minecraft.src;
 
+import net.minecraft.src.vaderetro.tileentity.TileEntityCrtTvSet;
 import net.minecraft.src.vaderetro.tileentity.TileEntityOpenHearthFurnace;
 
 import java.util.HashMap;
@@ -102,6 +103,7 @@ public class TileEntity {
 	static {
 		addMapping(TileEntityFurnace.class, "Furnace");
 		addMapping(TileEntityOpenHearthFurnace.class, "OpenHearthFurnace");
+		addMapping(TileEntityCrtTvSet.class, "CrtTvSet");
 		addMapping(TileEntityChest.class, "Chest");
 		addMapping(TileEntityRecordPlayer.class, "RecordPlayer");
 		addMapping(TileEntityDispenser.class, "Trap");

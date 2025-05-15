@@ -1,5 +1,6 @@
 package net.minecraft.src;
 
+import net.minecraft.src.vaderetro.tileentity.TileEntityCrtTvSet;
 import net.minecraft.src.vaderetro.tileentity.TileEntityOpenHearthFurnace;
 
 import java.util.Iterator;
@@ -451,6 +452,9 @@ public abstract class EntityPlayer extends EntityLiving {
 	}
 
 	public void displayGUIOpenHearthFurnace(TileEntityOpenHearthFurnace var1) {
+	}
+
+	public void displayGUICrtTvSet(TileEntityCrtTvSet var1) {
 	}
 
 	public void displayGUIDispenser(TileEntityDispenser var1) {

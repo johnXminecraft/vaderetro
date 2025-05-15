@@ -143,7 +143,7 @@ public class TileEntityOpenHearthFurnace extends TileEntity implements IInventor
             }
             if(var1 != this.openHearthFurnaceBurnTime > 0) {
                 var2 = true;
-                BlockOpenHearthFurnace.updateOpenHearthFurnaceBlockState(this.openHearthFurnaceBurnTime > 0, this.worldObj, this.xCoord, this.yCoord, this.zCoord);
+                BlockOpenHearthFurnace.updateBlockState(this.openHearthFurnaceBurnTime > 0, this.worldObj, this.xCoord, this.yCoord, this.zCoord);
             }
         }
         if(var2) {

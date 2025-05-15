@@ -81,7 +81,7 @@ public class BlockOpenHearthFurnace extends BlockContainer {
 
     @Override
     public int getBlockTextureFromSide(int var1) {
-        return var1 == 1 ? this.blockIndexInTexture + 3 : (var1 == 0 ? this.blockIndexInTexture + 16 : (var1 == 3 ? this.blockIndexInTexture - 1 : this.blockIndexInTexture));
+        return var1 == 1 ? this.blockIndexInTexture + 16 : (var1 == 0 ? this.blockIndexInTexture + 15 : (var1 == 3 ? this.blockIndexInTexture + 14 : this.blockIndexInTexture));
     }
 
     @Override
@@ -93,7 +93,7 @@ public class BlockOpenHearthFurnace extends BlockContainer {
         return true;
     }
 
-    public static void updateOpenHearthFurnaceBlockState(boolean var0, World var1, int var2, int var3, int var4) {
+    public static void updateBlockState(boolean var0, World var1, int var2, int var3, int var4) {
         int var5 = var1.getBlockMetadata(var2, var3, var4);
         TileEntity var6 = var1.getBlockTileEntity(var2, var3, var4);
         keepFurnaceInventory = true;

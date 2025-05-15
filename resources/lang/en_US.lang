@@ -338,6 +338,8 @@ tile.oreCopper.name=Copper Ore
 tile.oreCopper.desc=Vade Retro
 tile.oil.name=Oil
 tile.oil.desc=Vade Retro
+tile.crtTvSet.name=CRT TV-Set
+tile.crtTvSet.desc=Vade Retro
 
 item.shovelIron.name=Iron Shovel
 item.shovelIron.desc=
@@ -617,7 +619,7 @@ item.ingotPlastic.name=Plastic Ingot
 item.ingotPlastic.desc=Vade Retro
 item.detailPlastic.name=Plastic Detail
 item.detailPlastic.desc=Vade Retro
-item.anodeCathode.name=Anode & Cathode
+item.anodeCathode.name=Anode and Cathode
 item.anodeCathode.desc=Vade Retro
 item.vacuumTube.name=Vacuum Tube
 item.vacuumTube.desc=Vade Retro

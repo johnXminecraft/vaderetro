@@ -1,9 +1,13 @@
+BlockCrtTvSet.class
 BlockOpenHearthFurnace.class
+ContainerCrtTvSet.class
 ContainerOpenHearthFurnace.class
+GuiCrtTvSet.class
 GuiOpenHearthFurnace.class
 OpenHearthFurnaceRecipes.class
 SlotOpenHearthFurnace.class
 TextureOilFlowFX.class
 TextureOilFX.class
+TileEntityCrtTvSet.class
 TileEntityOpenHearthFurnace.class
 RecipesCircuitry.class
