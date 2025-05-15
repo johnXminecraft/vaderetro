@@ -12,3 +12,13 @@ Stained Steel Hoe
 Copper Ingot
 Wire
 Oil Bucket
+Kerosene Bucket
+Plastic Ingot
+Plastic Detail
+Anode & Cathode
+Vacuum Tube
+Empty Circuitry Plate
+Circuitry Plate
+Resistor
+Capacitor
+Cathode Ray Tube

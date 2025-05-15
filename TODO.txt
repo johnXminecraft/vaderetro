@@ -4,15 +4,18 @@ Readme rework (?)
 Church stuff
 The game console
 CRT
-Circuitry
-Oil lamp
-Plastic, plastic details
+Kerosene lamp
 /misc/oil.png
 Oil texture fix
 Oil physics
+Radio
+Better Open Hearth Furnace logic
 
 Done:
 Stained steel armor textures
 Chain texture rework
 Copper Ore, smelting copper, copper wires
 Oil
+Kerosene
+Plastic, plastic details
+Circuitry

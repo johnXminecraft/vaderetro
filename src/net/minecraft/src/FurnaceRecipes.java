@@ -22,7 +22,9 @@ public class FurnaceRecipes {
 		this.addSmelting(Item.clay.shiftedIndex, new ItemStack(Item.brick));
 		this.addSmelting(Block.cactus.blockID, new ItemStack(Item.dyePowder, 1, 2));
 		this.addSmelting(Block.wood.blockID, new ItemStack(Item.coal, 1, 1));
+
 		this.addSmelting(Block.oreCopper.blockID, new ItemStack(Item.ingotCopper));
+		this.addSmelting(Item.bucketOil.shiftedIndex, new ItemStack(Item.bucketKerosene));
 	}
 
 	public void addSmelting(int var1, ItemStack var2) {

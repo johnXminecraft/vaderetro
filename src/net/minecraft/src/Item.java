@@ -111,6 +111,7 @@ public class Item {
 	public static ItemShears shears = (ItemShears)(new ItemShears(103)).setIconCoord(13, 5).setItemName("shears");
 	public static Item record13 = (new ItemRecord(2000, "13")).setIconCoord(0, 15).setItemName("record");
 	public static Item recordCat = (new ItemRecord(2001, "cat")).setIconCoord(1, 15).setItemName("record");
+
 	public static Item ingotStainedSteel = (new Item(104)).setIconCoord(0, 9).setItemName("ingotStainedSteel");
 	public static Item helmetStainedSteel = (new ItemArmor(105, 4, 5, 0)).setIconCoord(1, 9).setItemName("helmetStainedSteel");
 	public static Item plateStainedSteel = (new ItemArmor(106, 4, 5, 1)).setIconCoord(1, 10).setItemName("chestplateStainedSteel");
@@ -125,6 +126,16 @@ public class Item {
 	public static Item ingotCopper = (new Item(115)).setIconCoord(4, 12).setItemName("ingotCopper");
 	public static Item wire = (new Item(116)).setIconCoord(3, 11).setItemName("wire");
 	public static Item bucketOil = (new ItemBucket(117, Block.oilMoving.blockID)).setIconCoord(0, 12).setItemName("bucketOil").setContainerItem(bucketEmpty);
+	public static Item bucketKerosene = (new ItemBucket(118, -1)).setIconCoord(2, 13).setItemName("bucketKerosene").setContainerItem(bucketEmpty);
+	public static Item ingotPlastic = (new Item(119)).setIconCoord(0, 13).setItemName("ingotPlastic");
+	public static Item detailPlastic = (new Item(120)).setIconCoord(1, 13).setItemName("detailPlastic");
+	public static Item anodeCathode = (new Item(121)).setIconCoord(3, 12).setItemName("anodeCathode");
+	public static Item vacuumTube = (new Item(122)).setIconCoord(3, 10).setItemName("vacuumTube");
+	public static Item circuitryPlateEmpty = (new Item(123)).setIconCoord(3, 9).setItemName("circuitryPlateEmpty");
+	public static Item circuitryPlate = (new Item(124)).setIconCoord(4, 9).setItemName("circuitryPlate");
+	public static Item resistor = (new Item(125)).setIconCoord(4, 10).setItemName("resistor");
+	public static Item capacitor = (new Item(126)).setIconCoord(4, 11).setItemName("capacitor");
+	public static Item cathodeRayTube = (new Item(127)).setIconCoord(3, 13).setItemName("cathodeRayTube");
 
 	public final int shiftedIndex;
 	protected int maxStackSize = 64;
