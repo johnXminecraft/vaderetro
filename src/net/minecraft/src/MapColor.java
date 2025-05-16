@@ -16,6 +16,7 @@ public class MapColor {
 	public static final MapColor stoneColor = new MapColor(11, 7368816);
 	public static final MapColor waterColor = new MapColor(12, 4210943);
 	public static final MapColor woodColor = new MapColor(13, 6837042);
+	public static final MapColor oilColor = new MapColor(14, 3289650);
 	public final int colorValue;
 	public final int colorIndex;
 
