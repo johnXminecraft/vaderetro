@@ -1,18 +1,54 @@
 package net.minecraft.src.vaderetro.gui;
 
 import net.minecraft.src.GuiContainer;
+import net.minecraft.src.GuiMainMenu;
 import net.minecraft.src.InventoryPlayer;
 import net.minecraft.src.vaderetro.container.ContainerCrtTvSet;
 import net.minecraft.src.vaderetro.tileentity.TileEntityCrtTvSet;
 import org.lwjgl.opengl.GL11;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.Random;
+
 public class GuiCrtTvSet extends GuiContainer {
 
     private TileEntityCrtTvSet tileEntity;
+    private static final Random random = new Random();
+    private String splash;
 
     public GuiCrtTvSet(InventoryPlayer inventoryPlayer, TileEntityCrtTvSet tileEntity) {
         super(new ContainerCrtTvSet(inventoryPlayer, tileEntity));
         this.tileEntity = tileEntity;
+        this.splash = "PLEASE STANDBY";
+        try {
+            ArrayList var1 = new ArrayList();
+            BufferedReader var2 = new BufferedReader(new InputStreamReader(GuiMainMenu.class.getResourceAsStream("/crt/crt_splashes.txt"), Charset.forName("UTF-8")));
+
+            while(true) {
+                this.splash = var2.readLine();
+                if(this.splash == null) {
+                    this.splash = (String)var1.get(random.nextInt(var1.size()));
+                    break;
+                }
+
+                this.splash = this.splash.trim();
+                if(this.splash.length() > 0) {
+                    var1.add(this.splash);
+                }
+            }
+        } catch (Exception var4) {
+            var4.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void drawGuiContainerForegroundLayer() {
+        if(tileEntity.isPowered()) {
+            this.fontRenderer.drawString(splash, 15, 101, 16777215);
+        }
     }
 
     @Override
@@ -22,9 +58,9 @@ public class GuiCrtTvSet extends GuiContainer {
 
         int var2;
         if (tileEntity.isPowered()) {
-            var2 = this.mc.renderEngine.getTexture("/gui/crt_active.png");
+            var2 = this.mc.renderEngine.getTexture("/crt/crt_active.png");
         } else {
-            var2 = this.mc.renderEngine.getTexture("/gui/crt_idle.png");
+            var2 = this.mc.renderEngine.getTexture("/crt/crt_idle.png");
         }
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.renderEngine.bindTexture(var2);
