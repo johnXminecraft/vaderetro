@@ -2,8 +2,10 @@ package net.minecraft.src;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.vaderetro.gui.GuiCrtTvSet;
+import net.minecraft.src.vaderetro.gui.GuiKeroseneLamp;
 import net.minecraft.src.vaderetro.gui.GuiOpenHearthFurnace;
 import net.minecraft.src.vaderetro.tileentity.TileEntityCrtTvSet;
+import net.minecraft.src.vaderetro.tileentity.TileEntityKeroseneLamp;
 import net.minecraft.src.vaderetro.tileentity.TileEntityOpenHearthFurnace;
 
 public class EntityPlayerSP extends EntityPlayer {
@@ -136,6 +138,10 @@ public class EntityPlayerSP extends EntityPlayer {
 
 	public void displayGUICrtTvSet(TileEntityCrtTvSet var1) {
 		this.mc.displayGuiScreen(new GuiCrtTvSet(this.inventory, var1));
+	}
+
+	public void displayGUIKeroseneLamp(TileEntityKeroseneLamp var1) {
+		this.mc.displayGuiScreen(new GuiKeroseneLamp(this.inventory, var1));
 	}
 
 	public void displayGUIDispenser(TileEntityDispenser var1) {

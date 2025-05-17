@@ -1,6 +1,7 @@
 package net.minecraft.src;
 
 import net.minecraft.src.vaderetro.block.BlockCrtTvSet;
+import net.minecraft.src.vaderetro.block.BlockKeroseneLamp;
 import net.minecraft.src.vaderetro.block.BlockOpenHearthFurnace;
 import java.util.ArrayList;
 import java.util.Random;
@@ -127,6 +128,8 @@ public class Block {
 	public static final Block oilStill = (new BlockStationary(101, Material.oil)).setHardness(100.0F).setLightOpacity(3).setBlockName("oil").disableStats().disableNeighborNotifyOnMetadataChange();
 	public static final Block crtTvSetIdle = (new BlockCrtTvSet(102, false, 154)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("crtTvSet").disableNeighborNotifyOnMetadataChange();
 	public static final Block crtTvSetActive = (new BlockCrtTvSet(103, true, 154)).setHardness(2.0F).setStepSound(soundWoodFootstep).setLightValue(1.0F).setBlockName("crtTvSet").disableNeighborNotifyOnMetadataChange();
+	public static final Block lampKeroseneIdle = (new BlockKeroseneLamp(104, false)).setHardness(0.0F).setStepSound(soundMetalFootstep).setBlockName("lampKerosene").disableNeighborNotifyOnMetadataChange();
+	public static final Block lampKeroseneActive = (new BlockKeroseneLamp(105, true)).setHardness(0.0F).setStepSound(soundMetalFootstep).setLightValue(1.0F).setBlockName("lampKerosene").disableNeighborNotifyOnMetadataChange();
 
 	public int blockIndexInTexture;
 	public final int blockID;

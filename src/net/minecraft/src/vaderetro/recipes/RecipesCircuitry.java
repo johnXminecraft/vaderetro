@@ -64,5 +64,10 @@ public class RecipesCircuitry {
                 Character.valueOf('W'), Block.planks,
                 Character.valueOf('C'), Item.circuitryPlate
         });
+        var1.addRecipe(new ItemStack(Block.lampKeroseneIdle), new Object[]{
+                "SSS", "G G", "SSS",
+                Character.valueOf('S'), Item.ingotStainedSteel,
+                Character.valueOf('G'), Block.glass
+        });
     }
 }

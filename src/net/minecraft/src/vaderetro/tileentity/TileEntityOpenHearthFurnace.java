@@ -185,7 +185,7 @@ public class TileEntityOpenHearthFurnace extends TileEntity implements IInventor
             return 0;
         } else {
             int var2 = var1.getItem().shiftedIndex;
-            return var2 < 256 && Block.blocksList[var2].blockMaterial == Material.wood ? 300 : (var2 == Item.stick.shiftedIndex ? 100 : (var2 == Item.coal.shiftedIndex ? 1600 : (var2 == Item.bucketLava.shiftedIndex ? 20000 : (var2 == Block.sapling.blockID ? 100 : 0))));
+            return var2 == Item.bucketLava.shiftedIndex ? 20000 : 0;
         }
     }
 

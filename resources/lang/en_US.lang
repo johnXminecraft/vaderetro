@@ -340,6 +340,8 @@ tile.oil.name=Oil
 tile.oil.desc=Vade Retro
 tile.crtTvSet.name=CRT TV-Set
 tile.crtTvSet.desc=Vade Retro
+tile.lampKerosene.name=Kerosene Lamp
+tile.lampKerosene.desc=Vade Retro
 
 item.shovelIron.name=Iron Shovel
 item.shovelIron.desc=

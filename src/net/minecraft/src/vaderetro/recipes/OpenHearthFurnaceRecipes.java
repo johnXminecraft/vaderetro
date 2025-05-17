@@ -1,6 +1,5 @@
 package net.minecraft.src.vaderetro.recipes;
 
-import net.minecraft.src.Block;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 

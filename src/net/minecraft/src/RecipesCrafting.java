@@ -8,7 +8,7 @@ public class RecipesCrafting {
 		var1.addRecipe(new ItemStack(Block.workbench), new Object[]{"##", "##", Character.valueOf('#'), Block.planks});
 		var1.addRecipe(new ItemStack(Block.sandStone), new Object[]{"##", "##", Character.valueOf('#'), Block.sand});
 
-		var1.addRecipe(new ItemStack(Block.openHearthFurnaceIdle, 1), new Object[]{
+		var1.addRecipe(new ItemStack(Block.openHearthFurnaceIdle), new Object[]{
 				"# #", "#L#", "BNB",
                 '#', Block.cobblestone,
                 'L', Item.bucketEmpty,

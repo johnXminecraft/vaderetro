@@ -2,3 +2,4 @@ Open Hearth Furnace
 Copper Ore
 Oil
 CRT TV-Set
+Kerosene Lamp
