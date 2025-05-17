@@ -9,6 +9,7 @@ Oil physics
 Radio
 Better Open Hearth Furnace logic
 Better CRT logic
+Kerosene lamp texture change when is lit
 
 Done:
 Open hearth furnace
