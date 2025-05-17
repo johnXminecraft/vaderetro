@@ -3,7 +3,6 @@ Cartridges for the game console
 Readme rework (?)
 Church stuff
 The game console
-Kerosene lamp
 /misc/oil.png
 Oil texture fix
 Oil physics
@@ -26,3 +25,4 @@ Plastic, plastic details
 Circuitry
 CRT
 Check if CRT isPowered, switchability of CRT
+Kerosene lamp
