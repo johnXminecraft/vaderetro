@@ -136,6 +136,7 @@ public class Item {
 	public static Item resistor = (new Item(125)).setIconCoord(4, 10).setItemName("resistor");
 	public static Item capacitor = (new Item(126)).setIconCoord(4, 11).setItemName("capacitor");
 	public static Item cathodeRayTube = (new Item(127)).setIconCoord(3, 13).setItemName("cathodeRayTube");
+	public static Item eggFried = (new ItemFood(128, 6, false)).setIconCoord(4, 13).setItemName("eggFried");
 
 	public final int shiftedIndex;
 	protected int maxStackSize = 64;
