@@ -119,7 +119,7 @@ public abstract class EntityLiving extends Entity {
 		}
 
 		int var1;
-		if(this.isEntityAlive() && this.isInsideOfMaterial(Material.water) && !this.canBreatheUnderwater()) {
+		if(this.isEntityAlive() && (this.isInsideOfMaterial(Material.water) || this.isInsideOfMaterial(Material.oil)) && !this.canBreatheUnderwater()) {
 			--this.air;
 			if(this.air == -20) {
 				this.air = 0;
@@ -131,7 +131,8 @@ public abstract class EntityLiving extends Entity {
 					this.worldObj.spawnParticle("bubble", this.posX + (double)var2, this.posY + (double)var3, this.posZ + (double)var4, this.motionX, this.motionY, this.motionZ);
 				}
 
-				this.attackEntityFrom((Entity)null, 2);
+				int damage = this.isInsideOfMaterial(Material.oil) ? 3 : 2;
+				this.attackEntityFrom((Entity)null, damage);
 			}
 
 			this.fire = 0;

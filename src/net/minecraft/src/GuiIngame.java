@@ -130,6 +130,17 @@ public class GuiIngame extends Gui {
 						this.drawTexturedModalRect(var6 / 2 - 91 + var18 * 8, var7 - 32 - 9, 25, 18, 9, 9);
 					}
 				}
+			} else if(this.mc.thePlayer.isInsideOfMaterial(Material.oil)) {
+				var16 = (int)Math.ceil((double)(this.mc.thePlayer.air - 2) * 10.0D / 300.0D);
+				var17 = (int)Math.ceil((double)this.mc.thePlayer.air * 10.0D / 300.0D) - var16;
+
+				for(var18 = 0; var18 < var16 + var17; ++var18) {
+					if(var18 < var16) {
+						this.drawTexturedModalRect(var6 / 2 - 91 + var18 * 8, var7 - 32 - 9, 16, 18, 9, 9);
+					} else {
+						this.drawTexturedModalRect(var6 / 2 - 91 + var18 * 8, var7 - 32 - 9, 25, 18, 9, 9);
+					}
+				}
 			}
 		}
 

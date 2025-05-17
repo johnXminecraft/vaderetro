@@ -4,11 +4,14 @@ BlockFluid.class
 ChunkProviderGenerate.class
 ChunkProviderSky.class
 CraftingManager.class
+Entity.class
+EntityLiving.class
 EntityPlayer.class
 EntityPlayerSP.class
 EntityRenderer.class
 EnumToolMaterial.class
 FurnaceRecipes.class
+GuiIngame.class
 Item.class
 ItemArmor.class
 ItemBucket.class

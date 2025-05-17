@@ -3,13 +3,14 @@ Cartridges for the game console
 Readme rework (?)
 Church stuff
 The game console
-/misc/oil.png
-Oil texture fix
-Oil physics
 Radio
-Better Open Hearth Furnace logic
-Better CRT logic
+Radio-stations
+Better Open Hearth Furnace logic, gui
+Better CRT logic, gui
+Better Kerosene lamp gui
 Kerosene lamp texture change when is lit
+Oil physics fix
+Oil pump
 
 Done:
 Open hearth furnace
@@ -27,3 +28,6 @@ Circuitry
 CRT
 Check if CRT isPowered, switchability of CRT
 Kerosene lamp
+Oil texture fix
+Oil physics
+/misc/oil.png

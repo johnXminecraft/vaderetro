@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import net.minecraft.src.vaderetro.material.MaterialOil;
+
 public class Material {
 	public static final Material air = new MaterialTransparent(MapColor.airColor);
 	public static final Material grassMaterial = new Material(MapColor.grassColor);
@@ -29,7 +31,7 @@ public class Material {
 	public static final Material cakeMaterial = (new Material(MapColor.airColor)).setNoPushMobility();
 	public static final Material field_31068_A = (new Material(MapColor.clothColor)).setNoHarvest().setNoPushMobility();
 	public static final Material field_31067_B = (new Material(MapColor.stoneColor)).setImmovableMobility();
-	public static final Material oil = (new MaterialLiquid(MapColor.oilColor)).setNoPushMobility();
+	public static final Material oil = (new MaterialOil(MapColor.oilColor)).setNoPushMobility();
 
 	private boolean canBurn;
 	private boolean groundCover;

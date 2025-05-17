@@ -298,6 +298,10 @@ public abstract class EntityPlayer extends EntityLiving {
 			var2 /= 5.0F;
 		}
 
+		if(this.isInsideOfMaterial(Material.oil)) {
+			var2 /= 7.0F;
+		}
+
 		if(!this.onGround) {
 			var2 /= 5.0F;
 		}
@@ -748,6 +752,14 @@ public abstract class EntityPlayer extends EntityLiving {
 				if(var7 > 0) {
 					this.addStat(StatList.distanceDoveStat, var7);
 				}
+			} else if(this.isInsideOfMaterial(Material.oil)) {
+				var7 = Math.round(MathHelper.sqrt_double(var1 * var1 + var3 * var3 + var5 * var5) * 100.0F);
+				if(var7 > 0) {
+					this.addStat(StatList.distanceDoveStat, var7);
+				}
+				this.motionX *= 0.5D;
+				this.motionY *= 0.5D;
+				this.motionZ *= 0.5D;
 			} else if(this.isInWater()) {
 				var7 = Math.round(MathHelper.sqrt_double(var1 * var1 + var5 * var5) * 100.0F);
 				if(var7 > 0) {

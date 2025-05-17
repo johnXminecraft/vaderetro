@@ -834,9 +834,9 @@ public class EntityRenderer {
 			this.fogColorGreen = 0.1F;
 			this.fogColorBlue = 0.0F;
 		} else if(var3.isInsideOfMaterial(Material.oil)) {
-			this.fogColorRed = 0.9F;
-			this.fogColorGreen = 0.9F;
-			this.fogColorBlue = 0.9F;
+			this.fogColorRed = 0.0F;
+			this.fogColorGreen = 0.0F;
+			this.fogColorBlue = 0.0F;
 		}
 
 		var12 = this.fogColor2 + (this.fogColor1 - this.fogColor2) * var1;
@@ -894,6 +894,17 @@ public class EntityRenderer {
 			var4 = 0.4F;
 			var5 = 0.3F;
 			var6 = 0.3F;
+			if(this.mc.gameSettings.anaglyph) {
+				var7 = (var4 * 30.0F + var5 * 59.0F + var6 * 11.0F) / 100.0F;
+				var8 = (var4 * 30.0F + var5 * 70.0F) / 100.0F;
+				var9 = (var4 * 30.0F + var6 * 70.0F) / 100.0F;
+			}
+		} else if(var3.isInsideOfMaterial(Material.oil)) {
+			GL11.glFogi(GL11.GL_FOG_MODE, GL11.GL_EXP);
+			GL11.glFogf(GL11.GL_FOG_DENSITY, 1.5F);
+			var4 = 0.2F;
+			var5 = 0.2F;
+			var6 = 0.2F;
 			if(this.mc.gameSettings.anaglyph) {
 				var7 = (var4 * 30.0F + var5 * 59.0F + var6 * 11.0F) / 100.0F;
 				var8 = (var4 * 30.0F + var5 * 70.0F) / 100.0F;

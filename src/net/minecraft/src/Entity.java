@@ -167,7 +167,7 @@ public abstract class Entity {
 		this.prevRotationYaw = this.rotationYaw;
 		if(this.handleWaterMovement()) {
 			if(!this.inWater && !this.isFirstUpdate) {
-				float var1 = MathHelper.sqrt_double(this.motionX * this.motionX * (double)0.2F + this.motionY * this.motionY + this.motionZ * this.motionZ * (double)0.2F) * 0.2F;
+				float var1 = MathHelper.sqrt_double(this.motionX * this.motionX * 0.2D + this.motionY * this.motionY + this.motionZ * this.motionZ * 0.2D) * 0.2F;
 				if(var1 > 1.0F) {
 					var1 = 1.0F;
 				}
@@ -196,6 +196,48 @@ public abstract class Entity {
 			this.fire = 0;
 		} else {
 			this.inWater = false;
+		}
+
+		// Обработка движения в нефти
+		if(this.handleOilMovement()) {
+			if(!this.isFirstUpdate) {
+				float var1 = MathHelper.sqrt_double(this.motionX * this.motionX * 0.1D + this.motionY * this.motionY + this.motionZ * this.motionZ * 0.1D) * 0.1F;
+				if(var1 > 0.5F) {
+					var1 = 0.5F;
+				}
+
+				this.worldObj.playSoundAtEntity(this, "random.splash", var1, 0.6F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
+				float var2 = (float)MathHelper.floor_double(this.boundingBox.minY);
+
+				int var3;
+				float var4;
+				float var5;
+				for(var3 = 0; (float)var3 < 0.5F + this.width * 10.0F; ++var3) {
+					var4 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width;
+					var5 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width;
+					this.worldObj.spawnParticle("smoke", this.posX + (double)var4, (double)(var2 + 1.0F), this.posZ + (double)var5, this.motionX, this.motionY - (double)(this.rand.nextFloat() * 0.1F), this.motionZ);
+				}
+			}
+
+			this.fallDistance = 0.0F;
+			this.fire = 0;
+
+			if(this.isInsideOfMaterial(Material.oil)) {
+				this.air -= 1;
+
+				if(this.air == -20) {
+					this.air = 0;
+
+					for(int i = 0; i < 8; ++i) {
+						float var3 = this.rand.nextFloat() - this.rand.nextFloat();
+						float var4 = this.rand.nextFloat() - this.rand.nextFloat();
+						float var5 = this.rand.nextFloat() - this.rand.nextFloat();
+						this.worldObj.spawnParticle("bubble", this.posX + (double)var3, this.posY + (double)var4, this.posZ + (double)var5, this.motionX, this.motionY, this.motionZ);
+					}
+
+					this.attackEntityFrom((Entity)null, 3);
+				}
+			}
 		}
 
 		if(this.worldObj.multiplayerWorld) {
@@ -540,8 +582,16 @@ public abstract class Entity {
 		return this.inWater;
 	}
 
+	public boolean isInOil() {
+		return this.worldObj.isMaterialInBB(this.boundingBox.expand(-0.1D, -0.4D, -0.1D), Material.oil);
+	}
+
 	public boolean handleWaterMovement() {
 		return this.worldObj.handleMaterialAcceleration(this.boundingBox.expand(0.0D, (double)-0.4F, 0.0D).func_28195_e(0.001D, 0.001D, 0.001D), Material.water, this);
+	}
+
+	public boolean handleOilMovement() {
+		return this.worldObj.handleMaterialAcceleration(this.boundingBox.expand(0.0D, (double)-0.4F, 0.0D).func_28195_e(0.001D, 0.001D, 0.001D), Material.oil, this);
 	}
 
 	public boolean isInsideOfMaterial(Material var1) {

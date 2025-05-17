@@ -316,6 +316,10 @@ public class ItemRenderer {
 			var2 = this.mc.renderEngine.getTexture("/misc/water.png");
 			GL11.glBindTexture(GL11.GL_TEXTURE_2D, var2);
 			this.renderWarpedTextureOverlay(var1);
+		} else if(this.mc.thePlayer.isInsideOfMaterial(Material.oil)) {
+			var2 = this.mc.renderEngine.getTexture("/misc/oil.png");
+			GL11.glBindTexture(GL11.GL_TEXTURE_2D, var2);
+			this.renderWarpedTextureOverlay(var1);
 		}
 
 		GL11.glEnable(GL11.GL_ALPHA_TEST);

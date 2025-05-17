@@ -179,7 +179,7 @@ public abstract class BlockFluid extends Block {
 	public int tickRate() {
 		return this.blockMaterial == Material.water ? 5 :
 				(this.blockMaterial == Material.lava ? 30 :
-				(this.blockMaterial == Material.oil ? 20 : 0));
+						(this.blockMaterial == Material.oil ? 30 : 0));
 	}
 
 	public float getBlockBrightness(IBlockAccess var1, int var2, int var3, int var4) {

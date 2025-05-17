@@ -26,7 +26,7 @@ public class BlockFlowing extends BlockFluid {
 		}
 
 		if(this.blockMaterial == Material.oil) {
-			var7 = 2;
+			var7 = 3;
 		}
 
 		boolean var8 = true;
