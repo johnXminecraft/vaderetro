@@ -4,9 +4,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.src.vaderetro.gui.GuiCrtTvSet;
 import net.minecraft.src.vaderetro.gui.GuiKeroseneLamp;
 import net.minecraft.src.vaderetro.gui.GuiOpenHearthFurnace;
-import net.minecraft.src.vaderetro.tileentity.TileEntityCrtTvSet;
-import net.minecraft.src.vaderetro.tileentity.TileEntityKeroseneLamp;
-import net.minecraft.src.vaderetro.tileentity.TileEntityOpenHearthFurnace;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityCrtTvSet;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityKeroseneLamp;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityOpenHearthFurnace;
 
 public class EntityPlayerSP extends EntityPlayer {
 	public MovementInput movementInput;

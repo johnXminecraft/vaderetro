@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import net.minecraft.src.vaderetro.entity.EntityBoar;
+
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,7 @@ public class BiomeGenBase {
 	protected List spawnableMonsterList = new ArrayList();
 	protected List spawnableCreatureList = new ArrayList();
 	protected List spawnableWaterCreatureList = new ArrayList();
+	protected List spawnableWildCreatureList = new ArrayList();
 	private boolean enableSnow;
 	private boolean enableRain = true;
 	private static BiomeGenBase[] biomeLookupTable = new BiomeGenBase[4096];
@@ -42,6 +45,8 @@ public class BiomeGenBase {
 		this.spawnableCreatureList.add(new SpawnListEntry(EntityChicken.class, 10));
 		this.spawnableCreatureList.add(new SpawnListEntry(EntityCow.class, 8));
 		this.spawnableWaterCreatureList.add(new SpawnListEntry(EntitySquid.class, 10));
+
+		this.spawnableWildCreatureList.add(new SpawnListEntry(EntityBoar.class, 8));
 	}
 
 	private BiomeGenBase setDisableRain() {
@@ -109,7 +114,11 @@ public class BiomeGenBase {
 	}
 
 	public List getSpawnableList(EnumCreatureType var1) {
-		return var1 == EnumCreatureType.monster ? this.spawnableMonsterList : (var1 == EnumCreatureType.creature ? this.spawnableCreatureList : (var1 == EnumCreatureType.waterCreature ? this.spawnableWaterCreatureList : null));
+		return
+				var1 == EnumCreatureType.monster ? this.spawnableMonsterList :
+						(var1 == EnumCreatureType.creature ? this.spawnableCreatureList :
+								(var1 == EnumCreatureType.waterCreature ? this.spawnableWaterCreatureList :
+										(var1 == EnumCreatureType.wildCreature ? this.spawnableWildCreatureList : null)));
 	}
 
 	public boolean getEnableSnow() {

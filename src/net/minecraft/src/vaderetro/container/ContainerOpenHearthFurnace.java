@@ -2,7 +2,7 @@ package net.minecraft.src.vaderetro.container;
 
 import net.minecraft.src.*;
 import net.minecraft.src.vaderetro.slot.SlotOpenHearthFurnace;
-import net.minecraft.src.vaderetro.tileentity.TileEntityOpenHearthFurnace;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityOpenHearthFurnace;
 
 public class ContainerOpenHearthFurnace extends Container {
 

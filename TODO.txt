@@ -6,7 +6,6 @@ The game console
 Radio
 Radio-stations
 Better Open Hearth Furnace logic, gui
-Better CRT logic, gui
 Better Kerosene lamp gui
 Kerosene lamp texture change when is lit
 Oil physics fix
@@ -36,3 +35,6 @@ Oil physics
 Musket, musket bullet
 Hell ores (golden, sulfur)
 Hell oil generation
+Better CRT logic, gui
+Boar
+EntityWild

@@ -1,8 +1,8 @@
 package net.minecraft.src;
 
-import net.minecraft.src.vaderetro.tileentity.TileEntityCrtTvSet;
-import net.minecraft.src.vaderetro.tileentity.TileEntityKeroseneLamp;
-import net.minecraft.src.vaderetro.tileentity.TileEntityOpenHearthFurnace;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityCrtTvSet;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityKeroseneLamp;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityOpenHearthFurnace;
 
 import java.util.HashMap;
 import java.util.Map;

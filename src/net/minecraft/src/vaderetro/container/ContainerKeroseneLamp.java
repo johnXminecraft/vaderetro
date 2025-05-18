@@ -2,7 +2,7 @@ package net.minecraft.src.vaderetro.container;
 
 import net.minecraft.src.*;
 import net.minecraft.src.vaderetro.slot.SlotKeroseneLamp;
-import net.minecraft.src.vaderetro.tileentity.TileEntityKeroseneLamp;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityKeroseneLamp;
 
 public class ContainerKeroseneLamp extends Container {
 

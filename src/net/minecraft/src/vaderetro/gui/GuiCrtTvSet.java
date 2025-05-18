@@ -4,7 +4,7 @@ import net.minecraft.src.GuiContainer;
 import net.minecraft.src.GuiMainMenu;
 import net.minecraft.src.InventoryPlayer;
 import net.minecraft.src.vaderetro.container.ContainerCrtTvSet;
-import net.minecraft.src.vaderetro.tileentity.TileEntityCrtTvSet;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityCrtTvSet;
 import org.lwjgl.opengl.GL11;
 
 import java.io.BufferedReader;

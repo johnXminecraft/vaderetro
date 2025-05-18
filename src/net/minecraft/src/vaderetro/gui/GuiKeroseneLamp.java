@@ -3,7 +3,7 @@ package net.minecraft.src.vaderetro.gui;
 import net.minecraft.src.GuiContainer;
 import net.minecraft.src.InventoryPlayer;
 import net.minecraft.src.vaderetro.container.ContainerKeroseneLamp;
-import net.minecraft.src.vaderetro.tileentity.TileEntityKeroseneLamp;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityKeroseneLamp;
 import org.lwjgl.opengl.GL11;
 
 public class GuiKeroseneLamp extends GuiContainer {

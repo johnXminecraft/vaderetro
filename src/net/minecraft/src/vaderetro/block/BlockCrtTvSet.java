@@ -1,7 +1,7 @@
 package net.minecraft.src.vaderetro.block;
 
 import net.minecraft.src.*;
-import net.minecraft.src.vaderetro.tileentity.TileEntityCrtTvSet;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityCrtTvSet;
 
 import java.util.Random;
 

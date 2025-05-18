@@ -4,7 +4,9 @@ BlockOpenHearthFurnace.class
 ContainerCrtTvSet.class
 ContainerKeroseneLamp.class
 ContainerOpenHearthFurnace.class
+EntityBoar.class
 EntityMusketBullet.class
+EntityWild.class
 GuiCrtTvSet.class
 GuiKeroseneLamp.class
 GuiOpenHearthFurnace.class

@@ -3,7 +3,7 @@ package net.minecraft.src.vaderetro.container;
 import net.minecraft.src.Container;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.InventoryPlayer;
-import net.minecraft.src.vaderetro.tileentity.TileEntityCrtTvSet;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityCrtTvSet;
 
 public class ContainerCrtTvSet extends Container {
 

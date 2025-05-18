@@ -1,7 +1,7 @@
 package net.minecraft.src.vaderetro.block;
 
 import net.minecraft.src.*;
-import net.minecraft.src.vaderetro.tileentity.TileEntityKeroseneLamp;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityKeroseneLamp;
 import java.util.Random;
 
 public class BlockKeroseneLamp extends BlockContainer {
