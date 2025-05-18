@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import net.minecraft.src.balcon_weaponmod.entity.EntityMusketBullet;
+
 import java.util.Random;
 
 public class BlockDispenser extends BlockContainer {
@@ -101,6 +103,12 @@ public class BlockDispenser extends BlockContainer {
 				EntityArrow var19 = new EntityArrow(var1, var13, var15, var17);
 				var19.setArrowHeading((double)var9, (double)0.1F, (double)var10, 1.1F, 6.0F);
 				var19.doesArrowBelongToPlayer = true;
+				var1.entityJoinedWorld(var19);
+				var1.func_28106_e(1002, var2, var3, var4, 0);
+			} else if(var12.itemID == Item.musketBullet.shiftedIndex) {
+				EntityMusketBullet var19 = new EntityMusketBullet(var1, var13, var15, var17);
+				var19.setBulletHeading((double)var9, (double)0.1F, (double)var10, 1.1F, 6.0F);
+				var19.doesBulletBelongToPlayer = true;
 				var1.entityJoinedWorld(var19);
 				var1.func_28106_e(1002, var2, var3, var4, 0);
 			} else if(var12.itemID == Item.egg.shiftedIndex) {

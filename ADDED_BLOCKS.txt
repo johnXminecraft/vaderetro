@@ -3,3 +3,6 @@ Copper Ore
 Oil
 CRT TV-Set
 Kerosene Lamp
+Tin Ore
+Nether Golden Ore
+Nether Sulfur Ore

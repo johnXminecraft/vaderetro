@@ -3,6 +3,9 @@ package net.minecraft.src;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
+import net.minecraft.src.balcon_weaponmod.entity.EntityMusketBullet;
+import net.minecraft.src.balcon_weaponmod.render.RenderMusketBullet;
 import org.lwjgl.opengl.GL11;
 
 public class RenderManager {
@@ -52,6 +55,9 @@ public class RenderManager {
 		this.entityRenderMap.put(EntityBoat.class, new RenderBoat());
 		this.entityRenderMap.put(EntityFish.class, new RenderFish());
 		this.entityRenderMap.put(EntityLightningBolt.class, new RenderLightningBolt());
+
+		this.entityRenderMap.put(EntityMusketBullet.class, new RenderMusketBullet());
+
 		Iterator var1 = this.entityRenderMap.values().iterator();
 
 		while(var1.hasNext()) {

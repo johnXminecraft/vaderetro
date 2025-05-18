@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import net.minecraft.src.balcon_weaponmod.entity.EntityMusketBullet;
+
 import java.util.Iterator;
 import java.util.List;
 
@@ -243,7 +245,7 @@ public class EntityWolf extends EntityAnimal {
 
 	public boolean attackEntityFrom(Entity var1, int var2) {
 		this.setWolfSitting(false);
-		if(var1 != null && !(var1 instanceof EntityPlayer) && !(var1 instanceof EntityArrow)) {
+		if(var1 != null && !(var1 instanceof EntityPlayer) && !(var1 instanceof EntityArrow) && !(var1 instanceof EntityMusketBullet)) {
 			var2 = (var2 + 1) / 2;
 		}
 
@@ -258,6 +260,10 @@ public class EntityWolf extends EntityAnimal {
 
 				if(var1 instanceof EntityArrow && ((EntityArrow)var1).owner != null) {
 					var1 = ((EntityArrow)var1).owner;
+				}
+
+				if(var1 instanceof EntityMusketBullet && ((EntityMusketBullet)var1).owner != null) {
+					var1 = ((EntityMusketBullet)var1).owner;
 				}
 
 				if(var1 instanceof EntityLiving) {

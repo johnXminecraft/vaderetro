@@ -1,5 +1,6 @@
 package net.minecraft.src;
 
+import net.minecraft.src.balcon_weaponmod.recipes.RecipesMusket;
 import net.minecraft.src.vaderetro.recipes.RecipesCircuitry;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class CraftingManager {
 		(new RecipesArmor()).addRecipes(this);
 		(new RecipesDyes()).addRecipes(this);
 		(new RecipesCircuitry()).addRecipes(this);
+		(new RecipesMusket()).addRecipes(this);
 		this.addRecipe(new ItemStack(Item.paper, 3), new Object[]{"###", Character.valueOf('#'), Item.reed});
 		this.addRecipe(new ItemStack(Item.book, 1), new Object[]{"#", "#", "#", Character.valueOf('#'), Item.paper});
 		this.addRecipe(new ItemStack(Block.fence, 2), new Object[]{"###", "###", Character.valueOf('#'), Item.stick});

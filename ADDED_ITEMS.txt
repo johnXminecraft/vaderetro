@@ -23,3 +23,5 @@ Resistor
 Capacitor
 Cathode Ray Tube
 Fried Egg
+Tin Ingot
+Sulfur Piece

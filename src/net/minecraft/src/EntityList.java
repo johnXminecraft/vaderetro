@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import net.minecraft.src.balcon_weaponmod.entity.EntityMusketBullet;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -104,5 +106,6 @@ public class EntityList {
 		addMapping(EntityFallingSand.class, "FallingSand", 21);
 		addMapping(EntityMinecart.class, "Minecart", 40);
 		addMapping(EntityBoat.class, "Boat", 41);
+		addMapping(EntityMusketBullet.class, "Bullet", 100);
 	}
 }

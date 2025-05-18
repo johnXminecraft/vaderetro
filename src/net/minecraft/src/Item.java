@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import net.minecraft.src.balcon_weaponmod.item.ItemMusket;
+
 import java.util.Random;
 
 public class Item {
@@ -139,6 +141,10 @@ public class Item {
 	public static Item eggFried = (new ItemFood(128, 6, false)).setIconCoord(4, 13).setItemName("eggFried");
 	public static Item ingotTin = (new Item(129)).setIconCoord(5, 11).setItemName("ingotTin");
 	public static Item ingotSulfur = (new Item(130)).setIconCoord(5, 6).setItemName("ingotSulfur");
+	public static Item musket = (new ItemMusket(131)).setIconCoord(5, 10).setItemName("musket");
+	public static Item musketButt = (new Item(132)).setIconCoord(5, 9).setItemName("musketButt");
+	public static Item musketBarrel = (new Item(133)).setIconCoord(5, 8).setItemName("musketBarrel");
+	public static Item musketBullet = (new Item(134)).setIconCoord(5, 7).setItemName("musketBullet");
 
 	public final int shiftedIndex;
 	protected int maxStackSize = 64;

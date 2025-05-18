@@ -1,5 +1,6 @@
 package net.minecraft.src;
 
+import net.minecraft.src.balcon_weaponmod.entity.EntityMusketBullet;
 import net.minecraft.src.vaderetro.tileentity.TileEntityCrtTvSet;
 import net.minecraft.src.vaderetro.tileentity.TileEntityKeroseneLamp;
 import net.minecraft.src.vaderetro.tileentity.TileEntityOpenHearthFurnace;
@@ -371,7 +372,7 @@ public abstract class EntityPlayer extends EntityLiving {
 				this.wakeUpPlayer(true, true, false);
 			}
 
-			if(var1 instanceof EntityMob || var1 instanceof EntityArrow) {
+			if(var1 instanceof EntityMob || var1 instanceof EntityArrow || var1 instanceof EntityMusketBullet) {
 				if(this.worldObj.difficultySetting == 0) {
 					var2 = 0;
 				}
@@ -391,6 +392,10 @@ public abstract class EntityPlayer extends EntityLiving {
 				Object var3 = var1;
 				if(var1 instanceof EntityArrow && ((EntityArrow)var1).owner != null) {
 					var3 = ((EntityArrow)var1).owner;
+				}
+
+				if(var1 instanceof EntityMusketBullet && ((EntityMusketBullet)var1).owner != null) {
+					var3 = ((EntityMusketBullet)var1).owner;
 				}
 
 				if(var3 instanceof EntityLiving) {
