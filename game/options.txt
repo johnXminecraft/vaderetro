@@ -3,7 +3,7 @@ sound:1.0
 invertYMouse:false
 mouseSensitivity:0.5
 viewDistance:0
-guiScale:0
+guiScale:3
 bobView:true
 anaglyph3d:false
 advancedOpengl:false

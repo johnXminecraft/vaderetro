@@ -2,10 +2,12 @@ package net.minecraft.src;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
+import net.minecraft.src.JIM.mod_JIM;
 
 public class GuiInventory extends GuiContainer {
 	private float xSize_lo;
 	private float ySize_lo;
+	private boolean jimRenderedThisFrame = false;
 
 	public GuiInventory(EntityPlayer var1) {
 		super(var1.inventorySlots);
@@ -21,10 +23,69 @@ public class GuiInventory extends GuiContainer {
 		this.fontRenderer.drawString("Crafting", 86, 16, 4210752);
 	}
 
+	private static boolean jimInitialized = false;
+	private static long lastJimRenderTime = 0;
+	private static final long JIM_THROTTLE = 0;
+
 	public void drawScreen(int var1, int var2, float var3) {
-		super.drawScreen(var1, var2, var3);
-		this.xSize_lo = (float)var1;
-		this.ySize_lo = (float)var2;
+		try {
+			if (!jimInitialized) {
+				jimInitialized = true;
+			}
+
+			super.drawScreen(var1, var2, var3);
+			this.xSize_lo = (float)var1;
+			this.ySize_lo = (float)var2;
+
+			lastJimRenderTime = System.currentTimeMillis();
+
+			try {
+				GL11.glMatrixMode(GL11.GL_MODELVIEW);
+				GL11.glPushMatrix();
+				GL11.glLoadIdentity();
+
+				GL11.glMatrixMode(GL11.GL_PROJECTION);
+				GL11.glPushMatrix();
+				GL11.glLoadIdentity();
+
+				GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
+
+				int currentTexture = GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D);
+
+				boolean rendered = mod_JIM.getInstance().onTickInGUI(var3, mc, this);
+				jimRenderedThisFrame = rendered;
+
+				GL11.glBindTexture(GL11.GL_TEXTURE_2D, currentTexture);
+
+				GL11.glPopAttrib();
+
+				GL11.glMatrixMode(GL11.GL_PROJECTION);
+				GL11.glPopMatrix();
+
+				GL11.glMatrixMode(GL11.GL_MODELVIEW);
+				GL11.glPopMatrix();
+
+				GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+			} catch (Exception e) {
+				try {
+					GL11.glPopAttrib();
+					GL11.glMatrixMode(GL11.GL_PROJECTION);
+					GL11.glPopMatrix();
+					GL11.glMatrixMode(GL11.GL_MODELVIEW);
+					GL11.glPopMatrix();
+				} catch (Exception ex) {
+					GL11.glMatrixMode(GL11.GL_MODELVIEW);
+					GL11.glLoadIdentity();
+					GL11.glMatrixMode(GL11.GL_PROJECTION);
+					GL11.glLoadIdentity();
+					GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+					GL11.glEnable(GL11.GL_TEXTURE_2D);
+					GL11.glEnable(GL11.GL_DEPTH_TEST);
+					GL11.glDisable(GL11.GL_BLEND);
+				}
+			}
+		} catch (Exception e) {
+		}
 	}
 
 	protected void drawGuiContainerBackgroundLayer(float var1) {
@@ -74,6 +135,5 @@ public class GuiInventory extends GuiContainer {
 		if(var1.id == 1) {
 			this.mc.displayGuiScreen(new GuiStats(this, this.mc.statFileWriter));
 		}
-
 	}
 }
