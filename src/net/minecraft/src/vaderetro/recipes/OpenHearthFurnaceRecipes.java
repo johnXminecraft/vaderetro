@@ -1,5 +1,6 @@
 package net.minecraft.src.vaderetro.recipes;
 
+import net.minecraft.src.Block;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 
@@ -18,6 +19,8 @@ public class OpenHearthFurnaceRecipes {
     private OpenHearthFurnaceRecipes() {
         this.addSmelting(Item.ingotIron.shiftedIndex, new ItemStack(Item.ingotStainedSteel));
         this.addSmelting(Item.bucketOil.shiftedIndex, new ItemStack(Item.ingotPlastic, 1));
+        this.addSmelting(Block.oreGoldHell.blockID, new ItemStack(Item.ingotGold, 1));
+        this.addSmelting(Block.oreSulfurHell.blockID, new ItemStack(Item.ingotSulfur, 1));
     }
 
     public void addSmelting(int var1, ItemStack var2) {

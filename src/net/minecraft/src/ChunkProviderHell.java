@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import net.minecraft.src.vaderetro.world.gen.WorldGenMinableHell;
+
 import java.util.Random;
 
 public class ChunkProviderHell implements IChunkProvider {
@@ -308,11 +310,19 @@ public class ChunkProviderHell implements IChunkProvider {
 		int var7;
 		int var8;
 		int var9;
+
 		for(var6 = 0; var6 < 8; ++var6) {
 			var7 = var4 + this.hellRNG.nextInt(16) + 8;
 			var8 = this.hellRNG.nextInt(120) + 4;
 			var9 = var5 + this.hellRNG.nextInt(16) + 8;
 			(new WorldGenHellLava(Block.lavaMoving.blockID)).generate(this.worldObj, this.hellRNG, var7, var8, var9);
+		}
+
+		for(var6 = 0; var6 < 8; ++var6) {
+			var7 = var4 + this.hellRNG.nextInt(16) + 8;
+			var8 = this.hellRNG.nextInt(120) + 4;
+			var9 = var5 + this.hellRNG.nextInt(16) + 8;
+			(new WorldGenHellLava(Block.oilMoving.blockID)).generate(this.worldObj, this.hellRNG, var7, var8, var9);
 		}
 
 		var6 = this.hellRNG.nextInt(this.hellRNG.nextInt(10) + 1) + 1;
@@ -335,10 +345,24 @@ public class ChunkProviderHell implements IChunkProvider {
 		}
 
 		for(var7 = 0; var7 < 10; ++var7) {
-			var8 = var4 + this.hellRNG.nextInt(16) + 8;
+			var8 = var4 + this.hellRNG.nextInt(16);
 			var9 = this.hellRNG.nextInt(128);
-			var10 = var5 + this.hellRNG.nextInt(16) + 8;
+			var10 = var5 + this.hellRNG.nextInt(16);
 			(new WorldGenGlowStone2()).generate(this.worldObj, this.hellRNG, var8, var9, var10);
+		}
+
+		for(var7 = 0; var7 < var6; ++var7) {
+			var8 = var4 + this.hellRNG.nextInt(16) + 8;
+			var9 = this.hellRNG.nextInt(120) + 4;
+			var10 = var5 + this.hellRNG.nextInt(16) + 8;
+			(new WorldGenMinableHell(Block.oreSulfurHell.blockID, 16)).generate(this.worldObj, this.hellRNG, var8, var9, var10);
+		}
+
+		for(var7 = 0; var7 < var6; ++var7) {
+			var8 = var4 + this.hellRNG.nextInt(16);
+			var9 = this.hellRNG.nextInt(64);
+			var10 = var5 + this.hellRNG.nextInt(16);
+			(new WorldGenMinableHell(Block.oreGoldHell.blockID, 8)).generate(this.worldObj, this.hellRNG, var8, var9, var10);
 		}
 
 		if(this.hellRNG.nextInt(1) == 0) {

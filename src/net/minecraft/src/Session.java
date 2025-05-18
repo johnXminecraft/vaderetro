@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Session {
+
 	public static List registeredBlocksList = new ArrayList();
 	public String username;
 	public String sessionId;
@@ -43,6 +44,10 @@ public class Session {
 		registeredBlocksList.add(Block.bookShelf);
 		registeredBlocksList.add(Block.tnt);
 		registeredBlocksList.add(Block.obsidian);
+
 		registeredBlocksList.add(Block.oreCopper);
+		registeredBlocksList.add(Block.oreTin);
+		registeredBlocksList.add(Block.oreGoldHell);
+		registeredBlocksList.add(Block.oreSulfurHell);
 	}
 }

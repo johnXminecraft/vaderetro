@@ -130,6 +130,9 @@ public class Block {
 	public static final Block crtTvSetActive = (new BlockCrtTvSet(103, true, 154)).setHardness(2.0F).setStepSound(soundWoodFootstep).setLightValue(1.0F).setBlockName("crtTvSet").disableNeighborNotifyOnMetadataChange();
 	public static final Block lampKeroseneIdle = (new BlockKeroseneLamp(104, false)).setHardness(0.0F).setStepSound(soundMetalFootstep).setBlockName("lampKerosene").disableNeighborNotifyOnMetadataChange();
 	public static final Block lampKeroseneActive = (new BlockKeroseneLamp(105, true)).setHardness(0.0F).setStepSound(soundMetalFootstep).setLightValue(1.0F).setBlockName("lampKerosene").disableNeighborNotifyOnMetadataChange();
+	public static final Block oreTin = (new BlockOre(106, 157)).setHardness(3.0F).setResistance(5.0F).setStepSound(soundStoneFootstep).setBlockName("oreTin");
+	public static final Block oreGoldHell = (new BlockOre(107, 158)).setHardness(0.4F).setResistance(5.0F).setStepSound(soundStoneFootstep).setBlockName("oreGoldHell");
+	public static final Block oreSulfurHell = (new BlockOre(108, 159)).setHardness(0.4F).setResistance(5.0F).setStepSound(soundStoneFootstep).setBlockName("oreSulfurHell");
 
 	public int blockIndexInTexture;
 	public final int blockID;
