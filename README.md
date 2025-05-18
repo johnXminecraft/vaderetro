@@ -17,11 +17,12 @@ Developers:
 During creation of this mod pack such technologies were used:
 * [RetroMCP-Java](https://github.com/MCPHackers/RetroMCP-Java)
 
-You can view list of added and changed base game classes, added blocks and items, ToDo list in the following files:
+You can view list of added and changed base game classes, added blocks, items and mobs, ToDo list in the following files:
 * [ADDED_CLASSES.txt](https://github.com/johnXminecraft/vaderetro/blob/master/ADDED_CLASSES.txt)
 * [CHANGED_BASE_GAME_CLASSES.txt](https://github.com/johnXminecraft/vaderetro/blob/master/CHANGED_BASE_GAME_CLASSES.txt)
 * [ADDED_BLOCKS.txt](https://github.com/johnXminecraft/vaderetro/blob/master/ADDED_BLOCKS.txt)
 * [ADDED_ITEMS.txt](https://github.com/johnXminecraft/vaderetro/blob/master/ADDED_ITEMS.txt)
+* [ADDED_MOBS.txt](https://github.com/johnXminecraft/vaderetro/blob/master/ADDED_MOBS.txt)
 * [TODO.txt](https://github.com/johnXminecraft/vaderetro/blob/master/TODO.txt)
 
 ![vaderetro logo](https://github.com/johnXminecraft/vaderetro/blob/master/vaderetro.png?raw=true)
