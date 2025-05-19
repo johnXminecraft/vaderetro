@@ -7,6 +7,7 @@ import java.util.Map;
 import net.minecraft.src.balcon_weaponmod.entity.EntityMusketBullet;
 import net.minecraft.src.balcon_weaponmod.render.RenderMusketBullet;
 import net.minecraft.src.vaderetro.entity.EntityBoar;
+import net.minecraft.src.vaderetro.render.RenderBoar;
 import org.lwjgl.opengl.GL11;
 
 public class RenderManager {
@@ -58,7 +59,7 @@ public class RenderManager {
 		this.entityRenderMap.put(EntityLightningBolt.class, new RenderLightningBolt());
 
 		this.entityRenderMap.put(EntityMusketBullet.class, new RenderMusketBullet());
-		this.entityRenderMap.put(EntityBoar.class, new RenderPig(new ModelPig(), new ModelPig(0.5F), 0.7F));
+		this.entityRenderMap.put(EntityBoar.class, new RenderBoar(new ModelPig(), 0.7F));
 
 		Iterator var1 = this.entityRenderMap.values().iterator();
 
