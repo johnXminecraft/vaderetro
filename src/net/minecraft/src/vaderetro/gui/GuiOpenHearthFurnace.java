@@ -17,13 +17,13 @@ public class GuiOpenHearthFurnace extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer() {
-        this.fontRenderer.drawString("Open Hearth Furnace", 60, 6, 4210752);
+        this.fontRenderer.drawString("Open Hearth Furnace", 8, 6, 4210752);
         this.fontRenderer.drawString("Inventory", 8, this.ySize - 96 + 2, 4210752);
     }
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float var1) {
-        int var2 = this.mc.renderEngine.getTexture("/gui/furnace.png");
+        int var2 = this.mc.renderEngine.getTexture("/gui/open_hearth_furnace.png");
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.renderEngine.bindTexture(var2);
         int var3 = (this.width - this.xSize) / 2;

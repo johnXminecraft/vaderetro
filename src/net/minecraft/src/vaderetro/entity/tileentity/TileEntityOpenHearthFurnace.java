@@ -6,7 +6,7 @@ import net.minecraft.src.vaderetro.recipes.OpenHearthFurnaceRecipes;
 
 public class TileEntityOpenHearthFurnace extends TileEntity implements IInventory {
 
-    private ItemStack[] openHearthFurnaceItemStacks = new ItemStack[3];
+    private ItemStack[] openHearthFurnaceItemStacks = new ItemStack[5];
     public int openHearthFurnaceBurnTime = 0;
     public int currentItemBurnTime = 0;
     public int openHearthFurnaceCookTime = 0;
