@@ -1,8 +1,20 @@
 package net.minecraft.src;
 
 public class BlockJukeBox extends BlockContainer {
+
+	private boolean isActive;
+
 	protected BlockJukeBox(int var1, int var2) {
 		super(var1, var2, Material.wood);
+		this.isActive = false;
+	}
+
+	@Override
+	public int getBlockTexture(IBlockAccess var1, int var2, int var3, int var4, int var5) {
+		if(var5 == 1) {
+			return isActive ? this.blockIndexInTexture + 2 : this.blockIndexInTexture + 1;
+		}
+		return this.blockIndexInTexture;
 	}
 
 	public int getBlockTextureFromSide(int var1) {
@@ -11,9 +23,15 @@ public class BlockJukeBox extends BlockContainer {
 
 	public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
 		if(var1.getBlockMetadata(var2, var3, var4) == 0) {
+			if(var5.inventory.getCurrentItem() != null) {
+				if((var5.inventory.getCurrentItem().itemID == Item.record13.shiftedIndex || var5.inventory.getCurrentItem().itemID == Item.recordCat.shiftedIndex)) {
+					this.isActive = true;
+				}
+			}
 			return false;
 		} else {
 			this.func_28038_b_(var1, var2, var3, var4);
+			isActive = false;
 			return true;
 		}
 	}
