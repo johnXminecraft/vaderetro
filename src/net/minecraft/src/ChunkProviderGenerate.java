@@ -324,15 +324,14 @@ public class ChunkProviderGenerate implements IChunkProvider {
 			var13 = var4 + this.rand.nextInt(16) + 8;
 			var14 = this.rand.nextInt(128);
 			var15 = var5 + this.rand.nextInt(16) + 8;
-			(new WorldGenLakes(Block.waterStill.blockID)).generate(this.worldObj, this.rand, var13, var14, var15);
-		}
-
-		if(this.rand.nextInt(8) == 0) {
-			var13 = var4 + this.rand.nextInt(16) + 8;
-			var14 = this.rand.nextInt(this.rand.nextInt(120) + 8);
-			var15 = var5 + this.rand.nextInt(16) + 8;
-			if(var14 < 64 || this.rand.nextInt(10) == 0) {
-				(new WorldGenLakes(Block.lavaStill.blockID)).generate(this.worldObj, this.rand, var13, var14, var15);
+			if(var6 != BiomeGenBase.desert) {
+				(new WorldGenLakes(Block.waterStill.blockID)).generate(this.worldObj, this.rand, var13, var14, var15);
+			} else {
+				if(this.rand.nextInt(2) == 0) {
+					(new WorldGenLakes(Block.oilStill.blockID)).generate(this.worldObj, this.rand, var13, var14, var15);
+				} else {
+					(new WorldGenLakes(Block.waterStill.blockID)).generate(this.worldObj, this.rand, var13, var14, var15);
+				}
 			}
 		}
 
@@ -340,9 +339,26 @@ public class ChunkProviderGenerate implements IChunkProvider {
 			var13 = var4 + this.rand.nextInt(16) + 8;
 			var14 = this.rand.nextInt(this.rand.nextInt(120) + 8);
 			var15 = var5 + this.rand.nextInt(16) + 8;
-			if(var14 < 64 || this.rand.nextInt(10) == 0) {
-				(new WorldGenLakes(Block.oilStill.blockID)).generate(this.worldObj, this.rand, var13, var14, var15);
+			if(var6 != BiomeGenBase.desert) {
+				if(var14 < 64 || this.rand.nextInt(10) == 0) {
+					(new WorldGenLakes(Block.lavaStill.blockID)).generate(this.worldObj, this.rand, var13, var14, var15);
+				}
+			} else {
+				if(var14 < 64 || this.rand.nextInt(10) == 0) {
+					if(this.rand.nextInt(2) == 0) {
+						(new WorldGenLakes(Block.oilStill.blockID)).generate(this.worldObj, this.rand, var13, var14, var15);
+					} else {
+						(new WorldGenLakes(Block.lavaStill.blockID)).generate(this.worldObj, this.rand, var13, var14, var15);
+					}
+				}
 			}
+		}
+
+		if(this.rand.nextInt(8) == 0 && var6 == BiomeGenBase.desert) {
+			var13 = var4 + this.rand.nextInt(16) + 8;
+			var14 = this.rand.nextInt(this.rand.nextInt(120) + 8);
+			var15 = var5 + this.rand.nextInt(16) + 8;
+			(new WorldGenLakes(Block.oilStill.blockID)).generate(this.worldObj, this.rand, var13, var14, var15);
 		}
 
 		int var16;
@@ -615,11 +631,13 @@ public class ChunkProviderGenerate implements IChunkProvider {
 			(new WorldGenLiquids(Block.lavaMoving.blockID)).generate(this.worldObj, this.rand, var19, var20, var21);
 		}
 
-		for(var25 = 0; var25 < 30; ++var25) {
-			var19 = var4 + this.rand.nextInt(16) + 8;
-			var20 = this.rand.nextInt(this.rand.nextInt(this.rand.nextInt(112) + 8) + 8);
-			var21 = var5 + this.rand.nextInt(16) + 8;
-			(new WorldGenLiquids(Block.oilMoving.blockID)).generate(this.worldObj, this.rand, var19, var20, var21);
+		if(var6 == BiomeGenBase.desert) {
+			for(var25 = 0; var25 < 50; ++var25) {
+				var19 = var4 + this.rand.nextInt(16) + 8;
+				var20 = this.rand.nextInt(this.rand.nextInt(this.rand.nextInt(112) + 8) + 8);
+				var21 = var5 + this.rand.nextInt(16) + 8;
+				(new WorldGenLiquids(Block.oilMoving.blockID)).generate(this.worldObj, this.rand, var19, var20, var21);
+			}
 		}
 
 		this.generatedTemperatures = this.worldObj.getWorldChunkManager().getTemperatures(this.generatedTemperatures, var4 + 8, var5 + 8, 16, 16);
