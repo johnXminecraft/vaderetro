@@ -3,6 +3,8 @@ package net.minecraft.src;
 import net.minecraft.src.vaderetro.block.BlockCrtTvSet;
 import net.minecraft.src.vaderetro.block.BlockKeroseneLamp;
 import net.minecraft.src.vaderetro.block.BlockOpenHearthFurnace;
+import net.minecraft.src.vaderetro.block.BlockRedstone;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -134,7 +136,7 @@ public class Block {
 	public static final Block oreGoldHell = (new BlockOre(107, 158)).setHardness(0.4F).setResistance(5.0F).setStepSound(soundStoneFootstep).setBlockName("oreGoldHell");
 	public static final Block oreSulfurHell = (new BlockOre(108, 159)).setHardness(0.4F).setResistance(5.0F).setStepSound(soundStoneFootstep).setBlockName("oreSulfurHell");
 	public static final Block blockCoal = (new BlockOreStorage(109, 54)).setHardness(2.0F).setResistance(3.0F).setStepSound(soundStoneFootstep).setBlockName("blockCoal");
-	public static final Block blockRedstone = (new BlockOreStorage(110, 85)).setHardness(2.0F).setResistance(5.0F).setStepSound(soundStoneFootstep).setBlockName("blockRedstone");
+	public static final Block blockRedstone = (new BlockRedstone(110, 85)).setHardness(2.0F).setResistance(5.0F).setStepSound(soundStoneFootstep).setBlockName("blockRedstone");
 	public static final Block blockCopper = (new BlockOreStorage(111, 100)).setHardness(3.0F).setResistance(10.0F).setStepSound(soundMetalFootstep).setBlockName("blockCopper");
 	public static final Block blockSulfur = (new BlockOreStorage(112, 101)).setHardness(3.0F).setResistance(3.0F).setStepSound(soundStoneFootstep).setBlockName("blockSulfur");
 	public static final Block blockTin = (new BlockOreStorage(113, 148)).setHardness(3.0F).setResistance(5.0F).setStepSound(soundMetalFootstep).setBlockName("blockTin");

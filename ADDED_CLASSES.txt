@@ -1,6 +1,7 @@
 BlockCrtTvSet.class
 BlockKeroseneLamp.class
 BlockOpenHearthFurnace.class
+BlockRedstone.class
 ContainerCrtTvSet.class
 ContainerKeroseneLamp.class
 ContainerOpenHearthFurnace.class

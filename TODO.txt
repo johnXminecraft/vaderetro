@@ -11,6 +11,7 @@ Oil physics fix
 Oil pump
 Musket bullet physics fix
 Oil logic on connect with lava
+Redstone Block logic fix
 
 Done:
 Open hearth furnace
@@ -41,3 +42,5 @@ RenderBoar
 Better Kerosene lamp gui
 Better Open Hearth Furnace gui
 Icons
+Storage blocks
+Functionality for coal & redstone block
