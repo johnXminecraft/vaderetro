@@ -32,6 +32,7 @@ Packet25EntityPainting.class
 Pathfinder.class
 RecipesArmor.class
 RecipesCrafting.class
+RecipesIngots.class
 RecipesTools.class
 RecipesWeapons.class
 RenderManager.class

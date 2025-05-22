@@ -2,11 +2,13 @@ package net.minecraft.src;
 
 public class ItemPickaxe extends ItemTool {
 
-	private static Block[] blocksEffectiveAgainst = new Block[]{
+	private static final Block[] blocksEffectiveAgainst = new Block[]{
 			Block.cobblestone, Block.stairDouble, Block.stairSingle, Block.stone, Block.sandStone,
 			Block.cobblestoneMossy, Block.oreIron, Block.blockSteel, Block.oreCoal, Block.blockGold, Block.oreGold,
 			Block.oreDiamond, Block.blockDiamond, Block.ice, Block.netherrack, Block.oreLapis, Block.blockLapis,
-			Block.oreCopper, Block.oreTin, Block.oreGoldHell, Block.oreSulfurHell};
+			Block.oreCopper, Block.oreTin, Block.oreGoldHell, Block.oreSulfurHell, Block.blockCoal, Block.blockCopper,
+			Block.blockSulfur, Block.blockTin, Block.blockRedstone, Block.blockStainedSteel, Block.blockPlastic
+	};
 
 	protected ItemPickaxe(int var1, EnumToolMaterial var2) {
 		super(var1, 2, var2, blocksEffectiveAgainst);

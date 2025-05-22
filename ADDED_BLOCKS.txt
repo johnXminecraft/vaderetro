@@ -6,3 +6,10 @@ Kerosene Lamp
 Tin Ore
 Nether Golden Ore
 Nether Sulfur Ore
+Copper Block
+Redstone Block
+Stained Steel Block
+Tin Block
+Coal Block
+Plastic Block
+Sulfur Block

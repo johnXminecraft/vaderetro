@@ -133,6 +133,13 @@ public class Block {
 	public static final Block oreTin = (new BlockOre(106, 157)).setHardness(3.0F).setResistance(5.0F).setStepSound(soundStoneFootstep).setBlockName("oreTin");
 	public static final Block oreGoldHell = (new BlockOre(107, 158)).setHardness(0.4F).setResistance(5.0F).setStepSound(soundStoneFootstep).setBlockName("oreGoldHell");
 	public static final Block oreSulfurHell = (new BlockOre(108, 159)).setHardness(0.4F).setResistance(5.0F).setStepSound(soundStoneFootstep).setBlockName("oreSulfurHell");
+	public static final Block blockCoal = (new BlockOreStorage(109, 54)).setHardness(2.0F).setResistance(3.0F).setStepSound(soundStoneFootstep).setBlockName("blockCoal");
+	public static final Block blockRedstone = (new BlockOreStorage(110, 85)).setHardness(2.0F).setResistance(5.0F).setStepSound(soundStoneFootstep).setBlockName("blockRedstone");
+	public static final Block blockCopper = (new BlockOreStorage(111, 100)).setHardness(3.0F).setResistance(10.0F).setStepSound(soundMetalFootstep).setBlockName("blockCopper");
+	public static final Block blockSulfur = (new BlockOreStorage(112, 101)).setHardness(3.0F).setResistance(3.0F).setStepSound(soundStoneFootstep).setBlockName("blockSulfur");
+	public static final Block blockTin = (new BlockOreStorage(113, 148)).setHardness(3.0F).setResistance(5.0F).setStepSound(soundMetalFootstep).setBlockName("blockTin");
+	public static final Block blockStainedSteel = (new BlockOreStorage(114, 226)).setHardness(15.0F).setResistance(20.0F).setStepSound(soundMetalFootstep).setBlockName("blockStainedSteel");
+	public static final Block blockPlastic = (new BlockOreStorage(115, 224)).setHardness(1.0F).setResistance(5.0F).setStepSound(soundWoodFootstep).setBlockName("blockPlastic");
 
 	public int blockIndexInTexture;
 	public final int blockID;
