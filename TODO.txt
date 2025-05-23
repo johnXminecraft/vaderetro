@@ -12,6 +12,7 @@ Oil pump
 Musket bullet physics fix
 Oil logic on connect with lava
 Redstone Block logic fix
+Fix envirement and building process
 
 Done:
 Open hearth furnace
