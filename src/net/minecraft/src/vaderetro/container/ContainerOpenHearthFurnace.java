@@ -16,8 +16,6 @@ public class ContainerOpenHearthFurnace extends Container {
         this.addSlot(new Slot(tileEntity, 0, 56, 17));
         this.addSlot(new Slot(tileEntity, 1, 56, 53));
         this.addSlot(new SlotOpenHearthFurnace(inventoryPlayer.player, this.tileEntity, 2, 116, 35));
-        this.addSlot(new Slot(tileEntity, 3, 38, 17));
-        this.addSlot(new Slot(tileEntity, 4, 74, 17));
 
         int var3;
         for(var3 = 0; var3 < 3; ++var3) {

@@ -10,6 +10,17 @@ public class RecipesCircuitry {
     public void addRecipes(CraftingManager var1) {
         var1.addRecipe(new ItemStack(Item.wire, 32), new Object[]{"#", Character.valueOf('#'), Item.ingotCopper});
         var1.addRecipe(new ItemStack(Item.detailPlastic, 32), new Object[]{"#", Character.valueOf('#'), Item.ingotPlastic});
+        var1.addRecipe(new ItemStack(Item.stainedSteelCompound), new Object[]{
+                "CDI", "CDI", " B ",
+                Character.valueOf('C'), Item.coal,
+                Character.valueOf('D'), Item.diamond,
+                Character.valueOf('I'), Item.ingotIron,
+                Character.valueOf('B'), Item.bucketEmpty
+        });
+        var1.addRecipe(new ItemStack(Item.chain, 32), new Object[]{
+                " # ", "# #", " # ",
+                Character.valueOf('#'), Item.ingotStainedSteel
+        });
         var1.addRecipe(new ItemStack(Item.anodeCathode), new Object[]{
                 "TRT", "WSW",
                 Character.valueOf('T'), Block.torchRedstoneActive,

@@ -148,6 +148,7 @@ public class Item {
 	public static Item musketBullet = (new Item(134)).setIconCoord(5, 7).setItemName("musketBullet");
 	public static Item icon = (new ItemIcon(135)).setIconCoord(5, 12).setItemName("icon");
 	public static Item canvas = (new Item(136)).setIconCoord(5, 13).setItemName("canvas");
+	public static Item stainedSteelCompound = (new Item(137)).setIconCoord(6, 6).setItemName("stainedSteelCompound");
 
 	public final int shiftedIndex;
 	protected int maxStackSize = 64;

@@ -17,8 +17,8 @@ public class GuiKeroseneLamp extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer() {
-        this.fontRenderer.drawString("Kerosene Lamp", 8, 6, 4210752);
-        this.fontRenderer.drawString("Inventory", 8, this.ySize - 96 + 2, 4210752);
+        this.fontRenderer.drawString("Kerosene Lamp", 8, 6, 1250067);
+        this.fontRenderer.drawString("Inventory", 8, this.ySize - 96 + 2, 1250067);
     }
 
     @Override
