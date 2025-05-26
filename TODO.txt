@@ -5,13 +5,13 @@ Churches
 The game console
 Radio
 Radio-stations
-Better Open Hearth Furnace logic
 Kerosene lamp texture change when is lit
 Oil physics fix
 Oil pump
 Musket bullet physics fix
 Oil logic on connect with lava
 Redstone Block logic fix
+Better GUI
 
 Done:
 Open hearth furnace
@@ -49,3 +49,6 @@ Enhanced oil generation
 Jukebox texture and logic rework
 Fix envirement and building process
 Still needs a fix
+Better Open Hearth Furnace logic
+Stained Steel Compound
+Better GUI for OHF and KL

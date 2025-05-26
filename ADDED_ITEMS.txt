@@ -31,3 +31,4 @@ Musket Barrel
 Musket Butt
 Icon
 Canvas
+Stained Steel Compound
