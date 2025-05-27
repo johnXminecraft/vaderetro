@@ -775,7 +775,7 @@ public class EntityMinecart extends Entity implements IInventory {
 			}
 		} else if(this.minecartType == 2) {
 			ItemStack var2 = var1.inventory.getCurrentItem();
-			if(var2 != null && var2.itemID == Item.coal.shiftedIndex) {
+			if(var2 != null && (var2.itemID == Item.coal.shiftedIndex || var2.itemID == Item.charcoal.shiftedIndex)) {
 				if(--var2.stackSize == 0) {
 					var1.inventory.setInventorySlotContents(var1.inventory.currentItem, (ItemStack)null);
 				}

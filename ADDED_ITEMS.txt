@@ -32,3 +32,4 @@ Musket Butt
 Icon
 Canvas
 Stained Steel Compound
+Charcoal

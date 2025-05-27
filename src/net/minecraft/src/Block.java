@@ -143,6 +143,7 @@ public class Block {
 	public static final Block blockStainedSteel = (new BlockOreStorage(114, 226)).setHardness(15.0F).setResistance(20.0F).setStepSound(soundMetalFootstep).setBlockName("blockStainedSteel");
 	public static final Block blockPlastic = (new BlockOreStorage(115, 224)).setHardness(1.0F).setResistance(5.0F).setStepSound(soundWoodFootstep).setBlockName("blockPlastic");
 	public static final BlockFlower plantBlue = (BlockFlower)(new BlockFlower(116, 30)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("blueRose");
+	public static final Block parquet = (new Block(117, 166, Material.wood)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("parquet");
 
 	public int blockIndexInTexture;
 	public final int blockID;

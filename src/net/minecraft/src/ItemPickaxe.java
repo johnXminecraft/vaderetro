@@ -7,7 +7,11 @@ public class ItemPickaxe extends ItemTool {
 			Block.cobblestoneMossy, Block.oreIron, Block.blockSteel, Block.oreCoal, Block.blockGold, Block.oreGold,
 			Block.oreDiamond, Block.blockDiamond, Block.ice, Block.netherrack, Block.oreLapis, Block.blockLapis,
 			Block.oreCopper, Block.oreTin, Block.oreGoldHell, Block.oreSulfurHell, Block.blockCoal, Block.blockCopper,
-			Block.blockSulfur, Block.blockTin, Block.blockRedstone, Block.blockStainedSteel, Block.blockPlastic
+			Block.blockSulfur, Block.blockTin, Block.blockRedstone, Block.blockStainedSteel, Block.blockPlastic,
+			Block.stoneOvenActive, Block.stoneOvenIdle, Block.openHearthFurnaceActive, Block.openHearthFurnaceIdle,
+			Block.dispenser, Block.glowStone, Block.pressurePlateStone, Block.stairCompactCobblestone,
+			Block.oreRedstone, Block.oreRedstoneGlowing, Block.pistonExtension, Block.pistonBase, Block.pistonStickyBase,
+			Block.pistonMoving, Block.brick, Block.obsidian, Block.mobSpawner, Block.doorSteel,
 	};
 
 	protected ItemPickaxe(int var1, EnumToolMaterial var2) {

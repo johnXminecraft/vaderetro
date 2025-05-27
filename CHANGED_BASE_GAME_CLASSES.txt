@@ -11,6 +11,7 @@ CraftingManager.class
 Entity.class
 EntityList.class
 EntityLiving.class
+EntityMinecart.class
 EntityPlayer.class
 EntityPlayerSP.class
 EntityRenderer.class
@@ -23,9 +24,11 @@ GuiIngame.class
 GuiInventory.class
 Item.class
 ItemArmor.class
+ItemAxe.class
 ItemBucket.class
 ItemDye.class
 ItemPickaxe.class
+ItemSpade.class
 Material.class
 NetClientHandler.class
 NetHandler.class

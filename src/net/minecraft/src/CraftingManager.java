@@ -52,7 +52,7 @@ public class CraftingManager {
 		this.addRecipe(new ItemStack(Block.planks, 4), new Object[]{"#", Character.valueOf('#'), Block.wood});
 		this.addRecipe(new ItemStack(Item.stick, 4), new Object[]{"#", "#", Character.valueOf('#'), Block.planks});
 		this.addRecipe(new ItemStack(Block.torchWood, 4), new Object[]{"X", "#", Character.valueOf('X'), Item.coal, Character.valueOf('#'), Item.stick});
-		this.addRecipe(new ItemStack(Block.torchWood, 4), new Object[]{"X", "#", Character.valueOf('X'), new ItemStack(Item.coal, 1, 1), Character.valueOf('#'), Item.stick});
+		this.addRecipe(new ItemStack(Block.torchWood, 4), new Object[]{"X", "#", Character.valueOf('X'), Item.charcoal, Character.valueOf('#'), Item.stick});
 		this.addRecipe(new ItemStack(Item.bowlEmpty, 4), new Object[]{"# #", " # ", Character.valueOf('#'), Block.planks});
 		this.addRecipe(new ItemStack(Block.rail, 16), new Object[]{"X X", "X#X", "X X", Character.valueOf('X'), Item.ingotIron, Character.valueOf('#'), Item.stick});
 		this.addRecipe(new ItemStack(Block.railPowered, 6), new Object[]{"X X", "X#X", "XRX", Character.valueOf('X'), Item.ingotGold, Character.valueOf('R'), Item.redstone, Character.valueOf('#'), Item.stick});
@@ -95,6 +95,10 @@ public class CraftingManager {
 				"SSS", "SCS", "SSS",
 				Character.valueOf('S'), Item.stick,
 				Character.valueOf('C'), Item.canvas
+		});
+		this.addRecipe(new ItemStack(Block.parquet, 3), new Object[]{
+				"PPP", "PPP", "PPP",
+				Character.valueOf('P'), Block.planks
 		});
 
 		Collections.sort(this.recipes, new RecipeSorter(this));

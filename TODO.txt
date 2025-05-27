@@ -12,6 +12,7 @@ Musket bullet physics fix
 Oil logic on connect with lava
 Redstone Block logic fix
 Better GUI
+Quality of life
 
 Done:
 Open hearth furnace
@@ -52,3 +53,6 @@ Still needs a fix
 Better Open Hearth Furnace logic
 Stained Steel Compound
 Better GUI for OHF and KL
+Charcoal
+Parquet
+Some quality of life (better axes, pickaxes, shovels)
