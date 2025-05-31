@@ -13,7 +13,6 @@ Oil logic on connect with lava
 Redstone Block logic fix
 Better GUI
 Quality of life
-Ice desert
 Biome variants of mobs
 
 Done:
@@ -60,3 +59,5 @@ Parquet
 Some quality of life (better axes, pickaxes, shovels)
 Boar loot table
 Oil now generates in snowy biomes as well as in desert
+Ice desert
+Some quality of life (better F3-menu)

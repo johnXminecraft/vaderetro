@@ -198,6 +198,15 @@ public class GuiIngame extends Gui {
 			this.drawString(var8, "y: " + this.mc.thePlayer.posY, 2, 72, 14737632);
 			this.drawString(var8, "z: " + this.mc.thePlayer.posZ, 2, 80, 14737632);
 			this.drawString(var8, "f: " + (MathHelper.floor_double((double)(this.mc.thePlayer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3), 2, 88, 14737632);
+			this.drawString(var8, "WorldName: " + this.mc.theWorld.worldInfo.getWorldName(), 2, 104, 14737632);
+			this.drawString(var8, "RandomSeed: " + this.mc.theWorld.worldInfo.getRandomSeed(), 2, 112, 14737632);
+			String dimension = "Overworld";
+			if(this.mc.theWorld.worldInfo.getDimension() != 0) {
+				dimension = "Nether";
+			}
+			this.drawString(var8, "Dimension: " + dimension, 2, 120, 14737632);
+			String biome = this.mc.theWorld.getWorldChunkManager().getBiomeGenAt((int)this.mc.thePlayer.posX, (int)this.mc.thePlayer.posZ).biomeName;
+			this.drawString(var8, "Biome: " + biome, 2, 128, 14737632);
 			GL11.glPopMatrix();
 		}
 
