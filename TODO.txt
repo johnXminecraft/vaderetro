@@ -58,3 +58,5 @@ Better GUI for OHF and KL
 Charcoal
 Parquet
 Some quality of life (better axes, pickaxes, shovels)
+Boar loot table
+Oil now generates in snowy biomes as well as in desert
