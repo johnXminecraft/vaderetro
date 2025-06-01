@@ -1,13 +1,12 @@
 TODO:
 Cartridges for the game console
 Readme rework (?)
-Churches
 The game console
 Radio
 Radio-stations
-Kerosene lamp texture change when is lit
+Kerosene lamp texture changes when it is lit
 Oil physics fix
-Oil pump
+Oil pump (IDK if necessary)
 Musket bullet physics fix
 Redstone Block logic fix
 Better GUI
@@ -48,8 +47,6 @@ Functionality for coal & redstone block
 Blue Rose
 Enhanced oil generation
 Jukebox texture and logic rework
-Fix envirement and building process
-Still needs a fix
 Better Open Hearth Furnace logic
 Stained Steel Compound
 Better GUI for OHF and KL
@@ -63,3 +60,5 @@ Some quality of life (better F3-menu)
 Some quality of life (even better F3-menu)
 Oil logic on collision with lava and fire
 Oil logic on collision with water (produces dirt with 5% chance of clay)
+Churches
+Tiles (regular and green)

@@ -100,6 +100,15 @@ public class CraftingManager {
 				"PPP", "PPP", "PPP",
 				Character.valueOf('P'), Block.planks
 		});
+		this.addRecipe(new ItemStack(Block.tiles, 1), new Object[]{
+				"BBB", "BBB", "BBB",
+				Character.valueOf('B'), Item.brick
+		});
+		this.addRecipe(new ItemStack(Block.tilesGreen, 8), new Object[]{
+				"TTT", "TGT", "TTT",
+				Character.valueOf('T'), Block.tiles,
+				Character.valueOf('G'), new ItemStack(Item.dyePowder, 1, 2)
+		});
 
 		Collections.sort(this.recipes, new RecipeSorter(this));
 		System.out.println(this.recipes.size() + " recipes");

@@ -366,6 +366,10 @@ tile.blueRose.name=Blue Rose
 tile.blueRose.desc=Vade Retro
 tile.parquet.name=Parquet
 tile.parquet.desc=Vade Retro
+tile.tiles.name=Tiles
+tile.tiles.desc=Vade Retro
+tile.tilesGreen.name=Green Tiles
+tile.tilesGreen.desc=Vade Retro
 
 item.shovelIron.name=Iron Shovel
 item.shovelIron.desc=
