@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import net.minecraft.client.Minecraft;
+import net.minecraft.src.vaderetro.entity.wild.EntityWild;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -207,6 +208,19 @@ public class GuiIngame extends Gui {
 			this.drawString(var8, "Dimension: " + dimension, 2, 120, 14737632);
 			String biome = this.mc.theWorld.getWorldChunkManager().getBiomeGenAt((int)this.mc.thePlayer.posX, (int)this.mc.thePlayer.posZ).biomeName;
 			this.drawString(var8, "Biome: " + biome, 2, 128, 14737632);
+			String difficulty = "Peaceful";
+			if(this.mc.theWorld.difficultySetting == 1) {
+				difficulty = "Easy";
+			} else if(this.mc.theWorld.difficultySetting == 2) {
+				difficulty = "Normal";
+			} else if(this.mc.theWorld.difficultySetting == 3) {
+				difficulty = "Hard";
+			}
+			this.drawString(var8, "Difficulty: " + difficulty, 2, 136, 14737632);
+			this.drawString(var8, "Mobs: " + this.mc.theWorld.countEntities(EntityMob.class), 2, 152, 14737632);
+			this.drawString(var8, "Creatures: " + this.mc.theWorld.countEntities(EntityAnimal.class), 2, 160, 14737632);
+			this.drawString(var8, "WaterCreatures: " + this.mc.theWorld.countEntities(EntityWaterMob.class), 2, 168, 14737632);
+			this.drawString(var8, "WildCreatures: " + this.mc.theWorld.countEntities(EntityWild.class), 2, 176, 14737632);
 			GL11.glPopMatrix();
 		}
 
