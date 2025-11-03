@@ -1,7 +1,11 @@
 package net.minecraft.src;
 
-import net.minecraft.src.balcon_weaponmod.recipes.RecipesMusket;
-import net.minecraft.src.vaderetro.recipes.RecipesCircuitry;
+import net.minecraft.src.vaderetro.johnbuildermod.recipes.RecipesBuilding;
+import net.minecraft.src.vaderetro.johnchurchmod.recipes.RecipesChurch;
+import net.minecraft.src.vaderetro.johnfarmmod.recipes.RecipesFarming;
+import net.minecraft.src.vaderetro.johnmillmod.recipes.RecipesMill;
+import net.minecraft.src.vaderetro.johnweaponmod.recipes.RecipesMusket;
+import net.minecraft.src.vaderetro.johncrtmod.recipes.RecipesCircuitry;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,6 +30,10 @@ public class CraftingManager {
 		(new RecipesDyes()).addRecipes(this);
 		(new RecipesCircuitry()).addRecipes(this);
 		(new RecipesMusket()).addRecipes(this);
+		(new RecipesBuilding()).addRecipes(this);
+		(new RecipesChurch()).addRecipes(this);
+		(new RecipesFarming()).addRecipes(this);
+		(new RecipesMill()).addRecipes(this);
 		this.addRecipe(new ItemStack(Item.paper, 3), new Object[]{"###", Character.valueOf('#'), Item.reed});
 		this.addRecipe(new ItemStack(Item.book, 1), new Object[]{"#", "#", "#", Character.valueOf('#'), Item.paper});
 		this.addRecipe(new ItemStack(Block.fence, 2), new Object[]{"###", "###", Character.valueOf('#'), Item.stick});
@@ -82,32 +90,13 @@ public class CraftingManager {
 		this.addRecipe(new ItemStack(Block.dispenser, 1), new Object[]{"###", "#X#", "#R#", Character.valueOf('#'), Block.cobblestone, Character.valueOf('X'), Item.bow, Character.valueOf('R'), Item.redstone});
 		this.addRecipe(new ItemStack(Block.pistonBase, 1), new Object[]{"TTT", "#X#", "#R#", Character.valueOf('#'), Block.cobblestone, Character.valueOf('X'), Item.ingotIron, Character.valueOf('R'), Item.redstone, Character.valueOf('T'), Block.planks});
 		this.addRecipe(new ItemStack(Block.pistonStickyBase, 1), new Object[]{"S", "P", Character.valueOf('S'), Item.slimeBall, Character.valueOf('P'), Block.pistonBase});
-		this.addRecipe(new ItemStack(Item.bed, 1), new Object[]{"###", "XXX", Character.valueOf('#'), Block.cloth, Character.valueOf('X'), Block.planks});
 
-		this.addRecipe(new ItemStack(Item.canvas, 1), new Object[]{
-				"RGB", "LLL",
-				Character.valueOf('R'), new ItemStack(Item.dyePowder, 1, 1),
-				Character.valueOf('G'), Item.ingotGold,
-				Character.valueOf('B'), new ItemStack(Item.dyePowder, 1, 4),
-				Character.valueOf('L'), Item.leather
-		});
-		this.addRecipe(new ItemStack(Item.icon, 1), new Object[]{
-				"SSS", "SCS", "SSS",
-				Character.valueOf('S'), Item.stick,
-				Character.valueOf('C'), Item.canvas
-		});
-		this.addRecipe(new ItemStack(Block.parquet, 3), new Object[]{
-				"PPP", "PPP", "PPP",
+		// changed
+		this.addRecipe(new ItemStack(Item.bed, 1), new Object[]{
+				"CCC", "WWW", "PPP",
+				Character.valueOf('C'), Item.cloth,
+				Character.valueOf('W'), Block.cloth,
 				Character.valueOf('P'), Block.planks
-		});
-		this.addRecipe(new ItemStack(Block.tiles, 1), new Object[]{
-				"BBB", "BBB", "BBB",
-				Character.valueOf('B'), Item.brick
-		});
-		this.addRecipe(new ItemStack(Block.tilesGreen, 8), new Object[]{
-				"TTT", "TGT", "TTT",
-				Character.valueOf('T'), Block.tiles,
-				Character.valueOf('G'), new ItemStack(Item.dyePowder, 1, 2)
 		});
 
 		Collections.sort(this.recipes, new RecipeSorter(this));

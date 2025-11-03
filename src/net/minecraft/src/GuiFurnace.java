@@ -3,16 +3,12 @@ package net.minecraft.src;
 import org.lwjgl.opengl.GL11;
 
 public class GuiFurnace extends GuiContainer {
+
 	private TileEntityFurnace furnaceInventory;
 
 	public GuiFurnace(InventoryPlayer var1, TileEntityFurnace var2) {
 		super(new ContainerFurnace(var1, var2));
 		this.furnaceInventory = var2;
-	}
-
-	protected void drawGuiContainerForegroundLayer() {
-		this.fontRenderer.drawString("Furnace", 60, 6, 4210752);
-		this.fontRenderer.drawString("Inventory", 8, this.ySize - 96 + 2, 4210752);
 	}
 
 	protected void drawGuiContainerBackgroundLayer(float var1) {

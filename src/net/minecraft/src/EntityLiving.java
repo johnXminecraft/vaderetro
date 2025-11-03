@@ -476,6 +476,17 @@ public abstract class EntityLiving extends Entity {
 			if(this.isCollidedHorizontally && this.isOffsetPositionInLiquid(this.motionX, this.motionY + (double)0.6F - this.posY + var3, this.motionZ)) {
 				this.motionY = (double)0.3F;
 			}
+		} else if(this.handleOilMovement()) {
+			var3 = this.posY;
+			this.moveFlying(var1, var2, 0.02F);
+			this.moveEntity(this.motionX, this.motionY, this.motionZ);
+			this.motionX *= 0.5D;
+			this.motionY *= 0.5D;
+			this.motionZ *= 0.5D;
+			this.motionY -= 0.02D;
+			if(this.isCollidedHorizontally && this.isOffsetPositionInLiquid(this.motionX, this.motionY + (double)0.6F - this.posY + var3, this.motionZ)) {
+				this.motionY = (double)0.3F;
+			}
 		} else {
 			float var8 = 0.91F;
 			if(this.onGround) {
@@ -627,10 +638,13 @@ public abstract class EntityLiving extends Entity {
 
 		boolean var14 = this.isInWater();
 		boolean var2 = this.handleLavaMovement();
+		boolean var13 = this.handleOilMovement();
 		if(this.isJumping) {
 			if(var14) {
 				this.motionY += (double)0.04F;
 			} else if(var2) {
+				this.motionY += (double)0.04F;
+			} else if(var13) {
 				this.motionY += (double)0.04F;
 			} else if(this.onGround) {
 				this.jump();

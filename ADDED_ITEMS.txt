@@ -33,3 +33,25 @@ Icon
 Canvas
 Stained Steel Compound
 Charcoal
+AR15 Rifle
+5.56x45mm NATO
+Easter Egg
+Bowl of gold
+Onion
+Tobacco seeds
+Cannabis seeds
+Tobacco
+Tobacco leaf
+Cigarette
+Salt
+Rotten flesh
+Jerky
+Cannabis leaf
+Rope
+Cloth
+Dried leather
+Belt
+Uranium dust
+Engine
+Balloon
+Zeppelin

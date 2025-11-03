@@ -1,6 +1,11 @@
 package net.minecraft.src;
 
+import net.minecraft.src.vaderetro.johnfarmmod.block.BlockCannabisPlant;
+import net.minecraft.src.vaderetro.johnfarmmod.block.BlockOnion;
+import net.minecraft.src.vaderetro.johnfarmmod.block.BlockTobaccoPlant;
+
 public class ItemDye extends Item {
+
 	public static final String[] dyeColors = new String[]{"black", "red", "green", "brown", "blue", "purple", "cyan", "silver", "gray", "pink", "lime", "yellow", "lightBlue", "magenta", "orange", "white"};
 	public static final int[] field_31002_bk = new int[]{1973019, 11743532, 3887386, 5320730, 2437522, 8073150, 2651799, 2651799, 4408131, 14188952, 4312372, 14602026, 6719955, 12801229, 15435844, 15790320};
 
@@ -35,7 +40,30 @@ public class ItemDye extends Item {
 					((BlockCrops)Block.crops).fertilize(var3, var4, var5, var6);
 					--var1.stackSize;
 				}
+				return true;
+			}
 
+			if(var8 == Block.onion.blockID) {
+				if(!var3.multiplayerWorld) {
+					((BlockOnion)Block.onion).fertilize(var3, var4, var5, var6);
+					--var1.stackSize;
+				}
+				return true;
+			}
+
+			if(var8 == Block.tobaccoPlant.blockID) {
+				if(!var3.multiplayerWorld) {
+					((BlockTobaccoPlant)Block.tobaccoPlant).fertilize(var3, var4, var5, var6);
+					--var1.stackSize;
+				}
+				return true;
+			}
+
+			if(var8 == Block.cannabisPlant.blockID) {
+				if(!var3.multiplayerWorld) {
+					((BlockCannabisPlant)Block.cannabisPlant).fertilize(var3, var4, var5, var6);
+					--var1.stackSize;
+				}
 				return true;
 			}
 

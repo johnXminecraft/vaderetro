@@ -1,6 +1,6 @@
 package net.minecraft.src;
 
-import net.minecraft.src.vaderetro.entity.wild.EntityWild;
+import net.minecraft.src.vaderetro.johnfarmmod.entity.wild.EntityWild;
 
 public enum EnumCreatureType {
 	monster(IMob.class, 70, Material.air, false),

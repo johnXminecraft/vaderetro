@@ -44,6 +44,7 @@ public class Session {
 		registeredBlocksList.add(Block.bookShelf);
 		registeredBlocksList.add(Block.tnt);
 		registeredBlocksList.add(Block.obsidian);
+		registeredBlocksList.add(Block.johnMill);
 
 		registeredBlocksList.add(Block.oreCopper);
 		registeredBlocksList.add(Block.oreTin);

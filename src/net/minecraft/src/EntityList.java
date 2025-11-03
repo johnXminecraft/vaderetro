@@ -1,9 +1,10 @@
 package net.minecraft.src;
 
-import net.minecraft.src.balcon_weaponmod.entity.EntityMusketBullet;
-import net.minecraft.src.vaderetro.entity.mob.EntityMiner;
-import net.minecraft.src.vaderetro.entity.wild.EntityBoar;
-import net.minecraft.src.vaderetro.entity.EntityIcon;
+import net.minecraft.src.vaderetro.johnweaponmod.entity.EntityMusketBullet;
+import net.minecraft.src.vaderetro.johnweaponmod.entity.EntityAR15Bullet;
+import net.minecraft.src.vaderetro.johnindustrialmod.entity.mob.EntityMiner;
+import net.minecraft.src.vaderetro.johnfarmmod.entity.wild.EntityBoar;
+import net.minecraft.src.vaderetro.johnchurchmod.entity.EntityIcon;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -111,8 +112,9 @@ public class EntityList {
 		addMapping(EntityBoat.class, "Boat", 41);
 
 		addMapping(EntityMusketBullet.class, "Bullet", 100);
-		addMapping(EntityBoar.class, "Boar", 101);
-		addMapping(EntityIcon.class, "Icon", 102);
-		addMapping(EntityMiner.class, "Miner", 103);
+		addMapping(EntityAR15Bullet.class, "AR15Bullet", 101);
+		addMapping(EntityBoar.class, "Boar", 102);
+		addMapping(EntityIcon.class, "Icon", 103);
+		addMapping(EntityMiner.class, "Miner", 104);
 	}
 }

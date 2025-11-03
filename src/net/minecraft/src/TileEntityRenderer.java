@@ -1,4 +1,6 @@
 package net.minecraft.src;
+import net.minecraft.src.vaderetro.johnmillmod.entity.tileentity.TileEntityJohnMill;
+import net.minecraft.src.vaderetro.johnmillmod.entity.tileentity.TileEntityJohnMillRenderer;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -25,6 +27,7 @@ public class TileEntityRenderer {
 		this.specialRendererMap.put(TileEntitySign.class, new TileEntitySignRenderer());
 		this.specialRendererMap.put(TileEntityMobSpawner.class, new TileEntityMobSpawnerRenderer());
 		this.specialRendererMap.put(TileEntityPiston.class, new TileEntityRendererPiston());
+		this.specialRendererMap.put(TileEntityJohnMill.class, new TileEntityJohnMillRenderer());
 		Iterator var1 = this.specialRendererMap.values().iterator();
 
 		while(var1.hasNext()) {

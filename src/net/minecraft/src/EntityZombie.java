@@ -37,7 +37,7 @@ public class EntityZombie extends EntityMob {
 	}
 
 	protected int getDropItemId() {
-		return Item.feather.shiftedIndex;
+		return Item.rottenFlesh.shiftedIndex;
 	}
 
 	protected void dropFewItems() {
@@ -47,8 +47,8 @@ public class EntityZombie extends EntityMob {
 		drop = rand.nextInt(50);
 
 		if(drop > 4) {
-			for(int i = 0; i < random.nextInt(3); ++i) {
-				this.dropItem(Item.feather.shiftedIndex, 1);
+			for(int i = 0; i < random.nextInt(2); ++i) {
+				this.dropItem(Item.rottenFlesh.shiftedIndex, 1);
 			}
 		}
 		if(drop == 0) {

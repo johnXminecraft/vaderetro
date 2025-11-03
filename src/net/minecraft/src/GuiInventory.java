@@ -2,7 +2,7 @@ package net.minecraft.src;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
-import net.minecraft.src.JIM.mod_JIM;
+import net.minecraft.src.vaderetro.johnitemsmod.mod_JIM;
 
 public class GuiInventory extends GuiContainer {
 	private float xSize_lo;

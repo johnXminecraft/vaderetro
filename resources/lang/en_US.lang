@@ -332,16 +332,40 @@ tile.pistonBase.name=Piston
 tile.pistonBase.desc=
 tile.pistonStickyBase.name=Sticky Piston
 tile.pistonStickyBase.desc=
+
+# Vade Retro
+
+# johnbuildermod
+tile.parquet.name=Parquet
+tile.parquet.desc=Vade Retro
+tile.tiles.name=Tiles
+tile.tiles.desc=Vade Retro
+tile.tilesGreen.name=Green Tiles
+tile.tilesGreen.desc=Vade Retro
+
+# johncrtmod
+tile.crtTvSet.name=CRT TV-Set
+tile.crtTvSet.desc=Vade Retro
+tile.blockRedstone.name=Redstone Block
+tile.blockRedstone.desc=Vade Retro
+
+# johnfarmmod
+tile.blueRose.name=Blue Rose
+tile.blueRose.desc=Vade Retro
+tile.onion.name=Onion
+tile.onion.desc=Vade Retro
+tile.dryer.name=Dryer
+tile.dryer.desc=Vade Retro
+tile.tobaccoPlant.name=Tobacco Plant
+tile.tobaccoPlant.desc=Vade Retro
+tile.cannabisPlant.name=Cannabis Plant
+tile.cannabisPlant.desc=Vade Retro
+
+# johnindustrialmod
 tile.openHearthFurnace.name=Open Hearth Furnace
 tile.openHearthFurnace.desc=Vade Retro
 tile.oreCopper.name=Copper Ore
 tile.oreCopper.desc=Vade Retro
-tile.oil.name=Oil
-tile.oil.desc=Vade Retro
-tile.crtTvSet.name=CRT TV-Set
-tile.crtTvSet.desc=Vade Retro
-tile.lampKerosene.name=Kerosene Lamp
-tile.lampKerosene.desc=Vade Retro
 tile.oreTin.name=Tin Ore
 tile.oreTin.desc=Vade Retro
 tile.oreGoldHell.name=Nether Golden Ore
@@ -350,26 +374,28 @@ tile.oreSulfurHell.name=Nether Sulfur Ore
 tile.oreSulfurHell.desc=Vade Retro
 tile.blockCopper.name=Copper Block
 tile.blockCopper.desc=Vade Retro
-tile.blockRedstone.name=Redstone Block
-tile.blockRedstone.desc=Vade Retro
 tile.blockStainedSteel.name=Stained Steel Block
 tile.blockStainedSteel.desc=Vade Retro
 tile.blockTin.name=Tin Block
 tile.blockTin.desc=Vade Retro
 tile.blockCoal.name=Coal Block
 tile.blockCoal.desc=Vade Retro
-tile.blockPlastic.name=Plastic Block
-tile.blockPlastic.desc=Vade Retro
 tile.blockSulfur.name=Sulfur Block
 tile.blockSulfur.desc=Vade Retro
-tile.blueRose.name=Blue Rose
-tile.blueRose.desc=Vade Retro
-tile.parquet.name=Parquet
-tile.parquet.desc=Vade Retro
-tile.tiles.name=Tiles
-tile.tiles.desc=Vade Retro
-tile.tilesGreen.name=Green Tiles
-tile.tilesGreen.desc=Vade Retro
+tile.oreUranium.name=Uranium Ore
+tile.oreUranium.desc=Vade Retro
+
+# johnmillmod
+tile.johnMill.name=Windmill
+tile.johnMill.desc=Vade Retro
+
+# johnoilmod
+tile.oil.name=Oil
+tile.oil.desc=Vade Retro
+tile.lampKerosene.name=Kerosene Lamp
+tile.lampKerosene.desc=Vade Retro
+tile.blockPlastic.name=Plastic Block
+tile.blockPlastic.desc=Vade Retro
 
 item.shovelIron.name=Iron Shovel
 item.shovelIron.desc=
@@ -613,6 +639,100 @@ item.leaves.name=Leaves
 item.leaves.desc=
 item.shears.name=Shears
 item.shears.desc=
+
+# Vade Retro
+
+# johnchurchmod
+item.easterEgg.black.name=Black Easter Egg
+item.easterEgg.black.desc=Vade Retro
+item.easterEgg.red.name=Red Easter Egg
+item.easterEgg.red.desc=Vade Retro
+item.easterEgg.green.name=Green Easter Egg
+item.easterEgg.green.desc=Vade Retro
+item.easterEgg.brown.name=Brown Easter Egg
+item.easterEgg.brown.desc=Vade Retro
+item.easterEgg.blue.name=Blue Easter Egg
+item.easterEgg.blue.desc=Vade Retro
+item.easterEgg.purple.name=Purple Easter Egg
+item.easterEgg.purple.desc=Vade Retro
+item.easterEgg.cyan.name=Cyan Easter Egg
+item.easterEgg.cyan.desc=Vade Retro
+item.easterEgg.silver.name=Light Gray Easter Egg
+item.easterEgg.silver.desc=Vade Retro
+item.easterEgg.gray.name=Gray Easter Egg
+item.easterEgg.gray.desc=Vade Retro
+item.easterEgg.pink.name=Pink Easter Egg
+item.easterEgg.pink.desc=Vade Retro
+item.easterEgg.lime.name=Lime Easter Egg
+item.easterEgg.lime.desc=Vade Retro
+item.easterEgg.yellow.name=Yellow Easter Egg
+item.easterEgg.yellow.desc=Vade Retro
+item.easterEgg.lightBlue.name=Light Blue Easter Egg
+item.easterEgg.lightBlue.desc=Vade Retro
+item.easterEgg.magenta.name=Magenta Easter Egg
+item.easterEgg.magenta.desc=Vade Retro
+item.easterEgg.orange.name=Orange Easter Egg
+item.easterEgg.orange.desc=Vade Retro
+item.easterEgg.white.name=White Easter Egg
+item.easterEgg.white.desc=Vade Retro
+item.icon.name=Icon
+item.icon.desc=Vade Retro
+item.canvas.name=Canvas
+item.canvas.desc=Vade Retro
+item.bowlOfGold.name=Bowl Of Gold
+item.bowlOfGold.desc=Vade Retro
+
+# johncrtmod
+item.wire.name=Wire
+item.wire.desc=Vade Retro
+item.anodeCathode.name=Anode and Cathode
+item.anodeCathode.desc=Vade Retro
+item.vacuumTube.name=Vacuum Tube
+item.vacuumTube.desc=Vade Retro
+item.circuitryPlate.name=Circuitry Plate
+item.circuitryPlate.desc=Vade Retro
+item.circuitryPlateEmpty.name=Empty Circuitry Plate
+item.circuitryPlateEmpty.desc=Vade Retro
+item.resistor.name=Resistor
+item.resistor.desc=Vade Retro
+item.capacitor.name=Capacitor
+item.capacitor.desc=Vade Retro
+item.cathodeRayTube.name=Cathode Ray Tube
+item.cathodeRayTube.desc=Vade Retro
+
+# johnfarmmod
+item.tobaccoLeaf.name=Tobacco Leaf
+item.tobaccoLeaf.desc=Vade Retro
+item.tobacco.name=Tobacco
+item.tobacco.desc=Vade Retro
+item.rottenFlesh.name=Rotten Flesh
+item.rottenFlesh.desc=Vade Retro
+item.jerky.name=Jerky
+item.jerky.desc=Vade Retro
+item.salt.name=Salt
+item.salt.desc=Vade Retro
+item.cigarette.name=Cigarette
+item.cigarette.desc=Vade Retro
+item.tobaccoSeeds.name=Tobacco Seeds
+item.tobaccoSeeds.desc=Vade Retro
+item.onion.name=Onion
+item.onion.desc=Vade Retro
+item.eggFried.name=Fried Egg
+item.eggFried.desc=Vade Retro
+item.cannabisSeeds.name=Cannabis Seeds
+item.cannabisSeeds.desc=Vade Retro
+item.cannabisLeaf.name=Cannabis Leaf
+item.cannabisLeaf.desc=Vade Retro
+item.rope.name=Rope
+item.rope.desc=Vade Retro
+item.cloth.name=Cloth
+item.cloth.desc=Vade Retro
+item.driedSkin.name=Dried Leather
+item.driedSkin.desc=Vade Retro
+item.belt.name=Belt
+item.belt.desc=Vade Retro
+
+# johnindustrialmod
 item.ingotStainedSteel.name=Stained Steel Ingot
 item.ingotStainedSteel.desc=Vade Retro
 item.helmetStainedSteel.name=Topfhelm
@@ -637,8 +757,18 @@ item.hoeStainedSteel.name=Stained Steel Hoe
 item.hoeStainedSteel.desc=Vade Retro
 item.ingotCopper.name=Copper Ingot
 item.ingotCopper.desc=Vade Retro
-item.wire.name=Wire
-item.wire.desc=Vade Retro
+item.ingotTin.name=Tin Ingot
+item.ingotTin.desc=Vade Retro
+item.ingotSulfur.name=Sulfur Piece
+item.ingotSulfur.desc=Vade Retro
+item.stainedSteelCompound.name=Stained Steel Compound
+item.stainedSteelCompound.desc=Vade Retro
+item.charcoal.name=Charcoal
+item.charcoal.desc=Vade Retro
+item.uraniumDust.name=Uranium Dust
+item.uraniumDust.desc=Vade Retro
+
+# johnoilmod
 item.bucketOil.name=Oil Bucket
 item.bucketOil.desc=Vade Retro
 item.bucketKerosene.name=Kerosene Bucket
@@ -647,39 +777,25 @@ item.ingotPlastic.name=Plastic Ingot
 item.ingotPlastic.desc=Vade Retro
 item.detailPlastic.name=Plastic Detail
 item.detailPlastic.desc=Vade Retro
-item.anodeCathode.name=Anode and Cathode
-item.anodeCathode.desc=Vade Retro
-item.vacuumTube.name=Vacuum Tube
-item.vacuumTube.desc=Vade Retro
-item.circuitryPlate.name=Circuitry Plate
-item.circuitryPlate.desc=Vade Retro
-item.circuitryPlateEmpty.name=Empty Circuitry Plate
-item.circuitryPlateEmpty.desc=Vade Retro
-item.resistor.name=Resistor
-item.resistor.desc=Vade Retro
-item.capacitor.name=Capacitor
-item.capacitor.desc=Vade Retro
-item.cathodeRayTube.name=Cathode Ray Tube
-item.cathodeRayTube.desc=Vade Retro
-item.eggFried.name=Fried Egg
-item.eggFried.desc=Vade Retro
-item.ingotTin.name=Tin Ingot
-item.ingotTin.desc=Vade Retro
-item.ingotSulfur.name=Sulfur Piece
-item.ingotSulfur.desc=Vade Retro
+
+# johnweaponmod
 item.musket.name=Musket
-item.musket.desc=Balkon's Weapon Mod (Vade Retro implementation)
+item.musket.desc=Vade Retro
 item.musketBullet.name=Musket Bullet
-item.musketBullet.desc=Balkon's Weapon Mod (Vade Retro implementation)
+item.musketBullet.desc=Vade Retro
 item.musketButt.name=Musket Butt
-item.musketButt.desc=Balkon's Weapon Mod (Vade Retro implementation)
+item.musketButt.desc=Vade Retro
 item.musketBarrel.name=Musket Barrel
-item.musketBarrel.desc=Balkon's Weapon Mod (Vade Retro implementation)
-item.icon.name=Icon
-item.icon.desc=Vade Retro
-item.canvas.name=Canvas
-item.canvas.desc=Vade Retro
-item.stainedSteelCompound.name=Stained Steel Compound
-item.stainedSteelCompound.desc=Vade Retro
-item.charcoal.name=Charcoal
-item.charcoal.desc=Vade Retro
+item.musketBarrel.desc=Vade Retro
+item.ar15.name=AR15 Rifle
+item.ar15.desc=Vade Retro
+item.ar15.name=5.56x45mm NATO
+item.ar15.desc=Vade Retro
+
+# johnzeppelinmod
+item.engine.name=Engine
+item.engine.desc=Vade Retro
+item.balloon.name=Balloon
+item.balloon.desc=Vade Retro
+item.zeppelin.name=Zeppelin
+item.zeppelin.desc=Vade Retro

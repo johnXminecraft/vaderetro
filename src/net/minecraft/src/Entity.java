@@ -198,7 +198,6 @@ public abstract class Entity {
 			this.inWater = false;
 		}
 
-		// Обработка движения в нефти
 		if(this.handleOilMovement()) {
 			if(!this.isFirstUpdate) {
 				float var1 = MathHelper.sqrt_double(this.motionX * this.motionX * 0.1D + this.motionY * this.motionY + this.motionZ * this.motionZ * 0.1D) * 0.1F;

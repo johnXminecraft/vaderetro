@@ -1,6 +1,8 @@
 package net.minecraft.src;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.src.vaderetro.johnweaponmod.item.ItemMusket;
+import net.minecraft.src.vaderetro.johnweaponmod.item.ItemAR15;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -233,7 +235,40 @@ public class ItemRenderer {
 			GL11.glRotatef(-var9 * 20.0F, 0.0F, 1.0F, 0.0F);
 			GL11.glRotatef(-var10 * 20.0F, 0.0F, 0.0F, 1.0F);
 			GL11.glRotatef(-var10 * 80.0F, 1.0F, 0.0F, 0.0F);
-			var8 = 0.4F;
+
+			// Musket reload pose (simple first-person animation while reloading)
+			if(var5.itemID == Item.musket.shiftedIndex) {
+				ItemMusket musket = (ItemMusket)Item.musket;
+				if(musket.isReloading()) {
+					float reloadProgress = (float)musket.getReloadProgress() / (float)musket.getReloadDuration();
+					float s = MathHelper.sin(reloadProgress * (float)Math.PI);
+					// subtle down-and-forward motion and a tilt, peaking mid-reload
+					GL11.glTranslatef(0.0F, -0.2F * s, -0.15F * reloadProgress);
+					GL11.glRotatef(20.0F * s, 1.0F, 0.0F, 0.0F);
+					GL11.glRotatef(-12.0F * s, 0.0F, 0.0F, 1.0F);
+				}
+			}
+			
+			// AR15 reload and recoil animations
+			if(var5.itemID == Item.ar15.shiftedIndex) {
+				ItemAR15 ar15 = (ItemAR15)Item.ar15;
+				if(ar15.isReloading()) {
+					float reloadProgress = (float)ar15.getReloadProgress() / (float)ar15.getReloadDuration();
+					float s = MathHelper.sin(reloadProgress * (float)Math.PI);
+					// inverted motion - barrel goes down and back, opposite of musket
+					GL11.glTranslatef(0.0F, 0.2F * s, 0.15F * reloadProgress);
+					GL11.glRotatef(-20.0F * s, 1.0F, 0.0F, 0.0F);
+					GL11.glRotatef(12.0F * s, 0.0F, 0.0F, 1.0F);
+				} else if(ar15.isRecoiling()) {
+					float recoilProgress = (float)ar15.getRecoilProgress() / (float)ar15.getRecoilDuration();
+					float s = MathHelper.sin(recoilProgress * (float)Math.PI);
+					// recoil animation - weapon kicks back and up
+					GL11.glTranslatef(0.0F, -0.1F * s, 0.2F * s);
+					GL11.glRotatef(15.0F * s, 1.0F, 0.0F, 0.0F);
+					GL11.glRotatef(-5.0F * s, 0.0F, 0.0F, 1.0F);
+				}
+			}
+			var8 = 0.6F; // Make AR15 bigger (was 0.4F)
 			GL11.glScalef(var8, var8, var8);
 			if(var5.getItem().shouldRotateAroundWhenRendering()) {
 				GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);

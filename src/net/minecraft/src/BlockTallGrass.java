@@ -30,7 +30,10 @@ public class BlockTallGrass extends BlockFlower {
 		}
 	}
 
-	public int idDropped(int var1, Random var2) {
-		return var2.nextInt(8) == 0 ? Item.seeds.shiftedIndex : -1;
+	public int idDropped(int id, Random random) {
+		int check = random.nextInt(8);
+		return check > 6 ? Item.seeds.shiftedIndex :
+				(check == 6 ? Item.tobaccoSeeds.shiftedIndex :
+						(check == 5 ? Item.cannabisSeeds.shiftedIndex : -1));
 	}
 }

@@ -9,7 +9,7 @@ anaglyph3d:false
 advancedOpengl:false
 fpsLimit:1
 difficulty:3
-fancyGraphics:true
+fancyGraphics:false
 ao:true
 skin:Default
 lastServer:

@@ -1,6 +1,6 @@
 package net.minecraft.src;
 
-import net.minecraft.src.balcon_weaponmod.entity.EntityMusketBullet;
+import net.minecraft.src.vaderetro.johnweaponmod.entity.EntityMusketBullet;
 
 import java.util.Iterator;
 import java.util.List;

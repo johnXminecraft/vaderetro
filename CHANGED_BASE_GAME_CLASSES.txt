@@ -1,9 +1,13 @@
 BiomeGenBase.class
 Block.class
+BlockCrops.class
+BlockDirt.class
 BlockDispenser.class
 BlockFlowing.class
 BlockFluid.class
+BlockGrass.class
 BlockJukeBox.class
+BlockTallGrass.class
 ChunkProviderGenerate.class
 ChunkProviderHell.class
 ChunkProviderSky.class
@@ -17,9 +21,14 @@ EntityPlayerSP.class
 EntityRenderer.class
 EntitySkeleton.class
 EntityWolf.class
+EntityZombie.class
 EnumCreatureType.class
 EnumToolMaterial.class
 FurnaceRecipes.class
+GuiChest.class
+GuiCrafting.class
+GuiDispenser.class
+GuiFurnace.class
 GuiIngame.class
 GuiInventory.class
 Item.class
@@ -28,6 +37,7 @@ ItemAxe.class
 ItemBucket.class
 ItemDye.class
 ItemPickaxe.class
+ItemRenderer.class
 ItemSpade.class
 Material.class
 NetClientHandler.class
@@ -45,6 +55,8 @@ RenderManager.class
 RenderPlayer.class
 Session.class
 StatList.class
+TextureLavaFlowFx.class
 TileEntity.class
+TileEntityRenderer.class
 World.class
 WorldGenMinable.class

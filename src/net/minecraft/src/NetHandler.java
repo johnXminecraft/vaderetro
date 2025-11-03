@@ -1,6 +1,6 @@
 package net.minecraft.src;
 
-import net.minecraft.src.vaderetro.packet.Packet55EntityIcon;
+import net.minecraft.src.vaderetro.johnchurchmod.packet.Packet55EntityIcon;
 
 public abstract class NetHandler {
 	public abstract boolean isServerHandler();

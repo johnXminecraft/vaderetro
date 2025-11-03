@@ -1,7 +1,10 @@
 package net.minecraft.src;
 
-import net.minecraft.src.balcon_weaponmod.item.ItemMusket;
-import net.minecraft.src.vaderetro.item.ItemIcon;
+import net.minecraft.src.vaderetro.johnfarmmod.item.*;
+import net.minecraft.src.vaderetro.johnweaponmod.item.ItemMusket;
+import net.minecraft.src.vaderetro.johnweaponmod.item.ItemAR15;
+import net.minecraft.src.vaderetro.johnchurchmod.item.ItemEasterEgg;
+import net.minecraft.src.vaderetro.johnchurchmod.item.ItemIcon;
 
 import java.util.Random;
 
@@ -115,6 +118,40 @@ public class Item {
 	public static Item record13 = (new ItemRecord(2000, "13")).setIconCoord(0, 15).setItemName("record");
 	public static Item recordCat = (new ItemRecord(2001, "cat")).setIconCoord(1, 15).setItemName("record");
 
+	// johnchurchmod
+	public static Item icon = (new ItemIcon(137)).setIconCoord(5, 12).setItemName("icon");
+	public static Item canvas = (new Item(138)).setIconCoord(5, 13).setItemName("canvas");
+	public static Item easterEgg = (new ItemEasterEgg(141)).setIconCoord(9, 6).setItemName("easterEgg");
+	public static Item bowlOfGold = (new Item(158)).setIconCoord(8, 9).setItemName("bowlOfGold");
+
+	// johncrtmod
+	public static Item wire = (new Item(116)).setIconCoord(3, 11).setItemName("wire");
+	public static Item anodeCathode = (new Item(121)).setIconCoord(3, 12).setItemName("anodeCathode");
+	public static Item vacuumTube = (new Item(122)).setIconCoord(3, 10).setItemName("vacuumTube");
+	public static Item circuitryPlateEmpty = (new Item(123)).setIconCoord(3, 9).setItemName("circuitryPlateEmpty");
+	public static Item circuitryPlate = (new Item(124)).setIconCoord(4, 9).setItemName("circuitryPlate");
+	public static Item resistor = (new Item(125)).setIconCoord(4, 10).setItemName("resistor");
+	public static Item capacitor = (new Item(126)).setIconCoord(4, 11).setItemName("capacitor");
+	public static Item cathodeRayTube = (new Item(127)).setIconCoord(3, 13).setItemName("cathodeRayTube");
+
+	// johnfarmmod
+	public static Item eggFried = (new ItemFood(128, 6, false)).setIconCoord(4, 13).setItemName("eggFried");
+	public static Item onion = (new ItemOnion(142, Block.onion.blockID)).setIconCoord(14, 2).setItemName("onion");
+	public static Item tobaccoSeeds = (new ItemTobaccoSeeds(143, Block.tobaccoPlant.blockID)).setIconCoord(6, 2).setItemName("tobaccoSeeds");
+	public static Item tobaccoLeaf = (new Item(144)).setIconCoord(13, 3).setItemName("tobaccoLeaf");
+	public static Item tobacco = (new Item(145)).setIconCoord(14, 3).setItemName("tobacco");
+	public static Item cigarette = (new ItemCigarette(146)).setIconCoord(11, 5).setItemName("cigarette");
+	public static Item salt = (new Item(147)).setIconCoord(6, 9).setItemName("salt");
+	public static Item rottenFlesh = (new Item(151)).setIconCoord(7, 7).setItemName("rottenFlesh");
+	public static Item jerky = (new ItemJerky(152)).setIconCoord(8, 7).setItemName("jerky");
+	public static Item cannabisSeeds = (new ItemCannabisSeeds(153, Block.cannabisPlant.blockID)).setIconCoord(7, 11).setItemName("cannabisSeeds");
+	public static Item cannabisLeaf = (new Item(154)).setIconCoord(8, 11).setItemName("cannabisLeaf");
+	public static Item rope = (new Item(155)).setIconCoord(7, 12).setItemName("rope");
+	public static Item cloth = (new Item(156)).setIconCoord(8, 12).setItemName("cloth");
+	public static Item driedLeather = (new Item(159)).setIconCoord(7, 13).setItemName("driedLeather");
+	public static Item belt = (new Item(160)).setIconCoord(8, 13).setItemName("belt");
+
+	// johnindustrialmod
 	public static Item ingotStainedSteel = (new Item(104)).setIconCoord(0, 9).setItemName("ingotStainedSteel");
 	public static Item helmetStainedSteel = (new ItemArmor(105, 4, 5, 0)).setIconCoord(1, 9).setItemName("helmetStainedSteel");
 	public static Item plateStainedSteel = (new ItemArmor(106, 4, 5, 1)).setIconCoord(1, 10).setItemName("chestplateStainedSteel");
@@ -127,29 +164,37 @@ public class Item {
 	public static Item axeStainedSteel = (new ItemAxe(113, EnumToolMaterial.STAINED_STEEL)).setIconCoord(2, 12).setItemName("hatchetStainedSteel");
 	public static Item hoeStainedSteel = (new ItemHoe(114, EnumToolMaterial.STAINED_STEEL)).setIconCoord(2, 9).setItemName("hoeStainedSteel");
 	public static Item ingotCopper = (new Item(115)).setIconCoord(4, 12).setItemName("ingotCopper");
-	public static Item wire = (new Item(116)).setIconCoord(3, 11).setItemName("wire");
+	public static Item ingotTin = (new Item(129)).setIconCoord(5, 11).setItemName("ingotTin");
+	public static Item ingotSulfur = (new Item(130)).setIconCoord(5, 6).setItemName("ingotSulfur");
+	public static Item stainedSteelCompound = (new Item(139)).setIconCoord(6, 6).setItemName("stainedSteelCompound");
+	public static Item charcoal = (new Item(140)).setIconCoord(6, 7).setItemName("charcoal");
+	public static Item uraniumDust = (new Item(157)).setIconCoord(8, 10).setItemName("uraniumDust");
+
+	// johnoilmod
 	public static Item bucketOil = (new ItemBucket(117, Block.oilMoving.blockID)).setIconCoord(0, 12).setItemName("bucketOil").setContainerItem(bucketEmpty);
 	public static Item bucketKerosene = (new ItemBucket(118, -1)).setIconCoord(2, 13).setItemName("bucketKerosene").setContainerItem(bucketEmpty);
 	public static Item ingotPlastic = (new Item(119)).setIconCoord(0, 13).setItemName("ingotPlastic");
 	public static Item detailPlastic = (new Item(120)).setIconCoord(1, 13).setItemName("detailPlastic");
-	public static Item anodeCathode = (new Item(121)).setIconCoord(3, 12).setItemName("anodeCathode");
-	public static Item vacuumTube = (new Item(122)).setIconCoord(3, 10).setItemName("vacuumTube");
-	public static Item circuitryPlateEmpty = (new Item(123)).setIconCoord(3, 9).setItemName("circuitryPlateEmpty");
-	public static Item circuitryPlate = (new Item(124)).setIconCoord(4, 9).setItemName("circuitryPlate");
-	public static Item resistor = (new Item(125)).setIconCoord(4, 10).setItemName("resistor");
-	public static Item capacitor = (new Item(126)).setIconCoord(4, 11).setItemName("capacitor");
-	public static Item cathodeRayTube = (new Item(127)).setIconCoord(3, 13).setItemName("cathodeRayTube");
-	public static Item eggFried = (new ItemFood(128, 6, false)).setIconCoord(4, 13).setItemName("eggFried");
-	public static Item ingotTin = (new Item(129)).setIconCoord(5, 11).setItemName("ingotTin");
-	public static Item ingotSulfur = (new Item(130)).setIconCoord(5, 6).setItemName("ingotSulfur");
+
+	// johnweaponmod
 	public static Item musket = (new ItemMusket(131)).setIconCoord(5, 10).setItemName("musket");
 	public static Item musketButt = (new Item(132)).setIconCoord(5, 9).setItemName("musketButt");
 	public static Item musketBarrel = (new Item(133)).setIconCoord(5, 8).setItemName("musketBarrel");
 	public static Item musketBullet = (new Item(134)).setIconCoord(5, 7).setItemName("musketBullet");
-	public static Item icon = (new ItemIcon(135)).setIconCoord(5, 12).setItemName("icon");
-	public static Item canvas = (new Item(136)).setIconCoord(5, 13).setItemName("canvas");
-	public static Item stainedSteelCompound = (new Item(137)).setIconCoord(6, 6).setItemName("stainedSteelCompound");
-	public static Item charcoal = (new Item(138)).setIconCoord(6, 7).setItemName("charcoal");
+	// unable to get
+	public static Item ar15Bullet = (new Item(135)).setIconCoord(6, 8).setItemName("ar15Bullet");
+	// unable to get
+	public static Item ar15 = (new ItemAR15(136)).setIconCoord(6, 10).setItemName("ar15");
+
+	// johnzeppelinmod
+	// unable to get
+	public static Item engine = (new Item(148)).setIconCoord(6, 13).setItemName("engine");
+	// unable to get
+	public static Item balloon = (new Item(149)).setIconCoord(6, 12).setItemName("balloon");
+	// unable to get
+	public static Item zeppelin = (new Item(150)).setIconCoord(6, 11).setItemName("zeppelin");
+
+	// latest item id: 158
 
 	public final int shiftedIndex;
 	protected int maxStackSize = 64;

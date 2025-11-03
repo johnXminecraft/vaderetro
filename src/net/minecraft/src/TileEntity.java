@@ -1,8 +1,10 @@
 package net.minecraft.src;
+import net.minecraft.src.vaderetro.johnfarmmod.entity.tileentity.TileEntityDryer;
+import net.minecraft.src.vaderetro.johnmillmod.entity.tileentity.TileEntityJohnMill;
 
-import net.minecraft.src.vaderetro.entity.tileentity.TileEntityCrtTvSet;
-import net.minecraft.src.vaderetro.entity.tileentity.TileEntityKeroseneLamp;
-import net.minecraft.src.vaderetro.entity.tileentity.TileEntityOpenHearthFurnace;
+import net.minecraft.src.vaderetro.johncrtmod.entity.tileentity.TileEntityCrtTvSet;
+import net.minecraft.src.vaderetro.johnoilmod.entity.tileentity.TileEntityKeroseneLamp;
+import net.minecraft.src.vaderetro.johnindustrialmod.entity.tileentity.TileEntityOpenHearthFurnace;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -103,9 +105,14 @@ public class TileEntity {
 
 	static {
 		addMapping(TileEntityFurnace.class, "Furnace");
+		addMapping(TileEntityDryer.class, "Dryer");
 		addMapping(TileEntityOpenHearthFurnace.class, "OpenHearthFurnace");
 		addMapping(TileEntityCrtTvSet.class, "CrtTvSet");
 		addMapping(TileEntityKeroseneLamp.class, "KeroseneLamp");
+		addMapping(TileEntityJohnMill.class, "JohnMill");
+		// Legacy IDs from older saves
+		addMapping(TileEntityJohnMill.class, "Windmill");
+		addMapping(TileEntityJohnMill.class, "Millstone");
 		addMapping(TileEntityChest.class, "Chest");
 		addMapping(TileEntityRecordPlayer.class, "RecordPlayer");
 		addMapping(TileEntityDispenser.class, "Trap");

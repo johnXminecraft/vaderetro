@@ -17,3 +17,10 @@ Blue Rose
 Parquet
 Tiles
 Green Tiles
+Mill
+BlockJohnMill
+Onion plant
+Tobacco plant
+Cannabis plant
+Dryer
+Uranium ore

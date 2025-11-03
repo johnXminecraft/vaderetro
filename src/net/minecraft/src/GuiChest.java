@@ -3,6 +3,7 @@ package net.minecraft.src;
 import org.lwjgl.opengl.GL11;
 
 public class GuiChest extends GuiContainer {
+
 	private IInventory upperChestInventory;
 	private IInventory lowerChestInventory;
 	private int inventoryRows = 0;
@@ -16,11 +17,6 @@ public class GuiChest extends GuiContainer {
 		int var4 = var3 - 108;
 		this.inventoryRows = var2.getSizeInventory() / 9;
 		this.ySize = var4 + this.inventoryRows * 18;
-	}
-
-	protected void drawGuiContainerForegroundLayer() {
-		this.fontRenderer.drawString(this.lowerChestInventory.getInvName(), 8, 6, 4210752);
-		this.fontRenderer.drawString(this.upperChestInventory.getInvName(), 8, this.ySize - 96 + 2, 4210752);
 	}
 
 	protected void drawGuiContainerBackgroundLayer(float var1) {
