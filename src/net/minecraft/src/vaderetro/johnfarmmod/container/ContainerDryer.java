@@ -60,14 +60,23 @@ public class ContainerDryer extends Container {
         if(slot != null && slot.getHasStack()) {
             ItemStack itemStackFromSlot = slot.getStack();
             itemStack = itemStackFromSlot.copy();
-            if(slotId == 2) {
-                this.func_28125_a(itemStackFromSlot, 3, 39, true);
-            } else if(slotId >= 3 && slotId < 30) {
-                this.func_28125_a(itemStackFromSlot, 30, 39, false);
-            } else if(slotId >= 30 && slotId < 39) {
-                this.func_28125_a(itemStackFromSlot, 3, 30, false);
+            // Slots layout in this container:
+            // 0 - dryer input
+            // 1 - dryer output
+            // 2..28 - player inventory (27 slots)
+            // 29..37 - player hotbar (9 slots)
+            if (slotId == 1) {
+                // Shift output into the whole player inventory (2..37)
+                this.func_28125_a(itemStackFromSlot, 2, 38, true);
+            } else if (slotId >= 2 && slotId < 29) {
+                // From main inventory to hotbar
+                this.func_28125_a(itemStackFromSlot, 29, 38, false);
+            } else if (slotId >= 29 && slotId < 38) {
+                // From hotbar to main inventory
+                this.func_28125_a(itemStackFromSlot, 2, 29, false);
             } else {
-                this.func_28125_a(itemStackFromSlot, 3, 39, false);
+                // From dryer slots (0 or 1) to the whole player inventory
+                this.func_28125_a(itemStackFromSlot, 2, 38, false);
             }
 
             if(itemStackFromSlot.stackSize == 0) {

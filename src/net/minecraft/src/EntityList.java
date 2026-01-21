@@ -5,6 +5,8 @@ import net.minecraft.src.vaderetro.johnweaponmod.entity.EntityAR15Bullet;
 import net.minecraft.src.vaderetro.johnindustrialmod.entity.mob.EntityMiner;
 import net.minecraft.src.vaderetro.johnfarmmod.entity.wild.EntityBoar;
 import net.minecraft.src.vaderetro.johnchurchmod.entity.EntityIcon;
+import net.minecraft.src.vaderetro.entity.EntityObjModel;
+import net.minecraft.src.Airship.EntityAirship;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -113,8 +115,10 @@ public class EntityList {
 
 		addMapping(EntityMusketBullet.class, "Bullet", 100);
 		addMapping(EntityAR15Bullet.class, "AR15Bullet", 101);
+		addMapping(EntityObjModel.class, "ObjModel", 105);
 		addMapping(EntityBoar.class, "Boar", 102);
 		addMapping(EntityIcon.class, "Icon", 103);
 		addMapping(EntityMiner.class, "Miner", 104);
+		addMapping(EntityAirship.class, "Airship", 106);
 	}
 }

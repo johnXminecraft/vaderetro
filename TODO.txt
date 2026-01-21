@@ -1,0 +1,72 @@
+TODO:
+Cartridges for the game console
+Readme rework (?)
+The game console
+Radio
+Radio-stations
+Kerosene lamp texture changes when it is lit
+Oil physics fix               #done ig?
+Oil pump (IDK if necessary)
+Musket bullet physics fix          #done ig?
+Redstone Block logic fix
+Better GUI
+Quality of life
+Biome variants of mobs
+Some new ores
+Better tiles
+Radio-stations in the Ice Desert
+New structures
+Rotten flesh or other good zombie drop
+
+Done:
+Open hearth furnace
+Stained steel
+Chain
+Chain armor recipe
+Stained steel armor and tools
+Stained steel armor textures
+Chain texture rework
+Copper Ore, smelting copper, copper wires
+Oil
+Kerosene
+Plastic, plastic details
+Circuitry
+CRT
+Check if CRT isPowered, switchability of CRT
+Kerosene lamp
+Oil texture fix
+Oil physics
+/misc/oil.png
+Musket, musket bullet
+Hell ores (golden, sulfur)
+Hell oil generation
+Better CRT logic, gui
+Boar
+EntityWild
+RenderBoar
+Better Kerosene lamp gui
+Better Open Hearth Furnace gui
+Icons
+Storage blocks
+Functionality for coal & redstone block
+Blue Rose
+Enhanced oil generation
+Jukebox texture and logic rework
+Better Open Hearth Furnace logic
+Stained Steel Compound
+Better GUI for OHF and KL
+Charcoal
+Parquet
+Some quality of life (better axes, pickaxes, shovels)
+Boar loot table
+Oil now generates in snowy biomes as well as in desert
+Ice desert
+Some quality of life (better F3-menu)
+Some quality of life (even better F3-menu)
+Oil logic on collision with lava and fire
+Oil logic on collision with water (produces dirt with 5% chance of clay)
+Churches
+Tiles (regular and green)
+Better Church loot, added Kerosene Lamp to the Church
+Churches now generate only in Taigas
+Miners (spawn below y32)

@@ -7,6 +7,7 @@ Vade Retro - is a mod pack, which brings you the joy of old-fashioned life.\
 Includes mods:
 * Vade Retro 0.1.0
 * John Items mod 1.0.0 (by 13.4-dev)
+* Bob model loader (by 13.4-dev)
 * Balkon's Weapon Mod (Musket) (Vade Retro implementation) 1.0.0 
 
 Developers:

@@ -18,6 +18,10 @@ public class WorldInfo {
 	private int rainTime;
 	private boolean thundering;
 	private int thunderTime;
+    private boolean bml_nukeContaminated;
+    private double bml_nukeX;
+    private double bml_nukeY;
+    private double bml_nukeZ;
 
 	public WorldInfo(NBTTagCompound var1) {
 		this.randomSeed = var1.getLong("RandomSeed");
@@ -33,6 +37,10 @@ public class WorldInfo {
 		this.raining = var1.getBoolean("raining");
 		this.thunderTime = var1.getInteger("thunderTime");
 		this.thundering = var1.getBoolean("thundering");
+        this.bml_nukeContaminated = var1.getBoolean("BML_NukeContaminated");
+        this.bml_nukeX = var1.getDouble("BML_NukeX");
+        this.bml_nukeY = var1.getDouble("BML_NukeY");
+        this.bml_nukeZ = var1.getDouble("BML_NukeZ");
 		if(var1.hasKey("Player")) {
 			this.playerTag = var1.getCompoundTag("Player");
 			this.dimension = this.playerTag.getInteger("Dimension");
@@ -100,11 +108,38 @@ public class WorldInfo {
 		var1.setBoolean("raining", this.raining);
 		var1.setInteger("thunderTime", this.thunderTime);
 		var1.setBoolean("thundering", this.thundering);
+        var1.setBoolean("BML_NukeContaminated", this.bml_nukeContaminated);
+        var1.setDouble("BML_NukeX", this.bml_nukeX);
+        var1.setDouble("BML_NukeY", this.bml_nukeY);
+        var1.setDouble("BML_NukeZ", this.bml_nukeZ);
 		if(var2 != null) {
 			var1.setCompoundTag("Player", var2);
 		}
 
 	}
+
+    public boolean bml_isNukeContaminated() {
+        return this.bml_nukeContaminated;
+    }
+
+    public double bml_getNukeX() {
+        return this.bml_nukeX;
+    }
+
+    public double bml_getNukeY() {
+        return this.bml_nukeY;
+    }
+
+    public double bml_getNukeZ() {
+        return this.bml_nukeZ;
+    }
+
+    public void bml_setNukeContaminated(boolean contaminated, double x, double y, double z) {
+        this.bml_nukeContaminated = contaminated;
+        this.bml_nukeX = x;
+        this.bml_nukeY = y;
+        this.bml_nukeZ = z;
+    }
 
 	public long getRandomSeed() {
 		return this.randomSeed;

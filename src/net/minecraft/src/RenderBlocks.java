@@ -4,12 +4,54 @@ import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
 
 public class RenderBlocks {
+	private static final int TERRAIN_TILE_SIZE = 16;
+	
+	// Get texture size dynamically from TerrainTextureManager
+	private static float getTerrainTextureSize() {
+		return (float)TerrainTextureManager.getTerrainTextureSize();
+	}
+	
+	private static int getTerrainTilesPerRow() {
+		return TerrainTextureManager.getTerrainTilesPerRow();
+	}
+	
 	private IBlockAccess blockAccess;
 	private int overrideBlockTexture = -1;
 	private boolean flipTexture = false;
 	private boolean renderAllFaces = false;
 	public static boolean fancyGrass = true;
 	public boolean field_31088_b = true;
+	
+	// Helper methods for extended texture mapping
+	private static int getTextureX(int textureIndex) {
+		return (textureIndex % getTerrainTilesPerRow()) * TERRAIN_TILE_SIZE;
+	}
+	
+	private static int getTextureY(int textureIndex) {
+		return (textureIndex / getTerrainTilesPerRow()) * TERRAIN_TILE_SIZE;
+	}
+	
+	private static double getTextureU(int textureIndex) {
+		return (double)getTextureX(textureIndex) / getTerrainTextureSize();
+	}
+	
+	private static double getTextureV(int textureIndex) {
+		return (double)getTextureY(textureIndex) / getTerrainTextureSize();
+	}
+	
+	private static double getTextureUWithOffset(int textureIndex, double offset) {
+		return ((double)getTextureX(textureIndex) + offset) / getTerrainTextureSize();
+	}
+	
+	private static double getTextureVWithOffset(int textureIndex, double offset) {
+		return ((double)getTextureY(textureIndex) + offset) / getTerrainTextureSize();
+	}
+	
+	// Helper method to convert old bitwise operations to new system
+	// Replaces: (var & 15) << 4 and var & 240 pattern
+	private static int[] getTextureCoords(int textureIndex) {
+		return new int[]{getTextureX(textureIndex), getTextureY(textureIndex)};
+	}
 	private int field_31087_g = 0;
 	private int field_31086_h = 0;
 	private int field_31085_i = 0;
@@ -107,12 +149,12 @@ public class RenderBlocks {
 		float var25 = var1.getBlockBrightness(this.blockAccess, var2, var3, var4);
 		var5.setColorOpaque_F(var9 * var25, var9 * var25, var9 * var25);
 		int var26 = var1.getBlockTexture(this.blockAccess, var2, var3, var4, 0);
-		int var27 = (var26 & 15) << 4;
-		int var28 = var26 & 240;
-		double var29 = (double)((float)var27 / 256.0F);
-		double var31 = ((double)(var27 + 16) - 0.01D) / 256.0D;
-		double var33 = (double)((float)var28 / 256.0F);
-		double var35 = ((double)(var28 + 16) - 0.01D) / 256.0D;
+		int var27 = getTextureX(var26);
+		int var28 = getTextureY(var26);
+		double var29 = getTextureU(var26);
+		double var31 = getTextureUWithOffset(var26, TERRAIN_TILE_SIZE - 0.01D);
+		double var33 = getTextureV(var26);
+		double var35 = getTextureVWithOffset(var26, TERRAIN_TILE_SIZE - 0.01D);
 		double var37 = (double)var2 + var1.minX;
 		double var39 = (double)var2 + var1.maxX;
 		double var41 = (double)var3 + var1.minY + 0.1875D;
@@ -125,12 +167,12 @@ public class RenderBlocks {
 		float var64 = var1.getBlockBrightness(this.blockAccess, var2, var3 + 1, var4);
 		var5.setColorOpaque_F(var10 * var64, var10 * var64, var10 * var64);
 		var27 = var1.getBlockTexture(this.blockAccess, var2, var3, var4, 1);
-		var28 = (var27 & 15) << 4;
-		int var67 = var27 & 240;
-		double var30 = (double)((float)var28 / 256.0F);
-		double var32 = ((double)(var28 + 16) - 0.01D) / 256.0D;
-		double var34 = (double)((float)var67 / 256.0F);
-		double var36 = ((double)(var67 + 16) - 0.01D) / 256.0D;
+		var28 = getTextureX(var27);
+		int var67 = getTextureY(var27);
+		double var30 = getTextureU(var27);
+		double var32 = getTextureUWithOffset(var27, TERRAIN_TILE_SIZE - 0.01D);
+		double var34 = getTextureV(var27);
+		double var36 = getTextureVWithOffset(var27, TERRAIN_TILE_SIZE - 0.01D);
 		double var38 = var30;
 		double var40 = var32;
 		double var42 = var34;
@@ -302,12 +344,12 @@ public class RenderBlocks {
 		this.renderTorchAtAngle(var1, (double)var2 + var12, (double)var3 + var10, (double)var4 + var14, 0.0D, 0.0D);
 		this.renderTorchAtAngle(var1, (double)var2 + var16, (double)var3 + var10, (double)var4 + var18, 0.0D, 0.0D);
 		int var20 = var1.getBlockTextureFromSide(1);
-		int var21 = (var20 & 15) << 4;
-		int var22 = var20 & 240;
-		double var23 = (double)((float)var21 / 256.0F);
-		double var25 = (double)(((float)var21 + 15.99F) / 256.0F);
-		double var27 = (double)((float)var22 / 256.0F);
-		double var29 = (double)(((float)var22 + 15.99F) / 256.0F);
+		int var21 = getTextureX(var20);
+		int var22 = getTextureY(var20);
+		double var23 = getTextureU(var20);
+		double var25 = getTextureUWithOffset(var20, 15.99D);
+		double var27 = getTextureV(var20);
+		double var29 = getTextureVWithOffset(var20, 15.99D);
 		float var31 = 2.0F / 16.0F;
 		float var32 = (float)(var2 + 1);
 		float var33 = (float)(var2 + 1);
@@ -462,13 +504,13 @@ public class RenderBlocks {
 			var16 = this.overrideBlockTexture;
 		}
 
-		int var17 = (var16 & 15) << 4;
-		int var18 = var16 & 240;
+		int var17 = getTextureX(var16);
+		int var18 = getTextureY(var16);
 		Tessellator var19 = Tessellator.instance;
-		double var20 = (double)((float)(var17 + 0) / 256.0F);
-		double var22 = (double)((float)(var18 + 0) / 256.0F);
-		double var24 = ((double)var17 + var14 - 0.01D) / 256.0D;
-		double var26 = ((double)((float)var18 + 4.0F) - 0.01D) / 256.0D;
+		double var20 = getTextureU(var16);
+		double var22 = getTextureV(var16);
+		double var24 = getTextureUWithOffset(var16, var14 - 0.01D);
+		double var26 = getTextureVWithOffset(var16, 4.0D - 0.01D);
 		var19.setColorOpaque_F(var13, var13, var13);
 		var19.addVertexWithUV(var1, var7, var9, var24, var22);
 		var19.addVertexWithUV(var1, var5, var9, var20, var22);
@@ -482,13 +524,13 @@ public class RenderBlocks {
 			var16 = this.overrideBlockTexture;
 		}
 
-		int var17 = (var16 & 15) << 4;
-		int var18 = var16 & 240;
+		int var17 = getTextureX(var16);
+		int var18 = getTextureY(var16);
 		Tessellator var19 = Tessellator.instance;
-		double var20 = (double)((float)(var17 + 0) / 256.0F);
-		double var22 = (double)((float)(var18 + 0) / 256.0F);
-		double var24 = ((double)var17 + var14 - 0.01D) / 256.0D;
-		double var26 = ((double)((float)var18 + 4.0F) - 0.01D) / 256.0D;
+		double var20 = getTextureU(var16);
+		double var22 = getTextureV(var16);
+		double var24 = getTextureUWithOffset(var16, var14 - 0.01D);
+		double var26 = getTextureVWithOffset(var16, 4.0D - 0.01D);
 		var19.setColorOpaque_F(var13, var13, var13);
 		var19.addVertexWithUV(var1, var5, var11, var24, var22);
 		var19.addVertexWithUV(var1, var5, var9, var20, var22);
@@ -502,13 +544,13 @@ public class RenderBlocks {
 			var16 = this.overrideBlockTexture;
 		}
 
-		int var17 = (var16 & 15) << 4;
-		int var18 = var16 & 240;
+		int var17 = getTextureX(var16);
+		int var18 = getTextureY(var16);
 		Tessellator var19 = Tessellator.instance;
-		double var20 = (double)((float)(var17 + 0) / 256.0F);
-		double var22 = (double)((float)(var18 + 0) / 256.0F);
-		double var24 = ((double)var17 + var14 - 0.01D) / 256.0D;
-		double var26 = ((double)((float)var18 + 4.0F) - 0.01D) / 256.0D;
+		double var20 = getTextureU(var16);
+		double var22 = getTextureV(var16);
+		double var24 = getTextureUWithOffset(var16, var14 - 0.01D);
+		double var26 = getTextureVWithOffset(var16, 4.0D - 0.01D);
 		var19.setColorOpaque_F(var13, var13, var13);
 		var19.addVertexWithUV(var3, var5, var9, var24, var22);
 		var19.addVertexWithUV(var1, var5, var9, var20, var22);
@@ -649,12 +691,12 @@ public class RenderBlocks {
 			var14 = this.overrideBlockTexture;
 		}
 
-		int var15 = (var14 & 15) << 4;
-		int var16 = var14 & 240;
-		float var17 = (float)var15 / 256.0F;
-		float var18 = ((float)var15 + 15.99F) / 256.0F;
-		float var19 = (float)var16 / 256.0F;
-		float var20 = ((float)var16 + 15.99F) / 256.0F;
+		int var15 = getTextureX(var14);
+		int var16 = getTextureY(var14);
+		float var17 = (float)getTextureU(var14);
+		float var18 = (float)getTextureUWithOffset(var14, 15.99D);
+		float var19 = (float)getTextureV(var14);
+		float var20 = (float)getTextureVWithOffset(var14, 15.99D);
 		Vec3D[] var21 = new Vec3D[8];
 		float var22 = 1.0F / 16.0F;
 		float var23 = 1.0F / 16.0F;
@@ -717,15 +759,15 @@ public class RenderBlocks {
 
 		for(int var29 = 0; var29 < 6; ++var29) {
 			if(var29 == 0) {
-				var17 = (float)(var15 + 7) / 256.0F;
-				var18 = ((float)(var15 + 9) - 0.01F) / 256.0F;
-				var19 = (float)(var16 + 6) / 256.0F;
-				var20 = ((float)(var16 + 8) - 0.01F) / 256.0F;
+				var17 = (float)(var15 + 7) / getTerrainTextureSize();
+				var18 = ((float)(var15 + 9) - 0.01F) / getTerrainTextureSize();
+				var19 = (float)(var16 + 6) / getTerrainTextureSize();
+				var20 = ((float)(var16 + 8) - 0.01F) / getTerrainTextureSize();
 			} else if(var29 == 2) {
-				var17 = (float)(var15 + 7) / 256.0F;
-				var18 = ((float)(var15 + 9) - 0.01F) / 256.0F;
-				var19 = (float)(var16 + 6) / 256.0F;
-				var20 = ((float)(var16 + 16) - 0.01F) / 256.0F;
+				var17 = (float)(var15 + 7) / getTerrainTextureSize();
+				var18 = ((float)(var15 + 9) - 0.01F) / getTerrainTextureSize();
+				var19 = (float)(var16 + 6) / getTerrainTextureSize();
+				var20 = ((float)(var16 + 16) - 0.01F) / getTerrainTextureSize();
 			}
 
 			if(var29 == 0) {
@@ -778,12 +820,12 @@ public class RenderBlocks {
 
 		float var7 = var1.getBlockBrightness(this.blockAccess, var2, var3, var4);
 		var5.setColorOpaque_F(var7, var7, var7);
-		int var8 = (var6 & 15) << 4;
-		int var9 = var6 & 240;
-		double var10 = (double)((float)var8 / 256.0F);
-		double var12 = (double)(((float)var8 + 15.99F) / 256.0F);
-		double var14 = (double)((float)var9 / 256.0F);
-		double var16 = (double)(((float)var9 + 15.99F) / 256.0F);
+		int var8 = getTextureX(var6);
+		int var9 = getTextureY(var6);
+		double var10 = getTextureU(var6);
+		double var12 = getTextureUWithOffset(var6, 15.99D);
+		double var14 = getTextureV(var6);
+		double var16 = getTextureVWithOffset(var6, 15.99D);
 		float var18 = 1.4F;
 		double var21;
 		double var23;
@@ -796,10 +838,10 @@ public class RenderBlocks {
 			float var37 = 0.2F;
 			float var20 = 1.0F / 16.0F;
 			if((var2 + var3 + var4 & 1) == 1) {
-				var10 = (double)((float)var8 / 256.0F);
-				var12 = (double)(((float)var8 + 15.99F) / 256.0F);
-				var14 = (double)((float)(var9 + 16) / 256.0F);
-				var16 = (double)(((float)var9 + 15.99F + 16.0F) / 256.0F);
+				var10 = getTextureU(var6);
+				var12 = getTextureUWithOffset(var6, 15.99D);
+				var14 = getTextureVWithOffset(var6, TERRAIN_TILE_SIZE);
+				var16 = getTextureVWithOffset(var6, 15.99D + TERRAIN_TILE_SIZE);
 			}
 
 			if((var2 / 2 + var3 / 2 + var4 / 2 & 1) == 1) {
@@ -872,10 +914,10 @@ public class RenderBlocks {
 					var5.addVertexWithUV(var21, (double)(var3 + 0), (double)(var4 + 0), var12, var16);
 					var5.addVertexWithUV(var21, (double)(var3 + 0), (double)(var4 + 1), var10, var16);
 					var5.addVertexWithUV(var29, (double)((float)var3 + var18), (double)(var4 + 1), var10, var14);
-					var10 = (double)((float)var8 / 256.0F);
-					var12 = (double)(((float)var8 + 15.99F) / 256.0F);
-					var14 = (double)((float)(var9 + 16) / 256.0F);
-					var16 = (double)(((float)var9 + 15.99F + 16.0F) / 256.0F);
+					var10 = getTextureU(var6);
+					var12 = getTextureUWithOffset(var6, 15.99D);
+					var14 = getTextureVWithOffset(var6, (double)TERRAIN_TILE_SIZE);
+					var16 = getTextureVWithOffset(var6, 15.99D + (double)TERRAIN_TILE_SIZE);
 					var5.addVertexWithUV(var31, (double)((float)var3 + var18), (double)(var4 + 1), var12, var14);
 					var5.addVertexWithUV(var23, (double)(var3 + 0), (double)(var4 + 1), var12, var16);
 					var5.addVertexWithUV(var23, (double)(var3 + 0), (double)(var4 + 0), var10, var16);
@@ -885,10 +927,10 @@ public class RenderBlocks {
 					var5.addVertexWithUV((double)(var2 + 0), (double)(var3 + 0), var27, var12, var16);
 					var5.addVertexWithUV((double)(var2 + 1), (double)(var3 + 0), var27, var10, var16);
 					var5.addVertexWithUV((double)(var2 + 1), (double)((float)var3 + var18), var35, var10, var14);
-					var10 = (double)((float)var8 / 256.0F);
-					var12 = (double)(((float)var8 + 15.99F) / 256.0F);
-					var14 = (double)((float)(var9 + 16) / 256.0F);
-					var16 = (double)(((float)var9 + 15.99F + 16.0F) / 256.0F);
+					var10 = getTextureU(var6);
+					var12 = getTextureUWithOffset(var6, 15.99D);
+					var14 = getTextureVWithOffset(var6, (double)TERRAIN_TILE_SIZE);
+					var16 = getTextureVWithOffset(var6, 15.99D + (double)TERRAIN_TILE_SIZE);
 					var5.addVertexWithUV((double)(var2 + 1), (double)((float)var3 + var18), var33, var12, var14);
 					var5.addVertexWithUV((double)(var2 + 1), (double)(var3 + 0), var25, var12, var16);
 					var5.addVertexWithUV((double)(var2 + 0), (double)(var3 + 0), var25, var10, var16);
@@ -912,10 +954,10 @@ public class RenderBlocks {
 			var5.addVertexWithUV(var21, (double)(var3 + 0), (double)(var4 + 0), var12, var16);
 			var5.addVertexWithUV(var21, (double)(var3 + 0), (double)(var4 + 1), var10, var16);
 			var5.addVertexWithUV(var29, (double)((float)var3 + var18), (double)(var4 + 1), var10, var14);
-			var10 = (double)((float)var8 / 256.0F);
-			var12 = (double)(((float)var8 + 15.99F) / 256.0F);
-			var14 = (double)((float)(var9 + 16) / 256.0F);
-			var16 = (double)(((float)var9 + 15.99F + 16.0F) / 256.0F);
+			var10 = getTextureU(var6);
+			var12 = getTextureUWithOffset(var6, 15.99D);
+			var14 = getTextureVWithOffset(var6, TERRAIN_TILE_SIZE);
+			var16 = getTextureVWithOffset(var6, 15.99D + TERRAIN_TILE_SIZE);
 			var5.addVertexWithUV((double)(var2 + 1), (double)((float)var3 + var18), var33, var12, var14);
 			var5.addVertexWithUV((double)(var2 + 1), (double)(var3 + 0), var25, var12, var16);
 			var5.addVertexWithUV((double)(var2 + 0), (double)(var3 + 0), var25, var10, var16);
@@ -940,10 +982,10 @@ public class RenderBlocks {
 			var5.addVertexWithUV(var21, (double)(var3 + 0), (double)(var4 + 1), var10, var16);
 			var5.addVertexWithUV(var21, (double)(var3 + 0), (double)(var4 + 0), var12, var16);
 			var5.addVertexWithUV(var29, (double)((float)var3 + var18), (double)(var4 + 0), var12, var14);
-			var10 = (double)((float)var8 / 256.0F);
-			var12 = (double)(((float)var8 + 15.99F) / 256.0F);
-			var14 = (double)((float)var9 / 256.0F);
-			var16 = (double)(((float)var9 + 15.99F) / 256.0F);
+			var10 = getTextureU(var6);
+			var12 = getTextureUWithOffset(var6, 15.99D);
+			var14 = getTextureV(var6);
+			var16 = getTextureVWithOffset(var6, 15.99D);
 			var5.addVertexWithUV((double)(var2 + 0), (double)((float)var3 + var18), var33, var10, var14);
 			var5.addVertexWithUV((double)(var2 + 0), (double)(var3 + 0), var25, var10, var16);
 			var5.addVertexWithUV((double)(var2 + 1), (double)(var3 + 0), var25, var12, var16);
@@ -983,12 +1025,12 @@ public class RenderBlocks {
 		}
 
 		var5.setColorOpaque_F(var8 * var10, var8 * var11, var8 * var12);
-		int var13 = (var7 & 15) << 4;
-		int var14 = var7 & 240;
-		double var15 = (double)((float)var13 / 256.0F);
-		double var17 = (double)(((float)var13 + 15.99F) / 256.0F);
-		double var19 = (double)((float)var14 / 256.0F);
-		double var21 = (double)(((float)var14 + 15.99F) / 256.0F);
+		int var13 = getTextureX(var7);
+		int var14 = getTextureY(var7);
+		double var15 = getTextureU(var7);
+		double var17 = getTextureUWithOffset(var7, 15.99D);
+		double var19 = getTextureV(var7);
+		double var21 = getTextureVWithOffset(var7, 15.99D);
 		boolean var26 = BlockRedstoneWire.isPowerProviderOrWire(this.blockAccess, var2 - 1, var3, var4, 1) || !this.blockAccess.isBlockNormalCube(var2 - 1, var3, var4) && BlockRedstoneWire.isPowerProviderOrWire(this.blockAccess, var2 - 1, var3 - 1, var4, -1);
 		boolean var27 = BlockRedstoneWire.isPowerProviderOrWire(this.blockAccess, var2 + 1, var3, var4, 3) || !this.blockAccess.isBlockNormalCube(var2 + 1, var3, var4) && BlockRedstoneWire.isPowerProviderOrWire(this.blockAccess, var2 + 1, var3 - 1, var4, -1);
 		boolean var28 = BlockRedstoneWire.isPowerProviderOrWire(this.blockAccess, var2, var3, var4 - 1, 2) || !this.blockAccess.isBlockNormalCube(var2, var3, var4 - 1) && BlockRedstoneWire.isPowerProviderOrWire(this.blockAccess, var2, var3 - 1, var4 - 1, -1);
@@ -1172,12 +1214,12 @@ public class RenderBlocks {
 
 		float var8 = var1.getBlockBrightness(this.blockAccess, var2, var3, var4);
 		var5.setColorOpaque_F(var8, var8, var8);
-		int var9 = (var7 & 15) << 4;
-		int var10 = var7 & 240;
-		double var11 = (double)((float)var9 / 256.0F);
-		double var13 = (double)(((float)var9 + 15.99F) / 256.0F);
-		double var15 = (double)((float)var10 / 256.0F);
-		double var17 = (double)(((float)var10 + 15.99F) / 256.0F);
+		int var9 = getTextureX(var7);
+		int var10 = getTextureY(var7);
+		double var11 = getTextureU(var7);
+		double var13 = getTextureUWithOffset(var7, 15.99D);
+		double var15 = getTextureV(var7);
+		double var17 = getTextureVWithOffset(var7, 15.99D);
 		float var19 = 1.0F / 16.0F;
 		float var20 = (float)(var2 + 1);
 		float var21 = (float)(var2 + 1);
@@ -1339,12 +1381,12 @@ public class RenderBlocks {
 			var13 = this.overrideBlockTexture;
 		}
 
-		int var14 = (var13 & 15) << 4;
-		int var15 = var13 & 240;
-		float var16 = (float)var14 / 256.0F;
-		float var17 = ((float)var14 + 15.99F) / 256.0F;
-		float var18 = (float)var15 / 256.0F;
-		float var19 = ((float)var15 + 15.99F) / 256.0F;
+		int var14 = getTextureX(var13);
+		int var15 = getTextureY(var13);
+		float var16 = (float)getTextureU(var13);
+		float var17 = (float)getTextureUWithOffset(var13, 15.99D);
+		float var18 = (float)getTextureV(var13);
+		float var19 = (float)getTextureVWithOffset(var13, 15.99D);
 		double var20 = (double)var16 + 1.75D / 64.0D;
 		double var22 = (double)var18 + 6.0D / 256.0D;
 		double var24 = (double)var16 + 9.0D / 256.0D;
@@ -1386,12 +1428,12 @@ public class RenderBlocks {
 			var10 = this.overrideBlockTexture;
 		}
 
-		int var11 = (var10 & 15) << 4;
-		int var12 = var10 & 240;
-		double var13 = (double)((float)var11 / 256.0F);
-		double var15 = (double)(((float)var11 + 15.99F) / 256.0F);
-		double var17 = (double)((float)var12 / 256.0F);
-		double var19 = (double)(((float)var12 + 15.99F) / 256.0F);
+		int var11 = getTextureX(var10);
+		int var12 = getTextureY(var10);
+		double var13 = getTextureU(var10);
+		double var15 = getTextureUWithOffset(var10, 15.99D);
+		double var17 = getTextureV(var10);
+		double var19 = getTextureVWithOffset(var10, 15.99D);
 		double var21 = var3 + 0.5D - (double)0.45F;
 		double var23 = var3 + 0.5D + (double)0.45F;
 		double var25 = var7 + 0.5D - (double)0.45F;
@@ -1421,12 +1463,12 @@ public class RenderBlocks {
 			var10 = this.overrideBlockTexture;
 		}
 
-		int var11 = (var10 & 15) << 4;
-		int var12 = var10 & 240;
-		double var13 = (double)((float)var11 / 256.0F);
-		double var15 = (double)(((float)var11 + 15.99F) / 256.0F);
-		double var17 = (double)((float)var12 / 256.0F);
-		double var19 = (double)(((float)var12 + 15.99F) / 256.0F);
+		int var11 = getTextureX(var10);
+		int var12 = getTextureY(var10);
+		double var13 = getTextureU(var10);
+		double var15 = getTextureUWithOffset(var10, 15.99D);
+		double var17 = getTextureV(var10);
+		double var19 = getTextureVWithOffset(var10, 15.99D);
 		double var21 = var3 + 0.5D - 0.25D;
 		double var23 = var3 + 0.5D + 0.25D;
 		double var25 = var7 + 0.5D - 0.5D;
@@ -1507,10 +1549,10 @@ public class RenderBlocks {
 					var28 = var1.getBlockTextureFromSideAndMetadata(2, var23);
 				}
 
-				int var30 = (var28 & 15) << 4;
-				var31 = var28 & 240;
-				double var32 = ((double)var30 + 8.0D) / 256.0D;
-				double var34 = ((double)var31 + 8.0D) / 256.0D;
+				int var30 = getTextureX(var28);
+				var31 = getTextureY(var28);
+				double var32 = getTextureUWithOffset(var28, 8.0D);
+				double var34 = getTextureVWithOffset(var28, 8.0D);
 				if(var29 < -999.0F) {
 					var29 = 0.0F;
 				} else {
@@ -1518,8 +1560,8 @@ public class RenderBlocks {
 					var34 = (double)((float)(var31 + 16) / 256.0F);
 				}
 
-				var36 = MathHelper.sin(var29) * 8.0F / 256.0F;
-				var37 = MathHelper.cos(var29) * 8.0F / 256.0F;
+				var36 = MathHelper.sin(var29) * 8.0F / getTerrainTextureSize();
+				var37 = MathHelper.cos(var29) * 8.0F / getTerrainTextureSize();
 				var38 = var1.getBlockBrightness(this.blockAccess, var2, var3, var4);
 				var5.setColorOpaque_F(var15 * var38 * var7, var15 * var38 * var8, var15 * var38 * var9);
 				var5.addVertexWithUV((double)(var2 + 0), (double)((float)var3 + var24), (double)(var4 + 0), var32 - (double)var37 - (double)var36, var34 - (double)var37 + (double)var36);
@@ -1555,8 +1597,8 @@ public class RenderBlocks {
 				}
 
 				int var54 = var1.getBlockTextureFromSideAndMetadata(var28 + 2, var23);
-				int var33 = (var54 & 15) << 4;
-				int var55 = var54 & 240;
+				int var33 = getTextureX(var54);
+				int var55 = getTextureY(var54);
 				if(this.renderAllFaces || var12[var28]) {
 					float var35;
 					float var39;
@@ -2663,12 +2705,12 @@ public class RenderBlocks {
 			var8 = this.overrideBlockTexture;
 		}
 
-		int var10 = (var8 & 15) << 4;
-		int var11 = var8 & 240;
-		double var12 = ((double)var10 + var1.minX * 16.0D) / 256.0D;
-		double var14 = ((double)var10 + var1.maxX * 16.0D - 0.01D) / 256.0D;
-		double var16 = ((double)var11 + var1.minZ * 16.0D) / 256.0D;
-		double var18 = ((double)var11 + var1.maxZ * 16.0D - 0.01D) / 256.0D;
+		int var10 = getTextureX(var8);
+		int var11 = getTextureY(var8);
+		double var12 = getTextureUWithOffset(var8, var1.minX * (double)TERRAIN_TILE_SIZE);
+		double var14 = getTextureUWithOffset(var8, var1.maxX * (double)TERRAIN_TILE_SIZE - 0.01D);
+		double var16 = getTextureVWithOffset(var8, var1.minZ * (double)TERRAIN_TILE_SIZE);
+		double var18 = getTextureVWithOffset(var8, var1.maxZ * (double)TERRAIN_TILE_SIZE - 0.01D);
 		if(var1.minX < 0.0D || var1.maxX > 1.0D) {
 			var12 = (double)(((float)var10 + 0.0F) / 256.0F);
 			var14 = (double)(((float)var10 + 15.99F) / 256.0F);
@@ -2745,12 +2787,12 @@ public class RenderBlocks {
 			var8 = this.overrideBlockTexture;
 		}
 
-		int var10 = (var8 & 15) << 4;
-		int var11 = var8 & 240;
-		double var12 = ((double)var10 + var1.minX * 16.0D) / 256.0D;
-		double var14 = ((double)var10 + var1.maxX * 16.0D - 0.01D) / 256.0D;
-		double var16 = ((double)var11 + var1.minZ * 16.0D) / 256.0D;
-		double var18 = ((double)var11 + var1.maxZ * 16.0D - 0.01D) / 256.0D;
+		int var10 = getTextureX(var8);
+		int var11 = getTextureY(var8);
+		double var12 = getTextureUWithOffset(var8, var1.minX * (double)TERRAIN_TILE_SIZE);
+		double var14 = getTextureUWithOffset(var8, var1.maxX * (double)TERRAIN_TILE_SIZE - 0.01D);
+		double var16 = getTextureVWithOffset(var8, var1.minZ * (double)TERRAIN_TILE_SIZE);
+		double var18 = getTextureVWithOffset(var8, var1.maxZ * (double)TERRAIN_TILE_SIZE - 0.01D);
 		if(var1.minX < 0.0D || var1.maxX > 1.0D) {
 			var12 = (double)(((float)var10 + 0.0F) / 256.0F);
 			var14 = (double)(((float)var10 + 15.99F) / 256.0F);
@@ -2827,12 +2869,12 @@ public class RenderBlocks {
 			var8 = this.overrideBlockTexture;
 		}
 
-		int var10 = (var8 & 15) << 4;
-		int var11 = var8 & 240;
-		double var12 = ((double)var10 + var1.minX * 16.0D) / 256.0D;
-		double var14 = ((double)var10 + var1.maxX * 16.0D - 0.01D) / 256.0D;
-		double var16 = ((double)(var11 + 16) - var1.maxY * 16.0D) / 256.0D;
-		double var18 = ((double)(var11 + 16) - var1.minY * 16.0D - 0.01D) / 256.0D;
+		int var10 = getTextureX(var8);
+		int var11 = getTextureY(var8);
+		double var12 = getTextureUWithOffset(var8, var1.minX * (double)TERRAIN_TILE_SIZE);
+		double var14 = getTextureUWithOffset(var8, var1.maxX * (double)TERRAIN_TILE_SIZE - 0.01D);
+		double var16 = getTextureVWithOffset(var8, (double)TERRAIN_TILE_SIZE - var1.maxY * (double)TERRAIN_TILE_SIZE);
+		double var18 = getTextureVWithOffset(var8, (double)TERRAIN_TILE_SIZE - var1.minY * (double)TERRAIN_TILE_SIZE - 0.01D);
 		double var20;
 		if(this.flipTexture) {
 			var20 = var12;
@@ -2916,12 +2958,12 @@ public class RenderBlocks {
 			var8 = this.overrideBlockTexture;
 		}
 
-		int var10 = (var8 & 15) << 4;
-		int var11 = var8 & 240;
-		double var12 = ((double)var10 + var1.minX * 16.0D) / 256.0D;
-		double var14 = ((double)var10 + var1.maxX * 16.0D - 0.01D) / 256.0D;
-		double var16 = ((double)(var11 + 16) - var1.maxY * 16.0D) / 256.0D;
-		double var18 = ((double)(var11 + 16) - var1.minY * 16.0D - 0.01D) / 256.0D;
+		int var10 = getTextureX(var8);
+		int var11 = getTextureY(var8);
+		double var12 = getTextureUWithOffset(var8, var1.minX * (double)TERRAIN_TILE_SIZE);
+		double var14 = getTextureUWithOffset(var8, var1.maxX * (double)TERRAIN_TILE_SIZE - 0.01D);
+		double var16 = getTextureVWithOffset(var8, (double)TERRAIN_TILE_SIZE - var1.maxY * (double)TERRAIN_TILE_SIZE);
+		double var18 = getTextureVWithOffset(var8, (double)TERRAIN_TILE_SIZE - var1.minY * (double)TERRAIN_TILE_SIZE - 0.01D);
 		double var20;
 		if(this.flipTexture) {
 			var20 = var12;
@@ -3005,12 +3047,12 @@ public class RenderBlocks {
 			var8 = this.overrideBlockTexture;
 		}
 
-		int var10 = (var8 & 15) << 4;
-		int var11 = var8 & 240;
-		double var12 = ((double)var10 + var1.minZ * 16.0D) / 256.0D;
-		double var14 = ((double)var10 + var1.maxZ * 16.0D - 0.01D) / 256.0D;
-		double var16 = ((double)(var11 + 16) - var1.maxY * 16.0D) / 256.0D;
-		double var18 = ((double)(var11 + 16) - var1.minY * 16.0D - 0.01D) / 256.0D;
+		int var10 = getTextureX(var8);
+		int var11 = getTextureY(var8);
+		double var12 = getTextureUWithOffset(var8, var1.minZ * (double)TERRAIN_TILE_SIZE);
+		double var14 = getTextureUWithOffset(var8, var1.maxZ * (double)TERRAIN_TILE_SIZE - 0.01D);
+		double var16 = getTextureVWithOffset(var8, (double)TERRAIN_TILE_SIZE - var1.maxY * (double)TERRAIN_TILE_SIZE);
+		double var18 = getTextureVWithOffset(var8, (double)TERRAIN_TILE_SIZE - var1.minY * (double)TERRAIN_TILE_SIZE - 0.01D);
 		double var20;
 		if(this.flipTexture) {
 			var20 = var12;
@@ -3094,12 +3136,12 @@ public class RenderBlocks {
 			var8 = this.overrideBlockTexture;
 		}
 
-		int var10 = (var8 & 15) << 4;
-		int var11 = var8 & 240;
-		double var12 = ((double)var10 + var1.minZ * 16.0D) / 256.0D;
-		double var14 = ((double)var10 + var1.maxZ * 16.0D - 0.01D) / 256.0D;
-		double var16 = ((double)(var11 + 16) - var1.maxY * 16.0D) / 256.0D;
-		double var18 = ((double)(var11 + 16) - var1.minY * 16.0D - 0.01D) / 256.0D;
+		int var10 = getTextureX(var8);
+		int var11 = getTextureY(var8);
+		double var12 = getTextureUWithOffset(var8, var1.minZ * (double)TERRAIN_TILE_SIZE);
+		double var14 = getTextureUWithOffset(var8, var1.maxZ * (double)TERRAIN_TILE_SIZE - 0.01D);
+		double var16 = getTextureVWithOffset(var8, (double)TERRAIN_TILE_SIZE - var1.maxY * (double)TERRAIN_TILE_SIZE);
+		double var18 = getTextureVWithOffset(var8, (double)TERRAIN_TILE_SIZE - var1.minY * (double)TERRAIN_TILE_SIZE - 0.01D);
 		double var20;
 		if(this.flipTexture) {
 			var20 = var12;

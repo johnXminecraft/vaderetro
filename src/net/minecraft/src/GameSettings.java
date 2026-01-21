@@ -49,6 +49,9 @@ public class GameSettings {
 	public float field_22272_F = 1.0F;
 	public float field_22271_G = 1.0F;
 	public int guiScale = 0;
+	public int isomScale = 16;
+	public int hugeWidth = 7680;
+	public int hugeHeight = 2240;
 
 	public GameSettings(Minecraft var1, File var2) {
 		this.mc = var1;
@@ -251,6 +254,18 @@ public class GameSettings {
 						this.lastServer = var3[1];
 					}
 
+					if(var3[0].equals("isomScale")) {
+						this.isomScale = Integer.parseInt(var3[1]);
+					}
+
+					if(var3[0].equals("hugeWidth")) {
+						this.hugeWidth = Integer.parseInt(var3[1]);
+					}
+
+					if(var3[0].equals("hugeHeight")) {
+						this.hugeHeight = Integer.parseInt(var3[1]);
+					}
+
 					for(int var4 = 0; var4 < this.keyBindings.length; ++var4) {
 						if(var3[0].equals("key_" + this.keyBindings[var4].keyDescription)) {
 							this.keyBindings[var4].keyCode = Integer.parseInt(var3[1]);
@@ -293,6 +308,10 @@ public class GameSettings {
 			for(int var2 = 0; var2 < this.keyBindings.length; ++var2) {
 				var1.println("key_" + this.keyBindings[var2].keyDescription + ":" + this.keyBindings[var2].keyCode);
 			}
+
+			var1.println("isomScale:" + this.isomScale);
+			var1.println("hugeWidth:" + this.hugeWidth);
+			var1.println("hugeHeight:" + this.hugeHeight);
 
 			var1.close();
 		} catch (Exception var3) {

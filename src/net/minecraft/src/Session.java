@@ -51,5 +51,10 @@ public class Session {
 		registeredBlocksList.add(Block.oreGoldHell);
 		registeredBlocksList.add(Block.oreSulfurHell);
 		registeredBlocksList.add(Block.plantBlue);
+		registeredBlocksList.add(Block.millAxle);
+		registeredBlocksList.add(Block.axleRod);
+		registeredBlocksList.add(Block.gearbox);
+		registeredBlocksList.add(Block.wheatGrinder);
 	}
 }
+

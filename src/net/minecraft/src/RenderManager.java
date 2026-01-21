@@ -13,6 +13,12 @@ import net.minecraft.src.vaderetro.johnfarmmod.entity.wild.EntityBoar;
 import net.minecraft.src.vaderetro.johnchurchmod.entity.EntityIcon;
 import net.minecraft.src.vaderetro.johnfarmmod.render.RenderBoar;
 import net.minecraft.src.vaderetro.johnchurchmod.render.RenderIcon;
+import net.minecraft.src.vaderetro.entity.EntityObjModel;
+import net.minecraft.src.vaderetro.render.RenderObjModel;
+import net.minecraft.src.Airship.EntityAirship;
+import net.minecraft.src.Airship.RenderAirship;
+import net.minecraft.src.Airship.ModelAirship;
+import net.minecraft.src.Airship.ModelBalloon;
 import org.lwjgl.opengl.GL11;
 
 public class RenderManager {
@@ -65,9 +71,11 @@ public class RenderManager {
 
 		this.entityRenderMap.put(EntityMusketBullet.class, new RenderMusketBullet());
 		this.entityRenderMap.put(EntityAR15Bullet.class, new RenderAR15Bullet());
+		this.entityRenderMap.put(EntityObjModel.class, new RenderObjModel());
 		this.entityRenderMap.put(EntityBoar.class, new RenderBoar(new ModelPig(), 0.7F));
 		this.entityRenderMap.put(EntityIcon.class, new RenderIcon());
 		this.entityRenderMap.put(EntityMiner.class, new RenderBiped(new ModelZombie(), 0.5F));
+		this.entityRenderMap.put(EntityAirship.class, new RenderAirship(new ModelAirship(), new ModelBalloon(), 3.0F));
 
 		Iterator var1 = this.entityRenderMap.values().iterator();
 

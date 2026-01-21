@@ -19,6 +19,11 @@ Tiles
 Green Tiles
 Mill
 BlockJohnMill
+Nuclear Bomb
+BlockAxleRod
+BlockGearbox
+BlockMillAxle
+BlockWheatGrinder
 Onion plant
 Tobacco plant
 Cannabis plant

@@ -58,6 +58,7 @@ public class RenderGlobal implements IWorldAccess {
 	double prevSortZ = -9999.0D;
 	public float damagePartialTime;
 	int frustrumCheckOffset = 0;
+	public static boolean isTakingIsometricScreenshot = false;
 
 	public RenderGlobal(Minecraft var1, RenderEngine var2) {
 		this.mc = var1;
@@ -283,7 +284,7 @@ public class RenderGlobal implements IWorldAccess {
 
 			for(var6 = 0; var6 < var5.size(); ++var6) {
 				var7 = (Entity)var5.get(var6);
-				if(var7.isInRangeToRenderVec3D(var1) && (var7.ignoreFrustumCheck || var2.isBoundingBoxInFrustum(var7.boundingBox)) && (var7 != this.mc.renderViewEntity || this.mc.gameSettings.thirdPersonView || this.mc.renderViewEntity.isPlayerSleeping())) {
+				if(var7.isInRangeToRenderVec3D(var1) && (var7.ignoreFrustumCheck || var2.isBoundingBoxInFrustum(var7.boundingBox)) && (var7 != this.mc.renderViewEntity || this.mc.gameSettings.thirdPersonView || this.mc.renderViewEntity.isPlayerSleeping() || isTakingIsometricScreenshot)) {
 					int var8 = MathHelper.floor_double(var7.posY);
 					if(var8 < 0) {
 						var8 = 0;
@@ -791,7 +792,7 @@ public class RenderGlobal implements IWorldAccess {
 		float var5 = 4.0F;
 		double var6 = (this.mc.renderViewEntity.prevPosX + (this.mc.renderViewEntity.posX - this.mc.renderViewEntity.prevPosX) * (double)var1 + (double)(((float)this.cloudOffsetX + var1) * 0.03F)) / (double)var4;
 		double var8 = (this.mc.renderViewEntity.prevPosZ + (this.mc.renderViewEntity.posZ - this.mc.renderViewEntity.prevPosZ) * (double)var1) / (double)var4 + (double)0.33F;
-		float var10 = this.worldObj.worldProvider.getCloudHeight() - var2 + 0.33F;
+		float var10 = this.worldObj.worldProvider.getCloudHeight() - var2 + 12.33F;
 		int var11 = MathHelper.floor_double(var6 / 2048.0D);
 		int var12 = MathHelper.floor_double(var8 / 2048.0D);
 		var6 -= (double)(var11 * 2048);
@@ -1310,6 +1311,30 @@ public class RenderGlobal implements IWorldAccess {
 					this.mc.effectRenderer.addEffect(new EntitySlimeFX(this.worldObj, var2, var4, var6, Item.slimeBall));
 				} else if(var1.equals("heart")) {
 					this.mc.effectRenderer.addEffect(new EntityHeartFX(this.worldObj, var2, var4, var6, var8, var10, var12));
+				} else if(var1.startsWith("iconcrack_")) {
+					String string22[] = var1.split("_", 3);
+					int i23 = Integer.parseInt(string22[1]);
+					this.mc.effectRenderer.addEffect(new EntitySlimeFX(this.worldObj, var2, var4, var6, Item.itemsList[i23]));
+				} else if(var1.startsWith("tilecrack_")) {
+					String string25[] = var1.split("_", 3);
+					int i26 = Integer.parseInt(string25[1]);
+					int i27 = Integer.parseInt(string25[2]);
+					int i28 = MathHelper.floor_double(var2);
+					int i29 = MathHelper.floor_double(var4);
+					int i30 = MathHelper.floor_double(var6);
+					this.mc.effectRenderer.addEffect((new EntityDiggingFX(this.worldObj, var2, var4, var6, var8, var10, var12, Block.blocksList[i26], 1, i27)).func_4041_a(i28, i29, i30));
+				} else if(var1.startsWith("tiledust_")) {
+					String string31[] = var1.split("_", 3);
+					int i32 = Integer.parseInt(string31[1]);
+					int i33 = Integer.parseInt(string31[2]);
+					int i34 = MathHelper.floor_double(var2);
+					int i35 = MathHelper.floor_double(var4);
+					int i36 = MathHelper.floor_double(var6);
+					EntityDiggingFX entityDiggingFX36 = new EntityDiggingFX(this.worldObj, var2, var4, var6, var8, var10, var12, Block.blocksList[i32], 1, i33);
+					entityDiggingFX36.motionX = var8;
+					entityDiggingFX36.motionY = var10;
+					entityDiggingFX36.motionZ = var12;
+					this.mc.effectRenderer.addEffect(entityDiggingFX36.func_4041_a(i34, i35, i36));
 				}
 
 			}
@@ -1361,10 +1386,10 @@ public class RenderGlobal implements IWorldAccess {
 		int var16;
 		switch(var2) {
 		case 1000:
-			this.worldObj.playSoundEffect((double)var3, (double)var4, (double)var5, "random.click", 1.0F, 1.0F);
+			this.worldObj.playSoundEffect((double)var3, (double)var4, (double)var5, var6 == 1 ? "random.wood click" : "random.click", 1.0F, 1.0F);
 			break;
 		case 1001:
-			this.worldObj.playSoundEffect((double)var3, (double)var4, (double)var5, "random.click", 1.0F, 1.2F);
+			this.worldObj.playSoundEffect((double)var3, (double)var4, (double)var5, var6 == 1 ? "random.wood click" : "random.click", 1.0F, 1.2F);
 			break;
 		case 1002:
 			this.worldObj.playSoundEffect((double)var3, (double)var4, (double)var5, "random.bow", 1.0F, 1.2F);
@@ -1413,6 +1438,17 @@ public class RenderGlobal implements IWorldAccess {
 			}
 
 			this.mc.effectRenderer.addBlockDestroyEffects(var3, var4, var5, var6 & 255, var6 >> 8 & 255);
+			break;
+		case 2004:
+			for(int i17 = 0; i17 < 20; ++i17) {
+				double d31 = (double)var3 + 0.5D + ((double)this.worldObj.rand.nextFloat() - 0.5D) * 2.0D;
+				double d33 = (double)var4 + 0.5D + ((double)this.worldObj.rand.nextFloat() - 0.5D) * 2.0D;
+				double d34 = (double)var5 + 0.5D + ((double)this.worldObj.rand.nextFloat() - 0.5D) * 2.0D;
+				this.worldObj.spawnParticle("smoke", d31, d33, d34, 0.0D, 0.0D, 0.0D);
+				this.worldObj.spawnParticle("flame", d31, d33, d34, 0.0D, 0.0D, 0.0D);
+			}
+
+			break;
 		}
 
 	}

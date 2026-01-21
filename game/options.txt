@@ -4,12 +4,12 @@ invertYMouse:false
 mouseSensitivity:0.5
 viewDistance:0
 guiScale:3
-bobView:true
+bobView:false
 anaglyph3d:false
-advancedOpengl:false
-fpsLimit:1
+advancedOpengl:true
+fpsLimit:0
 difficulty:3
-fancyGraphics:false
+fancyGraphics:true
 ao:true
 skin:Default
 lastServer:
@@ -23,3 +23,6 @@ key_key.drop:16
 key_key.inventory:18
 key_key.chat:20
 key_key.fog:33
+isomScale:16
+hugeWidth:7680
+hugeHeight:2240

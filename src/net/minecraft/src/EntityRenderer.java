@@ -798,6 +798,20 @@ public class EntityRenderer {
 		this.fogColorRed = (float)var9.xCoord;
 		this.fogColorGreen = (float)var9.yCoord;
 		this.fogColorBlue = (float)var9.zCoord;
+		if(net.minecraft.src.vaderetro.NukeEffectsManager.isActive()) {
+			double px = var3.posX;
+			double py = var3.posY;
+			double pz = var3.posZ;
+			float intensity = net.minecraft.src.vaderetro.NukeEffectsManager.getIntensityAt(px, py, pz);
+			if(intensity > 0.0F) {
+				float targetR = 0.6F;
+				float targetG = 1.0F;
+				float targetB = 0.6F;
+				this.fogColorRed = this.fogColorRed * (1.0F - intensity) + targetR * intensity;
+				this.fogColorGreen = this.fogColorGreen * (1.0F - intensity) + targetG * intensity;
+				this.fogColorBlue = this.fogColorBlue * (1.0F - intensity) + targetB * intensity;
+			}
+		}
 		this.fogColorRed += (var6 - this.fogColorRed) * var4;
 		this.fogColorGreen += (var7 - this.fogColorGreen) * var4;
 		this.fogColorBlue += (var8 - this.fogColorBlue) * var4;
@@ -937,5 +951,27 @@ public class EntityRenderer {
 		this.fogColorBuffer.put(var1).put(var2).put(var3).put(var4);
 		this.fogColorBuffer.flip();
 		return this.fogColorBuffer;
+	}
+
+	public void setCameraZoom(double zoom, double yaw, double pitch) {
+		this.cameraZoom = zoom;
+		this.cameraYaw = yaw;
+		this.cameraPitch = pitch;
+	}
+
+	public void setupCameraTransform() {
+		this.farPlaneDistance = (float)(512 >> (this.mc.gameSettings.renderDistance << 1));
+	}
+
+	public void renderRainSnow() {
+		this.renderRainSnow(0.0F);
+	}
+
+	public void updateFogColor() {
+		this.updateFogColor(0.0F);
+	}
+
+	public void setupFog() {
+		this.setupFog(0, 0.0F);
 	}
 }

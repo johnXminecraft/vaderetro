@@ -9,6 +9,8 @@ import net.minecraft.src.vaderetro.johnindustrialmod.gui.GuiOpenHearthFurnace;
 import net.minecraft.src.vaderetro.johncrtmod.entity.tileentity.TileEntityCrtTvSet;
 import net.minecraft.src.vaderetro.johnoilmod.entity.tileentity.TileEntityKeroseneLamp;
 import net.minecraft.src.vaderetro.johnindustrialmod.entity.tileentity.TileEntityOpenHearthFurnace;
+import net.minecraft.src.vaderetro.johnmillmod.entity.tileentity.TileEntityWheatGrinder;
+import net.minecraft.src.vaderetro.johnmillmod.gui.GuiWheatGrinder;
 
 public class EntityPlayerSP extends EntityPlayer {
 	public MovementInput movementInput;
@@ -144,6 +146,10 @@ public class EntityPlayerSP extends EntityPlayer {
 
 	public void displayGUIKeroseneLamp(TileEntityKeroseneLamp var1) {
 		this.mc.displayGuiScreen(new GuiKeroseneLamp(this.inventory, var1));
+	}
+
+	public void displayGUIWheatGrinder(TileEntityWheatGrinder var1) {
+		this.mc.displayGuiScreen(new GuiWheatGrinder(this.inventory, var1));
 	}
 
 	public void displayGUIDryer(TileEntityDryer var1) {

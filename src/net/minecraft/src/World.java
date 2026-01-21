@@ -96,6 +96,7 @@ public class World implements IBlockAccess {
 		this.field_28108_z = new MapStorage(var1);
 		var3.registerWorld(this);
 		this.chunkProvider = this.getChunkProvider();
+		net.minecraft.src.vaderetro.NukeEffectsManager.restoreFromWorldInfo(this);
 		this.calculateInitialSkylight();
 		this.func_27163_E();
 	}

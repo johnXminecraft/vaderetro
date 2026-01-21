@@ -6,7 +6,14 @@ import java.util.Arrays;
 import javax.imageio.ImageIO;
 
 public class TerrainTextureManager {
-	private float[] field_1181_a = new float[768];
+	private static final int TERRAIN_TILE_SIZE = 16;
+	private static final int MAX_TEXTURE_INDEX = 1024;
+	
+	// Dynamic texture size - determined at runtime
+	private static int terrainTextureSize = 256;
+	private static int terrainTilesPerRow = 16;
+	
+	private float[] field_1181_a = new float[3072]; // 1024 * 3
 	private int[] field_1180_b = new int[5120];
 	private int[] field_1186_c = new int[5120];
 	private int[] field_1185_d = new int[5120];
@@ -17,26 +24,37 @@ public class TerrainTextureManager {
 	public TerrainTextureManager() {
 		try {
 			BufferedImage var1 = ImageIO.read(TerrainTextureManager.class.getResource("/terrain.png"));
-			int[] var2 = new int[65536];
-			var1.getRGB(0, 0, 256, 256, var2, 0, 256);
+			int textureWidth = var1.getWidth();
+			int textureHeight = var1.getHeight();
+			
+			// Determine texture size and tiles per row dynamically
+			terrainTextureSize = textureWidth;
+			terrainTilesPerRow = textureWidth / TERRAIN_TILE_SIZE;
+			
+			int[] var2 = new int[textureWidth * textureHeight];
+			var1.getRGB(0, 0, textureWidth, textureHeight, var2, 0, textureWidth);
 
-			for(int var3 = 0; var3 < 256; ++var3) {
+			int maxTextures = Math.min(MAX_TEXTURE_INDEX, (textureWidth / TERRAIN_TILE_SIZE) * (textureHeight / TERRAIN_TILE_SIZE));
+			
+			for(int var3 = 0; var3 < maxTextures; ++var3) {
 				int var4 = 0;
 				int var5 = 0;
 				int var6 = 0;
-				int var7 = var3 % 16 * 16;
-				int var8 = var3 / 16 * 16;
+				int var7 = (var3 % terrainTilesPerRow) * TERRAIN_TILE_SIZE;
+				int var8 = (var3 / terrainTilesPerRow) * TERRAIN_TILE_SIZE;
 				int var9 = 0;
 
-				for(int var10 = 0; var10 < 16; ++var10) {
-					for(int var11 = 0; var11 < 16; ++var11) {
-						int var12 = var2[var11 + var7 + (var10 + var8) * 256];
-						int var13 = var12 >> 24 & 255;
-						if(var13 > 128) {
-							var4 += var12 >> 16 & 255;
-							var5 += var12 >> 8 & 255;
-							var6 += var12 & 255;
-							++var9;
+				for(int var10 = 0; var10 < TERRAIN_TILE_SIZE; ++var10) {
+					for(int var11 = 0; var11 < TERRAIN_TILE_SIZE; ++var11) {
+						if(var7 + var11 < textureWidth && var8 + var10 < textureHeight) {
+							int var12 = var2[(var11 + var7) + (var10 + var8) * textureWidth];
+							int var13 = var12 >> 24 & 255;
+							if(var13 > 128) {
+								var4 += var12 >> 16 & 255;
+								var5 += var12 >> 8 & 255;
+								var6 += var12 & 255;
+								++var9;
+							}
 						}
 					}
 
@@ -210,5 +228,13 @@ public class TerrainTextureManager {
 			}
 		}
 
+	}
+	
+	public static int getTerrainTextureSize() {
+		return terrainTextureSize;
+	}
+	
+	public static int getTerrainTilesPerRow() {
+		return terrainTilesPerRow;
 	}
 }

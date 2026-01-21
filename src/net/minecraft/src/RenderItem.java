@@ -38,11 +38,11 @@ public class RenderItem extends Render {
 		float var16;
 		float var17;
 		float var18;
-		if(var10.itemID < 256 && RenderBlocks.renderItemIn3d(Block.blocksList[var10.itemID].getRenderType())) {
+		if(var10.itemID < 256 && Block.blocksList[var10.itemID] != null && RenderBlocks.renderItemIn3d(Block.blocksList[var10.itemID].getRenderType())) {
 			GL11.glRotatef(var12, 0.0F, 1.0F, 0.0F);
 			this.loadTexture("/terrain.png");
 			float var28 = 0.25F;
-			if(!Block.blocksList[var10.itemID].renderAsNormalBlock() && var10.itemID != Block.stairSingle.blockID && Block.blocksList[var10.itemID].getRenderType() != 16) {
+			if(Block.blocksList[var10.itemID] != null && !Block.blocksList[var10.itemID].renderAsNormalBlock() && var10.itemID != Block.stairSingle.blockID && Block.blocksList[var10.itemID].getRenderType() != 16) {
 				var28 = 0.5F;
 			}
 
@@ -82,12 +82,15 @@ public class RenderItem extends Render {
 			float var25;
 			float var26;
 			if(this.field_27004_a) {
-				var23 = Item.itemsList[var10.itemID].getColorFromDamage(var10.getItemDamage());
-				var24 = (float)(var23 >> 16 & 255) / 255.0F;
-				var25 = (float)(var23 >> 8 & 255) / 255.0F;
-				var26 = (float)(var23 & 255) / 255.0F;
-				float var27 = var1.getEntityBrightness(var9);
-				GL11.glColor4f(var24 * var27, var25 * var27, var26 * var27, 1.0F);
+				Item item = Item.itemsList[var10.itemID];
+				if (item != null) {
+					var23 = item.getColorFromDamage(var10.getItemDamage());
+					var24 = (float)(var23 >> 16 & 255) / 255.0F;
+					var25 = (float)(var23 >> 8 & 255) / 255.0F;
+					var26 = (float)(var23 & 255) / 255.0F;
+					float var27 = var1.getEntityBrightness(var9);
+					GL11.glColor4f(var24 * var27, var25 * var27, var26 * var27, 1.0F);
+				}
 			}
 
 			for(var23 = 0; var23 < var13; ++var23) {
@@ -117,7 +120,7 @@ public class RenderItem extends Render {
 
 	public void drawItemIntoGui(FontRenderer var1, RenderEngine var2, int var3, int var4, int var5, int var6, int var7) {
 		float var11;
-		if(var3 < 256 && RenderBlocks.renderItemIn3d(Block.blocksList[var3].getRenderType())) {
+		if(var3 < 256 && Block.blocksList[var3] != null && RenderBlocks.renderItemIn3d(Block.blocksList[var3].getRenderType())) {
 			var2.bindTexture(var2.getTexture("/terrain.png"));
 			Block var14 = Block.blocksList[var3];
 			GL11.glPushMatrix();
@@ -127,12 +130,15 @@ public class RenderItem extends Render {
 			GL11.glScalef(1.0F, 1.0F, -1.0F);
 			GL11.glRotatef(210.0F, 1.0F, 0.0F, 0.0F);
 			GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
-			int var15 = Item.itemsList[var3].getColorFromDamage(var4);
-			var11 = (float)(var15 >> 16 & 255) / 255.0F;
-			float var12 = (float)(var15 >> 8 & 255) / 255.0F;
-			float var13 = (float)(var15 & 255) / 255.0F;
-			if(this.field_27004_a) {
-				GL11.glColor4f(var11, var12, var13, 1.0F);
+			Item item = Item.itemsList[var3];
+			if (item != null) {
+				int var15 = item.getColorFromDamage(var4);
+				var11 = (float)(var15 >> 16 & 255) / 255.0F;
+				float var12 = (float)(var15 >> 8 & 255) / 255.0F;
+				float var13 = (float)(var15 & 255) / 255.0F;
+				if(this.field_27004_a) {
+					GL11.glColor4f(var11, var12, var13, 1.0F);
+				}
 			}
 
 			GL11.glRotatef(-90.0F, 0.0F, 1.0F, 0.0F);
@@ -148,12 +154,15 @@ public class RenderItem extends Render {
 				var2.bindTexture(var2.getTexture("/gui/items.png"));
 			}
 
-			int var8 = Item.itemsList[var3].getColorFromDamage(var4);
-			float var9 = (float)(var8 >> 16 & 255) / 255.0F;
-			float var10 = (float)(var8 >> 8 & 255) / 255.0F;
-			var11 = (float)(var8 & 255) / 255.0F;
-			if(this.field_27004_a) {
-				GL11.glColor4f(var9, var10, var11, 1.0F);
+			Item item = Item.itemsList[var3];
+			if (item != null) {
+				int var8 = item.getColorFromDamage(var4);
+				float var9 = (float)(var8 >> 16 & 255) / 255.0F;
+				float var10 = (float)(var8 >> 8 & 255) / 255.0F;
+				var11 = (float)(var8 & 255) / 255.0F;
+				if(this.field_27004_a) {
+					GL11.glColor4f(var9, var10, var11, 1.0F);
+				}
 			}
 
 			this.renderTexturedQuad(var6, var7, var5 % 16 * 16, var5 / 16 * 16, 16, 16);

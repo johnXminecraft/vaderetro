@@ -52,11 +52,19 @@ public final class ItemStack {
 	}
 
 	public int getIconIndex() {
-		return this.getItem().getIconIndex(this);
+		Item item = this.getItem();
+		if (item == null) {
+			return 0; 
+		}
+		return item.getIconIndex(this);
 	}
 
 	public boolean useItem(EntityPlayer var1, World var2, int var3, int var4, int var5, int var6) {
-		boolean var7 = this.getItem().onItemUse(this, var1, var2, var3, var4, var5, var6);
+		Item item = this.getItem();
+		if (item == null) {
+			return false;
+		}
+		boolean var7 = item.onItemUse(this, var1, var2, var3, var4, var5, var6);
 		if(var7) {
 			var1.addStat(StatList.field_25172_A[this.itemID], 1);
 		}
@@ -65,11 +73,19 @@ public final class ItemStack {
 	}
 
 	public float getStrVsBlock(Block var1) {
-		return this.getItem().getStrVsBlock(this, var1);
+		Item item = this.getItem();
+		if (item == null) {
+			return 1.0F;
+		}
+		return item.getStrVsBlock(this, var1);
 	}
 
 	public ItemStack useItemRightClick(World var1, EntityPlayer var2) {
-		return this.getItem().onItemRightClick(this, var1, var2);
+		Item item = this.getItem();
+		if (item == null) {
+			return this;
+		}
+		return item.onItemRightClick(this, var1, var2);
 	}
 
 	public NBTTagCompound writeToNBT(NBTTagCompound var1) {
@@ -86,7 +102,11 @@ public final class ItemStack {
 	}
 
 	public int getMaxStackSize() {
-		return this.getItem().getItemStackLimit();
+		Item item = this.getItem();
+		if (item == null) {
+			return 64; 
+		}
+		return item.getItemStackLimit();
 	}
 
 	public boolean isStackable() {
@@ -94,11 +114,19 @@ public final class ItemStack {
 	}
 
 	public boolean isItemStackDamageable() {
-		return Item.itemsList[this.itemID].getMaxDamage() > 0;
+		Item item = Item.itemsList[this.itemID];
+		if (item == null) {
+			return false;
+		}
+		return item.getMaxDamage() > 0;
 	}
 
 	public boolean getHasSubtypes() {
-		return Item.itemsList[this.itemID].getHasSubtypes();
+		Item item = Item.itemsList[this.itemID];
+		if (item == null) {
+			return false;
+		}
+		return item.getHasSubtypes();
 	}
 
 	public boolean isItemDamaged() {
@@ -188,7 +216,11 @@ public final class ItemStack {
 	}
 
 	public String getItemName() {
-		return Item.itemsList[this.itemID].getItemNameIS(this);
+		Item item = Item.itemsList[this.itemID];
+		if (item == null) {
+			return "Unknown Item";
+		}
+		return item.getItemNameIS(this);
 	}
 
 	public static ItemStack copyItemStack(ItemStack var0) {
@@ -196,7 +228,9 @@ public final class ItemStack {
 	}
 
 	public String toString() {
-		return this.stackSize + "x" + Item.itemsList[this.itemID].getItemName() + "@" + this.itemDamage;
+		Item item = Item.itemsList[this.itemID];
+		String itemName = (item != null) ? item.getItemName() : "Unknown Item";
+		return this.stackSize + "x" + itemName + "@" + this.itemDamage;
 	}
 
 	public void updateAnimation(World var1, Entity var2, int var3, boolean var4) {
@@ -204,12 +238,18 @@ public final class ItemStack {
 			--this.animationsToGo;
 		}
 
-		Item.itemsList[this.itemID].onUpdate(this, var1, var2, var3, var4);
+		Item item = Item.itemsList[this.itemID];
+		if (item != null) {
+			item.onUpdate(this, var1, var2, var3, var4);
+		}
 	}
 
 	public void onCrafting(World var1, EntityPlayer var2) {
 		var2.addStat(StatList.field_25158_z[this.itemID], this.stackSize);
-		Item.itemsList[this.itemID].onCreated(this, var1, var2);
+		Item item = Item.itemsList[this.itemID];
+		if (item != null) {
+			item.onCreated(this, var1, var2);
+		}
 	}
 
 	public boolean isStackEqual(ItemStack var1) {

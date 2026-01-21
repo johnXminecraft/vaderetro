@@ -1,10 +1,13 @@
 package net.minecraft.src;
+
 import net.minecraft.src.vaderetro.johnfarmmod.entity.tileentity.TileEntityDryer;
 import net.minecraft.src.vaderetro.johnmillmod.entity.tileentity.TileEntityJohnMill;
-
 import net.minecraft.src.vaderetro.johncrtmod.entity.tileentity.TileEntityCrtTvSet;
 import net.minecraft.src.vaderetro.johnoilmod.entity.tileentity.TileEntityKeroseneLamp;
 import net.minecraft.src.vaderetro.johnindustrialmod.entity.tileentity.TileEntityOpenHearthFurnace;
+import net.minecraft.src.vaderetro.entity.TileEntityNuclearBomb;
+import net.minecraft.src.vaderetro.johnmillmod.entity.tileentity.TileEntityAxleRod;
+import net.minecraft.src.vaderetro.johnmillmod.entity.tileentity.TileEntityWheatGrinder;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -110,6 +113,9 @@ public class TileEntity {
 		addMapping(TileEntityCrtTvSet.class, "CrtTvSet");
 		addMapping(TileEntityKeroseneLamp.class, "KeroseneLamp");
 		addMapping(TileEntityJohnMill.class, "JohnMill");
+		addMapping(TileEntityNuclearBomb.class, "NuclearBomb");
+		addMapping(TileEntityAxleRod.class, "AxleRod");
+		addMapping(TileEntityWheatGrinder.class, "WheatGrinder");
 		// Legacy IDs from older saves
 		addMapping(TileEntityJohnMill.class, "Windmill");
 		addMapping(TileEntityJohnMill.class, "Millstone");

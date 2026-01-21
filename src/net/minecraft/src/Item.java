@@ -1,5 +1,10 @@
 package net.minecraft.src;
 
+import net.minecraft.src.BML.ItemObjSpawner;
+import net.minecraft.src.BML.ItemUVMapGenerator;
+import net.minecraft.src.Airship.ItemAirship;
+import net.minecraft.src.vaderetro.item.ItemNuclearBombPlacer;
+import net.minecraft.src.vaderetro.johnmillmod.item.ItemFlour;
 import net.minecraft.src.vaderetro.johnfarmmod.item.*;
 import net.minecraft.src.vaderetro.johnweaponmod.item.ItemMusket;
 import net.minecraft.src.vaderetro.johnweaponmod.item.ItemAR15;
@@ -118,13 +123,11 @@ public class Item {
 	public static Item record13 = (new ItemRecord(2000, "13")).setIconCoord(0, 15).setItemName("record");
 	public static Item recordCat = (new ItemRecord(2001, "cat")).setIconCoord(1, 15).setItemName("record");
 
-	// johnchurchmod
 	public static Item icon = (new ItemIcon(137)).setIconCoord(5, 12).setItemName("icon");
 	public static Item canvas = (new Item(138)).setIconCoord(5, 13).setItemName("canvas");
 	public static Item easterEgg = (new ItemEasterEgg(141)).setIconCoord(9, 6).setItemName("easterEgg");
 	public static Item bowlOfGold = (new Item(158)).setIconCoord(8, 9).setItemName("bowlOfGold");
 
-	// johncrtmod
 	public static Item wire = (new Item(116)).setIconCoord(3, 11).setItemName("wire");
 	public static Item anodeCathode = (new Item(121)).setIconCoord(3, 12).setItemName("anodeCathode");
 	public static Item vacuumTube = (new Item(122)).setIconCoord(3, 10).setItemName("vacuumTube");
@@ -134,7 +137,6 @@ public class Item {
 	public static Item capacitor = (new Item(126)).setIconCoord(4, 11).setItemName("capacitor");
 	public static Item cathodeRayTube = (new Item(127)).setIconCoord(3, 13).setItemName("cathodeRayTube");
 
-	// johnfarmmod
 	public static Item eggFried = (new ItemFood(128, 6, false)).setIconCoord(4, 13).setItemName("eggFried");
 	public static Item onion = (new ItemOnion(142, Block.onion.blockID)).setIconCoord(14, 2).setItemName("onion");
 	public static Item tobaccoSeeds = (new ItemTobaccoSeeds(143, Block.tobaccoPlant.blockID)).setIconCoord(6, 2).setItemName("tobaccoSeeds");
@@ -151,7 +153,11 @@ public class Item {
 	public static Item driedLeather = (new Item(159)).setIconCoord(7, 13).setItemName("driedLeather");
 	public static Item belt = (new Item(160)).setIconCoord(8, 13).setItemName("belt");
 
-	// johnindustrialmod
+	public static Item objSpawner = (new ItemObjSpawner(161)).setIconCoord(6, 9).setItemName("objSpawner");
+	public static Item uvMapGenerator = (new ItemUVMapGenerator(162)).setIconCoord(6, 9).setItemName("uvMapGenerator");
+	public static Item nuclearBombPlacer = (new ItemNuclearBombPlacer(163)).setIconCoord(6, 9).setItemName("nuclearBomb");
+	public static Item flour = (new ItemFlour(164)).setIconCoord(6, 13).setItemName("flour");
+
 	public static Item ingotStainedSteel = (new Item(104)).setIconCoord(0, 9).setItemName("ingotStainedSteel");
 	public static Item helmetStainedSteel = (new ItemArmor(105, 4, 5, 0)).setIconCoord(1, 9).setItemName("helmetStainedSteel");
 	public static Item plateStainedSteel = (new ItemArmor(106, 4, 5, 1)).setIconCoord(1, 10).setItemName("chestplateStainedSteel");
@@ -170,31 +176,21 @@ public class Item {
 	public static Item charcoal = (new Item(140)).setIconCoord(6, 7).setItemName("charcoal");
 	public static Item uraniumDust = (new Item(157)).setIconCoord(8, 10).setItemName("uraniumDust");
 
-	// johnoilmod
 	public static Item bucketOil = (new ItemBucket(117, Block.oilMoving.blockID)).setIconCoord(0, 12).setItemName("bucketOil").setContainerItem(bucketEmpty);
 	public static Item bucketKerosene = (new ItemBucket(118, -1)).setIconCoord(2, 13).setItemName("bucketKerosene").setContainerItem(bucketEmpty);
 	public static Item ingotPlastic = (new Item(119)).setIconCoord(0, 13).setItemName("ingotPlastic");
 	public static Item detailPlastic = (new Item(120)).setIconCoord(1, 13).setItemName("detailPlastic");
 
-	// johnweaponmod
 	public static Item musket = (new ItemMusket(131)).setIconCoord(5, 10).setItemName("musket");
 	public static Item musketButt = (new Item(132)).setIconCoord(5, 9).setItemName("musketButt");
 	public static Item musketBarrel = (new Item(133)).setIconCoord(5, 8).setItemName("musketBarrel");
 	public static Item musketBullet = (new Item(134)).setIconCoord(5, 7).setItemName("musketBullet");
-	// unable to get
 	public static Item ar15Bullet = (new Item(135)).setIconCoord(6, 8).setItemName("ar15Bullet");
-	// unable to get
 	public static Item ar15 = (new ItemAR15(136)).setIconCoord(6, 10).setItemName("ar15");
 
-	// johnzeppelinmod
-	// unable to get
-	public static Item engine = (new Item(148)).setIconCoord(6, 13).setItemName("engine");
-	// unable to get
-	public static Item balloon = (new Item(149)).setIconCoord(6, 12).setItemName("balloon");
-	// unable to get
-	public static Item zeppelin = (new Item(150)).setIconCoord(6, 11).setItemName("zeppelin");
-
-	// latest item id: 158
+	public static Item engine = (new Item(165)).setIconCoord(0, 14).setItemName("engine");
+	public static Item balloon = (new Item(166)).setIconCoord(1, 14).setItemName("balloon");
+	public static Item airShip = (new ItemAirship(167)).setIconCoord(2, 14).setItemName("airship");
 
 	public final int shiftedIndex;
 	protected int maxStackSize = 64;

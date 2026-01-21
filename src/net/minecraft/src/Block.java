@@ -1,4 +1,5 @@
 package net.minecraft.src;
+import net.minecraft.src.vaderetro.block.BlockNuclearBomb;
 import net.minecraft.src.vaderetro.johncrtmod.block.BlockCrtTvSet;
 import net.minecraft.src.vaderetro.johncrtmod.block.BlockRedstone;
 import net.minecraft.src.vaderetro.johnfarmmod.block.BlockCannabisPlant;
@@ -6,6 +7,10 @@ import net.minecraft.src.vaderetro.johnfarmmod.block.BlockDryer;
 import net.minecraft.src.vaderetro.johnfarmmod.block.BlockOnion;
 import net.minecraft.src.vaderetro.johnfarmmod.block.BlockTobaccoPlant;
 import net.minecraft.src.vaderetro.johnmillmod.block.BlockJohnMill;
+import net.minecraft.src.vaderetro.johnmillmod.block.BlockAxleRod;
+import net.minecraft.src.vaderetro.johnmillmod.block.BlockGearbox;
+import net.minecraft.src.vaderetro.johnmillmod.block.BlockMillAxle;
+import net.minecraft.src.vaderetro.johnmillmod.block.BlockWheatGrinder;
 
 import net.minecraft.src.vaderetro.johnindustrialmod.block.*;
 import net.minecraft.src.vaderetro.johnoilmod.block.BlockKeroseneLamp;
@@ -127,10 +132,6 @@ public class Block {
 	public static final Block redstoneRepeaterActive = (new BlockRedstoneRepeater(94, true)).setHardness(0.0F).setLightValue(10.0F / 16.0F).setStepSound(soundWoodFootstep).setBlockName("diode").disableStats().disableNeighborNotifyOnMetadataChange();
 	public static final Block lockedChest = (new BlockLockedChest(95)).setHardness(0.0F).setLightValue(1.0F).setStepSound(soundWoodFootstep).setBlockName("lockedchest").setTickOnLoad(true).disableNeighborNotifyOnMetadataChange();
 	public static final Block trapdoor = (new BlockTrapDoor(96, Material.wood)).setHardness(3.0F).setStepSound(soundWoodFootstep).setBlockName("trapdoor").disableStats().disableNeighborNotifyOnMetadataChange();
-
-	// terrain_extended.png
-
-	// johnbuildermod
 	public static final Block parquet = (new Block(117, 166, Material.wood)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("parquet");
 	public static final Block tiles = (new Block(118, 78, Material.rock)).setHardness(2.0F).setResistance(10.0F).setStepSound(soundStoneFootstep).setBlockName("tiles");
 	public static final Block tilesGreen = (new Block(119, 77, Material.rock)).setHardness(2.0F).setResistance(10.0F).setStepSound(soundStoneFootstep).setBlockName("tilesGreen");
@@ -165,6 +166,11 @@ public class Block {
 
 	// johnmillmod
 	public static final Block johnMill = (new BlockJohnMill(120, 186)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("johnMill");
+	public static final Block nuclearBomb = (new BlockNuclearBomb(127, 0)).setHardness(5.0F).setResistance(2000.0F).setStepSound(soundStoneFootstep).setBlockName("nuclearBomb");
+	public static final Block millAxle = (new BlockMillAxle(128, 0)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("millAxle");
+	public static final Block axleRod = (new BlockAxleRod(129, 0)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("axleRod");
+	public static final Block gearbox = (new BlockGearbox(130, 0)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("gearbox");
+	public static final Block wheatGrinder = (new BlockWheatGrinder(131, 0)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("wheatGrinder");
 
 	// johnoilmod
 	public static final Block oilMoving = (new BlockFlowing(100, Material.oil)).setHardness(100.0F).setLightOpacity(3).setBlockName("oil").disableStats().disableNeighborNotifyOnMetadataChange();
@@ -173,7 +179,7 @@ public class Block {
 	public static final Block lampKeroseneActive = (new BlockKeroseneLamp(105, true)).setHardness(0.0F).setStepSound(soundMetalFootstep).setLightValue(1.0F).setBlockName("lampKerosene").disableNeighborNotifyOnMetadataChange();
 	public static final Block blockPlastic = (new BlockOreStorage(115, 224)).setHardness(1.0F).setResistance(5.0F).setStepSound(soundWoodFootstep).setBlockName("blockPlastic");
 
-	// latest block id: 126
+	// latest block id: 131
 
 	public int blockIndexInTexture;
 	public final int blockID;

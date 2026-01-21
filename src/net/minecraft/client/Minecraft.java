@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.io.File;
+import java.nio.ByteBuffer;
 import net.minecraft.src.AchievementList;
 import net.minecraft.src.AxisAlignedBB;
 import net.minecraft.src.Block;
@@ -46,9 +47,11 @@ import net.minecraft.src.GuiUnused;
 import net.minecraft.src.IChunkProvider;
 import net.minecraft.src.ISaveFormat;
 import net.minecraft.src.ISaveHandler;
+import net.minecraft.src.JPM.IsometricScreenshotRenderer;
+import net.minecraft.src.JPM.mod_JPM;
 import net.minecraft.src.ItemRenderer;
 import net.minecraft.src.ItemStack;
-import net.minecraft.src.vaderetro.johnitemsmod.mod_JIM;
+import net.minecraft.src.Airship.mod_airship;
 import net.minecraft.src.LoadingScreenRenderer;
 import net.minecraft.src.MathHelper;
 import net.minecraft.src.MinecraftError;
@@ -96,6 +99,7 @@ import net.minecraft.src.WorldProvider;
 import net.minecraft.src.WorldRenderer;
 import net.minecraft.src.vaderetro.johnoilmod.texture.oil.TextureOilFX;
 import net.minecraft.src.vaderetro.johnoilmod.texture.oil.TextureOilFlowFX;
+import org.lwjgl.BufferUtils;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Controllers;
 import org.lwjgl.input.Keyboard;
@@ -103,6 +107,7 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 import org.lwjgl.util.glu.GLU;
 
 public abstract class Minecraft implements Runnable {
@@ -655,12 +660,63 @@ public abstract class Minecraft implements Runnable {
 		if(Keyboard.isKeyDown(Keyboard.KEY_F2)) {
 			if(!this.isTakingScreenshot) {
 				this.isTakingScreenshot = true;
-				this.ingameGUI.addChatMessage(ScreenShotHelper.saveScreenshot(minecraftDir, this.displayWidth, this.displayHeight));
+				if(this.theWorld != null && (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT))) {
+					boolean controlDown = getOs() == EnumOS2.macos ? Keyboard.isKeyDown(Keyboard.KEY_LMETA) || Keyboard.isKeyDown(Keyboard.KEY_RMETA) : Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL);
+					this.ingameGUI.addChatMessage(this.saveHugeScreenshot(this.mcDataDir, this.displayWidth, this.displayHeight, this.gameSettings.hugeWidth, this.gameSettings.hugeHeight, controlDown));
+				} else {
+					this.ingameGUI.addChatMessage(ScreenShotHelper.saveScreenshot(minecraftDir, this.displayWidth, this.displayHeight));
+				}
 			}
 		} else {
 			this.isTakingScreenshot = false;
 		}
 
+	}
+
+	private String saveHugeScreenshot(File file1, int width, int height, int hugeWidth, int hugeHeight, boolean flipColors) {
+		try {
+			ByteBuffer buffer = BufferUtils.createByteBuffer(width * height * 3);
+			ScreenShotHelper helper = new ScreenShotHelper(file1, hugeWidth, hugeHeight, height, flipColors);
+			double scaleX = (double)hugeWidth / (double)width;
+			double scaleY = (double)hugeHeight / (double)height;
+			double scale = scaleX > scaleY ? scaleX : scaleY;
+
+			for(int offsetY = (hugeHeight - 1) / height * height; offsetY >= 0; offsetY -= height) {
+				for(int offsetX = 0; offsetX < hugeWidth; offsetX += width) {
+					GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.renderEngine.getTexture("/terrain.png"));
+					double deltaX = (double)(hugeWidth - width) / 2.0D * 2.0D - (double)(offsetX * 2);
+					double deltaY = (double)(hugeHeight - height) / 2.0D * 2.0D - (double)(offsetY * 2);
+					deltaX /= (double)width;
+					deltaY /= (double)height;
+					this.entityRenderer.setCameraZoom(scale, deltaX, deltaY);
+					this.entityRenderer.renderWorld(1.0F, 0L);
+					this.entityRenderer.setCameraZoom(1.0F, 0.0F, 0.0F);
+					Display.update();
+
+					try {
+						Thread.sleep(10L);
+					} catch (InterruptedException var25) {
+						var25.printStackTrace();
+					}
+
+					Display.update();
+					buffer.clear();
+					GL11.glPixelStorei(GL11.GL_PACK_ALIGNMENT, 1);
+					GL11.glPixelStorei(GL11.GL_UNPACK_ALIGNMENT, 1);
+					GL11.glReadPixels(0, 0, width, height, flipColors ? GL12.GL_BGR : GL11.GL_RGB, GL11.GL_UNSIGNED_BYTE, buffer);
+					helper.saveHugePart(buffer, offsetX, offsetY, width, height);
+				}
+
+				helper.saveHugeLine(offsetY);
+			}
+
+			return helper.saveHugeScreenshot();
+		} catch (OutOfMemoryError var27) {
+			return "Failed to save: Out of memory";
+		} catch (Exception var28) {
+			var28.printStackTrace();
+			return "Failed to save: " + var28;
+		}
 	}
 
 	private void displayDebugInfo(long var1) {
@@ -941,8 +997,12 @@ public abstract class Minecraft implements Runnable {
 			this.func_28001_B();
 		}
 
-		mod_JIM.initialize();
-		mod_JIM.onTickInGame(this);
+		net.minecraft.src.JIM.mod_JIM.initialize();
+		net.minecraft.src.JIM.mod_JIM.onTickInGame(this);
+		mod_airship.initialize();
+		mod_airship.onTickInGame(this);
+		mod_JPM.initialize();
+		mod_JPM.onTickInGame(this);
 
 		this.statFileWriter.func_27178_d();
 		this.ingameGUI.updateTick();
@@ -1049,6 +1109,10 @@ public abstract class Minecraft implements Runnable {
 
 												if(Keyboard.getEventKey() == Keyboard.KEY_F5) {
 													this.gameSettings.thirdPersonView = !this.gameSettings.thirdPersonView;
+												}
+
+												if(this.theWorld != null && (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) && Keyboard.getEventKey() == Keyboard.KEY_F7) {
+													(new IsometricScreenshotRenderer(this)).doRender();
 												}
 
 												if(Keyboard.getEventKey() == Keyboard.KEY_F8) {

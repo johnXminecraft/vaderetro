@@ -5,6 +5,7 @@ import net.minecraft.src.vaderetro.johnweaponmod.entity.EntityMusketBullet;
 import net.minecraft.src.vaderetro.johncrtmod.entity.tileentity.TileEntityCrtTvSet;
 import net.minecraft.src.vaderetro.johnoilmod.entity.tileentity.TileEntityKeroseneLamp;
 import net.minecraft.src.vaderetro.johnindustrialmod.entity.tileentity.TileEntityOpenHearthFurnace;
+import net.minecraft.src.vaderetro.johnmillmod.entity.tileentity.TileEntityWheatGrinder;
 
 import java.util.Iterator;
 import java.util.List;
@@ -469,6 +470,9 @@ public abstract class EntityPlayer extends EntityLiving {
 	}
 
 	public void displayGUIKeroseneLamp(TileEntityKeroseneLamp var1) {
+	}
+
+	public void displayGUIWheatGrinder(TileEntityWheatGrinder var1) {
 	}
 
 	public void displayGUIDryer(TileEntityDryer var1) {
