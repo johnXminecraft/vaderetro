@@ -152,10 +152,9 @@ public class Item {
 	public static Item cloth = (new Item(156)).setIconCoord(8, 12).setItemName("cloth");
 	public static Item driedLeather = (new Item(159)).setIconCoord(7, 13).setItemName("driedLeather");
 	public static Item belt = (new Item(160)).setIconCoord(8, 13).setItemName("belt");
-
-	public static Item objSpawner = (new ItemObjSpawner(161)).setIconCoord(6, 9).setItemName("objSpawner");
-	public static Item uvMapGenerator = (new ItemUVMapGenerator(162)).setIconCoord(6, 9).setItemName("uvMapGenerator");
-	public static Item nuclearBombPlacer = (new ItemNuclearBombPlacer(163)).setIconCoord(6, 9).setItemName("nuclearBomb");
+	public static Item objSpawner = (new ItemObjSpawner(161)).setIconCoord(3, 14).setItemName("objSpawner");
+	public static Item uvMapGenerator = (new ItemUVMapGenerator(162)).setIconCoord(3, 14).setItemName("uvMapGenerator");
+	public static Item nuclearBombPlacer = (new ItemNuclearBombPlacer(163)).setIconCoord(3, 14).setItemName("nuclearBomb");
 	public static Item flour = (new ItemFlour(164)).setIconCoord(6, 13).setItemName("flour");
 
 	public static Item ingotStainedSteel = (new Item(104)).setIconCoord(0, 9).setItemName("ingotStainedSteel");

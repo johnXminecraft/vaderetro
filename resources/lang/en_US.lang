@@ -749,8 +749,8 @@ item.rope.name=Rope
 item.rope.desc=Vade Retro
 item.cloth.name=Cloth
 item.cloth.desc=Vade Retro
-item.driedSkin.name=Dried Leather
-item.driedSkin.desc=Vade Retro
+item.driedLeather.name=Dried Leather
+item.driedLeather.desc=Vade Retro
 item.belt.name=Belt
 item.belt.desc=Vade Retro
 
