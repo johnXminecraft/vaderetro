@@ -337,21 +337,16 @@ tile.pistonStickyBase.desc=
 
 # Vade Retro
 
-# johnbuildermod
 tile.parquet.name=Parquet
 tile.parquet.desc=Vade Retro
 tile.tiles.name=Tiles
 tile.tiles.desc=Vade Retro
 tile.tilesGreen.name=Green Tiles
 tile.tilesGreen.desc=Vade Retro
-
-# johncrtmod
 tile.crtTvSet.name=CRT TV-Set
 tile.crtTvSet.desc=Vade Retro
 tile.blockRedstone.name=Redstone Block
 tile.blockRedstone.desc=Vade Retro
-
-# johnfarmmod
 tile.blueRose.name=Blue Rose
 tile.blueRose.desc=Vade Retro
 tile.onion.name=Onion
@@ -362,8 +357,6 @@ tile.tobaccoPlant.name=Tobacco Plant
 tile.tobaccoPlant.desc=Vade Retro
 tile.cannabisPlant.name=Cannabis Plant
 tile.cannabisPlant.desc=Vade Retro
-
-# johnindustrialmod
 tile.openHearthFurnace.name=Open Hearth Furnace
 tile.openHearthFurnace.desc=Vade Retro
 tile.oreCopper.name=Copper Ore
@@ -406,18 +399,26 @@ tile.blockSulfur.name=Sulfur Block
 tile.blockSulfur.desc=Vade Retro
 tile.oreUranium.name=Uranium Ore
 tile.oreUranium.desc=Vade Retro
-
-# johnmillmod
 tile.johnMill.name=Windmill
 tile.johnMill.desc=Vade Retro
-
-# johnoilmod
 tile.oil.name=Oil
 tile.oil.desc=Vade Retro
 tile.lampKerosene.name=Kerosene Lamp
 tile.lampKerosene.desc=Vade Retro
 tile.blockPlastic.name=Plastic Block
 tile.blockPlastic.desc=Vade Retro
+tile.wheatGrinder.name=Wheat Grinder
+tile.wheatGrinder.desc=Vade Retro
+tile.gearbox.name=Gearbox
+tile.gearbox.desc=Vade Retro
+tile.axleRod.name=Axle Rod
+tile.axleRod.desc=Vade Retro
+tile.millAxle.name=Mill Axle
+tile.millAxle.desc=Vade Retro
+tile.nuclearBomb.name=Nuclear Bomb
+tile.nuclearBomb.desc=Vade Retro
+tile.johnMill.name=Mill
+tile.johnMill.desc=Vade Retro
 
 item.shovelIron.name=Iron Shovel
 item.shovelIron.desc=
@@ -664,7 +665,6 @@ item.shears.desc=
 
 # Vade Retro
 
-# johnchurchmod
 item.easterEgg.black.name=Black Easter Egg
 item.easterEgg.black.desc=Vade Retro
 item.easterEgg.red.name=Red Easter Egg
@@ -703,8 +703,6 @@ item.canvas.name=Canvas
 item.canvas.desc=Vade Retro
 item.bowlOfGold.name=Bowl Of Gold
 item.bowlOfGold.desc=Vade Retro
-
-# johncrtmod
 item.wire.name=Wire
 item.wire.desc=Vade Retro
 item.anodeCathode.name=Anode and Cathode
@@ -721,8 +719,6 @@ item.capacitor.name=Capacitor
 item.capacitor.desc=Vade Retro
 item.cathodeRayTube.name=Cathode Ray Tube
 item.cathodeRayTube.desc=Vade Retro
-
-# johnfarmmod
 item.tobaccoLeaf.name=Tobacco Leaf
 item.tobaccoLeaf.desc=Vade Retro
 item.tobacco.name=Tobacco
@@ -753,8 +749,6 @@ item.driedLeather.name=Dried Leather
 item.driedLeather.desc=Vade Retro
 item.belt.name=Belt
 item.belt.desc=Vade Retro
-
-# johnindustrialmod
 item.ingotStainedSteel.name=Stained Steel Ingot
 item.ingotStainedSteel.desc=Vade Retro
 item.helmetStainedSteel.name=Topfhelm
@@ -791,8 +785,6 @@ item.charcoal.name=Charcoal
 item.charcoal.desc=Vade Retro
 item.uraniumDust.name=Uranium Dust
 item.uraniumDust.desc=Vade Retro
-
-# johnoilmod
 item.bucketOil.name=Oil Bucket
 item.bucketOil.desc=Vade Retro
 item.bucketKerosene.name=Kerosene Bucket
@@ -850,3 +842,5 @@ item.engine.name=Engine
 item.engine.desc=Airship part
 item.balloon.name=Balloon
 item.balloon.desc=Airship part
+item.flour.name=Flour
+item.flour.desc=Vade Retro

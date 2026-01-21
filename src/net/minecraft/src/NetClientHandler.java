@@ -10,8 +10,8 @@ import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Random;
 import net.minecraft.client.Minecraft;
-import net.minecraft.src.vaderetro.johnchurchmod.entity.EntityIcon;
-import net.minecraft.src.vaderetro.johnchurchmod.packet.Packet55EntityIcon;
+import net.minecraft.src.vaderetro.entity.EntityIcon;
+import net.minecraft.src.vaderetro.packet.Packet55EntityIcon;
 
 public class NetClientHandler extends NetHandler {
 	private boolean disconnected = false;

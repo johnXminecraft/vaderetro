@@ -4,6 +4,7 @@ import java.nio.FloatBuffer;
 import java.util.List;
 import java.util.Random;
 import net.minecraft.client.Minecraft;
+import net.minecraft.src.vaderetro.render.NukeEffectsManager;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
@@ -798,11 +799,11 @@ public class EntityRenderer {
 		this.fogColorRed = (float)var9.xCoord;
 		this.fogColorGreen = (float)var9.yCoord;
 		this.fogColorBlue = (float)var9.zCoord;
-		if(net.minecraft.src.vaderetro.NukeEffectsManager.isActive()) {
+		if(NukeEffectsManager.isActive()) {
 			double px = var3.posX;
 			double py = var3.posY;
 			double pz = var3.posZ;
-			float intensity = net.minecraft.src.vaderetro.NukeEffectsManager.getIntensityAt(px, py, pz);
+			float intensity = NukeEffectsManager.getIntensityAt(px, py, pz);
 			if(intensity > 0.0F) {
 				float targetR = 0.6F;
 				float targetG = 1.0F;

@@ -1,8 +1,8 @@
 package net.minecraft.src;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.src.vaderetro.johnweaponmod.item.ItemMusket;
-import net.minecraft.src.vaderetro.johnweaponmod.item.ItemAR15;
+import net.minecraft.src.vaderetro.item.ItemMusket;
+import net.minecraft.src.vaderetro.item.ItemAR15;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 

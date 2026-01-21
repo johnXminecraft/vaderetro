@@ -1,11 +1,11 @@
 package net.minecraft.src;
 
-import net.minecraft.src.vaderetro.johnmillmod.entity.tileentity.TileEntityJohnMill;
-import net.minecraft.src.vaderetro.johnmillmod.entity.tileentity.TileEntityJohnMillRenderer;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityJohnMill;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityJohnMillRenderer;
 import net.minecraft.src.vaderetro.entity.TileEntityNuclearBomb;
 import net.minecraft.src.vaderetro.render.TileEntityNuclearBombRenderer;
-import net.minecraft.src.vaderetro.johnmillmod.entity.tileentity.TileEntityAxleRod;
-import net.minecraft.src.vaderetro.johnmillmod.entity.tileentity.TileEntityAxleRodRenderer;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityAxleRod;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityAxleRodRenderer;
 
 import java.util.HashMap;
 import java.util.Iterator;

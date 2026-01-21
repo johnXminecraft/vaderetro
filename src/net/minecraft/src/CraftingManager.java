@@ -1,11 +1,11 @@
 package net.minecraft.src;
 
-import net.minecraft.src.vaderetro.johnbuildermod.recipes.RecipesBuilding;
-import net.minecraft.src.vaderetro.johnchurchmod.recipes.RecipesChurch;
-import net.minecraft.src.vaderetro.johnfarmmod.recipes.RecipesFarming;
-import net.minecraft.src.vaderetro.johnmillmod.recipes.RecipesMill;
-import net.minecraft.src.vaderetro.johnweaponmod.recipes.RecipesMusket;
-import net.minecraft.src.vaderetro.johncrtmod.recipes.RecipesCircuitry;
+import net.minecraft.src.vaderetro.recipes.RecipesBuilding;
+import net.minecraft.src.vaderetro.recipes.RecipesChurch;
+import net.minecraft.src.vaderetro.recipes.RecipesFarming;
+import net.minecraft.src.vaderetro.recipes.RecipesMill;
+import net.minecraft.src.vaderetro.recipes.RecipesMusket;
+import net.minecraft.src.vaderetro.recipes.RecipesCircuitry;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -1,6 +1,7 @@
 package net.minecraft.src.vaderetro.entity;
 
 import net.minecraft.src.*;
+import net.minecraft.src.vaderetro.render.NukeEffectsManager;
 
 public class EntityObjModel extends Entity {
     private String modelPath;
@@ -83,7 +84,7 @@ public class EntityObjModel extends Entity {
             if (!this.startSoundPlayed && this.growAnimationAgeTicks == 1) {
                 this.worldObj.playSoundAtEntity(this, "random.explode", 4.0F, 0.9F);
                 this.startSoundPlayed = true;
-                net.minecraft.src.vaderetro.NukeEffectsManager.startNuke(this.posX, this.posY, this.posZ, 20 * 60 * 60);
+                NukeEffectsManager.startNuke(this.posX, this.posY, this.posZ, 20 * 60 * 60);
                 this.explosionBegan = true;
                 this.explosionTicks = 0;
             }
@@ -175,8 +176,8 @@ public class EntityObjModel extends Entity {
                 this.worldObj.playSoundAtEntity(this, "bomb.nuclearExplosion", 10.0F, 1.0F);
                 this.explosionPlayed = true;
                 this.soundWaveStage = 0;
-                net.minecraft.src.vaderetro.NukeEffectsManager.startNuke(this.posX, this.posY, this.posZ, -1);
-                net.minecraft.src.vaderetro.NukeEffectsManager.persistToWorldInfo(this.worldObj);
+                NukeEffectsManager.startNuke(this.posX, this.posY, this.posZ, -1);
+                NukeEffectsManager.persistToWorldInfo(this.worldObj);
                 int bx = MathHelper.floor_double(this.posX);
                 int by = MathHelper.floor_double(this.posY - 1.0D);
                 int bz = MathHelper.floor_double(this.posZ);

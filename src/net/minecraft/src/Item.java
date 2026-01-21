@@ -1,15 +1,10 @@
 package net.minecraft.src;
 
-import net.minecraft.src.BML.ItemObjSpawner;
-import net.minecraft.src.BML.ItemUVMapGenerator;
-import net.minecraft.src.Airship.ItemAirship;
-import net.minecraft.src.vaderetro.item.ItemNuclearBombPlacer;
-import net.minecraft.src.vaderetro.johnmillmod.item.ItemFlour;
-import net.minecraft.src.vaderetro.johnfarmmod.item.*;
-import net.minecraft.src.vaderetro.johnweaponmod.item.ItemMusket;
-import net.minecraft.src.vaderetro.johnweaponmod.item.ItemAR15;
-import net.minecraft.src.vaderetro.johnchurchmod.item.ItemEasterEgg;
-import net.minecraft.src.vaderetro.johnchurchmod.item.ItemIcon;
+import net.minecraft.src.vaderetro._BML.ItemObjSpawner;
+import net.minecraft.src.vaderetro._BML.ItemUVMapGenerator;
+import net.minecraft.src.vaderetro.item.ItemAirship;
+import net.minecraft.src.vaderetro.item.*;
+import net.minecraft.src.vaderetro.item.ItemIcon;
 
 import java.util.Random;
 
@@ -155,7 +150,7 @@ public class Item {
 	public static Item objSpawner = (new ItemObjSpawner(161)).setIconCoord(3, 14).setItemName("objSpawner");
 	public static Item uvMapGenerator = (new ItemUVMapGenerator(162)).setIconCoord(3, 14).setItemName("uvMapGenerator");
 	public static Item nuclearBombPlacer = (new ItemNuclearBombPlacer(163)).setIconCoord(3, 14).setItemName("nuclearBomb");
-	public static Item flour = (new ItemFlour(164)).setIconCoord(6, 13).setItemName("flour");
+	public static Item flour = (new Item(164)).setIconCoord(6, 13).setItemName("flour");
 
 	public static Item ingotStainedSteel = (new Item(104)).setIconCoord(0, 9).setItemName("ingotStainedSteel");
 	public static Item helmetStainedSteel = (new ItemArmor(105, 4, 5, 0)).setIconCoord(1, 9).setItemName("helmetStainedSteel");

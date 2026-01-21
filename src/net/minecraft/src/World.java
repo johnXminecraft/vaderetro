@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import net.minecraft.src.vaderetro.render.NukeEffectsManager;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -96,7 +98,7 @@ public class World implements IBlockAccess {
 		this.field_28108_z = new MapStorage(var1);
 		var3.registerWorld(this);
 		this.chunkProvider = this.getChunkProvider();
-		net.minecraft.src.vaderetro.NukeEffectsManager.restoreFromWorldInfo(this);
+		NukeEffectsManager.restoreFromWorldInfo(this);
 		this.calculateInitialSkylight();
 		this.func_27163_E();
 	}

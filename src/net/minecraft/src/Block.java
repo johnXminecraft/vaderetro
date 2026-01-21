@@ -1,19 +1,11 @@
 package net.minecraft.src;
-import net.minecraft.src.vaderetro.block.BlockNuclearBomb;
-import net.minecraft.src.vaderetro.johncrtmod.block.BlockCrtTvSet;
-import net.minecraft.src.vaderetro.johncrtmod.block.BlockRedstone;
-import net.minecraft.src.vaderetro.johnfarmmod.block.BlockCannabisPlant;
-import net.minecraft.src.vaderetro.johnfarmmod.block.BlockDryer;
-import net.minecraft.src.vaderetro.johnfarmmod.block.BlockOnion;
-import net.minecraft.src.vaderetro.johnfarmmod.block.BlockTobaccoPlant;
-import net.minecraft.src.vaderetro.johnmillmod.block.BlockJohnMill;
-import net.minecraft.src.vaderetro.johnmillmod.block.BlockAxleRod;
-import net.minecraft.src.vaderetro.johnmillmod.block.BlockGearbox;
-import net.minecraft.src.vaderetro.johnmillmod.block.BlockMillAxle;
-import net.minecraft.src.vaderetro.johnmillmod.block.BlockWheatGrinder;
-
-import net.minecraft.src.vaderetro.johnindustrialmod.block.*;
-import net.minecraft.src.vaderetro.johnoilmod.block.BlockKeroseneLamp;
+import net.minecraft.src.vaderetro.block.*;
+import net.minecraft.src.vaderetro.block.BlockCrtTvSet;
+import net.minecraft.src.vaderetro.block.BlockRedstone;
+import net.minecraft.src.vaderetro.block.BlockCannabisPlant;
+import net.minecraft.src.vaderetro.block.BlockDryer;
+import net.minecraft.src.vaderetro.block.BlockOnion;
+import net.minecraft.src.vaderetro.block.BlockTobaccoPlant;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -171,8 +163,6 @@ public class Block {
 	public static final Block axleRod = (new BlockAxleRod(129, 0)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("axleRod");
 	public static final Block gearbox = (new BlockGearbox(130, 0)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("gearbox");
 	public static final Block wheatGrinder = (new BlockWheatGrinder(131, 0)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("wheatGrinder");
-
-	// johnoilmod
 	public static final Block oilMoving = (new BlockFlowing(100, Material.oil)).setHardness(100.0F).setLightOpacity(3).setBlockName("oil").disableStats().disableNeighborNotifyOnMetadataChange();
 	public static final Block oilStill = (new BlockStationary(101, Material.oil)).setHardness(100.0F).setLightOpacity(3).setBlockName("oil").disableStats().disableNeighborNotifyOnMetadataChange();
 	public static final Block lampKeroseneIdle = (new BlockKeroseneLamp(104, false)).setHardness(0.0F).setStepSound(soundMetalFootstep).setBlockName("lampKerosene").disableNeighborNotifyOnMetadataChange();

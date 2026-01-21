@@ -1,8 +1,8 @@
 package net.minecraft.src;
 
-import net.minecraft.src.vaderetro.johnfarmmod.block.BlockCannabisPlant;
-import net.minecraft.src.vaderetro.johnfarmmod.block.BlockOnion;
-import net.minecraft.src.vaderetro.johnfarmmod.block.BlockTobaccoPlant;
+import net.minecraft.src.vaderetro.block.BlockCannabisPlant;
+import net.minecraft.src.vaderetro.block.BlockOnion;
+import net.minecraft.src.vaderetro.block.BlockTobaccoPlant;
 
 public class ItemDye extends Item {
 

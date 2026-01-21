@@ -47,11 +47,11 @@ import net.minecraft.src.GuiUnused;
 import net.minecraft.src.IChunkProvider;
 import net.minecraft.src.ISaveFormat;
 import net.minecraft.src.ISaveHandler;
-import net.minecraft.src.JPM.IsometricScreenshotRenderer;
-import net.minecraft.src.JPM.mod_JPM;
+import net.minecraft.src.vaderetro._JPM.IsometricScreenshotRenderer;
+import net.minecraft.src.vaderetro.__config.mod_JPM;
 import net.minecraft.src.ItemRenderer;
 import net.minecraft.src.ItemStack;
-import net.minecraft.src.Airship.mod_airship;
+import net.minecraft.src.vaderetro.__config.mod_airship;
 import net.minecraft.src.LoadingScreenRenderer;
 import net.minecraft.src.MathHelper;
 import net.minecraft.src.MinecraftError;
@@ -97,8 +97,8 @@ import net.minecraft.src.Vec3D;
 import net.minecraft.src.World;
 import net.minecraft.src.WorldProvider;
 import net.minecraft.src.WorldRenderer;
-import net.minecraft.src.vaderetro.johnoilmod.texture.oil.TextureOilFX;
-import net.minecraft.src.vaderetro.johnoilmod.texture.oil.TextureOilFlowFX;
+import net.minecraft.src.vaderetro.texture.oil.TextureOilFX;
+import net.minecraft.src.vaderetro.texture.oil.TextureOilFlowFX;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Controllers;
@@ -997,8 +997,8 @@ public abstract class Minecraft implements Runnable {
 			this.func_28001_B();
 		}
 
-		net.minecraft.src.JIM.mod_JIM.initialize();
-		net.minecraft.src.JIM.mod_JIM.onTickInGame(this);
+		net.minecraft.src.vaderetro.__config.mod_JIM.initialize();
+		net.minecraft.src.vaderetro.__config.mod_JIM.onTickInGame(this);
 		mod_airship.initialize();
 		mod_airship.onTickInGame(this);
 		mod_JPM.initialize();

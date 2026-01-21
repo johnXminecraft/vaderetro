@@ -1,7 +1,7 @@
 package net.minecraft.src;
 
-import net.minecraft.src.vaderetro.johnindustrialmod.entity.mob.EntityMiner;
-import net.minecraft.src.vaderetro.johnfarmmod.entity.wild.EntityBoar;
+import net.minecraft.src.vaderetro.entity.mob.EntityMiner;
+import net.minecraft.src.vaderetro.entity.wild.EntityBoar;
 
 import java.awt.Color;
 import java.util.ArrayList;

@@ -4,21 +4,21 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import net.minecraft.src.vaderetro.johnweaponmod.entity.EntityMusketBullet;
-import net.minecraft.src.vaderetro.johnweaponmod.render.RenderMusketBullet;
-import net.minecraft.src.vaderetro.johnweaponmod.entity.EntityAR15Bullet;
-import net.minecraft.src.vaderetro.johnweaponmod.render.RenderAR15Bullet;
-import net.minecraft.src.vaderetro.johnindustrialmod.entity.mob.EntityMiner;
-import net.minecraft.src.vaderetro.johnfarmmod.entity.wild.EntityBoar;
-import net.minecraft.src.vaderetro.johnchurchmod.entity.EntityIcon;
-import net.minecraft.src.vaderetro.johnfarmmod.render.RenderBoar;
-import net.minecraft.src.vaderetro.johnchurchmod.render.RenderIcon;
+import net.minecraft.src.vaderetro.entity.EntityMusketBullet;
+import net.minecraft.src.vaderetro.render.RenderMusketBullet;
+import net.minecraft.src.vaderetro.entity.EntityAR15Bullet;
+import net.minecraft.src.vaderetro.render.RenderAR15Bullet;
+import net.minecraft.src.vaderetro.entity.mob.EntityMiner;
+import net.minecraft.src.vaderetro.entity.wild.EntityBoar;
+import net.minecraft.src.vaderetro.entity.EntityIcon;
+import net.minecraft.src.vaderetro.render.RenderBoar;
+import net.minecraft.src.vaderetro.render.RenderIcon;
 import net.minecraft.src.vaderetro.entity.EntityObjModel;
 import net.minecraft.src.vaderetro.render.RenderObjModel;
-import net.minecraft.src.Airship.EntityAirship;
-import net.minecraft.src.Airship.RenderAirship;
-import net.minecraft.src.Airship.ModelAirship;
-import net.minecraft.src.Airship.ModelBalloon;
+import net.minecraft.src.vaderetro.entity.EntityAirship;
+import net.minecraft.src.vaderetro.render.RenderAirship;
+import net.minecraft.src.vaderetro.model.ModelAirship;
+import net.minecraft.src.vaderetro.model.ModelBalloon;
 import org.lwjgl.opengl.GL11;
 
 public class RenderManager {

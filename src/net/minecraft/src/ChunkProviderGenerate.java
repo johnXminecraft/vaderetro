@@ -1,6 +1,6 @@
 package net.minecraft.src;
 
-import net.minecraft.src.vaderetro.johnchurchmod.gen.world.WorldGenChurches;
+import net.minecraft.src.vaderetro.gen.world.WorldGenChurches;
 
 import java.util.Random;
 

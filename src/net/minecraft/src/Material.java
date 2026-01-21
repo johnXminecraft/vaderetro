@@ -1,6 +1,6 @@
 package net.minecraft.src;
 
-import net.minecraft.src.vaderetro.johnoilmod.material.MaterialOil;
+import net.minecraft.src.vaderetro.material.MaterialOil;
 
 public class Material {
 	public static final Material air = new MaterialTransparent(MapColor.airColor);

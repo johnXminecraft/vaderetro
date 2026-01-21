@@ -2,7 +2,7 @@ package net.minecraft.src.vaderetro.render;
 
 import net.minecraft.src.*;
 import org.lwjgl.opengl.GL11;
-import net.minecraft.src.BML.RenderObj;
+import net.minecraft.src.vaderetro._BML.RenderObj;
 
 public class RenderObjModel extends Render {
     private RenderObj renderObj;

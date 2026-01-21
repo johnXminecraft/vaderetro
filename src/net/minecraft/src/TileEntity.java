@@ -1,13 +1,13 @@
 package net.minecraft.src;
 
-import net.minecraft.src.vaderetro.johnfarmmod.entity.tileentity.TileEntityDryer;
-import net.minecraft.src.vaderetro.johnmillmod.entity.tileentity.TileEntityJohnMill;
-import net.minecraft.src.vaderetro.johncrtmod.entity.tileentity.TileEntityCrtTvSet;
-import net.minecraft.src.vaderetro.johnoilmod.entity.tileentity.TileEntityKeroseneLamp;
-import net.minecraft.src.vaderetro.johnindustrialmod.entity.tileentity.TileEntityOpenHearthFurnace;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityDryer;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityJohnMill;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityCrtTvSet;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityKeroseneLamp;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityOpenHearthFurnace;
 import net.minecraft.src.vaderetro.entity.TileEntityNuclearBomb;
-import net.minecraft.src.vaderetro.johnmillmod.entity.tileentity.TileEntityAxleRod;
-import net.minecraft.src.vaderetro.johnmillmod.entity.tileentity.TileEntityWheatGrinder;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityAxleRod;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityWheatGrinder;
 
 import java.util.HashMap;
 import java.util.Map;
