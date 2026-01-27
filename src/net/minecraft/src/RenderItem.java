@@ -63,6 +63,9 @@ public class RenderItem extends Render {
 		} else {
 			GL11.glScalef(0.5F, 0.5F, 0.5F);
 			int var14 = var10.getIconIndex();
+			if(var10.itemID < 256 && Block.blocksList[var10.itemID] != null) {
+				var14 = Block.blocksList[var10.itemID].getBlockTextureFromSideAndMetadata(0, var10.getItemDamage());
+			}
 			if(var10.itemID < 256) {
 				this.loadTexture("/terrain.png");
 			} else {
@@ -70,10 +73,18 @@ public class RenderItem extends Render {
 			}
 
 			Tessellator var15 = Tessellator.instance;
-			var16 = (float)(var14 % 16 * 16 + 0) / 256.0F;
-			var17 = (float)(var14 % 16 * 16 + 16) / 256.0F;
-			var18 = (float)(var14 / 16 * 16 + 0) / 256.0F;
-			float var19 = (float)(var14 / 16 * 16 + 16) / 256.0F;
+			float ts = var10.itemID < 256 ? (float)TerrainTextureManager.getTerrainTextureSize() : (float)ItemTextureManager.getItemTextureSize();
+			var16 = (float)(var14 % 16 * 16 + 0) / ts;
+			var17 = (float)(var14 % 16 * 16 + 16) / ts;
+			var18 = (float)(var14 / 16 * 16 + 0) / ts;
+			float var19 = (float)(var14 / 16 * 16 + 16) / ts;
+			if (var10.itemID < 256) {
+				float eps = 0.5F / ts;
+				var16 += eps;
+				var17 -= eps;
+				var18 += eps;
+				var19 -= eps;
+			}
 			float var20 = 1.0F;
 			float var21 = 0.5F;
 			float var22 = 0.25F;
@@ -165,7 +176,8 @@ public class RenderItem extends Render {
 				}
 			}
 
-			this.renderTexturedQuad(var6, var7, var5 % 16 * 16, var5 / 16 * 16, 16, 16);
+			int texSize = var3 < 256 ? TerrainTextureManager.getTerrainTextureSize() : ItemTextureManager.getItemTextureSize();
+			this.renderTexturedQuad(var6, var7, var5 % 16 * 16, var5 / 16 * 16, 16, 16, texSize);
 			GL11.glEnable(GL11.GL_LIGHTING);
 		}
 
@@ -230,6 +242,23 @@ public class RenderItem extends Render {
 		var10.addVertexWithUV((double)(var1 + var5), (double)(var2 + var6), (double)var7, (double)((float)(var3 + var5) * var8), (double)((float)(var4 + var6) * var9));
 		var10.addVertexWithUV((double)(var1 + var5), (double)(var2 + 0), (double)var7, (double)((float)(var3 + var5) * var8), (double)((float)(var4 + 0) * var9));
 		var10.addVertexWithUV((double)(var1 + 0), (double)(var2 + 0), (double)var7, (double)((float)(var3 + 0) * var8), (double)((float)(var4 + 0) * var9));
+		var10.draw();
+	}
+
+	public void renderTexturedQuad(int var1, int var2, int var3, int var4, int var5, int var6, int textureSize) {
+		float var7 = 0.0F;
+		float inv = 1.0F / (float)textureSize;
+		float eps = 0.5F * inv;
+		float u0 = ((float)var3 + 0.0F) * inv + eps;
+		float u1 = ((float)var3 + (float)var5) * inv - eps;
+		float v0 = ((float)var4 + 0.0F) * inv + eps;
+		float v1 = ((float)var4 + (float)var6) * inv - eps;
+		Tessellator var10 = Tessellator.instance;
+		var10.startDrawingQuads();
+		var10.addVertexWithUV((double)(var1 + 0), (double)(var2 + var6), (double)var7, (double)u0, (double)v1);
+		var10.addVertexWithUV((double)(var1 + var5), (double)(var2 + var6), (double)var7, (double)u1, (double)v1);
+		var10.addVertexWithUV((double)(var1 + var5), (double)(var2 + 0), (double)var7, (double)u1, (double)v0);
+		var10.addVertexWithUV((double)(var1 + 0), (double)(var2 + 0), (double)var7, (double)u0, (double)v0);
 		var10.draw();
 	}
 

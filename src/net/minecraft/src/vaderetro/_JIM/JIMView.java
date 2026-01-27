@@ -15,8 +15,8 @@ public class JIMView {
     private List<ItemStack> filteredItems = new ArrayList<ItemStack>();
     
     private int currentPage = 0;
-    private int itemsPerPage = 54; // 6x9 grid
-    private boolean cheatMode = false; // Disabled by default
+    private int itemsPerPage = 54;
+    private boolean cheatMode = false;
     private String searchText = "";
     private boolean isSearchBoxFocused = false;
     
@@ -460,10 +460,10 @@ public class JIMView {
     }
 
     private void drawBorder(int left, int top, int right, int bottom, int color) {
-        drawRect(left, top, right, top + 1, color); // Top
-        drawRect(left, bottom - 1, right, bottom, color); // Bottom
-        drawRect(left, top + 1, left + 1, bottom - 1, color); // Left
-        drawRect(right - 1, top + 1, right, bottom - 1, color); // Right
+        drawRect(left, top, right, top + 1, color);
+        drawRect(left, bottom - 1, right, bottom, color);
+        drawRect(left, top + 1, left + 1, bottom - 1, color);
+        drawRect(right - 1, top + 1, right, bottom - 1, color);
     }
 
     private void drawRect(int left, int top, int right, int bottom, int color) {
@@ -527,8 +527,13 @@ public class JIMView {
             minecraft.renderEngine.bindTexture(itemTexture);
             
             int iconIndex = itemstack.getItem().getIconIndex(itemstack);
+            if (itemstack.itemID < 256 && Block.blocksList[itemstack.itemID] != null) {
+                iconIndex = Block.blocksList[itemstack.itemID].getBlockTextureFromSideAndMetadata(0, itemstack.getItemDamage());
+            }
             int iconX = iconIndex % 16 * 16;
             int iconY = iconIndex / 16 * 16;
+            float ts = itemstack.itemID < 256 ? (float)TerrainTextureManager.getTerrainTextureSize() : (float)ItemTextureManager.getItemTextureSize();
+            float eps = 0.5F / ts;
             
             GL11.glEnable(GL11.GL_TEXTURE_2D);
             GL11.glDisable(GL11.GL_LIGHTING);
@@ -537,10 +542,10 @@ public class JIMView {
             
             Tessellator tessellator = Tessellator.instance;
             tessellator.startDrawingQuads();
-            tessellator.addVertexWithUV(x + 0, y + 16, 0, iconX / 256.0F, (iconY + 16) / 256.0F);
-            tessellator.addVertexWithUV(x + 16, y + 16, 0, (iconX + 16) / 256.0F, (iconY + 16) / 256.0F);
-            tessellator.addVertexWithUV(x + 16, y + 0, 0, (iconX + 16) / 256.0F, iconY / 256.0F);
-            tessellator.addVertexWithUV(x + 0, y + 0, 0, iconX / 256.0F, iconY / 256.0F);
+            tessellator.addVertexWithUV(x + 0, y + 16, 0, (iconX + 0.0F) / ts + eps, (iconY + 16.0F) / ts - eps);
+            tessellator.addVertexWithUV(x + 16, y + 16, 0, (iconX + 16.0F) / ts - eps, (iconY + 16.0F) / ts - eps);
+            tessellator.addVertexWithUV(x + 16, y + 0, 0, (iconX + 16.0F) / ts - eps, (iconY + 0.0F) / ts + eps);
+            tessellator.addVertexWithUV(x + 0, y + 0, 0, (iconX + 0.0F) / ts + eps, (iconY + 0.0F) / ts + eps);
             tessellator.draw();
             
             if (itemstack.stackSize > 1) {

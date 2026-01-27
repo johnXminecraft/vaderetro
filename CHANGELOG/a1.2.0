@@ -1,0 +1,44 @@
+================================
+ALPHA 1.2.0
+================================
+
+Additions:
+- Extended terrain.png texture atlas
+- Extended items.png texture atlas
+
+Reworks:
+- Reworked base engine classes:
+  - RenderBlocks.class
+  - EntityDiggingFX.class
+  - TerrainTextureManager.class
+  - GuiMainMenu.class
+  - Block.class
+  - RenderBlocks.class
+  - RenderEngine.class 
+
+
+Textures:
+- /resources/gui/items.png - EXPANDED
+- /resources/terrain.png - EXPANDED (512x512)
+
+Added Vade Retro classes:
+- /vaderetro/block/BlockTest.class
+- ItemTextureManager.class
+
+
+Changed Vade Retro classes:
+- /vaderetro/block/BlockGearbox.class - onBlockPlacedBy()
+- /vaderetro/block/BlockMillAxle.class - onBlockPlacedBy()
+- /vaderetro/block/BlockWheatGrinder.class - blockActivated(), onBlockRemoval()
+- /vaderetro/_JIM/JIMView.class
+
+Changed Minecraft classes:
+- RenderBlocks.class
+- EntityDiggingFX.class
+- TerrainTextureManager.class
+- GuiMainMenu.class
+- RenderItem.class
+- GuiContainer.class
+- RenderEngine.class
+- TextureWatchFX.class
+- TextureCompassFX.class

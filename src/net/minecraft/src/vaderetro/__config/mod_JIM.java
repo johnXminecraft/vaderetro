@@ -145,6 +145,24 @@ public class mod_JIM {
             minecraft.sndManager.addSound("weaponmod/bullethit.ogg", bullethitFile);
         }
 
+        String[] nuclearExplosionCandidates = new String[] {
+            "game/resources/newsound/bomb/nuclearExplosion.ogg",
+            "minecraft/game/resources/newsound/bomb/nuclearExplosion.ogg",
+            "./minecraft/minecraft/game/resources/newsound/bomb/nuclearExplosion.ogg",
+            "../game/resources/newsound/bomb/nuclearExplosion.ogg",
+            "resources/newsound/bomb/nuclearExplosion.ogg"
+        };
+
+        java.io.File nuclearExplosionFile = null;
+        for (String rel : nuclearExplosionCandidates) {
+            java.io.File f = new java.io.File(rel);
+            if (f.exists()) { nuclearExplosionFile = f; break; }
+        }
+
+        if (nuclearExplosionFile != null) {
+            minecraft.sndManager.addSound("bomb/nuclearExplosion.ogg", nuclearExplosionFile);
+        }
+
         this.soundInitDone = true;
     }
 } 

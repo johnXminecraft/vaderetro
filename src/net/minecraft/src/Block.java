@@ -163,6 +163,7 @@ public class Block {
 	public static final Block axleRod = (new BlockAxleRod(129, 0)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("axleRod");
 	public static final Block gearbox = (new BlockGearbox(130, 0)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("gearbox");
 	public static final Block wheatGrinder = (new BlockWheatGrinder(131, 0)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("wheatGrinder");
+	public static final Block testBlock = (new BlockTest(132, 0)).setHardness(1.5F).setStepSound(soundStoneFootstep).setBlockName("testBlock");
 	public static final Block oilMoving = (new BlockFlowing(100, Material.oil)).setHardness(100.0F).setLightOpacity(3).setBlockName("oil").disableStats().disableNeighborNotifyOnMetadataChange();
 	public static final Block oilStill = (new BlockStationary(101, Material.oil)).setHardness(100.0F).setLightOpacity(3).setBlockName("oil").disableStats().disableNeighborNotifyOnMetadataChange();
 	public static final Block lampKeroseneIdle = (new BlockKeroseneLamp(104, false)).setHardness(0.0F).setStepSound(soundMetalFootstep).setBlockName("lampKerosene").disableNeighborNotifyOnMetadataChange();

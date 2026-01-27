@@ -64,10 +64,14 @@ public class TileEntityJohnMillRenderer extends TileEntitySpecialRenderer {
         float x1 =  2.0f * scale, y1 =  2.0f * scale, z1 =  0.0f * scale;
 
         int idx = Block.planks.blockIndexInTexture;
-        float u0 = (idx % 16) / 16.0f;
-        float v0 = (idx / 16) / 16.0f;
-        float u1 = u0 + 1.0f / 16.0f;
-        float v1 = v0 + 1.0f / 16.0f;
+        float ts = (float)TerrainTextureManager.getTerrainTextureSize();
+        float eps = 0.5f / ts;
+        float px = (idx % 16) * 16.0f;
+        float py = (idx / 16) * 16.0f;
+        float u0 = (px + 0.0f) / ts + eps;
+        float v0 = (py + 0.0f) / ts + eps;
+        float u1 = (px + 16.0f) / ts - eps;
+        float v1 = (py + 16.0f) / ts - eps;
 
         Tessellator t = Tessellator.instance;
         t.startDrawingQuads();

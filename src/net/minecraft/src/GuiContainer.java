@@ -97,7 +97,8 @@ public abstract class GuiContainer extends GuiScreen {
 			if(var5 >= 0) {
 				GL11.glDisable(GL11.GL_LIGHTING);
 				this.mc.renderEngine.bindTexture(this.mc.renderEngine.getTexture("/gui/items.png"));
-				this.drawTexturedModalRect(var2, var3, var5 % 16 * 16, var5 / 16 * 16, 16, 16);
+				int itemTextureSize = ItemTextureManager.getItemTextureSize();
+				this.drawTexturedModalRectWithSize(var2, var3, var5 % 16 * 16, var5 / 16 * 16, 16, 16, itemTextureSize);
 				GL11.glEnable(GL11.GL_LIGHTING);
 				return;
 			}
@@ -105,6 +106,22 @@ public abstract class GuiContainer extends GuiScreen {
 
 		itemRenderer.renderItemIntoGUI(this.fontRenderer, this.mc.renderEngine, var4, var2, var3);
 		itemRenderer.renderItemOverlayIntoGUI(this.fontRenderer, this.mc.renderEngine, var4, var2, var3);
+	}
+
+	private void drawTexturedModalRectWithSize(int var1, int var2, int var3, int var4, int var5, int var6, int textureSize) {
+		float inv = 1.0F / (float)textureSize;
+		float eps = 0.5F * inv;
+		float u0 = ((float)var3 + 0.0F) * inv + eps;
+		float u1 = ((float)var3 + (float)var5) * inv - eps;
+		float v0 = ((float)var4 + 0.0F) * inv + eps;
+		float v1 = ((float)var4 + (float)var6) * inv - eps;
+		Tessellator var9 = Tessellator.instance;
+		var9.startDrawingQuads();
+		var9.addVertexWithUV((double)(var1 + 0), (double)(var2 + var6), (double)this.zLevel, (double)u0, (double)v1);
+		var9.addVertexWithUV((double)(var1 + var5), (double)(var2 + var6), (double)this.zLevel, (double)u1, (double)v1);
+		var9.addVertexWithUV((double)(var1 + var5), (double)(var2 + 0), (double)this.zLevel, (double)u1, (double)v0);
+		var9.addVertexWithUV((double)(var1 + 0), (double)(var2 + 0), (double)this.zLevel, (double)u0, (double)v0);
+		var9.draw();
 	}
 
 	private Slot getSlotAtPosition(int var1, int var2) {

@@ -8,12 +8,13 @@ import javax.imageio.ImageIO;
 public class TerrainTextureManager {
 	private static final int TERRAIN_TILE_SIZE = 16;
 	private static final int MAX_TEXTURE_INDEX = 1024;
+	private static final int VANILLA_TILES_PER_ROW = 16;
 	
-	// Dynamic texture size - determined at runtime
 	private static int terrainTextureSize = 256;
-	private static int terrainTilesPerRow = 16;
+	private static int terrainTilesPerRow = VANILLA_TILES_PER_ROW;
+	private static boolean terrainSizeLoaded = false;
 	
-	private float[] field_1181_a = new float[3072]; // 1024 * 3
+	private float[] field_1181_a = new float[3072];
 	private int[] field_1180_b = new int[5120];
 	private int[] field_1186_c = new int[5120];
 	private int[] field_1185_d = new int[5120];
@@ -27,14 +28,13 @@ public class TerrainTextureManager {
 			int textureWidth = var1.getWidth();
 			int textureHeight = var1.getHeight();
 			
-			// Determine texture size and tiles per row dynamically
 			terrainTextureSize = textureWidth;
-			terrainTilesPerRow = textureWidth / TERRAIN_TILE_SIZE;
+			terrainTilesPerRow = VANILLA_TILES_PER_ROW;
 			
 			int[] var2 = new int[textureWidth * textureHeight];
 			var1.getRGB(0, 0, textureWidth, textureHeight, var2, 0, textureWidth);
 
-			int maxTextures = Math.min(MAX_TEXTURE_INDEX, (textureWidth / TERRAIN_TILE_SIZE) * (textureHeight / TERRAIN_TILE_SIZE));
+			int maxTextures = Math.min(MAX_TEXTURE_INDEX, (textureHeight / TERRAIN_TILE_SIZE) * VANILLA_TILES_PER_ROW);
 			
 			for(int var3 = 0; var3 < maxTextures; ++var3) {
 				int var4 = 0;
@@ -70,6 +70,7 @@ public class TerrainTextureManager {
 		} catch (IOException var14) {
 			var14.printStackTrace();
 		}
+		terrainSizeLoaded = true;
 
 		for(int var15 = 0; var15 < 256; ++var15) {
 			if(Block.blocksList[var15] != null) {
@@ -230,11 +231,41 @@ public class TerrainTextureManager {
 
 	}
 	
+	private static synchronized void ensureTerrainSizeLoaded() {
+		if (terrainSizeLoaded) return;
+		try {
+			java.io.InputStream in = TerrainTextureManager.class.getResourceAsStream("/terrain.png");
+			if (in != null) {
+				BufferedImage img = ImageIO.read(in);
+				in.close();
+				if (img != null) {
+					terrainTextureSize = img.getWidth();
+					terrainTilesPerRow = VANILLA_TILES_PER_ROW;
+				}
+			}
+		} catch (Throwable t) {
+		}
+		terrainSizeLoaded = true;
+	}
+
+	public static void setTerrainTextureSizeFromImage(int width, int height) {
+		System.out.println("[TerrainTextureManager] setTerrainTextureSizeFromImage: " + width + "x" + height);
+		terrainTextureSize = width;
+		terrainTilesPerRow = VANILLA_TILES_PER_ROW;
+		terrainSizeLoaded = true;
+	}
+
 	public static int getTerrainTextureSize() {
+		ensureTerrainSizeLoaded();
 		return terrainTextureSize;
 	}
 	
+	public static void debugPrint(String context) {
+		System.out.println("[TerrainTextureManager] " + context + ": size=" + terrainTextureSize + ", tilesPerRow=" + terrainTilesPerRow + ", loaded=" + terrainSizeLoaded);
+	}
+	
 	public static int getTerrainTilesPerRow() {
+		ensureTerrainSizeLoaded();
 		return terrainTilesPerRow;
 	}
 }

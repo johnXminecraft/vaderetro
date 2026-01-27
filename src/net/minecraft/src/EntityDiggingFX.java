@@ -31,10 +31,11 @@ public class EntityDiggingFX extends EntityFX {
 	}
 
 	public void renderParticle(Tessellator var1, float var2, float var3, float var4, float var5, float var6, float var7) {
-		float var8 = ((float)(this.particleTextureIndex % 16) + this.particleTextureJitterX / 4.0F) / 16.0F;
-		float var9 = var8 + 0.999F / 64.0F;
-		float var10 = ((float)(this.particleTextureIndex / 16) + this.particleTextureJitterY / 4.0F) / 16.0F;
-		float var11 = var10 + 0.999F / 64.0F;
+		float ts = (float)TerrainTextureManager.getTerrainTextureSize();
+		float var8 = ((float)(this.particleTextureIndex % 16) * 16.0F + this.particleTextureJitterX * 4.0F) / ts;
+		float var9 = var8 + 4.0F / ts;
+		float var10 = ((float)(this.particleTextureIndex / 16) * 16.0F + this.particleTextureJitterY * 4.0F) / ts;
+		float var11 = var10 + 4.0F / ts;
 		float var12 = 0.1F * this.particleScale;
 		float var13 = (float)(this.prevPosX + (this.posX - this.prevPosX) * (double)var2 - interpPosX);
 		float var14 = (float)(this.prevPosY + (this.posY - this.prevPosY) * (double)var2 - interpPosY);

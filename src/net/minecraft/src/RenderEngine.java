@@ -99,6 +99,30 @@ public class RenderEngine {
 		TexturePackBase var2 = this.texturePack.selectedTexturePack;
 		Integer var3 = (Integer)this.textureMap.get(var1);
 		if(var3 != null) {
+			if("/terrain.png".equals(var1) && TerrainTextureManager.getTerrainTextureSize() == 256) {
+				try {
+					InputStream var7 = var2.getResourceAsStream(var1);
+					if(var7 != null) {
+						BufferedImage var8 = this.readTextureImage(var7);
+						if(var8 != null && (var8.getWidth() != 256 || var8.getHeight() != 256)) {
+							TerrainTextureManager.setTerrainTextureSizeFromImage(var8.getWidth(), var8.getHeight());
+						}
+					}
+				} catch (Throwable var9) {
+				}
+			}
+			if("/gui/items.png".equals(var1) && ItemTextureManager.getItemTextureSize() == 256) {
+				try {
+					InputStream var7 = var2.getResourceAsStream(var1);
+					if(var7 != null) {
+						BufferedImage var8 = this.readTextureImage(var7);
+						if(var8 != null && (var8.getWidth() != 256 || var8.getHeight() != 256)) {
+							ItemTextureManager.setItemTextureSizeFromImage(var8.getWidth(), var8.getHeight());
+						}
+					}
+				} catch (Throwable var9) {
+				}
+			}
 			return var3.intValue();
 		} else {
 			try {
@@ -120,7 +144,16 @@ public class RenderEngine {
 					if(var7 == null) {
 						this.setupTexture(this.missingTextureImage, var6);
 					} else {
-						this.setupTexture(this.readTextureImage(var7), var6);
+						BufferedImage var8 = this.readTextureImage(var7);
+						if("/terrain.png".equals(var1) && var8 != null) {
+							System.out.println("[RenderEngine] Loading terrain.png: " + var8.getWidth() + "x" + var8.getHeight());
+							TerrainTextureManager.setTerrainTextureSizeFromImage(var8.getWidth(), var8.getHeight());
+						}
+						if("/gui/items.png".equals(var1) && var8 != null) {
+							System.out.println("[RenderEngine] Loading items.png: " + var8.getWidth() + "x" + var8.getHeight());
+							ItemTextureManager.setItemTextureSizeFromImage(var8.getWidth(), var8.getHeight());
+						}
+						this.setupTexture(var8, var6);
 					}
 				}
 

@@ -34,10 +34,21 @@ public class ItemRenderer {
 
 			Tessellator var3 = Tessellator.instance;
 			int var4 = var1.getItemIcon(var2);
-			float var5 = ((float)(var4 % 16 * 16) + 0.0F) / 256.0F;
-			float var6 = ((float)(var4 % 16 * 16) + 15.99F) / 256.0F;
-			float var7 = ((float)(var4 / 16 * 16) + 0.0F) / 256.0F;
-			float var8 = ((float)(var4 / 16 * 16) + 15.99F) / 256.0F;
+			if (var2.itemID < 256 && Block.blocksList[var2.itemID] != null) {
+				var4 = Block.blocksList[var2.itemID].getBlockTextureFromSideAndMetadata(0, var2.getItemDamage());
+			}
+			float ts = var2.itemID < 256 ? (float)TerrainTextureManager.getTerrainTextureSize() : (float)ItemTextureManager.getItemTextureSize();
+			float eps = 0.5F / ts;
+			float var5 = ((float)(var4 % 16 * 16) + 0.0F) / ts;
+			float var6 = ((float)(var4 % 16 * 16) + 15.99F) / ts;
+			float var7 = ((float)(var4 / 16 * 16) + 0.0F) / ts;
+			float var8 = ((float)(var4 / 16 * 16) + 15.99F) / ts;
+			if (var2.itemID < 256) {
+				var5 += eps;
+				var6 -= eps;
+				var7 += eps;
+				var8 -= eps;
+			}
 			float var9 = 1.0F;
 			float var10 = 0.0F;
 			float var11 = 0.3F;
@@ -72,7 +83,7 @@ public class ItemRenderer {
 			float var17;
 			for(var14 = 0; var14 < 16; ++var14) {
 				var15 = (float)var14 / 16.0F;
-				var16 = var6 + (var5 - var6) * var15 - 0.001953125F;
+				var16 = var6 + (var5 - var6) * var15 - eps;
 				var17 = var9 * var15;
 				var3.addVertexWithUV((double)var17, 0.0D, (double)(0.0F - var13), (double)var16, (double)var8);
 				var3.addVertexWithUV((double)var17, 0.0D, 0.0D, (double)var16, (double)var8);
@@ -86,7 +97,7 @@ public class ItemRenderer {
 
 			for(var14 = 0; var14 < 16; ++var14) {
 				var15 = (float)var14 / 16.0F;
-				var16 = var6 + (var5 - var6) * var15 - 0.001953125F;
+				var16 = var6 + (var5 - var6) * var15 - eps;
 				var17 = var9 * var15 + 1.0F / 16.0F;
 				var3.addVertexWithUV((double)var17, 1.0D, (double)(0.0F - var13), (double)var16, (double)var7);
 				var3.addVertexWithUV((double)var17, 1.0D, 0.0D, (double)var16, (double)var7);
@@ -100,7 +111,7 @@ public class ItemRenderer {
 
 			for(var14 = 0; var14 < 16; ++var14) {
 				var15 = (float)var14 / 16.0F;
-				var16 = var8 + (var7 - var8) * var15 - 0.001953125F;
+				var16 = var8 + (var7 - var8) * var15 - eps;
 				var17 = var9 * var15 + 1.0F / 16.0F;
 				var3.addVertexWithUV(0.0D, (double)var17, 0.0D, (double)var6, (double)var16);
 				var3.addVertexWithUV((double)var9, (double)var17, 0.0D, (double)var5, (double)var16);
@@ -114,7 +125,7 @@ public class ItemRenderer {
 
 			for(var14 = 0; var14 < 16; ++var14) {
 				var15 = (float)var14 / 16.0F;
-				var16 = var8 + (var7 - var8) * var15 - 0.001953125F;
+				var16 = var8 + (var7 - var8) * var15 - eps;
 				var17 = var9 * var15;
 				var3.addVertexWithUV((double)var9, (double)var17, 0.0D, (double)var5, (double)var16);
 				var3.addVertexWithUV(0.0D, (double)var17, 0.0D, (double)var6, (double)var16);
@@ -236,39 +247,34 @@ public class ItemRenderer {
 			GL11.glRotatef(-var10 * 20.0F, 0.0F, 0.0F, 1.0F);
 			GL11.glRotatef(-var10 * 80.0F, 1.0F, 0.0F, 0.0F);
 
-			// Musket reload pose (simple first-person animation while reloading)
 			if(var5.itemID == Item.musket.shiftedIndex) {
 				ItemMusket musket = (ItemMusket)Item.musket;
 				if(musket.isReloading()) {
 					float reloadProgress = (float)musket.getReloadProgress() / (float)musket.getReloadDuration();
 					float s = MathHelper.sin(reloadProgress * (float)Math.PI);
-					// subtle down-and-forward motion and a tilt, peaking mid-reload
 					GL11.glTranslatef(0.0F, -0.2F * s, -0.15F * reloadProgress);
 					GL11.glRotatef(20.0F * s, 1.0F, 0.0F, 0.0F);
 					GL11.glRotatef(-12.0F * s, 0.0F, 0.0F, 1.0F);
 				}
 			}
 			
-			// AR15 reload and recoil animations
 			if(var5.itemID == Item.ar15.shiftedIndex) {
 				ItemAR15 ar15 = (ItemAR15)Item.ar15;
 				if(ar15.isReloading()) {
 					float reloadProgress = (float)ar15.getReloadProgress() / (float)ar15.getReloadDuration();
 					float s = MathHelper.sin(reloadProgress * (float)Math.PI);
-					// inverted motion - barrel goes down and back, opposite of musket
 					GL11.glTranslatef(0.0F, 0.2F * s, 0.15F * reloadProgress);
 					GL11.glRotatef(-20.0F * s, 1.0F, 0.0F, 0.0F);
 					GL11.glRotatef(12.0F * s, 0.0F, 0.0F, 1.0F);
 				} else if(ar15.isRecoiling()) {
 					float recoilProgress = (float)ar15.getRecoilProgress() / (float)ar15.getRecoilDuration();
 					float s = MathHelper.sin(recoilProgress * (float)Math.PI);
-					// recoil animation - weapon kicks back and up
 					GL11.glTranslatef(0.0F, -0.1F * s, 0.2F * s);
 					GL11.glRotatef(15.0F * s, 1.0F, 0.0F, 0.0F);
 					GL11.glRotatef(-5.0F * s, 0.0F, 0.0F, 1.0F);
 				}
 			}
-			var8 = 0.6F; // Make AR15 bigger (was 0.4F)
+			var8 = 0.6F;
 			GL11.glScalef(var8, var8, var8);
 			if(var5.getItem().shouldRotateAroundWhenRendering()) {
 				GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);

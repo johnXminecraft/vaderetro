@@ -3,6 +3,7 @@ package net.minecraft.src.vaderetro.texture.oil;
 import net.minecraft.src.Block;
 import net.minecraft.src.MathHelper;
 import net.minecraft.src.RenderEngine;
+import net.minecraft.src.TerrainTextureManager;
 import net.minecraft.src.TextureFX;
 
 public class TextureOilFlowFX extends TextureFX {
@@ -48,7 +49,7 @@ public class TextureOilFlowFX extends TextureFX {
     private void prepareFrames(int texturePosX, int texturePosY) {
         if (baseTextureData == null) return;
 
-        int terrainWidth = 16 * TEXTURE_WIDTH;
+        int terrainWidth = TerrainTextureManager.getTerrainTextureSize();
         int baseOffsetX = texturePosX * TEXTURE_WIDTH;
         int baseOffsetY = texturePosY * TEXTURE_HEIGHT;
 

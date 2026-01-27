@@ -25,6 +25,7 @@ EntityZombie.class
 EnumCreatureType.class
 EnumToolMaterial.class
 FurnaceRecipes.class
+GuiMainMenu.class
 GuiChest.class
 GuiCrafting.class
 GuiDispenser.class
@@ -70,3 +71,11 @@ RenderGlobal.class
 LoadingScreenRenderer.class
 GameSettings.class
 TextureLavaFlowFx.class
+RenderBlocks.class
+EntityDiggingFX.class
+TerrainTextureManager.class
+TextureCompassFX.class
+TextureWatchFX.class
+RenderEngine.class
+GuiContainer.class
+RenderItem.class

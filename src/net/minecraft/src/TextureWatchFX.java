@@ -19,6 +19,7 @@ public class TextureWatchFX extends TextureFX {
 
 		try {
 			BufferedImage var2 = ImageIO.read(Minecraft.class.getResource("/gui/items.png"));
+			int itemTextureSize = ItemTextureManager.getItemTextureSize();
 			int var3 = this.iconIndex % 16 * 16;
 			int var4 = this.iconIndex / 16 * 16;
 			var2.getRGB(var3, var4, 16, 16, this.watchIconImageData, 0, 16);

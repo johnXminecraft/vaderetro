@@ -6,7 +6,6 @@ import org.lwjgl.opengl.GL11;
 public class RenderBlocks {
 	private static final int TERRAIN_TILE_SIZE = 16;
 	
-	// Get texture size dynamically from TerrainTextureManager
 	private static float getTerrainTextureSize() {
 		return (float)TerrainTextureManager.getTerrainTextureSize();
 	}
@@ -22,7 +21,6 @@ public class RenderBlocks {
 	public static boolean fancyGrass = true;
 	public boolean field_31088_b = true;
 	
-	// Helper methods for extended texture mapping
 	private static int getTextureX(int textureIndex) {
 		return (textureIndex % getTerrainTilesPerRow()) * TERRAIN_TILE_SIZE;
 	}
@@ -31,8 +29,19 @@ public class RenderBlocks {
 		return (textureIndex / getTerrainTilesPerRow()) * TERRAIN_TILE_SIZE;
 	}
 	
+	private static boolean debugPrinted = false;
+	
 	private static double getTextureU(int textureIndex) {
-		return (double)getTextureX(textureIndex) / getTerrainTextureSize();
+		double u = (double)getTextureX(textureIndex) / getTerrainTextureSize();
+		if (textureIndex == 273 && !debugPrinted) {
+			System.out.println("[RenderBlocks] textureIndex=273: X=" + getTextureX(textureIndex) + " Y=" + getTextureY(textureIndex) + " terrainSize=" + getTerrainTextureSize() + " tilesPerRow=" + getTerrainTilesPerRow() + " U=" + u + " V=" + getTextureV_noDebug(textureIndex));
+			debugPrinted = true;
+		}
+		return u;
+	}
+	
+	private static double getTextureV_noDebug(int textureIndex) {
+		return (double)getTextureY(textureIndex) / getTerrainTextureSize();
 	}
 	
 	private static double getTextureV(int textureIndex) {
@@ -47,8 +56,6 @@ public class RenderBlocks {
 		return ((double)getTextureY(textureIndex) + offset) / getTerrainTextureSize();
 	}
 	
-	// Helper method to convert old bitwise operations to new system
-	// Replaces: (var & 15) << 4 and var & 240 pattern
 	private static int[] getTextureCoords(int textureIndex) {
 		return new int[]{getTextureX(textureIndex), getTextureY(textureIndex)};
 	}
@@ -903,10 +910,10 @@ public class RenderBlocks {
 				var31 = (double)var2 + 0.5D + 0.5D;
 				var33 = (double)var4 + 0.5D - 0.5D;
 				double var35 = (double)var4 + 0.5D + 0.5D;
-				var10 = (double)((float)var8 / 256.0F);
-				var12 = (double)(((float)var8 + 15.99F) / 256.0F);
-				var14 = (double)((float)var9 / 256.0F);
-				var16 = (double)(((float)var9 + 15.99F) / 256.0F);
+				var10 = (double)((float)var8 / getTerrainTextureSize());
+				var12 = (double)(((float)var8 + 15.99F) / getTerrainTextureSize());
+				var14 = (double)((float)var9 / getTerrainTextureSize());
+				var16 = (double)(((float)var9 + 15.99F) / getTerrainTextureSize());
 				++var3;
 				var18 = -0.2F;
 				if((var2 + var3 + var4 & 1) == 0) {
@@ -1067,10 +1074,10 @@ public class RenderBlocks {
 		}
 
 		if(var35 != 0) {
-			var15 = (double)((float)(var13 + 16) / 256.0F);
-			var17 = (double)(((float)(var13 + 16) + 15.99F) / 256.0F);
-			var19 = (double)((float)var14 / 256.0F);
-			var21 = (double)(((float)var14 + 15.99F) / 256.0F);
+			var15 = (double)((float)(var13 + 16) / getTerrainTextureSize());
+			var17 = (double)(((float)(var13 + 16) + 15.99F) / getTerrainTextureSize());
+			var19 = (double)((float)var14 / getTerrainTextureSize());
+			var21 = (double)(((float)var14 + 15.99F) / getTerrainTextureSize());
 		}
 
 		if(var35 == 0) {
@@ -1140,10 +1147,10 @@ public class RenderBlocks {
 		}
 
 		if(!this.blockAccess.isBlockNormalCube(var2, var3 + 1, var4)) {
-			var15 = (double)((float)(var13 + 16) / 256.0F);
-			var17 = (double)(((float)(var13 + 16) + 15.99F) / 256.0F);
-			var19 = (double)((float)var14 / 256.0F);
-			var21 = (double)(((float)var14 + 15.99F) / 256.0F);
+			var15 = (double)((float)(var13 + 16) / getTerrainTextureSize());
+			var17 = (double)(((float)(var13 + 16) + 15.99F) / getTerrainTextureSize());
+			var19 = (double)((float)var14 / getTerrainTextureSize());
+			var21 = (double)(((float)var14 + 15.99F) / getTerrainTextureSize());
 			if(this.blockAccess.isBlockNormalCube(var2 - 1, var3, var4) && this.blockAccess.getBlockId(var2 - 1, var3 + 1, var4) == Block.redstoneWire.blockID) {
 				var5.setColorOpaque_F(var8 * var10, var8 * var11, var8 * var12);
 				var5.addVertexWithUV((double)((float)var2 + 0.015625F), (double)((float)(var3 + 1) + 7.0F / 320.0F), (double)(var4 + 1), var17, var19);
@@ -1296,10 +1303,10 @@ public class RenderBlocks {
 		var5.setColorOpaque_F(var7, var7, var7);
 		int var8 = (var6 & 15) << 4;
 		int var9 = var6 & 240;
-		double var10 = (double)((float)var8 / 256.0F);
-		double var12 = (double)(((float)var8 + 15.99F) / 256.0F);
-		double var14 = (double)((float)var9 / 256.0F);
-		double var16 = (double)(((float)var9 + 15.99F) / 256.0F);
+		double var10 = (double)((float)var8 / getTerrainTextureSize());
+		double var12 = (double)(((float)var8 + 15.99F) / getTerrainTextureSize());
+		double var14 = (double)((float)var9 / getTerrainTextureSize());
+		double var16 = (double)(((float)var9 + 15.99F) / getTerrainTextureSize());
 		int var18 = this.blockAccess.getBlockMetadata(var2, var3, var4);
 		float var19 = 0.0F;
 		float var20 = 0.05F;
@@ -1388,8 +1395,8 @@ public class RenderBlocks {
 		float var18 = (float)getTextureV(var13);
 		float var19 = (float)getTextureVWithOffset(var13, 15.99D);
 		double var20 = (double)var16 + 1.75D / 64.0D;
-		double var22 = (double)var18 + 6.0D / 256.0D;
-		double var24 = (double)var16 + 9.0D / 256.0D;
+		double var22 = (double)var18 + 6.0D / (double)getTerrainTextureSize();
+		double var24 = (double)var16 + 9.0D / (double)getTerrainTextureSize();
 		double var26 = (double)var18 + 1.0D / 32.0D;
 		var2 += 0.5D;
 		var6 += 0.5D;
@@ -1556,8 +1563,8 @@ public class RenderBlocks {
 				if(var29 < -999.0F) {
 					var29 = 0.0F;
 				} else {
-					var32 = (double)((float)(var30 + 16) / 256.0F);
-					var34 = (double)((float)(var31 + 16) / 256.0F);
+					var32 = (double)((float)(var30 + 16) / getTerrainTextureSize());
+					var34 = (double)((float)(var31 + 16) / getTerrainTextureSize());
 				}
 
 				var36 = MathHelper.sin(var29) * 8.0F / getTerrainTextureSize();
@@ -1634,11 +1641,11 @@ public class RenderBlocks {
 					}
 
 					var13 = true;
-					double var41 = (double)((float)(var33 + 0) / 256.0F);
-					double var43 = ((double)(var33 + 16) - 0.01D) / 256.0D;
-					double var45 = (double)(((float)var55 + (1.0F - var35) * 16.0F) / 256.0F);
-					double var47 = (double)(((float)var55 + (1.0F - var36) * 16.0F) / 256.0F);
-					double var49 = ((double)(var55 + 16) - 0.01D) / 256.0D;
+					double var41 = (double)((float)(var33 + 0) / getTerrainTextureSize());
+					double var43 = ((double)(var33 + 16) - 0.01D) / (double)getTerrainTextureSize();
+					double var45 = (double)(((float)var55 + (1.0F - var35) * 16.0F) / getTerrainTextureSize());
+					double var47 = (double)(((float)var55 + (1.0F - var36) * 16.0F) / getTerrainTextureSize());
+					double var49 = ((double)(var55 + 16) - 0.01D) / (double)getTerrainTextureSize();
 					float var51 = var1.getBlockBrightness(this.blockAccess, var53, var3, var31);
 					if(var28 < 2) {
 						var51 *= var16;
@@ -2712,13 +2719,13 @@ public class RenderBlocks {
 		double var16 = getTextureVWithOffset(var8, var1.minZ * (double)TERRAIN_TILE_SIZE);
 		double var18 = getTextureVWithOffset(var8, var1.maxZ * (double)TERRAIN_TILE_SIZE - 0.01D);
 		if(var1.minX < 0.0D || var1.maxX > 1.0D) {
-			var12 = (double)(((float)var10 + 0.0F) / 256.0F);
-			var14 = (double)(((float)var10 + 15.99F) / 256.0F);
+			var12 = (double)(((float)var10 + 0.0F) / getTerrainTextureSize());
+			var14 = (double)(((float)var10 + 15.99F) / getTerrainTextureSize());
 		}
 
 		if(var1.minZ < 0.0D || var1.maxZ > 1.0D) {
-			var16 = (double)(((float)var11 + 0.0F) / 256.0F);
-			var18 = (double)(((float)var11 + 15.99F) / 256.0F);
+			var16 = (double)(((float)var11 + 0.0F) / getTerrainTextureSize());
+			var18 = (double)(((float)var11 + 15.99F) / getTerrainTextureSize());
 		}
 
 		double var20 = var14;
@@ -2726,10 +2733,10 @@ public class RenderBlocks {
 		double var24 = var16;
 		double var26 = var18;
 		if(this.field_31082_l == 2) {
-			var12 = ((double)var10 + var1.minZ * 16.0D) / 256.0D;
-			var16 = ((double)(var11 + 16) - var1.maxX * 16.0D) / 256.0D;
-			var14 = ((double)var10 + var1.maxZ * 16.0D) / 256.0D;
-			var18 = ((double)(var11 + 16) - var1.minX * 16.0D) / 256.0D;
+			var12 = ((double)var10 + var1.minZ * 16.0D) / (double)getTerrainTextureSize();
+			var16 = ((double)(var11 + 16) - var1.maxX * 16.0D) / (double)getTerrainTextureSize();
+			var14 = ((double)var10 + var1.maxZ * 16.0D) / (double)getTerrainTextureSize();
+			var18 = ((double)(var11 + 16) - var1.minX * 16.0D) / (double)getTerrainTextureSize();
 			var24 = var16;
 			var26 = var18;
 			var20 = var12;
@@ -2737,10 +2744,10 @@ public class RenderBlocks {
 			var16 = var18;
 			var18 = var24;
 		} else if(this.field_31082_l == 1) {
-			var12 = ((double)(var10 + 16) - var1.maxZ * 16.0D) / 256.0D;
-			var16 = ((double)var11 + var1.minX * 16.0D) / 256.0D;
-			var14 = ((double)(var10 + 16) - var1.minZ * 16.0D) / 256.0D;
-			var18 = ((double)var11 + var1.maxX * 16.0D) / 256.0D;
+			var12 = ((double)(var10 + 16) - var1.maxZ * 16.0D) / (double)getTerrainTextureSize();
+			var16 = ((double)var11 + var1.minX * 16.0D) / (double)getTerrainTextureSize();
+			var14 = ((double)(var10 + 16) - var1.minZ * 16.0D) / (double)getTerrainTextureSize();
+			var18 = ((double)var11 + var1.maxX * 16.0D) / (double)getTerrainTextureSize();
 			var20 = var14;
 			var22 = var12;
 			var12 = var14;
@@ -2748,10 +2755,10 @@ public class RenderBlocks {
 			var24 = var18;
 			var26 = var16;
 		} else if(this.field_31082_l == 3) {
-			var12 = ((double)(var10 + 16) - var1.minX * 16.0D) / 256.0D;
-			var14 = ((double)(var10 + 16) - var1.maxX * 16.0D - 0.01D) / 256.0D;
-			var16 = ((double)(var11 + 16) - var1.minZ * 16.0D) / 256.0D;
-			var18 = ((double)(var11 + 16) - var1.maxZ * 16.0D - 0.01D) / 256.0D;
+			var12 = ((double)(var10 + 16) - var1.minX * 16.0D) / (double)getTerrainTextureSize();
+			var14 = ((double)(var10 + 16) - var1.maxX * 16.0D - 0.01D) / (double)getTerrainTextureSize();
+			var16 = ((double)(var11 + 16) - var1.minZ * 16.0D) / (double)getTerrainTextureSize();
+			var18 = ((double)(var11 + 16) - var1.maxZ * 16.0D - 0.01D) / (double)getTerrainTextureSize();
 			var20 = var14;
 			var22 = var12;
 			var24 = var16;
@@ -2794,13 +2801,13 @@ public class RenderBlocks {
 		double var16 = getTextureVWithOffset(var8, var1.minZ * (double)TERRAIN_TILE_SIZE);
 		double var18 = getTextureVWithOffset(var8, var1.maxZ * (double)TERRAIN_TILE_SIZE - 0.01D);
 		if(var1.minX < 0.0D || var1.maxX > 1.0D) {
-			var12 = (double)(((float)var10 + 0.0F) / 256.0F);
-			var14 = (double)(((float)var10 + 15.99F) / 256.0F);
+			var12 = (double)(((float)var10 + 0.0F) / getTerrainTextureSize());
+			var14 = (double)(((float)var10 + 15.99F) / getTerrainTextureSize());
 		}
 
 		if(var1.minZ < 0.0D || var1.maxZ > 1.0D) {
-			var16 = (double)(((float)var11 + 0.0F) / 256.0F);
-			var18 = (double)(((float)var11 + 15.99F) / 256.0F);
+			var16 = (double)(((float)var11 + 0.0F) / getTerrainTextureSize());
+			var18 = (double)(((float)var11 + 15.99F) / getTerrainTextureSize());
 		}
 
 		double var20 = var14;
@@ -2808,10 +2815,10 @@ public class RenderBlocks {
 		double var24 = var16;
 		double var26 = var18;
 		if(this.field_31083_k == 1) {
-			var12 = ((double)var10 + var1.minZ * 16.0D) / 256.0D;
-			var16 = ((double)(var11 + 16) - var1.maxX * 16.0D) / 256.0D;
-			var14 = ((double)var10 + var1.maxZ * 16.0D) / 256.0D;
-			var18 = ((double)(var11 + 16) - var1.minX * 16.0D) / 256.0D;
+			var12 = ((double)var10 + var1.minZ * 16.0D) / (double)getTerrainTextureSize();
+			var16 = ((double)(var11 + 16) - var1.maxX * 16.0D) / (double)getTerrainTextureSize();
+			var14 = ((double)var10 + var1.maxZ * 16.0D) / (double)getTerrainTextureSize();
+			var18 = ((double)(var11 + 16) - var1.minX * 16.0D) / (double)getTerrainTextureSize();
 			var24 = var16;
 			var26 = var18;
 			var20 = var12;
@@ -2819,10 +2826,10 @@ public class RenderBlocks {
 			var16 = var18;
 			var18 = var24;
 		} else if(this.field_31083_k == 2) {
-			var12 = ((double)(var10 + 16) - var1.maxZ * 16.0D) / 256.0D;
-			var16 = ((double)var11 + var1.minX * 16.0D) / 256.0D;
-			var14 = ((double)(var10 + 16) - var1.minZ * 16.0D) / 256.0D;
-			var18 = ((double)var11 + var1.maxX * 16.0D) / 256.0D;
+			var12 = ((double)(var10 + 16) - var1.maxZ * 16.0D) / (double)getTerrainTextureSize();
+			var16 = ((double)var11 + var1.minX * 16.0D) / (double)getTerrainTextureSize();
+			var14 = ((double)(var10 + 16) - var1.minZ * 16.0D) / (double)getTerrainTextureSize();
+			var18 = ((double)var11 + var1.maxX * 16.0D) / (double)getTerrainTextureSize();
 			var20 = var14;
 			var22 = var12;
 			var12 = var14;
@@ -2830,10 +2837,10 @@ public class RenderBlocks {
 			var24 = var18;
 			var26 = var16;
 		} else if(this.field_31083_k == 3) {
-			var12 = ((double)(var10 + 16) - var1.minX * 16.0D) / 256.0D;
-			var14 = ((double)(var10 + 16) - var1.maxX * 16.0D - 0.01D) / 256.0D;
-			var16 = ((double)(var11 + 16) - var1.minZ * 16.0D) / 256.0D;
-			var18 = ((double)(var11 + 16) - var1.maxZ * 16.0D - 0.01D) / 256.0D;
+			var12 = ((double)(var10 + 16) - var1.minX * 16.0D) / (double)getTerrainTextureSize();
+			var14 = ((double)(var10 + 16) - var1.maxX * 16.0D - 0.01D) / (double)getTerrainTextureSize();
+			var16 = ((double)(var11 + 16) - var1.minZ * 16.0D) / (double)getTerrainTextureSize();
+			var18 = ((double)(var11 + 16) - var1.maxZ * 16.0D - 0.01D) / (double)getTerrainTextureSize();
 			var20 = var14;
 			var22 = var12;
 			var24 = var16;
@@ -2883,13 +2890,13 @@ public class RenderBlocks {
 		}
 
 		if(var1.minX < 0.0D || var1.maxX > 1.0D) {
-			var12 = (double)(((float)var10 + 0.0F) / 256.0F);
-			var14 = (double)(((float)var10 + 15.99F) / 256.0F);
+			var12 = (double)(((float)var10 + 0.0F) / getTerrainTextureSize());
+			var14 = (double)(((float)var10 + 15.99F) / getTerrainTextureSize());
 		}
 
 		if(var1.minY < 0.0D || var1.maxY > 1.0D) {
-			var16 = (double)(((float)var11 + 0.0F) / 256.0F);
-			var18 = (double)(((float)var11 + 15.99F) / 256.0F);
+			var16 = (double)(((float)var11 + 0.0F) / getTerrainTextureSize());
+			var18 = (double)(((float)var11 + 15.99F) / getTerrainTextureSize());
 		}
 
 		var20 = var14;
@@ -2897,10 +2904,10 @@ public class RenderBlocks {
 		double var24 = var16;
 		double var26 = var18;
 		if(this.field_31087_g == 2) {
-			var12 = ((double)var10 + var1.minY * 16.0D) / 256.0D;
-			var16 = ((double)(var11 + 16) - var1.minX * 16.0D) / 256.0D;
-			var14 = ((double)var10 + var1.maxY * 16.0D) / 256.0D;
-			var18 = ((double)(var11 + 16) - var1.maxX * 16.0D) / 256.0D;
+			var12 = ((double)var10 + var1.minY * 16.0D) / (double)getTerrainTextureSize();
+			var16 = ((double)(var11 + 16) - var1.minX * 16.0D) / (double)getTerrainTextureSize();
+			var14 = ((double)var10 + var1.maxY * 16.0D) / (double)getTerrainTextureSize();
+			var18 = ((double)(var11 + 16) - var1.maxX * 16.0D) / (double)getTerrainTextureSize();
 			var24 = var16;
 			var26 = var18;
 			var20 = var12;
@@ -2908,10 +2915,10 @@ public class RenderBlocks {
 			var16 = var18;
 			var18 = var24;
 		} else if(this.field_31087_g == 1) {
-			var12 = ((double)(var10 + 16) - var1.maxY * 16.0D) / 256.0D;
-			var16 = ((double)var11 + var1.maxX * 16.0D) / 256.0D;
-			var14 = ((double)(var10 + 16) - var1.minY * 16.0D) / 256.0D;
-			var18 = ((double)var11 + var1.minX * 16.0D) / 256.0D;
+			var12 = ((double)(var10 + 16) - var1.maxY * 16.0D) / (double)getTerrainTextureSize();
+			var16 = ((double)var11 + var1.maxX * 16.0D) / (double)getTerrainTextureSize();
+			var14 = ((double)(var10 + 16) - var1.minY * 16.0D) / (double)getTerrainTextureSize();
+			var18 = ((double)var11 + var1.minX * 16.0D) / (double)getTerrainTextureSize();
 			var20 = var14;
 			var22 = var12;
 			var12 = var14;
@@ -2919,10 +2926,10 @@ public class RenderBlocks {
 			var24 = var18;
 			var26 = var16;
 		} else if(this.field_31087_g == 3) {
-			var12 = ((double)(var10 + 16) - var1.minX * 16.0D) / 256.0D;
-			var14 = ((double)(var10 + 16) - var1.maxX * 16.0D - 0.01D) / 256.0D;
-			var16 = ((double)var11 + var1.maxY * 16.0D) / 256.0D;
-			var18 = ((double)var11 + var1.minY * 16.0D - 0.01D) / 256.0D;
+			var12 = ((double)(var10 + 16) - var1.minX * 16.0D) / (double)getTerrainTextureSize();
+			var14 = ((double)(var10 + 16) - var1.maxX * 16.0D - 0.01D) / (double)getTerrainTextureSize();
+			var16 = ((double)var11 + var1.maxY * 16.0D) / (double)getTerrainTextureSize();
+			var18 = ((double)var11 + var1.minY * 16.0D - 0.01D) / (double)getTerrainTextureSize();
 			var20 = var14;
 			var22 = var12;
 			var24 = var16;
@@ -2972,13 +2979,13 @@ public class RenderBlocks {
 		}
 
 		if(var1.minX < 0.0D || var1.maxX > 1.0D) {
-			var12 = (double)(((float)var10 + 0.0F) / 256.0F);
-			var14 = (double)(((float)var10 + 15.99F) / 256.0F);
+			var12 = (double)(((float)var10 + 0.0F) / getTerrainTextureSize());
+			var14 = (double)(((float)var10 + 15.99F) / getTerrainTextureSize());
 		}
 
 		if(var1.minY < 0.0D || var1.maxY > 1.0D) {
-			var16 = (double)(((float)var11 + 0.0F) / 256.0F);
-			var18 = (double)(((float)var11 + 15.99F) / 256.0F);
+			var16 = (double)(((float)var11 + 0.0F) / getTerrainTextureSize());
+			var18 = (double)(((float)var11 + 15.99F) / getTerrainTextureSize());
 		}
 
 		var20 = var14;
@@ -2986,10 +2993,10 @@ public class RenderBlocks {
 		double var24 = var16;
 		double var26 = var18;
 		if(this.field_31086_h == 1) {
-			var12 = ((double)var10 + var1.minY * 16.0D) / 256.0D;
-			var18 = ((double)(var11 + 16) - var1.minX * 16.0D) / 256.0D;
-			var14 = ((double)var10 + var1.maxY * 16.0D) / 256.0D;
-			var16 = ((double)(var11 + 16) - var1.maxX * 16.0D) / 256.0D;
+			var12 = ((double)var10 + var1.minY * 16.0D) / (double)getTerrainTextureSize();
+			var18 = ((double)(var11 + 16) - var1.minX * 16.0D) / (double)getTerrainTextureSize();
+			var14 = ((double)var10 + var1.maxY * 16.0D) / (double)getTerrainTextureSize();
+			var16 = ((double)(var11 + 16) - var1.maxX * 16.0D) / (double)getTerrainTextureSize();
 			var24 = var16;
 			var26 = var18;
 			var20 = var12;
@@ -2997,10 +3004,10 @@ public class RenderBlocks {
 			var16 = var18;
 			var18 = var24;
 		} else if(this.field_31086_h == 2) {
-			var12 = ((double)(var10 + 16) - var1.maxY * 16.0D) / 256.0D;
-			var16 = ((double)var11 + var1.minX * 16.0D) / 256.0D;
-			var14 = ((double)(var10 + 16) - var1.minY * 16.0D) / 256.0D;
-			var18 = ((double)var11 + var1.maxX * 16.0D) / 256.0D;
+			var12 = ((double)(var10 + 16) - var1.maxY * 16.0D) / (double)getTerrainTextureSize();
+			var16 = ((double)var11 + var1.minX * 16.0D) / (double)getTerrainTextureSize();
+			var14 = ((double)(var10 + 16) - var1.minY * 16.0D) / (double)getTerrainTextureSize();
+			var18 = ((double)var11 + var1.maxX * 16.0D) / (double)getTerrainTextureSize();
 			var20 = var14;
 			var22 = var12;
 			var12 = var14;
@@ -3008,10 +3015,10 @@ public class RenderBlocks {
 			var24 = var18;
 			var26 = var16;
 		} else if(this.field_31086_h == 3) {
-			var12 = ((double)(var10 + 16) - var1.minX * 16.0D) / 256.0D;
-			var14 = ((double)(var10 + 16) - var1.maxX * 16.0D - 0.01D) / 256.0D;
-			var16 = ((double)var11 + var1.maxY * 16.0D) / 256.0D;
-			var18 = ((double)var11 + var1.minY * 16.0D - 0.01D) / 256.0D;
+			var12 = ((double)(var10 + 16) - var1.minX * 16.0D) / (double)getTerrainTextureSize();
+			var14 = ((double)(var10 + 16) - var1.maxX * 16.0D - 0.01D) / (double)getTerrainTextureSize();
+			var16 = ((double)var11 + var1.maxY * 16.0D) / (double)getTerrainTextureSize();
+			var18 = ((double)var11 + var1.minY * 16.0D - 0.01D) / (double)getTerrainTextureSize();
 			var20 = var14;
 			var22 = var12;
 			var24 = var16;
@@ -3061,13 +3068,13 @@ public class RenderBlocks {
 		}
 
 		if(var1.minZ < 0.0D || var1.maxZ > 1.0D) {
-			var12 = (double)(((float)var10 + 0.0F) / 256.0F);
-			var14 = (double)(((float)var10 + 15.99F) / 256.0F);
+			var12 = (double)(((float)var10 + 0.0F) / getTerrainTextureSize());
+			var14 = (double)(((float)var10 + 15.99F) / getTerrainTextureSize());
 		}
 
 		if(var1.minY < 0.0D || var1.maxY > 1.0D) {
-			var16 = (double)(((float)var11 + 0.0F) / 256.0F);
-			var18 = (double)(((float)var11 + 15.99F) / 256.0F);
+			var16 = (double)(((float)var11 + 0.0F) / getTerrainTextureSize());
+			var18 = (double)(((float)var11 + 15.99F) / getTerrainTextureSize());
 		}
 
 		var20 = var14;
@@ -3075,10 +3082,10 @@ public class RenderBlocks {
 		double var24 = var16;
 		double var26 = var18;
 		if(this.field_31084_j == 1) {
-			var12 = ((double)var10 + var1.minY * 16.0D) / 256.0D;
-			var16 = ((double)(var11 + 16) - var1.maxZ * 16.0D) / 256.0D;
-			var14 = ((double)var10 + var1.maxY * 16.0D) / 256.0D;
-			var18 = ((double)(var11 + 16) - var1.minZ * 16.0D) / 256.0D;
+			var12 = ((double)var10 + var1.minY * 16.0D) / (double)getTerrainTextureSize();
+			var16 = ((double)(var11 + 16) - var1.maxZ * 16.0D) / (double)getTerrainTextureSize();
+			var14 = ((double)var10 + var1.maxY * 16.0D) / (double)getTerrainTextureSize();
+			var18 = ((double)(var11 + 16) - var1.minZ * 16.0D) / (double)getTerrainTextureSize();
 			var24 = var16;
 			var26 = var18;
 			var20 = var12;
@@ -3086,10 +3093,10 @@ public class RenderBlocks {
 			var16 = var18;
 			var18 = var24;
 		} else if(this.field_31084_j == 2) {
-			var12 = ((double)(var10 + 16) - var1.maxY * 16.0D) / 256.0D;
-			var16 = ((double)var11 + var1.minZ * 16.0D) / 256.0D;
-			var14 = ((double)(var10 + 16) - var1.minY * 16.0D) / 256.0D;
-			var18 = ((double)var11 + var1.maxZ * 16.0D) / 256.0D;
+			var12 = ((double)(var10 + 16) - var1.maxY * 16.0D) / (double)getTerrainTextureSize();
+			var16 = ((double)var11 + var1.minZ * 16.0D) / (double)getTerrainTextureSize();
+			var14 = ((double)(var10 + 16) - var1.minY * 16.0D) / (double)getTerrainTextureSize();
+			var18 = ((double)var11 + var1.maxZ * 16.0D) / (double)getTerrainTextureSize();
 			var20 = var14;
 			var22 = var12;
 			var12 = var14;
@@ -3097,10 +3104,10 @@ public class RenderBlocks {
 			var24 = var18;
 			var26 = var16;
 		} else if(this.field_31084_j == 3) {
-			var12 = ((double)(var10 + 16) - var1.minZ * 16.0D) / 256.0D;
-			var14 = ((double)(var10 + 16) - var1.maxZ * 16.0D - 0.01D) / 256.0D;
-			var16 = ((double)var11 + var1.maxY * 16.0D) / 256.0D;
-			var18 = ((double)var11 + var1.minY * 16.0D - 0.01D) / 256.0D;
+			var12 = ((double)(var10 + 16) - var1.minZ * 16.0D) / (double)getTerrainTextureSize();
+			var14 = ((double)(var10 + 16) - var1.maxZ * 16.0D - 0.01D) / (double)getTerrainTextureSize();
+			var16 = ((double)var11 + var1.maxY * 16.0D) / (double)getTerrainTextureSize();
+			var18 = ((double)var11 + var1.minY * 16.0D - 0.01D) / (double)getTerrainTextureSize();
 			var20 = var14;
 			var22 = var12;
 			var24 = var16;
@@ -3150,13 +3157,13 @@ public class RenderBlocks {
 		}
 
 		if(var1.minZ < 0.0D || var1.maxZ > 1.0D) {
-			var12 = (double)(((float)var10 + 0.0F) / 256.0F);
-			var14 = (double)(((float)var10 + 15.99F) / 256.0F);
+			var12 = (double)(((float)var10 + 0.0F) / getTerrainTextureSize());
+			var14 = (double)(((float)var10 + 15.99F) / getTerrainTextureSize());
 		}
 
 		if(var1.minY < 0.0D || var1.maxY > 1.0D) {
-			var16 = (double)(((float)var11 + 0.0F) / 256.0F);
-			var18 = (double)(((float)var11 + 15.99F) / 256.0F);
+			var16 = (double)(((float)var11 + 0.0F) / getTerrainTextureSize());
+			var18 = (double)(((float)var11 + 15.99F) / getTerrainTextureSize());
 		}
 
 		var20 = var14;
@@ -3164,10 +3171,10 @@ public class RenderBlocks {
 		double var24 = var16;
 		double var26 = var18;
 		if(this.field_31085_i == 2) {
-			var12 = ((double)var10 + var1.minY * 16.0D) / 256.0D;
-			var16 = ((double)(var11 + 16) - var1.minZ * 16.0D) / 256.0D;
-			var14 = ((double)var10 + var1.maxY * 16.0D) / 256.0D;
-			var18 = ((double)(var11 + 16) - var1.maxZ * 16.0D) / 256.0D;
+			var12 = ((double)var10 + var1.minY * 16.0D) / (double)getTerrainTextureSize();
+			var16 = ((double)(var11 + 16) - var1.minZ * 16.0D) / (double)getTerrainTextureSize();
+			var14 = ((double)var10 + var1.maxY * 16.0D) / (double)getTerrainTextureSize();
+			var18 = ((double)(var11 + 16) - var1.maxZ * 16.0D) / (double)getTerrainTextureSize();
 			var24 = var16;
 			var26 = var18;
 			var20 = var12;
@@ -3175,10 +3182,10 @@ public class RenderBlocks {
 			var16 = var18;
 			var18 = var24;
 		} else if(this.field_31085_i == 1) {
-			var12 = ((double)(var10 + 16) - var1.maxY * 16.0D) / 256.0D;
-			var16 = ((double)var11 + var1.maxZ * 16.0D) / 256.0D;
-			var14 = ((double)(var10 + 16) - var1.minY * 16.0D) / 256.0D;
-			var18 = ((double)var11 + var1.minZ * 16.0D) / 256.0D;
+			var12 = ((double)(var10 + 16) - var1.maxY * 16.0D) / (double)getTerrainTextureSize();
+			var16 = ((double)var11 + var1.maxZ * 16.0D) / (double)getTerrainTextureSize();
+			var14 = ((double)(var10 + 16) - var1.minY * 16.0D) / (double)getTerrainTextureSize();
+			var18 = ((double)var11 + var1.minZ * 16.0D) / (double)getTerrainTextureSize();
 			var20 = var14;
 			var22 = var12;
 			var12 = var14;
@@ -3186,10 +3193,10 @@ public class RenderBlocks {
 			var24 = var18;
 			var26 = var16;
 		} else if(this.field_31085_i == 3) {
-			var12 = ((double)(var10 + 16) - var1.minZ * 16.0D) / 256.0D;
-			var14 = ((double)(var10 + 16) - var1.maxZ * 16.0D - 0.01D) / 256.0D;
-			var16 = ((double)var11 + var1.maxY * 16.0D) / 256.0D;
-			var18 = ((double)var11 + var1.minY * 16.0D - 0.01D) / 256.0D;
+			var12 = ((double)(var10 + 16) - var1.minZ * 16.0D) / (double)getTerrainTextureSize();
+			var14 = ((double)(var10 + 16) - var1.maxZ * 16.0D - 0.01D) / (double)getTerrainTextureSize();
+			var16 = ((double)var11 + var1.maxY * 16.0D) / (double)getTerrainTextureSize();
+			var18 = ((double)var11 + var1.minY * 16.0D - 0.01D) / (double)getTerrainTextureSize();
 			var20 = var14;
 			var22 = var12;
 			var24 = var16;
