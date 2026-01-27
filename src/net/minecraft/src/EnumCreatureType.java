@@ -3,10 +3,11 @@ package net.minecraft.src;
 import net.minecraft.src.vaderetro.entity.wild.EntityWild;
 
 public enum EnumCreatureType {
+
 	monster(IMob.class, 70, Material.air, false),
 	creature(EntityAnimal.class, 15, Material.air, true),
 	waterCreature(EntityWaterMob.class, 5, Material.water, true),
-	wildCreature(EntityWild.class, 10, Material.air, false);
+	wildCreature(EntityWild.class, 5, Material.air, false);
 
 	private final Class creatureClass;
 	private final int maxNumberOfCreature;
