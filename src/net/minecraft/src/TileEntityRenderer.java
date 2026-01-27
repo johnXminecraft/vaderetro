@@ -2,7 +2,7 @@ package net.minecraft.src;
 
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityJohnMill;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityJohnMillRenderer;
-import net.minecraft.src.vaderetro.entity.TileEntityNuclearBomb;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityNuclearBomb;
 import net.minecraft.src.vaderetro.render.TileEntityNuclearBombRenderer;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityAxleRod;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityAxleRodRenderer;

@@ -8,12 +8,12 @@ public class mod_JIM {
     private static mod_JIM instance;
     private JIMController controller;
     private boolean soundInitDone = false;
-    
+
     public mod_JIM() {
         instance = this;
         this.controller = new JIMController();
     }
-    
+
     public static mod_JIM getInstance() {
         if (instance == null) {
             instance = new mod_JIM();
@@ -24,18 +24,18 @@ public class mod_JIM {
     public static void initialize() {
         getInstance();
     }
-    
+
     public static void onTickInGame(Minecraft minecraft) {
         mod_JIM self = getInstance();
         self.initSoundsOnce(minecraft);
         self.controller.onTick(minecraft);
     }
-    
+
     public boolean onTickInGUI(float partialTicks, Minecraft minecraft, GuiScreen screen) {
         controller.renderInterface(minecraft, partialTicks);
         return true;
     }
-    
+
     public boolean handleKeyPress(int keyCode) {
         if (keyCode == org.lwjgl.input.Keyboard.KEY_R) {
             controller.toggleVisibility();
@@ -53,11 +53,11 @@ public class mod_JIM {
 
         // Register musket reload sound
         String[] reloadCandidates = new String[] {
-            "game/resources/newsound/weaponmod/reload.ogg",
-            "minecraft/game/resources/newsound/weaponmod/reload.ogg",
-            "./minecraft/minecraft/game/resources/newsound/weaponmod/reload.ogg",
-            "../game/resources/newsound/weaponmod/reload.ogg",
-            "resources/newsound/weaponmod/reload.ogg"
+                "game/resources/newsound/weaponmod/reload.ogg",
+                "minecraft/game/resources/newsound/weaponmod/reload.ogg",
+                "./minecraft/minecraft/game/resources/newsound/weaponmod/reload.ogg",
+                "../game/resources/newsound/weaponmod/reload.ogg",
+                "resources/newsound/weaponmod/reload.ogg"
         };
 
         java.io.File reloadFile = null;
@@ -73,11 +73,11 @@ public class mod_JIM {
 
         // Register AR15 sounds
         String[] ar15ShootCandidates = new String[] {
-            "game/resources/newsound/weaponmod/ar15shoot.ogg",
-            "minecraft/game/resources/newsound/weaponmod/ar15shoot.ogg",
-            "./minecraft/minecraft/game/resources/newsound/weaponmod/ar15shoot.ogg",
-            "../game/resources/newsound/weaponmod/ar15shoot.ogg",
-            "resources/newsound/weaponmod/ar15shoot.ogg"
+                "game/resources/newsound/weaponmod/ar15shoot.ogg",
+                "minecraft/game/resources/newsound/weaponmod/ar15shoot.ogg",
+                "./minecraft/minecraft/game/resources/newsound/weaponmod/ar15shoot.ogg",
+                "../game/resources/newsound/weaponmod/ar15shoot.ogg",
+                "resources/newsound/weaponmod/ar15shoot.ogg"
         };
 
         java.io.File ar15ShootFile = null;
@@ -91,11 +91,11 @@ public class mod_JIM {
         }
 
         String[] ar15ReloadCandidates = new String[] {
-            "game/resources/newsound/weaponmod/ar15reload.ogg",
-            "minecraft/game/resources/newsound/weaponmod/ar15reload.ogg",
-            "./minecraft/minecraft/game/resources/newsound/weaponmod/ar15reload.ogg",
-            "../game/resources/newsound/weaponmod/ar15reload.ogg",
-            "resources/newsound/weaponmod/ar15reload.ogg"
+                "game/resources/newsound/weaponmod/ar15reload.ogg",
+                "minecraft/game/resources/newsound/weaponmod/ar15reload.ogg",
+                "./minecraft/minecraft/game/resources/newsound/weaponmod/ar15reload.ogg",
+                "../game/resources/newsound/weaponmod/ar15reload.ogg",
+                "resources/newsound/weaponmod/ar15reload.ogg"
         };
 
         java.io.File ar15ReloadFile = null;
@@ -109,11 +109,11 @@ public class mod_JIM {
         }
 
         String[] ar15HndCandidates = new String[] {
-            "game/resources/newsound/weaponmod/ar15hnd.ogg",
-            "minecraft/game/resources/newsound/weaponmod/ar15hnd.ogg",
-            "./minecraft/minecraft/game/resources/newsound/weaponmod/ar15hnd.ogg",
-            "../game/resources/newsound/weaponmod/ar15hnd.ogg",
-            "resources/newsound/weaponmod/ar15hnd.ogg"
+                "game/resources/newsound/weaponmod/ar15hnd.ogg",
+                "minecraft/game/resources/newsound/weaponmod/ar15hnd.ogg",
+                "./minecraft/minecraft/game/resources/newsound/weaponmod/ar15hnd.ogg",
+                "../game/resources/newsound/weaponmod/ar15hnd.ogg",
+                "resources/newsound/weaponmod/ar15hnd.ogg"
         };
 
         java.io.File ar15HndFile = null;
@@ -128,11 +128,11 @@ public class mod_JIM {
 
         // Register bullet hit sound
         String[] bullethitCandidates = new String[] {
-            "game/resources/newsound/weaponmod/bullethit.ogg",
-            "minecraft/game/resources/newsound/weaponmod/bullethit.ogg",
-            "./minecraft/minecraft/game/resources/newsound/weaponmod/bullethit.ogg",
-            "../game/resources/newsound/weaponmod/bullethit.ogg",
-            "resources/newsound/weaponmod/bullethit.ogg"
+                "game/resources/newsound/weaponmod/bullethit.ogg",
+                "minecraft/game/resources/newsound/weaponmod/bullethit.ogg",
+                "./minecraft/minecraft/game/resources/newsound/weaponmod/bullethit.ogg",
+                "../game/resources/newsound/weaponmod/bullethit.ogg",
+                "resources/newsound/weaponmod/bullethit.ogg"
         };
 
         java.io.File bullethitFile = null;
@@ -145,22 +145,23 @@ public class mod_JIM {
             minecraft.sndManager.addSound("weaponmod/bullethit.ogg", bullethitFile);
         }
 
-        String[] nuclearExplosionCandidates = new String[] {
-            "game/resources/newsound/bomb/nuclearExplosion.ogg",
-            "minecraft/game/resources/newsound/bomb/nuclearExplosion.ogg",
-            "./minecraft/minecraft/game/resources/newsound/bomb/nuclearExplosion.ogg",
-            "../game/resources/newsound/bomb/nuclearExplosion.ogg",
-            "resources/newsound/bomb/nuclearExplosion.ogg"
+        // Register nuclear explosion sound
+        String[] nukeCandidates = new String[] {
+                "game/resources/newsound/bomb/nuclearExplosion.ogg",
+                "minecraft/game/resources/newsound/bomb/nuclearExplosion.ogg",
+                "./minecraft/minecraft/game/resources/newsound/bomb/nuclearExplosion.ogg",
+                "../game/resources/newsound/bomb/nuclearExplosion.ogg",
+                "resources/newsound/bomb/nuclearExplosion.ogg"
         };
 
-        java.io.File nuclearExplosionFile = null;
-        for (String rel : nuclearExplosionCandidates) {
+        java.io.File nukeFile = null;
+        for (String rel : nukeCandidates) {
             java.io.File f = new java.io.File(rel);
-            if (f.exists()) { nuclearExplosionFile = f; break; }
+            if (f.exists()) { nukeFile = f; break; }
         }
 
-        if (nuclearExplosionFile != null) {
-            minecraft.sndManager.addSound("bomb/nuclearExplosion.ogg", nuclearExplosionFile);
+        if (nukeFile != null) {
+            minecraft.sndManager.addSound("bomb/nuclearExplosion.ogg", nukeFile);
         }
 
         this.soundInitDone = true;

@@ -2,7 +2,10 @@ package net.minecraft.src;
 
 import net.minecraft.src.vaderetro.entity.EntityMusketBullet;
 import net.minecraft.src.vaderetro.entity.EntityAR15Bullet;
-import net.minecraft.src.vaderetro.entity.mob.EntityMiner;
+import net.minecraft.src.vaderetro.entity.mob.undead.EntityMiner;
+import net.minecraft.src.vaderetro.entity.mob.undead.skeleton.EntitySkeleton;
+import net.minecraft.src.vaderetro.entity.mob.undead.zombie.EntityPigZombie;
+import net.minecraft.src.vaderetro.entity.mob.undead.zombie.EntityZombie;
 import net.minecraft.src.vaderetro.entity.wild.EntityBoar;
 import net.minecraft.src.vaderetro.entity.EntityIcon;
 import net.minecraft.src.vaderetro.entity.EntityObjModel;

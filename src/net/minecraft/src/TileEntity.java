@@ -5,7 +5,7 @@ import net.minecraft.src.vaderetro.entity.tileentity.TileEntityJohnMill;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityCrtTvSet;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityKeroseneLamp;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityOpenHearthFurnace;
-import net.minecraft.src.vaderetro.entity.TileEntityNuclearBomb;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityNuclearBomb;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityAxleRod;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityWheatGrinder;
 

@@ -1,13 +1,14 @@
 package net.minecraft.src.vaderetro.render;
 
 import net.minecraft.src.*;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityNuclearBomb;
 import org.lwjgl.opengl.GL11;
 import net.minecraft.src.vaderetro._BML.RenderObj;
 
 public class TileEntityNuclearBombRenderer extends TileEntitySpecialRenderer {
     private RenderObj renderObj = new RenderObj("/models/nuclear_bomb.obj");
 
-    public void renderTileEntityNuclearBombAt(net.minecraft.src.vaderetro.entity.TileEntityNuclearBomb te, double x, double y, double z, float partial) {
+    public void renderTileEntityNuclearBombAt(TileEntityNuclearBomb te, double x, double y, double z, float partial) {
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float)x + 0.5F, (float)y, (float)z + 0.5F);
 
@@ -26,6 +27,6 @@ public class TileEntityNuclearBombRenderer extends TileEntitySpecialRenderer {
 	}
 
 	public void renderTileEntityAt(TileEntity te, double x, double y, double z, float partial) {
-		this.renderTileEntityNuclearBombAt((net.minecraft.src.vaderetro.entity.TileEntityNuclearBomb)te, x, y, z, partial);
+		this.renderTileEntityNuclearBombAt((TileEntityNuclearBomb)te, x, y, z, partial);
 	}
 }

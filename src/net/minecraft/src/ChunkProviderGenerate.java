@@ -1,6 +1,7 @@
 package net.minecraft.src;
 
 import net.minecraft.src.vaderetro.gen.world.WorldGenChurches;
+import net.minecraft.src.vaderetro.gen.world.WorldGenDungeons;
 
 import java.util.Random;
 

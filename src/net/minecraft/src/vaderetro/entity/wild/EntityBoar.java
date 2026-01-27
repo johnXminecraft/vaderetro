@@ -1,6 +1,7 @@
 package net.minecraft.src.vaderetro.entity.wild;
 
 import net.minecraft.src.*;
+import net.minecraft.src.vaderetro.entity.mob.undead.zombie.EntityPigZombie;
 
 import java.util.Random;
 
@@ -60,7 +61,7 @@ public class EntityBoar extends EntityWild {
     @Override
     public void onStruckByLightning(EntityLightningBolt var1) {
         if(!this.worldObj.multiplayerWorld) {
-            EntityPigZombie var2 = new EntityPigZombie(this.worldObj);
+            net.minecraft.src.vaderetro.entity.mob.undead.zombie.EntityPigZombie var2 = new EntityPigZombie(this.worldObj);
             var2.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
             this.worldObj.entityJoinedWorld(var2);
             this.setEntityDead();

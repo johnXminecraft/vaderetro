@@ -29,6 +29,55 @@ public class JIMController {
             minecraft.ingameGUI.addChatMessage("§aJIM loaded. Press R to toggle interface");
             System.out.println("JIM: Welcome message sent");
         }
+
+        try {
+            if (minecraft != null && minecraft.thePlayer != null && config != null && config.isFlyEnabled()) {
+                EntityPlayerSP player = minecraft.thePlayer;
+
+                if (player.movementInput != null) {
+                    double verticalSpeed = 0.8D;
+                    if (player.movementInput.jump) {
+                        player.motionY = verticalSpeed;
+                    } else if (player.movementInput.sneak) {
+                        player.motionY = -verticalSpeed;
+                    } else {
+                        if (!player.onGround) {
+                            player.motionY = 0.0D;
+                        }
+                    }
+
+                    float forward = player.movementInput.moveForward;
+                    float strafe = player.movementInput.moveStrafe;
+                    if (forward != 0.0F || strafe != 0.0F) {
+                        double targetSpeed = 1.2D;
+                        double yawRad = Math.toRadians((double)player.rotationYaw);
+                        double sin = Math.sin(yawRad);
+                        double cos = Math.cos(yawRad);
+
+                        double x = (double)strafe * cos - (double)forward * sin;
+                        double z = (double)forward * cos + (double)strafe * sin;
+                        double len = Math.sqrt(x * x + z * z);
+                        if (len > 0.0D) {
+                            x /= len;
+                            z /= len;
+                            player.motionX = x * targetSpeed;
+                            player.motionZ = z * targetSpeed;
+                        }
+                    } else {
+                        player.motionX *= 0.8D;
+                        player.motionZ *= 0.8D;
+                    }
+                }
+
+                try {
+                    java.lang.reflect.Field fd = Entity.class.getDeclaredField("fallDistance");
+                    fd.setAccessible(true);
+                    fd.setFloat(player, 0.0F);
+                } catch (Throwable t) {
+                }
+            }
+        } catch (Exception ignored) {
+        }
     }
 
 
@@ -94,5 +143,14 @@ public class JIMController {
 
     public static Minecraft getMinecraftInstance() {
         return cachedMinecraft;
+    }
+
+
+    public void toggleFly() {
+        boolean enabled = !config.isFlyEnabled();
+        config.setFlyEnabled(enabled);
+        if (cachedMinecraft != null && cachedMinecraft.ingameGUI != null) {
+            cachedMinecraft.ingameGUI.addChatMessage("JIM Fly: " + (enabled ? "§aON" : "§cOFF"));
+        }
     }
 }

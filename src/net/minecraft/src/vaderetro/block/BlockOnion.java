@@ -21,7 +21,7 @@ public class BlockOnion extends BlockFlower {
         super.updateTick(world, x, y, z, random);
         if(world.getBlockLightValue(x, y + 1, z) >= 9) {
             int blockOnion = world.getBlockMetadata(x, y, z);
-            if(blockOnion < 3) {
+            if(blockOnion < 7) {
                 float growthRate = this.getGrowthRate(world, x, y, z);
                 if(random.nextInt((int)(100.0F / growthRate)) == 0) {
                     ++blockOnion;
@@ -33,7 +33,7 @@ public class BlockOnion extends BlockFlower {
     }
 
     public void fertilize(World world, int x, int y, int z) {
-        world.setBlockMetadataWithNotify(x, y, z, 3);
+        world.setBlockMetadataWithNotify(x, y, z, 7);
     }
 
     private float getGrowthRate(World world, int x, int y, int z) {
@@ -75,7 +75,7 @@ public class BlockOnion extends BlockFlower {
 
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
         if(var2 < 0) {
-            var2 = 3;
+            var2 = 7;
         }
         return this.blockIndexInTexture + var2;
     }
@@ -87,7 +87,7 @@ public class BlockOnion extends BlockFlower {
     public void dropBlockAsItemWithChance(World world, int x, int y, int z, int var5, float var6) {
         super.dropBlockAsItemWithChance(world, x, y, z, var5, var6);
         if(!world.multiplayerWorld) {
-            for(int var7 = 0; var7 < 3; ++var7) {
+            for(int var7 = 0; var7 < 7; ++var7) {
                 if(world.rand.nextInt(15) <= var5) {
                     float var8 = 0.7F;
                     float var9 = world.rand.nextFloat() * var8 + (1.0F - var8) * 0.5F;
@@ -102,7 +102,7 @@ public class BlockOnion extends BlockFlower {
     }
 
     public int idDropped(int var1, Random var2) {
-        return var1 == 3 ? Item.onion.shiftedIndex : -1;
+        return var1 == 7 ? Item.onion.shiftedIndex : -1;
     }
 
     public int quantityDropped(Random var1) {

@@ -2,7 +2,7 @@ music:1.0
 sound:1.0
 invertYMouse:false
 mouseSensitivity:0.5
-viewDistance:1
+viewDistance:0
 guiScale:3
 bobView:false
 anaglyph3d:false

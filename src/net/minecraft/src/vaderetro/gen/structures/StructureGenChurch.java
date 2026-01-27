@@ -14,6 +14,7 @@ public class StructureGenChurch implements IStructure {
         return blocksToSpawn;
     }
 
+    @Override
     public void initStructure() {
 
         isInit = true;

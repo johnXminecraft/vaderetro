@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import net.minecraft.src.vaderetro.entity.mob.undead.zombie.EntityPigZombie;
+
 public class BiomeGenHell extends BiomeGenBase {
 	public BiomeGenHell() {
 		this.spawnableMonsterList.clear();

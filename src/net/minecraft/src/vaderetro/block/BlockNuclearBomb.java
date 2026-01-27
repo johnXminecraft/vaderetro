@@ -1,6 +1,8 @@
 package net.minecraft.src.vaderetro.block;
 
 import net.minecraft.src.*;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityNuclearBomb;
+
 import java.util.Random;
 
 public class BlockNuclearBomb extends BlockContainer {
@@ -26,7 +28,7 @@ public class BlockNuclearBomb extends BlockContainer {
 	}
 
 	protected TileEntity getBlockEntity() {
-		return new net.minecraft.src.vaderetro.entity.TileEntityNuclearBomb();
+		return new TileEntityNuclearBomb();
 	}
 
 	public int idDropped(int meta, Random rand) {

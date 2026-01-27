@@ -170,7 +170,7 @@ public class Block {
 	public static final Block lampKeroseneActive = (new BlockKeroseneLamp(105, true)).setHardness(0.0F).setStepSound(soundMetalFootstep).setLightValue(1.0F).setBlockName("lampKerosene").disableNeighborNotifyOnMetadataChange();
 	public static final Block blockPlastic = (new BlockOreStorage(115, 224)).setHardness(1.0F).setResistance(5.0F).setStepSound(soundWoodFootstep).setBlockName("blockPlastic");
 
-	// latest block id: 131
+	// latest block id: 132
 
 	public int blockIndexInTexture;
 	public final int blockID;

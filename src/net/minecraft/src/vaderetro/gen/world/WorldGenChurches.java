@@ -16,21 +16,16 @@ public class WorldGenChurches extends WorldGenerator {
 
     @Override
     public boolean generate(World world, Random random, int posX, int posY, int posZ) {
-
         if(
                 world.getBlockId(posX, posY - 1, posZ) == Block.grass.blockID &&
-                random.nextInt(100) < 10 &&
-                world.getWorldChunkManager().getBiomeGenAt(posX, posZ) == BiomeGenBase.taiga
+                        random.nextInt(100) < 10 &&
+                        world.getWorldChunkManager().getBiomeGenAt(posX, posZ) == BiomeGenBase.taiga
         ) {
-
             generateGround(world, random, posX, posY, posZ);
             placeBlocks(world, random, posX, posY, posZ);
-
-            System.out.println("Generated church!");
-
+            System.out.println("Generated church at " + posX + " " + posY + " " + posZ);
             return true;
         }
-
         return false;
     }
 
@@ -78,20 +73,21 @@ public class WorldGenChurches extends WorldGenerator {
     }
 
     private ItemStack getLoot(Random random) {
-        int lootItemId = random.nextInt(14);
-        return lootItemId == 0 ? new ItemStack(Item.chain, random.nextInt(4) + 1) :
-                (lootItemId == 1 ? new ItemStack(Item.canvas) :
-                (lootItemId == 2 ? new ItemStack(Item.icon) :
-                (lootItemId == 3 ? new ItemStack(Item.appleRed, random.nextInt(3) + 1) :
-                (lootItemId == 4 ? new ItemStack(Item.appleGold) :
-                (lootItemId == 5 ? new ItemStack(Item.charcoal, random.nextInt(4) + 1) :
-                (lootItemId == 6 ? new ItemStack(Item.helmetChain) :
-                (lootItemId == 7 ? new ItemStack(Item.plateChain) :
-                (lootItemId == 8 ? new ItemStack(Item.legsChain) :
-                (lootItemId == 9 ? new ItemStack(Item.bootsChain) :
-                (lootItemId == 10 ? new ItemStack(Item.book, random.nextInt(2) + 1) :
-                (lootItemId == 11 ? new ItemStack(Item.ingotGold, random.nextInt(4) + 1) :
-                (lootItemId == 12 ? new ItemStack(Item.dyePowder, random.nextInt(4) + 1, 1) :
-                (lootItemId == 13 ? new ItemStack(Item.dyePowder, random.nextInt(4) + 1, 4) : null)))))))))))));
+        int lootItemId = random.nextInt(200);
+        return lootItemId <= 10 ? new ItemStack(Item.chain, random.nextInt(4) + 1) :
+                (lootItemId <= 20 ? new ItemStack(Item.canvas) :
+                (lootItemId <= 30 ? new ItemStack(Item.icon) :
+                (lootItemId <= 35 ? new ItemStack(Item.appleRed, random.nextInt(3) + 1) :
+                (lootItemId <= 37 ? new ItemStack(Item.appleGold) :
+                (lootItemId <= 47 ? new ItemStack(Item.charcoal, random.nextInt(4) + 1) :
+                (lootItemId <= 52 ? new ItemStack(Item.helmetSchema) :
+                (lootItemId <= 57 ? new ItemStack(Item.plateSchema) :
+                (lootItemId <= 62 ? new ItemStack(Item.legsSchema) :
+                (lootItemId <= 67 ? new ItemStack(Item.bootsSchema) :
+                (lootItemId <= 77 ? new ItemStack(Item.book, random.nextInt(2) + 1) :
+                (lootItemId <= 80 ? new ItemStack(Item.ingotGold, random.nextInt(4) + 1) :
+                (lootItemId <= 90 ? new ItemStack(Item.dyePowder, random.nextInt(4) + 1, 1) :
+                (lootItemId <= 99 ? new ItemStack(Item.dyePowder, random.nextInt(4) + 1, 4) :
+                (lootItemId == 100 ? new ItemStack(Item.easterEgg, 1, random.nextInt(16)) : null))))))))))))));
     }
 }

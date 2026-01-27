@@ -22,7 +22,7 @@ public class BlockTobaccoPlant extends BlockFlower {
         super.updateTick(world, x, y, z, random);
         if(world.getBlockLightValue(x, y + 1, z) >= 9) {
             int blockTobaccoPlant = world.getBlockMetadata(x, y, z);
-            if(blockTobaccoPlant < 3) {
+            if(blockTobaccoPlant < 7) {
                 float growthRate = this.getGrowthRate(world, x, y, z);
                 if(random.nextInt((int)(100.0F / growthRate)) == 0) {
                     ++blockTobaccoPlant;
@@ -33,7 +33,7 @@ public class BlockTobaccoPlant extends BlockFlower {
     }
 
     public void fertilize(World world, int x, int y, int z) {
-        world.setBlockMetadataWithNotify(x, y, z, 3);
+        world.setBlockMetadataWithNotify(x, y, z, 7);
     }
 
     private float getGrowthRate(World world, int x, int y, int z) {
@@ -74,7 +74,7 @@ public class BlockTobaccoPlant extends BlockFlower {
 
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
         if(var2 < 0) {
-            var2 = 3;
+            var2 = 7;
         }
         return this.blockIndexInTexture + var2;
     }
@@ -86,7 +86,7 @@ public class BlockTobaccoPlant extends BlockFlower {
     public void dropBlockAsItemWithChance(World world, int x, int y, int z, int var5, float var6) {
         super.dropBlockAsItemWithChance(world, x, y, z, var5, var6);
         if(!world.multiplayerWorld) {
-            for(int var7 = 0; var7 < 3; ++var7) {
+            for(int var7 = 0; var7 < 7; ++var7) {
                 if(world.rand.nextInt(15) <= var5) {
                     float var8 = 0.7F;
                     float var9 = world.rand.nextFloat() * var8 + (1.0F - var8) * 0.5F;
@@ -101,7 +101,7 @@ public class BlockTobaccoPlant extends BlockFlower {
     }
 
     public int idDropped(int stage, Random random) {
-        return stage == 3 ? Item.tobaccoLeaf.shiftedIndex : -1;
+        return stage == 7 ? Item.tobaccoLeaf.shiftedIndex : -1;
     }
 
     public int quantityDropped(Random random) {

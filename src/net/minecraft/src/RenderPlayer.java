@@ -13,7 +13,8 @@ public class RenderPlayer extends RenderLiving {
 			"iron",
 			"diamond",
 			"gold",
-			"stained_steel"
+			"stained_steel",
+			"schema"
 	};
 
 	public RenderPlayer() {

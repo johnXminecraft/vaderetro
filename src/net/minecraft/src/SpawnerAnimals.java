@@ -1,5 +1,8 @@
 package net.minecraft.src;
 
+import net.minecraft.src.vaderetro.entity.mob.undead.skeleton.EntitySkeleton;
+import net.minecraft.src.vaderetro.entity.mob.undead.zombie.EntityZombie;
+
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -7,7 +10,7 @@ import java.util.Set;
 
 public final class SpawnerAnimals {
 	private static Set eligibleChunksForSpawning = new HashSet();
-	protected static final Class[] nightSpawnEntities = new Class[]{EntitySpider.class, EntityZombie.class, EntitySkeleton.class};
+	protected static final Class[] nightSpawnEntities = new Class[]{EntitySpider.class, EntityZombie.class, net.minecraft.src.vaderetro.entity.mob.undead.skeleton.EntitySkeleton.class};
 
 	protected static ChunkPosition getRandomSpawningPointInChunk(World var0, int var1, int var2) {
 		int var3 = var1 + var0.rand.nextInt(16);
@@ -156,7 +159,7 @@ public final class SpawnerAnimals {
 
 	private static void creatureSpecificInit(EntityLiving var0, World var1, float var2, float var3, float var4) {
 		if(var0 instanceof EntitySpider && var1.rand.nextInt(100) == 0) {
-			EntitySkeleton var5 = new EntitySkeleton(var1);
+			net.minecraft.src.vaderetro.entity.mob.undead.skeleton.EntitySkeleton var5 = new EntitySkeleton(var1);
 			var5.setLocationAndAngles((double)var2, (double)var3, (double)var4, var0.rotationYaw, 0.0F);
 			var1.entityJoinedWorld(var5);
 			var5.mountEntity(var0);

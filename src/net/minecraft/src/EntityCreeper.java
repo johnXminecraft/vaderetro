@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import net.minecraft.src.vaderetro.entity.mob.undead.skeleton.EntitySkeleton;
+
 public class EntityCreeper extends EntityMob {
 	int timeSinceIgnited;
 	int lastActiveTime;
