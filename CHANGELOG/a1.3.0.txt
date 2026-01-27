@@ -1,0 +1,72 @@
+================================
+ALPHA 1.3.0
+================================
+
+Additions:
+1. Different types of zombies:
+    Regular: 20 HP, 5 damage, speed 0.5;
+    Runner: 20 HP, 3 damage, speed 1.5;
+    Tank: 100-150 HP, 5 damage, speed 0.5, doesn't burn under the Sun;
+    Captain: 40-100 HP, 10 damage, speed 1;
+2. Different colors for zombies: rainbow colors.
+3. New drop table for zombies:
+    For all zombies: 50% to drop 1-5 Rotten Flesh;
+    Regular: 5% 1-4 Chain, 15% 1-4 Cloth, 5% Fried Egg;
+    Runner: 50% 1-4 Cigarette;
+    Tank: 50% 1-4 AR15 Bullet;
+    Captain: 50% Golden Apple.
+4. Armor repair recipes: to repair 2 armor pieces you should arrange them in diagonal pattern in the crafting table.
+5. Added Schema Clothes (found in Churches, same durability as Chain Armor).
+6. Added Unobtainium.
+7. Added Zombie Spawn Egg.
+
+Reworks:
+1. Fixed JIM;
+2. Fixed armor (increased durability);
+3. Fixed loot table for Churches:
+    10% 1-4 Chain;
+    10% Canvas;
+    10% Icon;
+    5% 1-3 Apple;
+    2% Golden Apple;
+    10% 1-4 Charcoal;
+    5% each Schema piece;
+    10% 1-2 Book;
+    3% 1-4 Golden Ingot;
+    10% 1-4 Red Dye;
+    9% 1-4 Lapis Lazuli;
+    1% random Easter Egg;
+
+Textures:
+/resources/gui/items.png - ADDED POS (4, 14), (5, 14)
+/resources/lang/en_US.lang
+/resources/mob/zombie.png - REWORKED
+/resources/mob/zombie_captain.png - ADDED
+/resources/mob/zombie_green.png - ADDED
+/resources/mob/zombie_orange.png - ADDED
+/resources/mob/zombie_purple.png - ADDED
+/resources/mob/zombie_red.png - ADDED
+/resources/mob/zombie_runner.png - ADDED
+/resources/mob/zombie_tank.png - ADDED
+/resources/mob/zombie_yellow.png - ADDED
+/resources/armor/schema_2.png - REWORKED
+
+Added Vade Retro classes:
+1. /vaderetro/item/ItemZombieSpawnEgg.class
+2. /vaderetro/gen/structures/StructureGenDungeons.class
+
+Changed Vade Retro classes:
+1. /vaderetro/gen/world/WorldGenChurches.class
+
+Changed Minecraft classes:
+1. EntityZombie.class
+2. EntitySkeleton.class
+3. EntityPigZombie.class
+4. Item.class
+5. WorldGenDungeons.class
+6. ItemArmor.class
+7. RecipesArmor.class
+8. WorldGenDungeons.class
+9. RecipesArmor.class
+10. REnderManager.class
+11. RenderPlayer.class

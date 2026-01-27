@@ -2,7 +2,6 @@ package net.minecraft.src.vaderetro.block;
 
 import net.minecraft.src.*;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityNuclearBomb;
-import net.minecraft.src.vaderetro.render.NukeEffectsManager;
 
 import java.util.Random;
 

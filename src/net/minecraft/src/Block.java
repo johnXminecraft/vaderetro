@@ -172,6 +172,7 @@ public class Block {
 	public static final Block radioactiveDirt = (new BlockRadioactiveDirt(133)).setBlockName("radioactiveDirt");
 	public static final Block radioactiveWood = (new BlockRadioactiveWood(134)).setBlockName("radioactiveWood");
 
+	// latest block id: 132
 
 	public int blockIndexInTexture;
 	public final int blockID;
