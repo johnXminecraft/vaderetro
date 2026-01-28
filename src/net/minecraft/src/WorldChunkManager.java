@@ -10,11 +10,13 @@ public class WorldChunkManager {
 	public double[] humidity;
 	public double[] field_4196_c;
 	public BiomeGenBase[] field_4195_d;
+	protected World worldObj;
 
 	protected WorldChunkManager() {
 	}
 
 	public WorldChunkManager(World var1) {
+		this.worldObj = var1;
 		this.field_4194_e = new NoiseGeneratorOctaves2(new Random(var1.getRandomSeed() * 9871L), 4);
 		this.field_4193_f = new NoiseGeneratorOctaves2(new Random(var1.getRandomSeed() * 39811L), 4);
 		this.field_4192_g = new NoiseGeneratorOctaves2(new Random(var1.getRandomSeed() * 543321L), 2);
@@ -25,7 +27,19 @@ public class WorldChunkManager {
 	}
 
 	public BiomeGenBase getBiomeGenAt(int var1, int var2) {
-		return this.func_4069_a(var1, var2, 1, 1)[0];
+		BiomeGenBase biome = this.func_4069_a(var1, var2, 1, 1)[0];
+		if (this.worldObj != null) {
+			WorldInfo wi = this.worldObj.getWorldInfo();
+			if (wi != null && wi.bml_isNukeContaminated()) {
+				double dx = var1 - wi.bml_getNukeX();
+				double dz = var2 - wi.bml_getNukeZ();
+				double dist = Math.sqrt(dx * dx + dz * dz);
+				if (dist <= wi.bml_getNukeRadius()) {
+					return BiomeGenBase.nuclearWasteland;
+				}
+			}
+		}
+		return biome;
 	}
 
 	public double getTemperature(int var1, int var2) {
@@ -108,7 +122,21 @@ public class WorldChunkManager {
 
 				this.temperature[var6] = var15;
 				this.humidity[var6] = var17;
-				var1[var6++] = BiomeGenBase.getBiomeFromLookup(var15, var17);
+				BiomeGenBase biome = BiomeGenBase.getBiomeFromLookup(var15, var17);
+				if (this.worldObj != null) {
+					WorldInfo wi = this.worldObj.getWorldInfo();
+					if (wi != null && wi.bml_isNukeContaminated()) {
+						int blockX = var2 + var7;
+						int blockZ = var3 + var8;
+						double dx = blockX - wi.bml_getNukeX();
+						double dz = blockZ - wi.bml_getNukeZ();
+						double dist = Math.sqrt(dx * dx + dz * dz);
+						if (dist <= wi.bml_getNukeRadius()) {
+							biome = BiomeGenBase.nuclearWasteland;
+						}
+					}
+				}
+				var1[var6++] = biome;
 			}
 		}
 

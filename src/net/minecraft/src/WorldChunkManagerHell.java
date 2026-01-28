@@ -8,6 +8,15 @@ public class WorldChunkManagerHell extends WorldChunkManager {
 	private double field_4199_g;
 
 	public WorldChunkManagerHell(BiomeGenBase var1, double var2, double var4) {
+		super();
+		this.field_4201_e = var1;
+		this.field_4200_f = var2;
+		this.field_4199_g = var4;
+	}
+
+	public WorldChunkManagerHell(World world, BiomeGenBase var1, double var2, double var4) {
+		super();
+		this.worldObj = world;
 		this.field_4201_e = var1;
 		this.field_4200_f = var2;
 		this.field_4199_g = var4;
@@ -18,6 +27,17 @@ public class WorldChunkManagerHell extends WorldChunkManager {
 	}
 
 	public BiomeGenBase getBiomeGenAt(int var1, int var2) {
+		if (this.worldObj != null) {
+			WorldInfo wi = this.worldObj.getWorldInfo();
+			if (wi != null && wi.bml_isNukeContaminated()) {
+				double dx = var1 - wi.bml_getNukeX();
+				double dz = var2 - wi.bml_getNukeZ();
+				double dist = Math.sqrt(dx * dx + dz * dz);
+				if (dist <= wi.bml_getNukeRadius()) {
+					return BiomeGenBase.nuclearWasteland;
+				}
+			}
+		}
 		return this.field_4201_e;
 	}
 
@@ -49,7 +69,37 @@ public class WorldChunkManagerHell extends WorldChunkManager {
 			this.humidity = new double[var4 * var5];
 		}
 
-		Arrays.fill(var1, 0, var4 * var5, this.field_4201_e);
+		boolean checkNuke = (this.worldObj != null);
+		WorldInfo wi = null;
+		double nukeX = 0, nukeZ = 0, nukeRadius = 0;
+		if (checkNuke) {
+			wi = this.worldObj.getWorldInfo();
+			if (wi != null && wi.bml_isNukeContaminated()) {
+				nukeX = wi.bml_getNukeX();
+				nukeZ = wi.bml_getNukeZ();
+				nukeRadius = wi.bml_getNukeRadius();
+			} else {
+				checkNuke = false;
+			}
+		}
+
+		for(int i = 0; i < var4 * var5; ++i) {
+			int blockX = var2 + (i % var4);
+			int blockZ = var3 + (i / var4);
+			BiomeGenBase biome = this.field_4201_e;
+
+			if (checkNuke) {
+				double dx = blockX - nukeX;
+				double dz = blockZ - nukeZ;
+				double dist = Math.sqrt(dx * dx + dz * dz);
+				if (dist <= nukeRadius) {
+					biome = BiomeGenBase.nuclearWasteland;
+				}
+			}
+
+			var1[i] = biome;
+		}
+
 		Arrays.fill(this.humidity, 0, var4 * var5, this.field_4199_g);
 		Arrays.fill(this.temperature, 0, var4 * var5, this.field_4200_f);
 		return var1;

@@ -8,7 +8,7 @@ bobView:false
 anaglyph3d:false
 advancedOpengl:true
 fpsLimit:1
-difficulty:3
+difficulty:0
 fancyGraphics:false
 ao:false
 skin:Default

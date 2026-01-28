@@ -24,6 +24,7 @@ public class BiomeGenBase {
 	public static final BiomeGenBase tundra = (new BiomeGenBase()).setColor(5762041).setBiomeName("Tundra").setEnableSnow().func_4124_a(12899129);
 	public static final BiomeGenBase hell = (new BiomeGenHell()).setColor(16711680).setBiomeName("Hell").setDisableRain();
 	public static final BiomeGenBase sky = (new BiomeGenSky()).setColor(8421631).setBiomeName("Sky").setDisableRain();
+	public static final BiomeGenBase nuclearWasteland = (new BiomeGenNuclearWasteland()).setColor(0x99FF99).setBiomeName("Nuclear Wasteland");
 	public String biomeName;
 	public int color;
 	public byte topBlock = (byte)Block.grass.blockID;

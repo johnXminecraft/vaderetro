@@ -22,6 +22,7 @@ public class WorldInfo {
     private double bml_nukeX;
     private double bml_nukeY;
     private double bml_nukeZ;
+    private double bml_nukeRadius;
 
 	public WorldInfo(NBTTagCompound var1) {
 		this.randomSeed = var1.getLong("RandomSeed");
@@ -41,6 +42,10 @@ public class WorldInfo {
         this.bml_nukeX = var1.getDouble("BML_NukeX");
         this.bml_nukeY = var1.getDouble("BML_NukeY");
         this.bml_nukeZ = var1.getDouble("BML_NukeZ");
+        this.bml_nukeRadius = var1.getDouble("BML_NukeRadius");
+        if (this.bml_nukeRadius == 0.0) {
+            this.bml_nukeRadius = 200.0;
+        }
 		if(var1.hasKey("Player")) {
 			this.playerTag = var1.getCompoundTag("Player");
 			this.dimension = this.playerTag.getInteger("Dimension");
@@ -69,6 +74,11 @@ public class WorldInfo {
 		this.raining = var1.raining;
 		this.thunderTime = var1.thunderTime;
 		this.thundering = var1.thundering;
+        this.bml_nukeContaminated = var1.bml_nukeContaminated;
+        this.bml_nukeX = var1.bml_nukeX;
+        this.bml_nukeY = var1.bml_nukeY;
+        this.bml_nukeZ = var1.bml_nukeZ;
+        this.bml_nukeRadius = var1.bml_nukeRadius;
 	}
 
 	public NBTTagCompound getNBTTagCompound() {
@@ -112,6 +122,7 @@ public class WorldInfo {
         var1.setDouble("BML_NukeX", this.bml_nukeX);
         var1.setDouble("BML_NukeY", this.bml_nukeY);
         var1.setDouble("BML_NukeZ", this.bml_nukeZ);
+        var1.setDouble("BML_NukeRadius", this.bml_nukeRadius);
 		if(var2 != null) {
 			var1.setCompoundTag("Player", var2);
 		}
@@ -135,10 +146,19 @@ public class WorldInfo {
     }
 
     public void bml_setNukeContaminated(boolean contaminated, double x, double y, double z) {
+        this.bml_setNukeContaminated(contaminated, x, y, z, 200.0);
+    }
+
+    public void bml_setNukeContaminated(boolean contaminated, double x, double y, double z, double radius) {
         this.bml_nukeContaminated = contaminated;
         this.bml_nukeX = x;
         this.bml_nukeY = y;
         this.bml_nukeZ = z;
+        this.bml_nukeRadius = radius;
+    }
+
+    public double bml_getNukeRadius() {
+        return this.bml_nukeRadius;
     }
 
 	public long getRandomSeed() {

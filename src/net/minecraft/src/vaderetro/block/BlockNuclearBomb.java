@@ -2,6 +2,7 @@ package net.minecraft.src.vaderetro.block;
 
 import net.minecraft.src.*;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityNuclearBomb;
+import net.minecraft.src.vaderetro.render.NukeEffectsManager;
 
 import java.util.Random;
 
@@ -48,11 +49,16 @@ public class BlockNuclearBomb extends BlockContainer {
 			return true;
 		}
 
+		double bombX = (double)x + 0.5D;
+		double bombY = (double)y + 1.0D;
+		double bombZ = (double)z + 0.5D;
+		NukeEffectsManager.startFlash(60);
+
 		net.minecraft.src.vaderetro.entity.EntityObjModel mush = new net.minecraft.src.vaderetro.entity.EntityObjModel(
 			world,
-			(double)x + 0.5D,
-			(double)y + 1.0D,
-			(double)z + 0.5D,
+			bombX,
+			bombY,
+			bombZ,
 			"/models/test.obj",
 			"/textures/test.png"
 		);

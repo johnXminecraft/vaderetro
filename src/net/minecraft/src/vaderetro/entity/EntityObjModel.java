@@ -178,6 +178,8 @@ public class EntityObjModel extends Entity {
                 this.soundWaveStage = 0;
                 NukeEffectsManager.startNuke(this.posX, this.posY, this.posZ, -1);
                 NukeEffectsManager.persistToWorldInfo(this.worldObj);
+                replaceBlocksInRadius(200);
+                removeItemsInRadius(200);
                 int bx = MathHelper.floor_double(this.posX);
                 int by = MathHelper.floor_double(this.posY - 1.0D);
                 int bz = MathHelper.floor_double(this.posZ);
@@ -234,6 +236,51 @@ public class EntityObjModel extends Entity {
         }
     }
     
+    private void replaceBlocksInRadius(int radius) {
+        int centerX = (int)Math.floor(this.posX);
+        int centerY = (int)Math.floor(this.posY);
+        int centerZ = (int)Math.floor(this.posZ);
+
+        for (int dx = -radius; dx <= radius; dx++) {
+            for (int dz = -radius; dz <= radius; dz++) {
+                double dist = Math.sqrt(dx * dx + dz * dz);
+                if (dist > radius) continue;
+
+                int x = centerX + dx;
+                int z = centerZ + dz;
+
+                for (int y = 0; y < 128; y++) {
+                    if (!this.worldObj.blockExists(x, y, z)) continue;
+                    int blockId = this.worldObj.getBlockId(x, y, z);
+
+                    if (blockId == Block.grass.blockID || blockId == Block.dirt.blockID) {
+                        this.worldObj.setBlockWithNotify(x, y, z, Block.radioactiveDirt.blockID);
+                    } else if (blockId == Block.wood.blockID) {
+                        this.worldObj.setBlockWithNotify(x, y, z, Block.radioactiveWood.blockID);
+                    } else if (blockId == Block.leaves.blockID) {
+                        this.worldObj.setBlockWithNotify(x, y, z, 0);
+                    }
+                }
+            }
+        }
+    }
+
+    private void removeItemsInRadius(int radius) {
+        double cx = this.posX;
+        double cz = this.posZ;
+        double rSq = (double)(radius * radius);
+        java.util.List list = this.worldObj.getEntitiesWithinAABB(EntityItem.class,
+            AxisAlignedBB.getBoundingBoxFromPool(cx - radius, 0.0D, cz - radius, cx + radius, 256.0D, cz + radius));
+        for (int i = 0; i < list.size(); i++) {
+            Entity e = (Entity)list.get(i);
+            double dx = e.posX - cx;
+            double dz = e.posZ - cz;
+            if (dx * dx + dz * dz <= rSq) {
+                e.setEntityDead();
+            }
+        }
+    }
+
     @Override
     protected void writeEntityToNBT(NBTTagCompound nbt) {
         nbt.setString("modelPath", modelPath);

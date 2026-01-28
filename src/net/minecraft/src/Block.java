@@ -169,8 +169,9 @@ public class Block {
 	public static final Block lampKeroseneIdle = (new BlockKeroseneLamp(104, false)).setHardness(0.0F).setStepSound(soundMetalFootstep).setBlockName("lampKerosene").disableNeighborNotifyOnMetadataChange();
 	public static final Block lampKeroseneActive = (new BlockKeroseneLamp(105, true)).setHardness(0.0F).setStepSound(soundMetalFootstep).setLightValue(1.0F).setBlockName("lampKerosene").disableNeighborNotifyOnMetadataChange();
 	public static final Block blockPlastic = (new BlockOreStorage(115, 224)).setHardness(1.0F).setResistance(5.0F).setStepSound(soundWoodFootstep).setBlockName("blockPlastic");
+	public static final Block radioactiveDirt = (new BlockRadioactiveDirt(133)).setBlockName("radioactiveDirt");
+	public static final Block radioactiveWood = (new BlockRadioactiveWood(134)).setBlockName("radioactiveWood");
 
-	// latest block id: 132
 
 	public int blockIndexInTexture;
 	public final int blockID;

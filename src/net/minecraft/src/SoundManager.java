@@ -178,8 +178,7 @@ public class SoundManager {
 		if(loaded && this.options.soundVolume != 0.0F) {
 			SoundPoolEntry var4 = this.soundPoolSounds.getRandomSoundFromSoundPool(var1);
 			if(var4 != null) {
-				this.field_587_e = (this.field_587_e + 1) % 256;
-				String var5 = "sound_" + this.field_587_e;
+				String var5 = "sound_fx";
 				sndSystem.newSource(false, var5, var4.soundUrl, var4.soundName, false, 0.0F, 0.0F, 0.0F, 0, 0.0F);
 				if(var2 > 1.0F) {
 					var2 = 1.0F;
@@ -191,6 +190,16 @@ public class SoundManager {
 				sndSystem.play(var5);
 			}
 
+		}
+	}
+
+	public void stopAllWorldSounds() {
+		if(loaded && sndSystem != null) {
+			for(int i = 0; i < 256; i++) {
+				try {
+					sndSystem.stop("sound_" + i);
+				} catch(Throwable t) {}
+			}
 		}
 	}
 }

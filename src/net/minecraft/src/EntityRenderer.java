@@ -44,6 +44,8 @@ public class EntityRenderer {
 	private long field_28133_I = 0L;
 	private Random random = new Random();
 	private int rainSoundCounter = 0;
+	private int geigerCooldownTicks = 0;
+	private int windCooldownTicks = 0;
 	volatile int field_1394_b = 0;
 	volatile int field_1393_c = 0;
 	FloatBuffer fogColorBuffer = GLAllocation.createDirectFloatBuffer(16);
@@ -74,6 +76,12 @@ public class EntityRenderer {
 		float var3 = var1 * (1.0F - var2) + var2;
 		this.fogColor1 += (var3 - this.fogColor1) * 0.1F;
 		++this.rendererUpdateCount;
+		if(this.geigerCooldownTicks > 0) {
+			--this.geigerCooldownTicks;
+		}
+		if(this.windCooldownTicks > 0) {
+			--this.windCooldownTicks;
+		}
 		this.itemRenderer.updateEquippedItem();
 		this.addRainParticles();
 	}
@@ -391,8 +399,15 @@ public class EntityRenderer {
 				}
 
 				this.field_28133_I = System.nanoTime();
+
+				NukeEffectsManager.tickDownFlash();
+
 				if(!this.mc.gameSettings.hideGUI || this.mc.currentScreen != null) {
 					this.mc.ingameGUI.renderGameOverlay(var1, this.mc.currentScreen != null, var16, var17);
+				}
+
+				if(NukeEffectsManager.isFlashActive()) {
+					this.renderFlash(var1);
 				}
 			} else {
 				GL11.glViewport(0, 0, this.mc.displayWidth, this.mc.displayHeight);
@@ -584,6 +599,16 @@ public class EntityRenderer {
 			var1 /= 2.0F;
 		}
 
+		if(NukeEffectsManager.isActive() && this.mc.renderViewEntity != null) {
+			BiomeGenBase biome = this.mc.theWorld.getWorldChunkManager().getBiomeGenAt((int)this.mc.renderViewEntity.posX, (int)this.mc.renderViewEntity.posZ);
+			if(biome == BiomeGenBase.nuclearWasteland) {
+				float intensity = NukeEffectsManager.getIntensityAt(this.mc.renderViewEntity.posX, this.mc.renderViewEntity.posY, this.mc.renderViewEntity.posZ);
+				if(intensity > 0.0F) {
+					var1 = Math.max(var1, 0.5F + intensity * 0.5F);
+				}
+			}
+		}
+
 		if(var1 != 0.0F) {
 			this.random.setSeed((long)this.rendererUpdateCount * 312987231L);
 			EntityLiving var2 = this.mc.renderViewEntity;
@@ -602,7 +627,12 @@ public class EntityRenderer {
 				int var17 = var6 + this.random.nextInt(var7) - this.random.nextInt(var7);
 				int var18 = var3.findTopSolidBlock(var16, var17);
 				int var19 = var3.getBlockId(var16, var18 - 1, var17);
-				if(var18 <= var5 + var7 && var18 >= var5 - var7 && var3.getWorldChunkManager().getBiomeGenAt(var16, var17).canSpawnLightningBolt()) {
+				BiomeGenBase biome = var3.getWorldChunkManager().getBiomeGenAt(var16, var17);
+				boolean isNuclearWasteland = (biome == BiomeGenBase.nuclearWasteland);
+				if(!isNuclearWasteland) {
+					continue;
+				}
+				if(var18 <= var5 + var7 && var18 >= var5 - var7 && (biome.canSpawnLightningBolt() || isNuclearWasteland)) {
 					float var20 = this.random.nextFloat();
 					float var21 = this.random.nextFloat();
 					if(var19 > 0) {
@@ -616,7 +646,11 @@ public class EntityRenderer {
 								var12 = (double)((float)var17 + var21);
 							}
 
-							this.mc.effectRenderer.addEffect(new EntityRainFX(var3, (double)((float)var16 + var20), (double)((float)var18 + 0.1F) - Block.blocksList[var19].minY, (double)((float)var17 + var21)));
+							EntitySnowShovelFX ashParticle = new EntitySnowShovelFX(var3, (double)((float)var16 + var20), (double)((float)var18 + 0.1F) - Block.blocksList[var19].minY, (double)((float)var17 + var21), 0.0D, 0.0D, 0.0D);
+							ashParticle.particleRed = 0.4F;
+							ashParticle.particleGreen = 0.4F;
+							ashParticle.particleBlue = 0.4F;
+							this.mc.effectRenderer.addEffect(ashParticle);
 						}
 					}
 				}
@@ -624,10 +658,48 @@ public class EntityRenderer {
 
 			if(var14 > 0 && this.random.nextInt(3) < this.rainSoundCounter++) {
 				this.rainSoundCounter = 0;
-				if(var10 > var2.posY + 1.0D && var3.findTopSolidBlock(MathHelper.floor_double(var2.posX), MathHelper.floor_double(var2.posZ)) > MathHelper.floor_double(var2.posY)) {
-					this.mc.theWorld.playSoundEffect(var8, var10, var12, "ambient.weather.rain", 0.1F, 0.5F);
-				} else {
-					this.mc.theWorld.playSoundEffect(var8, var10, var12, "ambient.weather.rain", 0.2F, 1.0F);
+				BiomeGenBase biomeAtPlayer = var3.getWorldChunkManager().getBiomeGenAt(var4, var6);
+				boolean playGeiger = (this.mc.currentScreen == null
+						&& biomeAtPlayer == BiomeGenBase.nuclearWasteland
+						&& NukeEffectsManager.isActive());
+				if(playGeiger) {
+					float geigerIntensity = NukeEffectsManager.getIntensityAt(var2.posX, var2.posY, var2.posZ);
+					if(geigerIntensity > 0.02F && this.geigerCooldownTicks <= 0) {
+						float geigerVol = 0.12F + geigerIntensity * 0.88F;
+						float maxDelaySec = 14.0F;
+						float minDelaySec = 1.0F;
+						float delaySec = maxDelaySec - geigerIntensity * (maxDelaySec - minDelaySec);
+						if(delaySec < minDelaySec) {
+							delaySec = minDelaySec;
+						}
+						this.geigerCooldownTicks = (int)(delaySec * 20.0F);
+						float basePitch = 1.0F;
+						float maxPitch = 1.8F;
+						float geigerPitch = basePitch + geigerIntensity * (maxPitch - basePitch);
+						this.mc.theWorld.playSoundEffect(var2.posX, var2.posY + 1.0D, var2.posZ, "bomb.geiger", geigerVol, geigerPitch);
+					} else {
+						playGeiger = false;
+					}
+				}
+
+				if(this.mc.currentScreen == null
+						&& biomeAtPlayer == BiomeGenBase.nuclearWasteland
+						&& this.windCooldownTicks <= 0) {
+					float windVol = 0.50F;
+					int minWindDelayTicks = 20 * 30;
+					int maxWindDelayTicks = 20 * 45;
+					this.windCooldownTicks = minWindDelayTicks + this.random.nextInt(maxWindDelayTicks - minWindDelayTicks + 1);
+					this.mc.theWorld.playSoundEffect(var2.posX, var2.posY + 1.0D, var2.posZ, "bomb.wind", windVol, 1.0F);
+				}
+
+				if(!playGeiger) {
+					if(!(biomeAtPlayer == BiomeGenBase.nuclearWasteland && NukeEffectsManager.isActive())) {
+						if(var10 > var2.posY + 1.0D && var3.findTopSolidBlock(MathHelper.floor_double(var2.posX), MathHelper.floor_double(var2.posZ)) > MathHelper.floor_double(var2.posY)) {
+							this.mc.theWorld.playSoundEffect(var8, var10, var12, "ambient.weather.rain", 0.1F, 0.5F);
+						} else {
+							this.mc.theWorld.playSoundEffect(var8, var10, var12, "ambient.weather.rain", 0.2F, 1.0F);
+						}
+					}
 				}
 			}
 
@@ -635,10 +707,14 @@ public class EntityRenderer {
 	}
 
 	protected void renderRainSnow(float var1) {
-		float var2 = this.mc.theWorld.func_27162_g(var1);
-		if(var2 > 0.0F) {
+		World var4 = this.mc.theWorld;
+		float vanillaPrecipitationStrength = var4.func_27162_g(var1);
+		boolean nukeActive = NukeEffectsManager.isActive();
+		if(vanillaPrecipitationStrength <= 0.0F && !nukeActive) {
+			return;
+		}
+		{
 			EntityLiving var3 = this.mc.renderViewEntity;
-			World var4 = this.mc.theWorld;
 			int var5 = MathHelper.floor_double(var3.posX);
 			int var6 = MathHelper.floor_double(var3.posY);
 			int var7 = MathHelper.floor_double(var3.posZ);
@@ -671,7 +747,9 @@ public class EntityRenderer {
 			for(var19 = var5 - var16; var19 <= var5 + var16; ++var19) {
 				for(var20 = var7 - var16; var20 <= var7 + var16; ++var20) {
 					var21 = var17[var18++];
-					if(var21.getEnableSnow()) {
+					boolean isNuclearWasteland = (var21 == BiomeGenBase.nuclearWasteland);
+					boolean renderSnowHere = (var21.getEnableSnow() && vanillaPrecipitationStrength > 0.0F) || (isNuclearWasteland && nukeActive);
+					if(renderSnowHere) {
 						var22 = var4.findTopSolidBlock(var19, var20);
 						if(var22 < 0) {
 							var22 = 0;
@@ -702,9 +780,28 @@ public class EntityRenderer {
 							double var31 = (double)((float)var19 + 0.5F) - var3.posX;
 							double var33 = (double)((float)var20 + 0.5F) - var3.posZ;
 							float var35 = MathHelper.sqrt_double(var31 * var31 + var33 * var33) / (float)var16;
-							var8.startDrawingQuads();
 							float var36 = var4.getLightBrightness(var19, var23, var20);
-							GL11.glColor4f(var36, var36, var36, ((1.0F - var35 * var35) * 0.3F + 0.5F) * var2);
+
+							float snowStrength;
+							if(isNuclearWasteland && nukeActive) {
+								double px = (double)var19 + 0.5D;
+								double py = var3.posY;
+								double pz = (double)var20 + 0.5D;
+								float intensity = NukeEffectsManager.getIntensityAt(px, py, pz);
+								if(intensity <= 0.0F) {
+									continue;
+								}
+								snowStrength = 0.5F + intensity * 0.5F;
+								var36 = var36 * 0.5F;
+							} else {
+								snowStrength = vanillaPrecipitationStrength;
+								if(snowStrength <= 0.0F) {
+									continue;
+								}
+							}
+
+							var8.startDrawingQuads();
+							GL11.glColor4f(var36, var36, var36, ((1.0F - var35 * var35) * 0.3F + 0.5F) * snowStrength);
 							var8.setTranslationD(-var9 * 1.0D, -var11 * 1.0D, -var13 * 1.0D);
 							var8.addVertexWithUV((double)(var19 + 0), (double)var24, (double)var20 + 0.5D, (double)(0.0F * var26 + var29), (double)((float)var24 * var26 / 4.0F + var28 * var26 + var30));
 							var8.addVertexWithUV((double)(var19 + 1), (double)var24, (double)var20 + 0.5D, (double)(1.0F * var26 + var29), (double)((float)var24 * var26 / 4.0F + var28 * var26 + var30));
@@ -720,50 +817,54 @@ public class EntityRenderer {
 					}
 				}
 			}
+			if(vanillaPrecipitationStrength > 0.0F) {
+				GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.mc.renderEngine.getTexture("/environment/rain.png"));
+				if(this.mc.gameSettings.fancyGraphics) {
+					var16 = 10;
+				}
 
-			GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.mc.renderEngine.getTexture("/environment/rain.png"));
-			if(this.mc.gameSettings.fancyGraphics) {
-				var16 = 10;
-			}
+				var18 = 0;
 
-			var18 = 0;
+				for(var19 = var5 - var16; var19 <= var5 + var16; ++var19) {
+					for(var20 = var7 - var16; var20 <= var7 + var16; ++var20) {
+						var21 = var17[var18++];
+						boolean isNuclearWasteland = (var21 == BiomeGenBase.nuclearWasteland);
+						if(var21.canSpawnLightningBolt() && !isNuclearWasteland) {
+							var22 = var4.findTopSolidBlock(var19, var20);
+							var23 = var6 - var16;
+							var24 = var6 + var16;
+							if(var23 < var22) {
+								var23 = var22;
+							}
 
-			for(var19 = var5 - var16; var19 <= var5 + var16; ++var19) {
-				for(var20 = var7 - var16; var20 <= var7 + var16; ++var20) {
-					var21 = var17[var18++];
-					if(var21.canSpawnLightningBolt()) {
-						var22 = var4.findTopSolidBlock(var19, var20);
-						var23 = var6 - var16;
-						var24 = var6 + var16;
-						if(var23 < var22) {
-							var23 = var22;
-						}
+							if(var24 < var22) {
+								var24 = var22;
+							}
 
-						if(var24 < var22) {
-							var24 = var22;
-						}
+							float var37 = 1.0F;
+							if(var23 != var24) {
+								this.random.setSeed((long)(var19 * var19 * 3121 + var19 * 45238971 + var20 * var20 * 418711 + var20 * 13761));
+								var26 = ((float)(this.rendererUpdateCount + var19 * var19 * 3121 + var19 * 45238971 + var20 * var20 * 418711 + var20 * 13761 & 31) + var1) / 32.0F * (3.0F + this.random.nextFloat());
+								double var38 = (double)((float)var19 + 0.5F) - var3.posX;
+								double var39 = (double)((float)var20 + 0.5F) - var3.posZ;
+								float var40 = MathHelper.sqrt_double(var38 * var38 + var39 * var39) / (float)var16;
+								var8.startDrawingQuads();
+								float var32 = var4.getLightBrightness(var19, 128, var20) * 0.85F + 0.15F;
 
-						float var37 = 1.0F;
-						if(var23 != var24) {
-							this.random.setSeed((long)(var19 * var19 * 3121 + var19 * 45238971 + var20 * var20 * 418711 + var20 * 13761));
-							var26 = ((float)(this.rendererUpdateCount + var19 * var19 * 3121 + var19 * 45238971 + var20 * var20 * 418711 + var20 * 13761 & 31) + var1) / 32.0F * (3.0F + this.random.nextFloat());
-							double var38 = (double)((float)var19 + 0.5F) - var3.posX;
-							double var39 = (double)((float)var20 + 0.5F) - var3.posZ;
-							float var40 = MathHelper.sqrt_double(var38 * var38 + var39 * var39) / (float)var16;
-							var8.startDrawingQuads();
-							float var32 = var4.getLightBrightness(var19, 128, var20) * 0.85F + 0.15F;
-							GL11.glColor4f(var32, var32, var32, ((1.0F - var40 * var40) * 0.5F + 0.5F) * var2);
-							var8.setTranslationD(-var9 * 1.0D, -var11 * 1.0D, -var13 * 1.0D);
-							var8.addVertexWithUV((double)(var19 + 0), (double)var23, (double)var20 + 0.5D, (double)(0.0F * var37), (double)((float)var23 * var37 / 4.0F + var26 * var37));
-							var8.addVertexWithUV((double)(var19 + 1), (double)var23, (double)var20 + 0.5D, (double)(1.0F * var37), (double)((float)var23 * var37 / 4.0F + var26 * var37));
-							var8.addVertexWithUV((double)(var19 + 1), (double)var24, (double)var20 + 0.5D, (double)(1.0F * var37), (double)((float)var24 * var37 / 4.0F + var26 * var37));
-							var8.addVertexWithUV((double)(var19 + 0), (double)var24, (double)var20 + 0.5D, (double)(0.0F * var37), (double)((float)var24 * var37 / 4.0F + var26 * var37));
-							var8.addVertexWithUV((double)var19 + 0.5D, (double)var23, (double)(var20 + 0), (double)(0.0F * var37), (double)((float)var23 * var37 / 4.0F + var26 * var37));
-							var8.addVertexWithUV((double)var19 + 0.5D, (double)var23, (double)(var20 + 1), (double)(1.0F * var37), (double)((float)var23 * var37 / 4.0F + var26 * var37));
-							var8.addVertexWithUV((double)var19 + 0.5D, (double)var24, (double)(var20 + 1), (double)(1.0F * var37), (double)((float)var24 * var37 / 4.0F + var26 * var37));
-							var8.addVertexWithUV((double)var19 + 0.5D, (double)var24, (double)(var20 + 0), (double)(0.0F * var37), (double)((float)var24 * var37 / 4.0F + var26 * var37));
-							var8.setTranslationD(0.0D, 0.0D, 0.0D);
-							var8.draw();
+								float precipitationStrength = vanillaPrecipitationStrength;
+								GL11.glColor4f(var32, var32, var32, ((1.0F - var40 * var40) * 0.5F + 0.5F) * precipitationStrength);
+								var8.setTranslationD(-var9 * 1.0D, -var11 * 1.0D, -var13 * 1.0D);
+								var8.addVertexWithUV((double)(var19 + 0), (double)var23, (double)var20 + 0.5D, (double)(0.0F * var37), (double)((float)var23 * var37 / 4.0F + var26 * var37));
+								var8.addVertexWithUV((double)(var19 + 1), (double)var23, (double)var20 + 0.5D, (double)(1.0F * var37), (double)((float)var23 * var37 / 4.0F + var26 * var37));
+								var8.addVertexWithUV((double)(var19 + 1), (double)var24, (double)var20 + 0.5D, (double)(1.0F * var37), (double)((float)var24 * var37 / 4.0F + var26 * var37));
+								var8.addVertexWithUV((double)(var19 + 0), (double)var24, (double)var20 + 0.5D, (double)(0.0F * var37), (double)((float)var24 * var37 / 4.0F + var26 * var37));
+								var8.addVertexWithUV((double)var19 + 0.5D, (double)var23, (double)(var20 + 0), (double)(0.0F * var37), (double)((float)var23 * var37 / 4.0F + var26 * var37));
+								var8.addVertexWithUV((double)var19 + 0.5D, (double)var23, (double)(var20 + 1), (double)(1.0F * var37), (double)((float)var23 * var37 / 4.0F + var26 * var37));
+								var8.addVertexWithUV((double)var19 + 0.5D, (double)var24, (double)(var20 + 1), (double)(1.0F * var37), (double)((float)var24 * var37 / 4.0F + var26 * var37));
+								var8.addVertexWithUV((double)var19 + 0.5D, (double)var24, (double)(var20 + 0), (double)(0.0F * var37), (double)((float)var24 * var37 / 4.0F + var26 * var37));
+								var8.setTranslationD(0.0D, 0.0D, 0.0D);
+								var8.draw();
+							}
 						}
 					}
 				}
@@ -926,20 +1027,78 @@ public class EntityRenderer {
 				var9 = (var4 * 30.0F + var6 * 70.0F) / 100.0F;
 			}
 		} else {
-			GL11.glFogi(GL11.GL_FOG_MODE, GL11.GL_LINEAR);
-			GL11.glFogf(GL11.GL_FOG_START, this.farPlaneDistance * 0.25F);
-			GL11.glFogf(GL11.GL_FOG_END, this.farPlaneDistance);
-			if(var1 < 0) {
-				GL11.glFogf(GL11.GL_FOG_START, 0.0F);
-				GL11.glFogf(GL11.GL_FOG_END, this.farPlaneDistance * 0.8F);
+			double px = var3.posX;
+			double py = var3.posY;
+			double pz = var3.posZ;
+			float intensity = 0.0F;
+			if(this.mc.theWorld != null && NukeEffectsManager.isActive()) {
+				intensity = NukeEffectsManager.getIntensityAt(px, py, pz);
 			}
 
-			if(GLContext.getCapabilities().GL_NV_fog_distance) {
-				GL11.glFogi(NVFogDistance.GL_FOG_DISTANCE_MODE_NV, NVFogDistance.GL_EYE_RADIAL_NV);
-			}
+			if(intensity > 0.0F) {
+				float normalFogStart = this.farPlaneDistance * 0.25F;
+				float normalFogEnd = this.farPlaneDistance;
 
-			if(this.mc.theWorld.worldProvider.isNether) {
-				GL11.glFogf(GL11.GL_FOG_START, 0.0F);
+				float t = intensity < 0.0F ? 0.0F : (intensity > 1.0F ? 1.0F : intensity);
+
+				float smoothIntensity = t * t * (3.0F - 2.0F * t);
+				float smootherIntensity = smoothIntensity * smoothIntensity * (3.0F - 2.0F * smoothIntensity);
+
+				float smoothDensity = smootherIntensity * smootherIntensity;
+				float nuclearFogDensity = 0.005F + smoothDensity * 0.195F;
+
+				if(intensity < 0.85F) {
+					GL11.glFogi(GL11.GL_FOG_MODE, GL11.GL_LINEAR);
+					float blendFactor = smootherIntensity / 0.85F;
+					float fogStartReduction = blendFactor * 0.75F;
+					float fogEndReduction = blendFactor * 0.65F;
+					GL11.glFogf(GL11.GL_FOG_START, normalFogStart * (1.0F - fogStartReduction));
+					GL11.glFogf(GL11.GL_FOG_END, normalFogEnd * (1.0F - fogEndReduction));
+				} else {
+					GL11.glFogi(GL11.GL_FOG_MODE, GL11.GL_EXP);
+					float expBlend = (intensity - 0.85F) / 0.15F;
+					float finalDensity = nuclearFogDensity * (0.3F + expBlend * 0.7F);
+					GL11.glFogf(GL11.GL_FOG_DENSITY, finalDensity);
+				}
+
+				float normalR = 1.0F;
+				float normalG = 1.0F;
+				float normalB = 1.0F;
+				float nuclearR = 0.5F;
+				float nuclearG = 0.5F;
+				float nuclearB = 0.5F;
+
+				float colorBlend = smootherIntensity;
+				var4 = normalR * (1.0F - colorBlend) + nuclearR * colorBlend;
+				var5 = normalG * (1.0F - colorBlend) + nuclearG * colorBlend;
+				var6 = normalB * (1.0F - colorBlend) + nuclearB * colorBlend;
+
+				if(this.mc.gameSettings.anaglyph) {
+					var7 = (var4 * 30.0F + var5 * 59.0F + var6 * 11.0F) / 100.0F;
+					var8 = (var4 * 30.0F + var5 * 70.0F) / 100.0F;
+					var9 = (var4 * 30.0F + var6 * 70.0F) / 100.0F;
+				}
+
+				if(GLContext.getCapabilities().GL_NV_fog_distance) {
+					GL11.glFogi(NVFogDistance.GL_FOG_DISTANCE_MODE_NV, NVFogDistance.GL_EYE_RADIAL_NV);
+				}
+			} else {
+				GL11.glFogi(GL11.GL_FOG_MODE, GL11.GL_LINEAR);
+				GL11.glFogf(GL11.GL_FOG_START, this.farPlaneDistance * 0.25F);
+				GL11.glFogf(GL11.GL_FOG_END, this.farPlaneDistance);
+
+				if(var1 < 0) {
+					GL11.glFogf(GL11.GL_FOG_START, 0.0F);
+					GL11.glFogf(GL11.GL_FOG_END, this.farPlaneDistance * 0.8F);
+				}
+
+				if(GLContext.getCapabilities().GL_NV_fog_distance) {
+					GL11.glFogi(NVFogDistance.GL_FOG_DISTANCE_MODE_NV, NVFogDistance.GL_EYE_RADIAL_NV);
+				}
+
+				if(this.mc.theWorld.worldProvider.isNether) {
+					GL11.glFogf(GL11.GL_FOG_START, 0.0F);
+				}
 			}
 		}
 
@@ -974,5 +1133,55 @@ public class EntityRenderer {
 
 	public void setupFog() {
 		this.setupFog(0, 0.0F);
+	}
+
+	private void renderFlash(float var1) {
+		float alpha = NukeEffectsManager.getFlashAlpha();
+		if(alpha <= 0.0F) {
+			return;
+		}
+
+		int screenWidth = this.mc.displayWidth;
+		int screenHeight = this.mc.displayHeight;
+
+		GL11.glDisable(GL11.GL_TEXTURE_2D);
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GL11.glDisable(GL11.GL_ALPHA_TEST);
+		GL11.glDisable(GL11.GL_DEPTH_TEST);
+		GL11.glDepthMask(false);
+		GL11.glDisable(GL11.GL_CULL_FACE);
+
+		GL11.glPushMatrix();
+		GL11.glMatrixMode(GL11.GL_PROJECTION);
+		GL11.glPushMatrix();
+		GL11.glLoadIdentity();
+		GL11.glOrtho(0.0D, (double)screenWidth, (double)screenHeight, 0.0D, -1.0D, 1.0D);
+
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+		GL11.glPushMatrix();
+		GL11.glLoadIdentity();
+
+		Tessellator var5 = Tessellator.instance;
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, alpha);
+		var5.startDrawingQuads();
+		var5.addVertex(0.0D, 0.0D, 0.0D);
+		var5.addVertex((double)screenWidth, 0.0D, 0.0D);
+		var5.addVertex((double)screenWidth, (double)screenHeight, 0.0D);
+		var5.addVertex(0.0D, (double)screenHeight, 0.0D);
+		var5.draw();
+
+		GL11.glPopMatrix();
+		GL11.glMatrixMode(GL11.GL_PROJECTION);
+		GL11.glPopMatrix();
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+		GL11.glPopMatrix();
+
+		GL11.glDepthMask(true);
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
+		GL11.glEnable(GL11.GL_ALPHA_TEST);
+		GL11.glEnable(GL11.GL_CULL_FACE);
+		GL11.glDisable(GL11.GL_BLEND);
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
 	}
 }

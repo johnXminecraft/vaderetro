@@ -430,6 +430,9 @@ public abstract class Minecraft implements Runnable {
 
 			this.currentScreen = (GuiScreen)var1;
 			if(var1 != null) {
+				if(this.theWorld != null) {
+					this.sndManager.stopAllWorldSounds();
+				}
 				this.setIngameNotInFocus();
 				ScaledResolution var2 = new ScaledResolution(this.gameSettings, this.displayWidth, this.displayHeight);
 				int var3 = var2.getScaledWidth();
@@ -1333,6 +1336,9 @@ public abstract class Minecraft implements Runnable {
 		this.loadingScreen.printText(var2);
 		this.loadingScreen.displayLoadingString("");
 		this.sndManager.playStreaming((String)null, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
+		if(var1 == null && this.theWorld != null) {
+			this.sndManager.stopAllWorldSounds();
+		}
 		if(this.theWorld != null) {
 			this.theWorld.saveWorldIndirectly(this.loadingScreen);
 		}

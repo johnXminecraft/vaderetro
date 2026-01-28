@@ -1,0 +1,46 @@
+================================
+ALPHA 1.4.0
+================================
+
+Additions:
+1. Added radioactive dirt block
+2. Added radioactive wood block
+3. Added radiation sound effects in the Nuclear Wastelands biome
+4. Added wind ambient sounds in the Nuclear Wastelands biome
+5. Added blinding flash effect on nuclear bomb detonation
+
+
+Reworks:
+1. Fixed Nuclear Wastelands biome generation
+2. Fixed item destruction within the blast radius of a nuclear bomb
+
+
+Textures:
+none
+
+
+Added Vade Retro classes:
+1. /vaderetro/gen/world/BiomeGenNuclearWasteland.class
+2. /vaderetro/block/BlockRadoactiveDirt.class
+3. /vaderetro/block/BlockRadoactiveWood.class
+
+Changed Vade Retro classes:
+1. /vaderetro/block/BlockNuclearBomb.class
+2. /vaderetro/render/NukeEffectsManager.class
+3. /vederetro/_JIM/mod_JIM.class
+4. /vaderetro/entity/EntityObjModel.class
+
+
+Changed Minecraft classes:
+EntityRenderer.class
+WorldInfo.class
+Block.class
+WorldProviderHell.class
+World.class
+WorldChunkManager.class
+WorldProviderSky.class
+BiomeGenBase.class
+WorldChunkManagerHell.class
+SoundManager.class
+Item.class
+Minecraft.class

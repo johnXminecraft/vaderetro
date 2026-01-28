@@ -2,7 +2,7 @@ package net.minecraft.src;
 
 public class WorldProviderSky extends WorldProvider {
 	public void registerWorldChunkManager() {
-		this.worldChunkMgr = new WorldChunkManagerHell(BiomeGenBase.sky, 0.5D, 0.0D);
+		this.worldChunkMgr = new WorldChunkManagerHell(this.worldObj, BiomeGenBase.sky, 0.5D, 0.0D);
 		this.worldType = 1;
 	}
 

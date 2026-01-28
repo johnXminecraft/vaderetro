@@ -51,7 +51,6 @@ public class mod_JIM {
 
         java.io.File cwd = new java.io.File(".");
 
-        // Register musket reload sound
         String[] reloadCandidates = new String[] {
                 "game/resources/newsound/weaponmod/reload.ogg",
                 "minecraft/game/resources/newsound/weaponmod/reload.ogg",
@@ -162,6 +161,42 @@ public class mod_JIM {
 
         if (nukeFile != null) {
             minecraft.sndManager.addSound("bomb/nuclearExplosion.ogg", nukeFile);
+        }
+
+        String[] geigerCandidates = new String[] {
+                "game/resources/newsound/bomb/geiger.ogg",
+                "minecraft/game/resources/newsound/bomb/geiger.ogg",
+                "./minecraft/minecraft/game/resources/newsound/bomb/geiger.ogg",
+                "../game/resources/newsound/bomb/geiger.ogg",
+                "resources/newsound/bomb/geiger.ogg"
+        };
+
+        java.io.File geigerFile = null;
+        for (String rel : geigerCandidates) {
+            java.io.File f = new java.io.File(rel);
+            if (f.exists()) { geigerFile = f; break; }
+        }
+
+        if (geigerFile != null) {
+            minecraft.sndManager.addSound("bomb/geiger.ogg", geigerFile);
+        }
+
+        String[] windCandidates = new String[] {
+                "game/resources/newsound/bomb/wind.ogg",
+                "minecraft/game/resources/newsound/bomb/wind.ogg",
+                "./minecraft/minecraft/game/resources/newsound/bomb/wind.ogg",
+                "../game/resources/newsound/bomb/wind.ogg",
+                "resources/newsound/bomb/wind.ogg"
+        };
+
+        java.io.File windFile = null;
+        for (String rel : windCandidates) {
+            java.io.File f = new java.io.File(rel);
+            if (f.exists()) { windFile = f; break; }
+        }
+
+        if (windFile != null) {
+            minecraft.sndManager.addSound("bomb/wind.ogg", windFile);
         }
 
         this.soundInitDone = true;

@@ -7,6 +7,8 @@ public final class NukeEffectsManager {
     private static double epicenterZ;
     private static int ticksLeft;
     private static int maxTicks;
+    private static int flashTicks = 0;
+    private static int flashMaxTicks = 0;
 
     private NukeEffectsManager() {}
 
@@ -60,10 +62,35 @@ public final class NukeEffectsManager {
         if (world == null) return;
         net.minecraft.src.WorldInfo wi = world.getWorldInfo();
         try {
-            wi.bml_setNukeContaminated(true, epicenterX, epicenterY, epicenterZ);
+            wi.bml_setNukeContaminated(true, epicenterX, epicenterY, epicenterZ, 200.0);
         } catch (Throwable t) {
             
         }
+    }
+
+    public static void startFlash(int durationTicks) {
+        flashMaxTicks = Math.max(1, durationTicks);
+        flashTicks = flashMaxTicks;
+    }
+
+    public static void tickDownFlash() {
+        if (flashTicks > 0) {
+            --flashTicks;
+        }
+    }
+
+    public static float getFlashAlpha() {
+        if (flashTicks <= 0) return 0.0f;
+        float progress = (float)flashTicks / (float)flashMaxTicks;
+        if (progress > 0.5f) {
+            return 1.0f;
+        } else {
+            return progress * 2.0f;
+        }
+    }
+
+    public static boolean isFlashActive() {
+        return flashTicks > 0;
     }
 
     public static void restoreFromWorldInfo(net.minecraft.src.World world) {

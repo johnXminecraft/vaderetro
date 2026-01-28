@@ -141,6 +141,7 @@ public class World implements IBlockAccess {
 		this.worldProvider = var2;
 		var2.registerWorld(this);
 		this.chunkProvider = this.getChunkProvider();
+		NukeEffectsManager.restoreFromWorldInfo(this);
 		this.calculateInitialSkylight();
 		this.func_27163_E();
 	}
@@ -202,6 +203,7 @@ public class World implements IBlockAccess {
 
 		this.worldProvider.registerWorld(this);
 		this.chunkProvider = this.getChunkProvider();
+		NukeEffectsManager.restoreFromWorldInfo(this);
 		if(var6) {
 			this.getInitialSpawnLocation();
 		}
@@ -1933,7 +1935,9 @@ public class World implements IBlockAccess {
 				var7 = var6 & 15;
 				var8 = var6 >> 8 & 15;
 				var9 = this.findTopSolidBlock(var7 + var3, var8 + var4);
-				if(this.getWorldChunkManager().getBiomeGenAt(var7 + var3, var8 + var4).getEnableSnow() && var9 >= 0 && var9 < 128 && var14.getSavedLightValue(EnumSkyBlock.Block, var7, var9, var8) < 10) {
+				BiomeGenBase biome = this.getWorldChunkManager().getBiomeGenAt(var7 + var3, var8 + var4);
+				boolean isNuclearWasteland = (biome == BiomeGenBase.nuclearWasteland);
+				if(biome.getEnableSnow() && !isNuclearWasteland && var9 >= 0 && var9 < 128 && var14.getSavedLightValue(EnumSkyBlock.Block, var7, var9, var8) < 10) {
 					var10 = var14.getBlockID(var7, var9 - 1, var8);
 					var15 = var14.getBlockID(var7, var9, var8);
 					if(this.func_27161_C() && var15 == 0 && Block.snow.canPlaceBlockAt(this, var7 + var3, var9, var8 + var4) && var10 != 0 && var10 != Block.ice.blockID && Block.blocksList[var10].blockMaterial.getIsSolid()) {
@@ -2412,7 +2416,8 @@ public class World implements IBlockAccess {
 	}
 
 	public float func_27162_g(float var1) {
-		return this.prevRainingStrength + (this.rainingStrength - this.prevRainingStrength) * var1;
+		float baseStrength = this.prevRainingStrength + (this.rainingStrength - this.prevRainingStrength) * var1;
+		return baseStrength;
 	}
 
 	public void func_27158_h(float var1) {
