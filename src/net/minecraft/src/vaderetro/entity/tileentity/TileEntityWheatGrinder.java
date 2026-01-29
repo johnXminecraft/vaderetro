@@ -209,24 +209,39 @@ public class TileEntityWheatGrinder extends TileEntity implements IInventory {
 			default: return side;
 		}
 	}
-	
+
+	// rework
 	@Override
 	public void updateEntity() {
 		boolean wasBurning = this.isBurning();
 		boolean powered = this.isPowered();
 		
-		if (powered && this.grinderItemStacks[0] != null && this.grinderItemStacks[0].itemID == Item.wheat.shiftedIndex) {
+		if (powered && this.grinderItemStacks[0] != null && isCookable()) {
 			this.grinderCookTime++;
-			if (this.grinderCookTime >= 200) { 
-				this.grinderCookTime = 0;
-				if (this.grinderItemStacks[1] == null) {
-					this.grinderItemStacks[1] = new ItemStack(Item.flour, 1);
-				} else if (this.grinderItemStacks[1].itemID == Item.flour.shiftedIndex) {
-					this.grinderItemStacks[1].stackSize++;
+			if (this.grinderCookTime >= 200) {
+				if(this.grinderItemStacks[0].itemID == Item.wheat.shiftedIndex) {
+					this.grinderCookTime = 0;
+					if (this.grinderItemStacks[1] == null) {
+						this.grinderItemStacks[1] = new ItemStack(Item.flour, 1);
+					} else if (this.grinderItemStacks[1].itemID == Item.flour.shiftedIndex) {
+						this.grinderItemStacks[1].stackSize++;
+					}
+					this.grinderItemStacks[0].stackSize--;
+					if (this.grinderItemStacks[0].stackSize <= 0) {
+						this.grinderItemStacks[0] = null;
+					}
 				}
-				this.grinderItemStacks[0].stackSize--;
-				if (this.grinderItemStacks[0].stackSize <= 0) {
-					this.grinderItemStacks[0] = null;
+				if(this.grinderItemStacks[0].itemID == Item.cannabisLeaf.shiftedIndex) {
+					this.grinderCookTime = 0;
+					if (this.grinderItemStacks[1] == null) {
+						this.grinderItemStacks[1] = new ItemStack(Item.rope, 1);
+					} else if (this.grinderItemStacks[1].itemID == Item.rope.shiftedIndex) {
+						this.grinderItemStacks[1].stackSize++;
+					}
+					this.grinderItemStacks[0].stackSize--;
+					if (this.grinderItemStacks[0].stackSize <= 0) {
+						this.grinderItemStacks[0] = null;
+					}
 				}
 			}
 		} else {
@@ -236,6 +251,11 @@ public class TileEntityWheatGrinder extends TileEntity implements IInventory {
 		if (wasBurning != this.isBurning()) {
 			this.onInventoryChanged();
 		}
+	}
+
+	private boolean isCookable() {
+		return this.grinderItemStacks[0].itemID == Item.wheat.shiftedIndex ||
+				this.grinderItemStacks[0].itemID == Item.cannabisLeaf.shiftedIndex;
 	}
 	
 	public boolean canInteractWith(EntityPlayer player) {

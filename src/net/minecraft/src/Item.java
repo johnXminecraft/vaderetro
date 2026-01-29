@@ -185,6 +185,13 @@ public class Item {
 	public static Item legsSchema = (new ItemArmor(171, 1, 6, 2)).setIconCoord(11, 8).setItemName("legsSchema");
 	public static Item bootsSchema = (new ItemArmor(172, 1, 6, 3)).setIconCoord(11, 9).setItemName("bootsSchema");
 	public static Item unobtainium = (new Item(173)).setIconCoord(5, 14).setItemName("unobtainium");
+	public static Item dough = (new Item(174)).setIconCoord(6, 14).setItemName("dough");
+	public static Item rawClayPlate = (new Item(175)).setIconCoord(7, 14).setItemName("rawClayPlate");
+	public static Item ceramicPlate = (new Item(176)).setIconCoord(8, 14).setItemName("ceramicPlate");
+	public static Item uncookedMeal = (new ItemFood(177, 1, false)).setIconCoord(9, 14).setItemName("uncookedMeal");
+	public static Item cookedMeal = (new ItemFood(178, 10, false)).setIconCoord(10, 14).setItemName("cookedMeal");
+	public static Item potato = (new ItemFood(179, 1, false)).setIconCoord(6, 11).setItemName("potato");
+	public static Item carrot = (new ItemFood(180, 1, false)).setIconCoord(6, 12).setItemName("carrot");
 
 	public final int shiftedIndex;
 	protected int maxStackSize = 64;

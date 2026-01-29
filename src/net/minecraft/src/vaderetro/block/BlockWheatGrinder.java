@@ -4,6 +4,7 @@ import net.minecraft.src.*;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityWheatGrinder;
 
 public class BlockWheatGrinder extends BlockContainer {
+
     public BlockWheatGrinder(int id, int textureIndex) {
         super(id, textureIndex, Material.wood);
         this.setHardness(2.0F);
@@ -28,9 +29,9 @@ public class BlockWheatGrinder extends BlockContainer {
     
     public int getBlockTextureFromSideAndMetadata(int side, int meta) {
         if (side == 1) {
-            return 235;    
+            return 250;
         }
-        return 236;    
+        return 62;
     }
     
     public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int side) {

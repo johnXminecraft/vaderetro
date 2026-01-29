@@ -124,55 +124,46 @@ public class Block {
 	public static final Block redstoneRepeaterActive = (new BlockRedstoneRepeater(94, true)).setHardness(0.0F).setLightValue(10.0F / 16.0F).setStepSound(soundWoodFootstep).setBlockName("diode").disableStats().disableNeighborNotifyOnMetadataChange();
 	public static final Block lockedChest = (new BlockLockedChest(95)).setHardness(0.0F).setLightValue(1.0F).setStepSound(soundWoodFootstep).setBlockName("lockedchest").setTickOnLoad(true).disableNeighborNotifyOnMetadataChange();
 	public static final Block trapdoor = (new BlockTrapDoor(96, Material.wood)).setHardness(3.0F).setStepSound(soundWoodFootstep).setBlockName("trapdoor").disableStats().disableNeighborNotifyOnMetadataChange();
-	public static final Block parquet = (new Block(117, 166, Material.wood)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("parquet");
-	public static final Block tiles = (new Block(118, 78, Material.rock)).setHardness(2.0F).setResistance(10.0F).setStepSound(soundStoneFootstep).setBlockName("tiles");
-	public static final Block tilesGreen = (new Block(119, 77, Material.rock)).setHardness(2.0F).setResistance(10.0F).setStepSound(soundStoneFootstep).setBlockName("tilesGreen");
 
-	// johncrtmod
-	public static final Block crtTvSetIdle = (new BlockCrtTvSet(102, false, 154)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("crtTvSet").disableNeighborNotifyOnMetadataChange();
-	public static final Block crtTvSetActive = (new BlockCrtTvSet(103, true, 154)).setHardness(2.0F).setStepSound(soundWoodFootstep).setLightValue(1.0F).setBlockName("crtTvSet").disableNeighborNotifyOnMetadataChange();
-	public static final Block blockRedstone = (new BlockRedstone(110, 85)).setHardness(2.0F).setResistance(5.0F).setStepSound(soundStoneFootstep).setBlockName("blockRedstone");
-
-	// johnfarmmod
-	public static final BlockFlower plantBlue = (BlockFlower)(new BlockFlower(116, 30)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("blueRose");
-	public static final Block onion = (new BlockOnion(121, 227)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("onion").disableStats().disableNeighborNotifyOnMetadataChange();
-	public static final Block tobaccoPlant = (new BlockTobaccoPlant(122, 211)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("tobaccoPlant").disableStats().disableNeighborNotifyOnMetadataChange();
-	public static final Block cannabisPlant = (new BlockCannabisPlant(123, 196)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("cannabisPlant").disableStats().disableNeighborNotifyOnMetadataChange();
-	public static final Block dryerIdle = (new BlockDryer(125, false)).setHardness(2.0F).setStepSound(soundStoneFootstep).setBlockName("dryer").disableNeighborNotifyOnMetadataChange();
-	public static final Block dryerActive = (new BlockDryer(126, true)).setHardness(2.0F).setStepSound(soundStoneFootstep).setBlockName("dryer").disableNeighborNotifyOnMetadataChange();
-
-	// johnindustrialmod
 	public static final Block openHearthFurnaceIdle = (new BlockOpenHearthFurnace(97, false)).setHardness(2.0F).setStepSound(soundStoneFootstep).setBlockName("openHearthFurnace").disableNeighborNotifyOnMetadataChange();
 	public static final Block openHearthFurnaceActive = (new BlockOpenHearthFurnace(98, true)).setHardness(2.0F).setStepSound(soundStoneFootstep).setLightValue(1.0F).setBlockName("openHearthFurnace").disableNeighborNotifyOnMetadataChange();
 	public static final Block oreCopper = (new BlockOre(99, 136)).setHardness(3.0F).setResistance(5.0F).setStepSound(soundStoneFootstep).setBlockName("oreCopper");
+	public static final Block oilMoving = (new BlockFlowing(100, Material.oil)).setHardness(100.0F).setLightOpacity(3).setBlockName("oil").disableStats().disableNeighborNotifyOnMetadataChange();
+	public static final Block oilStill = (new BlockStationary(101, Material.oil)).setHardness(100.0F).setLightOpacity(3).setBlockName("oil").disableStats().disableNeighborNotifyOnMetadataChange();
+	public static final Block crtTvSetIdle = (new BlockCrtTvSet(102, false, 154)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("crtTvSet").disableNeighborNotifyOnMetadataChange();
+	public static final Block crtTvSetActive = (new BlockCrtTvSet(103, true, 154)).setHardness(2.0F).setStepSound(soundWoodFootstep).setLightValue(1.0F).setBlockName("crtTvSet").disableNeighborNotifyOnMetadataChange();
+	public static final Block lampKeroseneIdle = (new BlockKeroseneLamp(104, false)).setHardness(0.0F).setStepSound(soundMetalFootstep).setBlockName("lampKerosene").disableNeighborNotifyOnMetadataChange();
+	public static final Block lampKeroseneActive = (new BlockKeroseneLamp(105, true)).setHardness(0.0F).setStepSound(soundMetalFootstep).setLightValue(1.0F).setBlockName("lampKerosene").disableNeighborNotifyOnMetadataChange();
 	public static final Block oreTin = (new BlockOre(106, 157)).setHardness(3.0F).setResistance(5.0F).setStepSound(soundStoneFootstep).setBlockName("oreTin");
 	public static final Block oreGoldHell = (new BlockOre(107, 158)).setHardness(0.4F).setResistance(5.0F).setStepSound(soundStoneFootstep).setBlockName("oreGoldHell");
 	public static final Block oreSulfurHell = (new BlockOre(108, 159)).setHardness(0.4F).setResistance(5.0F).setStepSound(soundStoneFootstep).setBlockName("oreSulfurHell");
 	public static final Block blockCoal = (new BlockOreStorage(109, 54)).setHardness(2.0F).setResistance(3.0F).setStepSound(soundStoneFootstep).setBlockName("blockCoal");
+	public static final Block blockRedstone = (new BlockRedstone(110, 85)).setHardness(2.0F).setResistance(5.0F).setStepSound(soundStoneFootstep).setBlockName("blockRedstone");
 	public static final Block blockCopper = (new BlockOreStorage(111, 100)).setHardness(3.0F).setResistance(10.0F).setStepSound(soundMetalFootstep).setBlockName("blockCopper");
 	public static final Block blockSulfur = (new BlockOreStorage(112, 101)).setHardness(3.0F).setResistance(3.0F).setStepSound(soundStoneFootstep).setBlockName("blockSulfur");
 	public static final Block blockTin = (new BlockOreStorage(113, 148)).setHardness(3.0F).setResistance(5.0F).setStepSound(soundMetalFootstep).setBlockName("blockTin");
 	public static final Block blockStainedSteel = (new BlockOreStorage(114, 226)).setHardness(15.0F).setResistance(20.0F).setStepSound(soundMetalFootstep).setBlockName("blockStainedSteel");
+	public static final Block blockPlastic = (new BlockOreStorage(115, 224)).setHardness(1.0F).setResistance(5.0F).setStepSound(soundWoodFootstep).setBlockName("blockPlastic");
+	public static final BlockFlower plantBlue = (BlockFlower)(new BlockFlower(116, 30)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("blueRose");
+	public static final Block parquet = (new Block(117, 166, Material.wood)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("parquet");
+	public static final Block tiles = (new Block(118, 78, Material.rock)).setHardness(2.0F).setResistance(10.0F).setStepSound(soundStoneFootstep).setBlockName("tiles");
+	public static final Block tilesGreen = (new Block(119, 77, Material.rock)).setHardness(2.0F).setResistance(10.0F).setStepSound(soundStoneFootstep).setBlockName("tilesGreen");
+	public static final Block johnMill = (new BlockJohnMill(120, 186)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("johnMill");
+	public static final Block onion = (new BlockOnion(121, 227)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("onion").disableStats().disableNeighborNotifyOnMetadataChange();
+	public static final Block tobaccoPlant = (new BlockTobaccoPlant(122, 211)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("tobaccoPlant").disableStats().disableNeighborNotifyOnMetadataChange();
+	public static final Block cannabisPlant = (new BlockCannabisPlant(123, 196)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("cannabisPlant").disableStats().disableNeighborNotifyOnMetadataChange();
 	// unable to get
 	public static final Block oreUranium = (new BlockUraniumOre(124, 204)).setHardness(3.0F).setResistance(5.0F).setStepSound(soundStoneFootstep).setBlockName("oreUranium");
-
-	// johnmillmod
-	public static final Block johnMill = (new BlockJohnMill(120, 186)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("johnMill");
+	public static final Block dryerIdle = (new BlockDryer(125, false)).setHardness(2.0F).setStepSound(soundStoneFootstep).setBlockName("dryer").disableNeighborNotifyOnMetadataChange();
+	public static final Block dryerActive = (new BlockDryer(126, true)).setHardness(2.0F).setStepSound(soundStoneFootstep).setBlockName("dryer").disableNeighborNotifyOnMetadataChange();
 	public static final Block nuclearBomb = (new BlockNuclearBomb(127, 0)).setHardness(5.0F).setResistance(2000.0F).setStepSound(soundStoneFootstep).setBlockName("nuclearBomb");
 	public static final Block millAxle = (new BlockMillAxle(128, 0)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("millAxle");
 	public static final Block axleRod = (new BlockAxleRod(129, 0)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("axleRod");
 	public static final Block gearbox = (new BlockGearbox(130, 0)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("gearbox");
 	public static final Block wheatGrinder = (new BlockWheatGrinder(131, 0)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("wheatGrinder");
 	public static final Block testBlock = (new BlockTest(132, 0)).setHardness(1.5F).setStepSound(soundStoneFootstep).setBlockName("testBlock");
-	public static final Block oilMoving = (new BlockFlowing(100, Material.oil)).setHardness(100.0F).setLightOpacity(3).setBlockName("oil").disableStats().disableNeighborNotifyOnMetadataChange();
-	public static final Block oilStill = (new BlockStationary(101, Material.oil)).setHardness(100.0F).setLightOpacity(3).setBlockName("oil").disableStats().disableNeighborNotifyOnMetadataChange();
-	public static final Block lampKeroseneIdle = (new BlockKeroseneLamp(104, false)).setHardness(0.0F).setStepSound(soundMetalFootstep).setBlockName("lampKerosene").disableNeighborNotifyOnMetadataChange();
-	public static final Block lampKeroseneActive = (new BlockKeroseneLamp(105, true)).setHardness(0.0F).setStepSound(soundMetalFootstep).setLightValue(1.0F).setBlockName("lampKerosene").disableNeighborNotifyOnMetadataChange();
-	public static final Block blockPlastic = (new BlockOreStorage(115, 224)).setHardness(1.0F).setResistance(5.0F).setStepSound(soundWoodFootstep).setBlockName("blockPlastic");
 	public static final Block radioactiveDirt = (new BlockRadioactiveDirt(133)).setBlockName("radioactiveDirt");
 	public static final Block radioactiveWood = (new BlockRadioactiveWood(134)).setBlockName("radioactiveWood");
-
-	// latest block id: 132
 
 	public int blockIndexInTexture;
 	public final int blockID;

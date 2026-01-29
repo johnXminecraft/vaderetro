@@ -53,7 +53,6 @@ public class BlockAxleRod extends BlockContainer {
 		if (!(te instanceof TileEntityAxleRod)) {
 			world.setBlockTileEntity(x, y, z, new TileEntityAxleRod());
 		}
-        
 	}
 
 

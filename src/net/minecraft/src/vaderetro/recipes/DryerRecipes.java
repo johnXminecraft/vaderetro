@@ -18,8 +18,6 @@ public class DryerRecipes {
         this.addRecipe(Item.bucketWater.shiftedIndex, new ItemStack(Item.salt, 4));
         this.addRecipe(Item.rottenFlesh.shiftedIndex, new ItemStack(Item.jerky, 1));
         this.addRecipe(Item.tobaccoLeaf.shiftedIndex, new ItemStack(Item.tobacco, 1));
-        // change to mill
-        this.addRecipe(Item.cannabisLeaf.shiftedIndex, new ItemStack(Item.rope, 1));
         this.addRecipe(Item.leather.shiftedIndex, new ItemStack(Item.driedLeather, 1));
     }
 

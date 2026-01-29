@@ -34,7 +34,7 @@ public class BlockGearbox extends Block {
             return 235;
         }
         if (side == 1) {
-            return 236;
+            return 166;
         }
         if (side == inputSide) {
             return 235;

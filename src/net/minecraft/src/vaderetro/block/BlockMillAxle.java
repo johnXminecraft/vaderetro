@@ -41,6 +41,6 @@ public class BlockMillAxle extends Block {
         if (side == meta || side == getOpposite(meta)) {
             return 235; 
         }
-        return 236; 
+        return 166;
     }
 }
