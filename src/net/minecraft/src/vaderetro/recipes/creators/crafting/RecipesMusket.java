@@ -1,4 +1,4 @@
-package net.minecraft.src.vaderetro.recipes;
+package net.minecraft.src.vaderetro.recipes.creators.crafting;
 
 import net.minecraft.src.Block;
 import net.minecraft.src.CraftingManager;

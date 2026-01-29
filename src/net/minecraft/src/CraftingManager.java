@@ -1,11 +1,11 @@
 package net.minecraft.src;
 
-import net.minecraft.src.vaderetro.recipes.RecipesBuilding;
-import net.minecraft.src.vaderetro.recipes.RecipesChurch;
-import net.minecraft.src.vaderetro.recipes.RecipesFarming;
-import net.minecraft.src.vaderetro.recipes.RecipesMill;
-import net.minecraft.src.vaderetro.recipes.RecipesMusket;
-import net.minecraft.src.vaderetro.recipes.RecipesCircuitry;
+import net.minecraft.src.vaderetro.recipes.creators.crafting.RecipesBuilding;
+import net.minecraft.src.vaderetro.recipes.creators.crafting.RecipesChurch;
+import net.minecraft.src.vaderetro.recipes.creators.crafting.RecipesFarming;
+import net.minecraft.src.vaderetro.recipes.creators.crafting.RecipesMill;
+import net.minecraft.src.vaderetro.recipes.creators.crafting.RecipesMusket;
+import net.minecraft.src.vaderetro.recipes.creators.crafting.RecipesCircuitry;
 
 import java.util.ArrayList;
 import java.util.Collections;

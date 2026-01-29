@@ -2,7 +2,7 @@ package net.minecraft.src.vaderetro.entity.tileentity;
 
 import net.minecraft.src.*;
 import net.minecraft.src.vaderetro.block.BlockDryer;
-import net.minecraft.src.vaderetro.recipes.DryerRecipes;
+import net.minecraft.src.vaderetro.recipes.processors.DryerRecipes;
 
 public class TileEntityDryer extends TileEntity implements IInventory {
 
@@ -144,7 +144,7 @@ public class TileEntityDryer extends TileEntity implements IInventory {
         if(this.dryerItemStacks[0] == null) {
             return false;
         } else {
-            ItemStack var1 = DryerRecipes.drying().getDryingResult(this.dryerItemStacks[0].getItem().shiftedIndex);
+            ItemStack var1 = DryerRecipes.processing().getResult(this.dryerItemStacks[0].getItem().shiftedIndex);
             return var1 != null
                     && (this.dryerItemStacks[2] == null
                     || (this.dryerItemStacks[2].isItemEqual(var1)
@@ -157,7 +157,7 @@ public class TileEntityDryer extends TileEntity implements IInventory {
 
     public void dryItem() {
         if(this.canDry()) {
-            ItemStack var1 = DryerRecipes.drying().getDryingResult(this.dryerItemStacks[0].getItem().shiftedIndex);
+            ItemStack var1 = DryerRecipes.processing().getResult(this.dryerItemStacks[0].getItem().shiftedIndex);
             if(this.dryerItemStacks[2] == null) {
                 this.dryerItemStacks[2] = var1.copy();
             } else if(this.dryerItemStacks[2].itemID == var1.itemID) {

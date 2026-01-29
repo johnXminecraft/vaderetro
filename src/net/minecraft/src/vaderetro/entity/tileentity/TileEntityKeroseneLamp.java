@@ -2,7 +2,7 @@ package net.minecraft.src.vaderetro.entity.tileentity;
 
 import net.minecraft.src.*;
 import net.minecraft.src.vaderetro.block.BlockKeroseneLamp;
-import net.minecraft.src.vaderetro.recipes.KeroseneLampRecipes;
+import net.minecraft.src.vaderetro.recipes.processors.KeroseneLampRecipes;
 
 public class TileEntityKeroseneLamp extends TileEntity implements IInventory {
 
@@ -155,7 +155,7 @@ public class TileEntityKeroseneLamp extends TileEntity implements IInventory {
         if(this.keroseneLampItemStacks[0] == null) {
             return false;
         } else {
-            ItemStack var1 = KeroseneLampRecipes.smelting().getSmeltingResult(this.keroseneLampItemStacks[0].getItem().shiftedIndex);
+            ItemStack var1 = KeroseneLampRecipes.processing().getResult(this.keroseneLampItemStacks[0].getItem().shiftedIndex);
             return var1 != null
                     && (this.keroseneLampItemStacks[2] == null
                     || (this.keroseneLampItemStacks[2].isItemEqual(var1)
@@ -167,7 +167,7 @@ public class TileEntityKeroseneLamp extends TileEntity implements IInventory {
 
     public void smeltItem() {
         if(this.canSmelt()) {
-            ItemStack var1 = KeroseneLampRecipes.smelting().getSmeltingResult(this.keroseneLampItemStacks[0].getItem().shiftedIndex);
+            ItemStack var1 = KeroseneLampRecipes.processing().getResult(this.keroseneLampItemStacks[0].getItem().shiftedIndex);
             if(this.keroseneLampItemStacks[2] == null) {
                 this.keroseneLampItemStacks[2] = var1.copy();
             } else if(this.keroseneLampItemStacks[2].itemID == var1.itemID) {

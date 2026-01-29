@@ -1,6 +1,9 @@
 package net.minecraft.src.vaderetro.entity.tileentity;
 
 import net.minecraft.src.*;
+import net.minecraft.src.vaderetro.block.BlockDryer;
+import net.minecraft.src.vaderetro.recipes.processors.DryerRecipes;
+import net.minecraft.src.vaderetro.recipes.processors.WheatGrinderRecipes;
 
 public class TileEntityWheatGrinder extends TileEntity implements IInventory {
 	private ItemStack[] grinderItemStacks = new ItemStack[2]; 
@@ -66,7 +69,7 @@ public class TileEntityWheatGrinder extends TileEntity implements IInventory {
 		
 		this.grinderBurnTime = nbt.getShort("BurnTime");
 		this.grinderCookTime = nbt.getShort("CookTime");
-		this.currentItemBurnTime = 200; 
+		this.currentItemBurnTime = 50;
 	}
 	
 	@Override
@@ -94,12 +97,12 @@ public class TileEntityWheatGrinder extends TileEntity implements IInventory {
 	}
 	
 	public int getCookProgressScaled(int scale) {
-		return this.grinderCookTime * scale / 200; 
+		return this.grinderCookTime * scale / 50;
 	}
 	
 	public int getBurnTimeRemainingScaled(int scale) {
 		if (this.currentItemBurnTime == 0) {
-			this.currentItemBurnTime = 200;
+			this.currentItemBurnTime = 50;
 		}
 		return this.grinderBurnTime * scale / this.currentItemBurnTime;
 	}
@@ -216,32 +219,12 @@ public class TileEntityWheatGrinder extends TileEntity implements IInventory {
 		boolean wasBurning = this.isBurning();
 		boolean powered = this.isPowered();
 		
-		if (powered && this.grinderItemStacks[0] != null && isCookable()) {
+		if (powered && this.grinderItemStacks[0] != null && canProcess()) {
 			this.grinderCookTime++;
-			if (this.grinderCookTime >= 200) {
-				if(this.grinderItemStacks[0].itemID == Item.wheat.shiftedIndex) {
+			if (this.grinderCookTime >= 50) {
+				if(canProcess()) {
 					this.grinderCookTime = 0;
-					if (this.grinderItemStacks[1] == null) {
-						this.grinderItemStacks[1] = new ItemStack(Item.flour, 1);
-					} else if (this.grinderItemStacks[1].itemID == Item.flour.shiftedIndex) {
-						this.grinderItemStacks[1].stackSize++;
-					}
-					this.grinderItemStacks[0].stackSize--;
-					if (this.grinderItemStacks[0].stackSize <= 0) {
-						this.grinderItemStacks[0] = null;
-					}
-				}
-				if(this.grinderItemStacks[0].itemID == Item.cannabisLeaf.shiftedIndex) {
-					this.grinderCookTime = 0;
-					if (this.grinderItemStacks[1] == null) {
-						this.grinderItemStacks[1] = new ItemStack(Item.rope, 1);
-					} else if (this.grinderItemStacks[1].itemID == Item.rope.shiftedIndex) {
-						this.grinderItemStacks[1].stackSize++;
-					}
-					this.grinderItemStacks[0].stackSize--;
-					if (this.grinderItemStacks[0].stackSize <= 0) {
-						this.grinderItemStacks[0] = null;
-					}
+					this.processItem();
 				}
 			}
 		} else {
@@ -253,11 +236,35 @@ public class TileEntityWheatGrinder extends TileEntity implements IInventory {
 		}
 	}
 
-	private boolean isCookable() {
-		return this.grinderItemStacks[0].itemID == Item.wheat.shiftedIndex ||
-				this.grinderItemStacks[0].itemID == Item.cannabisLeaf.shiftedIndex;
+	private boolean canProcess() {
+		if(this.grinderItemStacks[0] == null) {
+			return false;
+		} else {
+			ItemStack output = WheatGrinderRecipes.processing().getResult(this.grinderItemStacks[0].getItem().shiftedIndex);
+			return output != null
+					&& (this.grinderItemStacks[1] == null
+					|| (this.grinderItemStacks[1].isItemEqual(output)
+					&& (this.grinderItemStacks[1].stackSize < this.getInventoryStackLimit()
+					&& this.grinderItemStacks[1].stackSize < this.grinderItemStacks[1].getMaxStackSize()
+					|| this.grinderItemStacks[1].stackSize < output.getMaxStackSize())));
+		}
 	}
-	
+
+	public void processItem() {
+		if(this.canProcess()) {
+			ItemStack var1 = WheatGrinderRecipes.processing().getResult(this.grinderItemStacks[0].getItem().shiftedIndex);
+			if(this.grinderItemStacks[1] == null) {
+				this.grinderItemStacks[1] = var1.copy();
+			} else if(this.grinderItemStacks[1].itemID == var1.itemID) {
+				++this.grinderItemStacks[1].stackSize;
+			}
+			--this.grinderItemStacks[0].stackSize;
+			if(this.grinderItemStacks[0].stackSize <= 0) {
+				this.grinderItemStacks[0] = null;
+			}
+		}
+	}
+
 	public boolean canInteractWith(EntityPlayer player) {
 		return this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord) == this;
 	}

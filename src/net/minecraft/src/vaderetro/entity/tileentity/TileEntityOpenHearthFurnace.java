@@ -2,7 +2,7 @@ package net.minecraft.src.vaderetro.entity.tileentity;
 
 import net.minecraft.src.*;
 import net.minecraft.src.vaderetro.block.BlockOpenHearthFurnace;
-import net.minecraft.src.vaderetro.recipes.OpenHearthFurnaceRecipes;
+import net.minecraft.src.vaderetro.recipes.processors.OpenHearthFurnaceRecipes;
 
 public class TileEntityOpenHearthFurnace extends TileEntity implements IInventory {
 
@@ -155,7 +155,7 @@ public class TileEntityOpenHearthFurnace extends TileEntity implements IInventor
         if(this.openHearthFurnaceItemStacks[0] == null) {
             return false;
         } else {
-            ItemStack var1 = OpenHearthFurnaceRecipes.smelting().getSmeltingResult(this.openHearthFurnaceItemStacks[0].getItem().shiftedIndex);
+            ItemStack var1 = OpenHearthFurnaceRecipes.processing().getResult(this.openHearthFurnaceItemStacks[0].getItem().shiftedIndex);
             return var1 != null
                     && (this.openHearthFurnaceItemStacks[2] == null
                     || (this.openHearthFurnaceItemStacks[2].isItemEqual(var1)
@@ -167,7 +167,7 @@ public class TileEntityOpenHearthFurnace extends TileEntity implements IInventor
 
     public void smeltItem() {
         if(this.canSmelt()) {
-            ItemStack var1 = OpenHearthFurnaceRecipes.smelting().getSmeltingResult(this.openHearthFurnaceItemStacks[0].getItem().shiftedIndex);
+            ItemStack var1 = OpenHearthFurnaceRecipes.processing().getResult(this.openHearthFurnaceItemStacks[0].getItem().shiftedIndex);
             if(this.openHearthFurnaceItemStacks[2] == null) {
                 this.openHearthFurnaceItemStacks[2] = var1.copy();
             } else if(this.openHearthFurnaceItemStacks[2].itemID == var1.itemID) {
