@@ -1,6 +1,7 @@
 package net.minecraft.src;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.src.vaderetro.disease.InfectionAnimationHelper;
 import net.minecraft.src.vaderetro.item.ItemMusket;
 import net.minecraft.src.vaderetro.item.ItemAR15;
 import org.lwjgl.opengl.GL11;
@@ -200,6 +201,9 @@ public class ItemRenderer {
 				RenderPlayer var12 = (RenderPlayer)var11;
 				float var13 = 1.0F;
 				GL11.glScalef(var13, var13, var13);
+				if(var17 == 0) {
+					InfectionAnimationHelper.applyArmTransform(this.mc.thePlayer, var1);
+				}
 				var12.drawFirstPersonHand();
 				GL11.glPopMatrix();
 			}
@@ -308,6 +312,7 @@ public class ItemRenderer {
 			RenderPlayer var16 = (RenderPlayer)var15;
 			var10 = 1.0F;
 			GL11.glScalef(var10, var10, var10);
+			InfectionAnimationHelper.applyArmTransform(this.mc.thePlayer, var1);
 			var16.drawFirstPersonHand();
 			GL11.glPopMatrix();
 		}

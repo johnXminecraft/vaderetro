@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.vaderetro.render.NukeEffectsManager;
+import net.minecraft.src.vaderetro.disease.DiseaseManager;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
@@ -174,6 +175,21 @@ public class EntityRenderer {
 			GL11.glRotatef(-var4, 0.0F, 1.0F, 0.0F);
 			GL11.glRotatef(-var3 * 14.0F, 0.0F, 0.0F, 1.0F);
 			GL11.glRotatef(var4, 0.0F, 1.0F, 0.0F);
+		}
+		
+		DiseaseManager diseaseManager = DiseaseManager.getInstance();
+		float shakeIntensity = diseaseManager.getCameraShakeIntensity();
+		if(shakeIntensity > 0.0F) {
+			float time = (float)(System.currentTimeMillis() % 10000) / 1000.0F;
+			
+			float shakeX = (float)(Math.sin(time * 7.3) * 0.5 + Math.sin(time * 13.1) * 0.3 + Math.sin(time * 23.7) * 0.2);
+			float shakeY = (float)(Math.cos(time * 5.7) * 0.5 + Math.cos(time * 11.3) * 0.3 + Math.cos(time * 19.9) * 0.2);
+			float shakeZ = (float)(Math.sin(time * 9.1) * 0.4 + Math.cos(time * 17.3) * 0.3);
+			
+			float maxRotation = 4.0F * shakeIntensity;
+			GL11.glRotatef(shakeX * maxRotation, 1.0F, 0.0F, 0.0F);
+			GL11.glRotatef(shakeY * maxRotation, 0.0F, 1.0F, 0.0F);
+			GL11.glRotatef(shakeZ * maxRotation * 0.5F, 0.0F, 0.0F, 1.0F);
 		}
 	}
 
@@ -1083,6 +1099,7 @@ public class EntityRenderer {
 					GL11.glFogi(NVFogDistance.GL_FOG_DISTANCE_MODE_NV, NVFogDistance.GL_EYE_RADIAL_NV);
 				}
 			} else {
+				
 				GL11.glFogi(GL11.GL_FOG_MODE, GL11.GL_LINEAR);
 				GL11.glFogf(GL11.GL_FOG_START, this.farPlaneDistance * 0.25F);
 				GL11.glFogf(GL11.GL_FOG_END, this.farPlaneDistance);

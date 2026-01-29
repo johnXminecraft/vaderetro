@@ -1,0 +1,30 @@
+================================
+ALPHA 1.5.0
+================================
+
+Additions:
+- Added a new Disease system under the Vade Retro module.
+- Implemented the Zombie Virus as the first fully functional disease.
+- Introduced infection animations and skin-based visual effects.
+
+Added Vade Retro classes:
+1. /vaderetro/effects/Disease.class
+2. /vaderetro/effects/DiseaseManager.class
+3. /vaderetro/effects/ZombieVirusDisease.class
+4. /vaderetro/effects/IInfectionAnimation.class
+5. /vaderetro/effects/InfectionAnimationRegistry.class
+6. /vaderetro/effects/ZombieBiteAnimation.class
+7. /vaderetro/effects/infectionAnimationHelper.class
+8. /vaderetro/effects/ZombieBiteSkinEffects.class
+
+Changed Vade Retro classes:
+1. /vaderetro/
+
+
+Changed Minecraft classes:
+EntityPlayer.class
+EntityRenderer.class
+Guilngame.class
+ItemRenderer.class
+RenderEngine.class
+Minecraft.class

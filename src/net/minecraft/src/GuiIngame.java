@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.vaderetro.entity.wild.EntityWild;
+import net.minecraft.src.vaderetro.disease.DiseaseManager;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -36,6 +37,8 @@ public class GuiIngame extends Gui {
 		if(Minecraft.isFancyGraphicsEnabled()) {
 			this.renderVignette(this.mc.thePlayer.getEntityBrightness(var1), var6, var7);
 		}
+
+		this.renderDiseaseOverlay(var6, var7);
 
 		ItemStack var9 = this.mc.thePlayer.inventory.armorItemInSlot(3);
 		if(!this.mc.gameSettings.thirdPersonView && var9 != null && var9.itemID == Block.pumpkin.blockID) {
@@ -247,6 +250,8 @@ public class GuiIngame extends Gui {
 			}
 		}
 
+		this.renderDiseaseMessage(var6, var7, var8);
+
 		byte var26 = 10;
 		boolean var31 = false;
 		if(this.mc.currentScreen instanceof GuiChat) {
@@ -441,4 +446,112 @@ public class GuiIngame extends Gui {
 		String var3 = var2.translateKey(var1);
 		this.addChatMessage(var3);
 	}
+
+	private void renderDiseaseOverlay(int screenWidth, int screenHeight) {
+    DiseaseManager diseaseManager = DiseaseManager.getInstance();
+    float redIntensity = diseaseManager.getRedOverlayIntensity();
+    float blurIntensity = diseaseManager.getBlurIntensity();
+    
+    if (redIntensity <= 0.0f && blurIntensity <= 0.0f) {
+        return;
+    }
+    
+    if (redIntensity > 0.0f) {
+        GL11.glDisable(GL11.GL_DEPTH_TEST);
+        GL11.glDepthMask(false);
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        GL11.glDisable(GL11.GL_ALPHA_TEST);
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
+        
+        Tessellator var3 = Tessellator.instance;
+        
+        float centerAlpha = redIntensity * 0.70f;
+        float edgeAlpha   = redIntensity * 1.2f;   
+        
+        GL11.glColor4f(0.8f, 0.0f, 0.0f, centerAlpha);
+        var3.startDrawingQuads();
+        var3.addVertex(0.0D, (double)screenHeight, -90.0D);
+        var3.addVertex((double)screenWidth, (double)screenHeight, -90.0D);
+        var3.addVertex((double)screenWidth, 0.0D, -90.0D);
+        var3.addVertex(0.0D, 0.0D, -90.0D);
+        var3.draw();
+        
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        GL11.glBlendFunc(GL11.GL_ZERO, GL11.GL_ONE_MINUS_SRC_COLOR);
+        GL11.glColor4f(edgeAlpha, edgeAlpha * 0.2f, edgeAlpha * 0.2f, 1.0f);
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.mc.renderEngine.getTexture("%blur%/misc/vignette.png"));
+        var3.startDrawingQuads();
+        var3.addVertexWithUV(0.0D, (double)screenHeight, -90.0D, 0.0D, 1.0D);
+        var3.addVertexWithUV((double)screenWidth, (double)screenHeight, -90.0D, 1.0D, 1.0D);
+        var3.addVertexWithUV((double)screenWidth, 0.0D, -90.0D, 1.0D, 0.0D);
+        var3.addVertexWithUV(0.0D, 0.0D, -90.0D, 0.0D, 0.0D);
+        var3.draw();
+        
+        GL11.glDepthMask(true);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        GL11.glEnable(GL11.GL_ALPHA_TEST);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+    }
+    
+    if (blurIntensity > 0.0f) {
+        GL11.glDisable(GL11.GL_DEPTH_TEST);
+        GL11.glDepthMask(false);
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        GL11.glDisable(GL11.GL_ALPHA_TEST);
+        
+        int zblurTexId = this.mc.renderEngine.getTexture("/misc/zblur.png");
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D, zblurTexId);
+        Tessellator var3 = Tessellator.instance;
+
+        float alpha = 0.4f + blurIntensity * 0.9f;   
+        GL11.glColor4f(1.0f, 1.0f, 1.0f, alpha);
+
+        var3.startDrawingQuads();
+        var3.addVertexWithUV(0.0D, (double)screenHeight, -90.0D, 0.0D, 1.0D);
+        var3.addVertexWithUV((double)screenWidth, (double)screenHeight, -90.0D, 1.0D, 1.0D);
+        var3.addVertexWithUV((double)screenWidth, 0.0D, -90.0D, 1.0D, 0.0D);
+        var3.addVertexWithUV(0.0D, 0.0D, -90.0D, 0.0D, 0.0D);
+        var3.draw();
+        
+        GL11.glDepthMask(true);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        GL11.glEnable(GL11.GL_ALPHA_TEST);
+        GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+    }
+}
+
+private void renderDiseaseMessage(int screenWidth, int screenHeight, FontRenderer fontRenderer) {
+    DiseaseManager diseaseManager = DiseaseManager.getInstance();
+    String message = diseaseManager.getDisplayMessage();
+    
+    if (message == null || message.isEmpty()) {
+        return;
+    }
+    
+    float alpha = diseaseManager.getMessageAlpha();
+    if (alpha <= 0.0f) {
+        return;
+    }
+    
+    int alphaInt = (int)(alpha * 255.0f);
+    int color = diseaseManager.getMessageColor();
+    int colorWithAlpha = color | (alphaInt << 24);
+    
+    int messageWidth = fontRenderer.getStringWidth(message);
+    int x = (screenWidth - messageWidth) / 2;
+    int y = screenHeight / 3; 
+    
+    GL11.glPushMatrix();
+    GL11.glEnable(GL11.GL_BLEND);
+    GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+    
+    fontRenderer.drawString(message, x + 1, y + 1, 0x000000 | (alphaInt << 24));
+    fontRenderer.drawString(message, x, y, colorWithAlpha);
+    
+    GL11.glDisable(GL11.GL_BLEND);
+    GL11.glPopMatrix();
+}
 }

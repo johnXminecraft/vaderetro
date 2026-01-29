@@ -30,6 +30,8 @@ public class RenderEngine {
 	private boolean blurTexture = false;
 	private TexturePackList texturePack;
 	private BufferedImage missingTextureImage = new BufferedImage(64, 64, 2);
+	
+	private Map<String, BufferedImage> originalSkinImages = new HashMap<String, BufferedImage>();
 
 	public RenderEngine(TexturePackList var1, GameSettings var2) {
 		this.texturePack = var1;
@@ -40,6 +42,12 @@ public class RenderEngine {
 		var3.setColor(Color.BLACK);
 		var3.drawString("missingtex", 1, 10);
 		var3.dispose();
+	}
+
+	private void ensureImageDataCapacity(int requiredBytes) {
+		if (this.imageData == null || this.imageData.capacity() < requiredBytes) {
+			this.imageData = GLAllocation.createDirectByteBuffer(requiredBytes);
+		}
 	}
 
 	public int[] func_28149_a(String var1) {
@@ -72,7 +80,6 @@ public class RenderEngine {
 				this.field_28151_c.put(var1, var3);
 				return var3;
 			} catch (IOException var5) {
-				var5.printStackTrace();
 				int[] var4 = this.func_28148_b(this.missingTextureImage);
 				this.field_28151_c.put(var1, var4);
 				return var4;
@@ -146,11 +153,9 @@ public class RenderEngine {
 					} else {
 						BufferedImage var8 = this.readTextureImage(var7);
 						if("/terrain.png".equals(var1) && var8 != null) {
-							System.out.println("[RenderEngine] Loading terrain.png: " + var8.getWidth() + "x" + var8.getHeight());
 							TerrainTextureManager.setTerrainTextureSizeFromImage(var8.getWidth(), var8.getHeight());
 						}
 						if("/gui/items.png".equals(var1) && var8 != null) {
-							System.out.println("[RenderEngine] Loading items.png: " + var8.getWidth() + "x" + var8.getHeight());
 							ItemTextureManager.setItemTextureSizeFromImage(var8.getWidth(), var8.getHeight());
 						}
 						this.setupTexture(var8, var6);
@@ -160,7 +165,6 @@ public class RenderEngine {
 				this.textureMap.put(var1, Integer.valueOf(var6));
 				return var6;
 			} catch (IOException var5) {
-				var5.printStackTrace();
 				GLAllocation.generateTextureNames(this.singleIntBuffer);
 				int var4 = this.singleIntBuffer.get(0);
 				this.setupTexture(this.missingTextureImage, var4);
@@ -249,6 +253,7 @@ public class RenderEngine {
 			var6[var7 * 4 + 3] = (byte)var8;
 		}
 
+		this.ensureImageDataCapacity(var6.length);
 		this.imageData.clear();
 		this.imageData.put(var6);
 		this.imageData.position(0).limit(var6.length);
@@ -274,6 +279,165 @@ public class RenderEngine {
 			}
 		}
 
+	}
+
+	private static BufferedImage deepCopyImage(BufferedImage src) {
+		if (src == null) {
+			return null;
+		}
+		BufferedImage copy = new BufferedImage(src.getWidth(), src.getHeight(), BufferedImage.TYPE_INT_ARGB);
+		copy.getGraphics().drawImage(src, 0, 0, null);
+		return copy;
+	}
+
+	private void paintZombieBiteOnSkin(BufferedImage img) {
+		if (img == null) return;
+		int w = img.getWidth(), h = img.getHeight();
+		if (w <= 0 || h <= 0) return;
+		
+		final float sx = w / 64.0f;
+		final float sy = (h >= 64) ? 1.0f : (h / 32.0f);
+
+		int biteRadius = Math.max(4, Math.round(3.5f * sx));
+		int spatterRadius = biteRadius + Math.max(3, Math.round(3.0f * sx));
+
+		int innerColor = 0xFFFF0000;
+		int rimColor = 0xFF8B0000;
+
+		int[] centersX = { 
+			Math.round(46.0f * sx), 
+			Math.round(50.0f * sx), 
+			Math.round(42.0f * sx) 
+		};
+		int[] centersY = { 
+			Math.round(26.0f * sy),
+			Math.round(25.0f * sy),
+			Math.round(24.0f * sy)
+		};
+
+		for (int c = 0; c < centersX.length; c++) {
+			int centerX = centersX[c];
+			int centerY = centersY[c];
+			for (int dy = -spatterRadius; dy <= spatterRadius; dy++) {
+				for (int dx = -spatterRadius; dx <= spatterRadius; dx++) {
+					int x = centerX + dx, y = centerY + dy;
+					if (x < 0 || y < 0 || x >= w || y >= h) continue;
+
+					float dist = (float) Math.sqrt(dx * dx + dy * dy);
+
+					if (dist <= biteRadius) {
+						int argb = (dist < biteRadius * 0.6f) ? innerColor : rimColor;
+						img.setRGB(x, y, argb);
+					} else if (dist <= spatterRadius) {
+						float t = (dist - biteRadius) / (spatterRadius - biteRadius);
+						float chance = 0.55f * (1.0f - t);
+						int hash = (x * 73428767) ^ (y * 91228529) ^ (c * 1337);
+						hash ^= (hash >>> 13);
+						float rnd = ((hash & 0xFF) / 255.0f);
+						if (rnd < chance) {
+							int variation = (hash >> 8) & 0x3F;
+							int r = 0x50 + variation;
+							if (r > 0xC0) r = 0xC0;
+							int spatterColor = (0xFF << 24) | (r << 16) | 0x00101010;
+							img.setRGB(x, y, spatterColor);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	public void applyZombieBiteToPlayerSkin(String skinUrl, String fallbackTexturePath) {
+		boolean customSkinProcessed = false;
+		
+		if (skinUrl != null && skinUrl.length() > 0) {
+			ThreadDownloadImageData data = (ThreadDownloadImageData)this.urlToImageDataMap.get(skinUrl);
+			
+			if (data != null && data.image != null) {
+				String key = skinUrl;
+				BufferedImage base = (BufferedImage)this.originalSkinImages.get(key);
+				if (base == null) {
+					base = deepCopyImage(data.image);
+					if (base == null) return;
+					this.originalSkinImages.put(key, base);
+				}
+
+				BufferedImage working = deepCopyImage(base);
+				if (working == null) return;
+
+				paintZombieBiteOnSkin(working);
+
+				data.image = working;
+				if (data.textureName < 0) {
+					data.textureName = this.allocateAndSetupTexture(working);
+				} else {
+					this.setupTexture(working, data.textureName);
+				}
+				data.textureSetupComplete = true;
+				customSkinProcessed = true;
+				return;
+			}
+		}
+		
+		if (!customSkinProcessed && fallbackTexturePath != null && fallbackTexturePath.length() > 0) {
+			try {
+				String key = fallbackTexturePath;
+				BufferedImage base = (BufferedImage)this.originalSkinImages.get(key);
+				
+				if (base == null) {
+					TexturePackBase pack = this.texturePack.selectedTexturePack;
+					InputStream in = pack.getResourceAsStream(fallbackTexturePath);
+					if (in == null) return;
+					BufferedImage src = this.readTextureImage(in);
+					if (src == null) return;
+
+					base = deepCopyImage(src);
+					if (base == null) return;
+					this.originalSkinImages.put(key, base);
+				}
+
+				BufferedImage working = deepCopyImage(base);
+				if (working == null) return;
+
+				paintZombieBiteOnSkin(working);
+
+				int texId = this.getTexture(fallbackTexturePath);
+				this.setupTexture(working, texId);
+			} catch (Exception e) {
+			}
+		}
+	}
+
+	public void clearZombieBiteFromPlayerSkin(String skinUrl, String fallbackTexturePath) {
+		if (skinUrl != null && skinUrl.length() > 0) {
+			BufferedImage base = (BufferedImage)this.originalSkinImages.get(skinUrl);
+			ThreadDownloadImageData data = (ThreadDownloadImageData)this.urlToImageDataMap.get(skinUrl);
+			if (data != null && base != null) {
+				BufferedImage restored = deepCopyImage(base);
+				if (restored != null) {
+					data.image = restored;
+					if (data.textureName < 0) {
+						data.textureName = this.allocateAndSetupTexture(restored);
+					} else {
+						this.setupTexture(restored, data.textureName);
+					}
+					data.textureSetupComplete = true;
+				}
+			}
+			this.originalSkinImages.remove(skinUrl);
+		}
+		
+		if (fallbackTexturePath != null && fallbackTexturePath.length() > 0) {
+			BufferedImage base = (BufferedImage)this.originalSkinImages.get(fallbackTexturePath);
+			if (base != null) {
+				try {
+					int texId = this.getTexture(fallbackTexturePath);
+					this.setupTexture(base, texId);
+				} catch (Exception ignored) {
+				}
+			}
+			this.originalSkinImages.remove(fallbackTexturePath);
+		}
 	}
 
 	public void func_28150_a(int[] var1, int var2, int var3, int var4) {
@@ -321,6 +485,7 @@ public class RenderEngine {
 			var5[var6 * 4 + 3] = (byte)var7;
 		}
 
+		this.ensureImageDataCapacity(var5.length);
 		this.imageData.clear();
 		this.imageData.put(var5);
 		this.imageData.position(0).limit(var5.length);
@@ -337,6 +502,23 @@ public class RenderEngine {
 
 	public int getTextureForDownloadableImage(String var1, String var2) {
 		ThreadDownloadImageData var3 = (ThreadDownloadImageData)this.urlToImageDataMap.get(var1);
+		
+		try {
+			net.minecraft.client.Minecraft mc = net.minecraft.client.Minecraft.getMinecraft();
+			if (mc != null && mc.thePlayer != null) {
+				if (var1 != null && var1.equals(mc.thePlayer.skinUrl)) {
+					net.minecraft.src.vaderetro.disease.DiseaseManager dm = net.minecraft.src.vaderetro.disease.DiseaseManager.getInstance();
+					if (dm != null && dm.hasActiveDisease()) {
+						net.minecraft.src.vaderetro.disease.Disease d = dm.getActiveDisease();
+						if (d != null && "zombie_virus".equals(d.getDiseaseId())) {
+							this.applyZombieBiteToPlayerSkin(var1, var2);
+						}
+					}
+				}
+			}
+		} catch (Exception e) {
+		}
+		
 		if(var3 != null && var3.image != null && !var3.textureSetupComplete) {
 			if(var3.textureName < 0) {
 				var3.textureName = this.allocateAndSetupTexture(var3.image);
@@ -398,6 +580,7 @@ public class RenderEngine {
 			var2 = (TextureFX)this.textureList.get(var1);
 			var2.anaglyphEnabled = this.options.anaglyph;
 			var2.onTick();
+			this.ensureImageDataCapacity(var2.imageData.length);
 			this.imageData.clear();
 			this.imageData.put(var2.imageData);
 			this.imageData.position(0).limit(var2.imageData.length);
@@ -432,6 +615,7 @@ public class RenderEngine {
 		for(var1 = 0; var1 < this.textureList.size(); ++var1) {
 			var2 = (TextureFX)this.textureList.get(var1);
 			if(var2.textureId > 0) {
+				this.ensureImageDataCapacity(var2.imageData.length);
 				this.imageData.clear();
 				this.imageData.put(var2.imageData);
 				this.imageData.position(0).limit(var2.imageData.length);
@@ -529,7 +713,6 @@ public class RenderEngine {
 				this.blurTexture = false;
 				this.clampTexture = false;
 			} catch (IOException var7) {
-				var7.printStackTrace();
 			}
 		}
 
@@ -555,7 +738,6 @@ public class RenderEngine {
 				this.blurTexture = false;
 				this.clampTexture = false;
 			} catch (IOException var6) {
-				var6.printStackTrace();
 			}
 		}
 

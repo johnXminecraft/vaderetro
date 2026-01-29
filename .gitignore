@@ -18,3 +18,5 @@ todo.txt
 /out/
 /reobf/
 /resources/terrain_old.png
+
+*.reg

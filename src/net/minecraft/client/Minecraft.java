@@ -1611,6 +1611,10 @@ public abstract class Minecraft implements Runnable {
 		return theMinecraft != null && theMinecraft.gameSettings.showDebugInfo;
 	}
 
+	public static Minecraft getMinecraft() {
+		return theMinecraft;
+	}
+
 	public boolean lineIsCommand(String var1) {
 		if(var1.startsWith("/")) {
 		}

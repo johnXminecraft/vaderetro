@@ -6,6 +6,11 @@ import net.minecraft.src.vaderetro.entity.tileentity.TileEntityCrtTvSet;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityKeroseneLamp;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityOpenHearthFurnace;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityWheatGrinder;
+import net.minecraft.src.vaderetro.disease.DiseaseManager;
+import net.minecraft.src.vaderetro.disease.InfectionAnimationRegistry;
+import net.minecraft.src.vaderetro.disease.ZombieBiteAnimation;
+import net.minecraft.src.vaderetro.disease.ZombieVirusDisease;
+import net.minecraft.src.vaderetro.entity.mob.undead.zombie.EntityZombie;
 
 import java.util.Iterator;
 import java.util.List;
@@ -43,6 +48,10 @@ public abstract class EntityPlayer extends EntityLiving {
 	public float prevTimeInPortal;
 	private int damageRemainder = 0;
 	public EntityFish fishEntity = null;
+
+	private String infectionAnimationId = "";
+	private int infectionAnimationTicks = -1;
+	private int infectionAnimationDuration = 0;
 
 	public EntityPlayer(World var1) {
 		super(var1);
@@ -181,6 +190,18 @@ public abstract class EntityPlayer extends EntityLiving {
 			this.heal(1);
 		}
 
+		if(!this.worldObj.multiplayerWorld) {
+			DiseaseManager diseaseManager = DiseaseManager.getInstance();
+			diseaseManager.update(this);
+			updateInfectionAnimation();
+
+			if(diseaseManager.shouldKillPlayer() && this.health > 0) {
+				this.health = 0;
+				this.onDeath(null);
+				diseaseManager.clearKillFlag();
+			}
+		}
+
 		this.inventory.decrementAnimations();
 		this.field_775_e = this.field_774_f;
 		super.onLivingUpdate();
@@ -239,8 +260,55 @@ public abstract class EntityPlayer extends EntityLiving {
 			this.motionX = this.motionZ = 0.0D;
 		}
 
+		if(!this.worldObj.multiplayerWorld) {
+			DiseaseManager diseaseManager = DiseaseManager.getInstance();
+			if(diseaseManager.isZombieVirusDeath()) {
+				diseaseManager.onPlayerDeath(this, this.worldObj);
+				diseaseManager.clearZombieVirusDeathFlag();
+			}
+			diseaseManager.reset();
+			clearInfectionAnimation();
+		}
+
 		this.yOffset = 0.1F;
 		this.addStat(StatList.deathsStat, 1);
+	}
+
+	public void startInfectionAnimation(String id) {
+		int dur = InfectionAnimationRegistry.getDurationTicks(id);
+		if (dur <= 0) return;
+		this.infectionAnimationId = id;
+		this.infectionAnimationTicks = 0;
+		this.infectionAnimationDuration = dur;
+	}
+
+	public void clearInfectionAnimation() {
+		this.infectionAnimationId = "";
+		this.infectionAnimationTicks = -1;
+		this.infectionAnimationDuration = 0;
+	}
+
+	private void updateInfectionAnimation() {
+		if (infectionAnimationTicks < 0) return;
+		infectionAnimationTicks++;
+		if (infectionAnimationTicks >= infectionAnimationDuration) {
+			clearInfectionAnimation();
+		}
+	}
+
+	public boolean isInfectionAnimationActive() {
+		return infectionAnimationDuration > 0 && infectionAnimationTicks >= 0 && infectionAnimationTicks < infectionAnimationDuration;
+	}
+
+	public String getInfectionAnimationId() {
+		return infectionAnimationId;
+	}
+
+	public float getInfectionAnimationProgress(float partialTick) {
+		if (!isInfectionAnimationActive()) return 0f;
+		float t = (float) infectionAnimationTicks + partialTick;
+		if (infectionAnimationDuration <= 0) return 0f;
+		return t / (float) infectionAnimationDuration;
 	}
 
 	public void addToPlayerScore(Entity var1, int var2) {
@@ -332,6 +400,9 @@ public abstract class EntityPlayer extends EntityLiving {
 			this.playerSpawnCoordinate = new ChunkCoordinates(var1.getInteger("SpawnX"), var1.getInteger("SpawnY"), var1.getInteger("SpawnZ"));
 		}
 
+		if(this.worldObj != null && !this.worldObj.multiplayerWorld) {
+			DiseaseManager.getInstance().restoreFromNBT(var1, this);
+		}
 	}
 
 	public void writeEntityToNBT(NBTTagCompound var1) {
@@ -346,6 +417,9 @@ public abstract class EntityPlayer extends EntityLiving {
 			var1.setInteger("SpawnZ", this.playerSpawnCoordinate.z);
 		}
 
+		if(this.worldObj != null && !this.worldObj.multiplayerWorld) {
+			DiseaseManager.getInstance().writeToNBT(var1);
+		}
 	}
 
 	public void displayGUIChest(IInventory var1) {
@@ -402,6 +476,25 @@ public abstract class EntityPlayer extends EntityLiving {
 
 				if(var3 instanceof EntityLiving) {
 					this.alertWolves((EntityLiving)var3, false);
+				}
+
+				if(var1 instanceof EntityZombie && !this.worldObj.multiplayerWorld) {
+					boolean infected = DiseaseManager.getInstance().tryInfect(this, "zombie_virus", ZombieVirusDisease.INFECTION_CHANCE);
+					if(infected) {
+						startInfectionAnimation(ZombieBiteAnimation.ID);
+						for (int i = 0; i < 16; i++) {
+							double ox = (this.rand.nextDouble() - 0.5D) * 0.35D;
+							double oy = this.rand.nextDouble() * 0.35D;
+							double oz = (this.rand.nextDouble() - 0.5D) * 0.35D;
+							double px = this.posX + ox;
+							double py = this.posY + 1.15D + oy;
+							double pz = this.posZ + oz;
+							double r = 0.55D + this.rand.nextDouble() * 0.35D;
+							double g = 0.00D;
+							double b = 0.00D;
+							this.worldObj.spawnParticle("reddust", px, py, pz, r, g, b);
+						}
+					}
 				}
 
 				this.addStat(StatList.damageTakenStat, var2);
