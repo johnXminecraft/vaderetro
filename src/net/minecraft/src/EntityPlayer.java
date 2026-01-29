@@ -6,10 +6,10 @@ import net.minecraft.src.vaderetro.entity.tileentity.TileEntityCrtTvSet;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityKeroseneLamp;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityOpenHearthFurnace;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityWheatGrinder;
-import net.minecraft.src.vaderetro.disease.DiseaseManager;
-import net.minecraft.src.vaderetro.disease.InfectionAnimationRegistry;
-import net.minecraft.src.vaderetro.disease.ZombieBiteAnimation;
-import net.minecraft.src.vaderetro.disease.ZombieVirusDisease;
+import net.minecraft.src.vaderetro.effects.DiseaseManager;
+import net.minecraft.src.vaderetro.effects.InfectionAnimationRegistry;
+import net.minecraft.src.vaderetro.effects.ZombieBiteAnimation;
+import net.minecraft.src.vaderetro.effects.ZombieVirusDisease;
 import net.minecraft.src.vaderetro.entity.mob.undead.zombie.EntityZombie;
 
 import java.util.Iterator;

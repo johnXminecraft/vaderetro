@@ -507,9 +507,9 @@ public class RenderEngine {
 			net.minecraft.client.Minecraft mc = net.minecraft.client.Minecraft.getMinecraft();
 			if (mc != null && mc.thePlayer != null) {
 				if (var1 != null && var1.equals(mc.thePlayer.skinUrl)) {
-					net.minecraft.src.vaderetro.disease.DiseaseManager dm = net.minecraft.src.vaderetro.disease.DiseaseManager.getInstance();
+					net.minecraft.src.vaderetro.effects.DiseaseManager dm = net.minecraft.src.vaderetro.effects.DiseaseManager.getInstance();
 					if (dm != null && dm.hasActiveDisease()) {
-						net.minecraft.src.vaderetro.disease.Disease d = dm.getActiveDisease();
+						net.minecraft.src.vaderetro.effects.Disease d = dm.getActiveDisease();
 						if (d != null && "zombie_virus".equals(d.getDiseaseId())) {
 							this.applyZombieBiteToPlayerSkin(var1, var2);
 						}

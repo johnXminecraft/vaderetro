@@ -1,7 +1,6 @@
-package net.minecraft.src.vaderetro.disease;
+package net.minecraft.src.vaderetro.effects;
 
 import java.awt.image.BufferedImage;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.RenderEngine;
@@ -10,7 +9,6 @@ public final class ZombieBiteSkinEffect {
 
     private ZombieBiteSkinEffect() {
     }
-
 
     public static void applyToPlayerHand(EntityPlayer player) {
         Minecraft mc = Minecraft.getMinecraft();

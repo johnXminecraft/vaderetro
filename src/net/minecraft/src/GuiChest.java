@@ -19,11 +19,6 @@ public class GuiChest extends GuiContainer {
 		this.ySize = var4 + this.inventoryRows * 18;
 	}
 
-	protected void drawGuiContainerForegroundLayer() {
-		this.fontRenderer.drawString(this.lowerChestInventory.getInvName(), 8, 6, 4210752);
-		this.fontRenderer.drawString(this.upperChestInventory.getInvName(), 8, this.ySize - 96 + 2, 4210752);
-	}
-
 	protected void drawGuiContainerBackgroundLayer(float var1) {
 		int var2 = this.mc.renderEngine.getTexture("/gui/container.png");
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);

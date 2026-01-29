@@ -1,4 +1,4 @@
-package net.minecraft.src.vaderetro.disease;
+package net.minecraft.src.vaderetro.effects;
 
 public interface IInfectionAnimation {
 

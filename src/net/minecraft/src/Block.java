@@ -164,6 +164,8 @@ public class Block {
 	public static final Block testBlock = (new BlockTest(132, 0)).setHardness(1.5F).setStepSound(soundStoneFootstep).setBlockName("testBlock");
 	public static final Block radioactiveDirt = (new BlockRadioactiveDirt(133)).setBlockName("radioactiveDirt");
 	public static final Block radioactiveWood = (new BlockRadioactiveWood(134)).setBlockName("radioactiveWood");
+	public static final Block carrot = (new BlockCarrot(135, 272)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("carrot").disableStats().disableNeighborNotifyOnMetadataChange();
+	public static final Block potato = (new BlockPotato(136, 256)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("potato").disableStats().disableNeighborNotifyOnMetadataChange();
 
 	public int blockIndexInTexture;
 	public final int blockID;

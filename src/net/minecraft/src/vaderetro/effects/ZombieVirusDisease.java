@@ -1,9 +1,9 @@
-package net.minecraft.src.vaderetro.disease;
+package net.minecraft.src.vaderetro.effects;
 
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.World;
 import net.minecraft.src.vaderetro.entity.mob.undead.zombie.EntityZombie;
-import net.minecraft.src.vaderetro.disease.ZombieBiteSkinEffect;
+import net.minecraft.src.vaderetro.effects.ZombieBiteSkinEffect;
 
 public class ZombieVirusDisease extends Disease {
     
@@ -83,7 +83,7 @@ public class ZombieVirusDisease extends Disease {
         if (ticksInfected == (int)(DURATION_TICKS * 0.5f)) {
             DiseaseManager.getInstance().showMessage("Your vision blurs...", 0xFF0000);
         } else if (ticksInfected == (int)(DURATION_TICKS * 0.75f)) {
-            DiseaseManager.getInstance().showMessage("You feel your strength fading...", 0xFF0000);
+            DiseaseManager.getInstance().showMessage("You hear a familiar voice...", 0xFF0000);
         } else if (ticksInfected == (int)(DURATION_TICKS * 0.90f)) {
             DiseaseManager.getInstance().showMessage("Everything is going dark...", 0x880000);
         }

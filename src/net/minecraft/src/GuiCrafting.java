@@ -13,11 +13,6 @@ public class GuiCrafting extends GuiContainer {
 		this.inventorySlots.onCraftGuiClosed(this.mc.thePlayer);
 	}
 
-	protected void drawGuiContainerForegroundLayer() {
-		this.fontRenderer.drawString("Crafting", 28, 6, 4210752);
-		this.fontRenderer.drawString("Inventory", 8, this.ySize - 96 + 2, 4210752);
-	}
-
 	protected void drawGuiContainerBackgroundLayer(float var1) {
 		int var2 = this.mc.renderEngine.getTexture("/gui/crafting.png");
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);

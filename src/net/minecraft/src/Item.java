@@ -156,7 +156,7 @@ public class Item {
 	public static Item stainedSteelCompound = (new Item(139)).setIconCoord(6, 6).setItemName("stainedSteelCompound");
 	public static Item charcoal = (new Item(140)).setIconCoord(6, 7).setItemName("charcoal");
 	public static Item easterEgg = (new ItemEasterEgg(141)).setIconCoord(9, 6).setItemName("easterEgg");
-	public static Item onion = (new ItemOnion(142, Block.onion.blockID)).setIconCoord(14, 2).setItemName("onion");
+	public static Item onion = (new ItemSeed(142, Block.onion.blockID)).setIconCoord(14, 2).setItemName("onion");
 	public static Item tobaccoSeeds = (new ItemTobaccoSeeds(143, Block.tobaccoPlant.blockID)).setIconCoord(6, 2).setItemName("tobaccoSeeds");
 	public static Item tobaccoLeaf = (new Item(144)).setIconCoord(13, 3).setItemName("tobaccoLeaf");
 	public static Item tobacco = (new Item(145)).setIconCoord(14, 3).setItemName("tobacco");
@@ -190,8 +190,8 @@ public class Item {
 	public static Item ceramicPlate = (new Item(176)).setIconCoord(8, 14).setItemName("ceramicPlate");
 	public static Item uncookedMeal = (new ItemFood(177, 1, false)).setIconCoord(9, 14).setItemName("uncookedMeal");
 	public static Item cookedMeal = (new ItemFood(178, 10, false)).setIconCoord(10, 14).setItemName("cookedMeal");
-	public static Item potato = (new ItemFood(179, 1, false)).setIconCoord(6, 11).setItemName("potato");
-	public static Item carrot = (new ItemFood(180, 1, false)).setIconCoord(6, 12).setItemName("carrot");
+	public static Item potato = (new ItemSeed(179, Block.potato.blockID)).setIconCoord(6, 11).setItemName("potato");
+	public static Item carrot = (new ItemSeed(180, Block.carrot.blockID)).setIconCoord(6, 12).setItemName("carrot");
 
 	public final int shiftedIndex;
 	protected int maxStackSize = 64;

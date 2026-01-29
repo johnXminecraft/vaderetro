@@ -1,4 +1,4 @@
-package net.minecraft.src.vaderetro.disease;
+package net.minecraft.src.vaderetro.effects;
 
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.NBTTagCompound;
@@ -6,7 +6,7 @@ import net.minecraft.src.World;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import net.minecraft.src.vaderetro.disease.ZombieBiteSkinEffect;
+import net.minecraft.src.vaderetro.effects.ZombieBiteSkinEffect;
 
 public final class DiseaseManager {
     

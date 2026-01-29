@@ -1,8 +1,6 @@
 package net.minecraft.src;
 
-import net.minecraft.src.vaderetro.block.BlockCannabisPlant;
-import net.minecraft.src.vaderetro.block.BlockOnion;
-import net.minecraft.src.vaderetro.block.BlockTobaccoPlant;
+import net.minecraft.src.vaderetro.block.*;
 
 public class ItemDye extends Item {
 
@@ -46,6 +44,22 @@ public class ItemDye extends Item {
 			if(var8 == Block.onion.blockID) {
 				if(!var3.multiplayerWorld) {
 					((BlockOnion)Block.onion).fertilize(var3, var4, var5, var6);
+					--var1.stackSize;
+				}
+				return true;
+			}
+
+			if(var8 == Block.carrot.blockID) {
+				if(!var3.multiplayerWorld) {
+					((BlockCarrot)Block.carrot).fertilize(var3, var4, var5, var6);
+					--var1.stackSize;
+				}
+				return true;
+			}
+
+			if(var8 == Block.potato.blockID) {
+				if(!var3.multiplayerWorld) {
+					((BlockPotato)Block.potato).fertilize(var3, var4, var5, var6);
 					--var1.stackSize;
 				}
 				return true;

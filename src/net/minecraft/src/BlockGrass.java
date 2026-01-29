@@ -49,6 +49,8 @@ public class BlockGrass extends Block {
 	}
 
 	public int idDropped(int var1, Random random) {
-		return random.nextInt(20) == 0 ? Item.onion.shiftedIndex : Block.dirt.blockID;
+		return random.nextInt(20) == 0 ? Item.onion.shiftedIndex :
+				random.nextInt(20) == 0 ? Item.carrot.shiftedIndex :
+				random.nextInt(20) == 0 ? Item.potato.shiftedIndex : Block.dirt.blockID;
 	}
 }

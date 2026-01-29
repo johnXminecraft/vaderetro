@@ -1,7 +1,7 @@
 package net.minecraft.src;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.src.vaderetro.disease.InfectionAnimationHelper;
+import net.minecraft.src.vaderetro.effects.InfectionAnimationHelper;
 import net.minecraft.src.vaderetro.item.ItemMusket;
 import net.minecraft.src.vaderetro.item.ItemAR15;
 import org.lwjgl.opengl.GL11;

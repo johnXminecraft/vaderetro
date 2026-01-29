@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.vaderetro.render.NukeEffectsManager;
-import net.minecraft.src.vaderetro.disease.DiseaseManager;
+import net.minecraft.src.vaderetro.effects.DiseaseManager;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
