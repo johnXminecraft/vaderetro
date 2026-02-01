@@ -15,7 +15,7 @@ public class JIMView {
     private List<ItemStack> filteredItems = new ArrayList<ItemStack>();
 
     private int currentPage = 0;
-    private int itemsPerPage = 54; // default, will be calculated dynamically
+    private int itemsPerPage = 54;
     private boolean cheatMode = false;
     private String searchText = "";
     private boolean isSearchBoxFocused = false;
@@ -48,11 +48,13 @@ public class JIMView {
     private static boolean isRenderingJIM = false;
     private static boolean useDoubleBuffering = true;
 
+    private String hoverText = null;
+    private int hoverX, hoverY;
+
     public JIMView(JIMController controller) {
         this.controller = controller;
         populateItems();
         this.filteredItems.addAll(allItems);
-        System.out.println("JIM: View initialized with " + allItems.size() + " items");
     }
 
     private void populateItems() {
@@ -78,9 +80,15 @@ public class JIMView {
                     } else {
                         allItems.add(new ItemStack(i, 1, 0));
                     }
-                } catch (Exception e) {
-                    System.out.println("JIM: Skipping problematic item ID " + i);
-                }
+                } catch (Exception e) {}
+            }
+        }
+        for (int i = 0; i < Block.blocksList.length; i++) {
+            if (Block.blocksList[i] != null && Item.itemsList[i] == null) {
+                try {
+                    ItemStack stack = new ItemStack(Block.blocksList[i], 1, 0);
+                    allItems.add(stack);
+                } catch (Exception e) {}
             }
         }
         Collections.sort(allItems, new Comparator<ItemStack>() {
@@ -105,23 +113,9 @@ public class JIMView {
         } else {
             String search = searchText.toLowerCase();
             for (ItemStack item : allItems) {
-                String name = item.getItemName();
-                if (name == null) name = "Unknown";
-                String displayName = name;
-                try {
-                    if (item.getItem() != null) {
-                        String translationKey = item.getItem().getItemNameIS(item);
-                        if (translationKey != null) {
-                            String translated = StatCollector.translateToLocal(translationKey);
-                            if (translated != null && !translated.equals(translationKey)) {
-                                displayName = translated;
-                            }
-                        }
-                    }
-                } catch (Exception e) {}
+                String displayName = getDisplayName(item); 
 
-                if (name.toLowerCase().contains(search) ||
-                        displayName.toLowerCase().contains(search) ||
+                if (displayName.toLowerCase().contains(search) ||
                         String.valueOf(item.itemID).contains(search)) {
                     filteredItems.add(item);
                 }
@@ -152,15 +146,40 @@ public class JIMView {
         for (Object key : smelting.keySet()) {
             ItemStack result = (ItemStack) smelting.get(key);
             if (result != null && result.itemID == target.itemID) {
-                foundRecipes.add(new Integer((Integer)key)); 
+                foundRecipes.add(key); 
+            }
+        }
+
+        for (int i = 0; i < Block.blocksList.length; i++) {
+            Block b = Block.blocksList[i];
+            if (b != null) {
+                try {
+                    for (int meta = 0; meta < 16; meta++) {
+                        int droppedId = b.idDropped(meta, new Random());
+                        if (droppedId == target.itemID) {
+                            if (b.blockID == target.itemID && meta == target.getItemDamage()) continue;
+                            ItemStack sourceBlock = new ItemStack(b, 1, meta);
+                            boolean exists = false;
+                            for (Object r : foundRecipes) {
+                                if (r instanceof ItemStack && ((ItemStack)r).isItemEqual(sourceBlock)) {
+                                    exists = true; break;
+                                }
+                            }
+                            if (!exists) foundRecipes.add(sourceBlock);
+                            break; 
+                        }
+                    }
+                } catch (Exception e) {}
             }
         }
     }
 
-    private void drawRecipeView(Minecraft minecraft, int mouseX, int mouseY, boolean mouseDown) {
+    private void drawRecipeView(Minecraft minecraft, int mouseX, int mouseY, boolean mouseDown, boolean rightClick) {
+        hoverText = null;
         int backBtnX = panelLeft + 10;
         int backBtnY = panelTop + 25;
-        drawSimpleButton(minecraft, "< Back", backBtnX, backBtnY, 40);
+        
+        drawGradientButton(minecraft, "< Back", backBtnX, backBtnY, 40, 12, 0xFF555555, 0xFFAAAAAA);
         
         if (mouseDown && !wasPreviouslyClicked) {
             if (mouseX >= backBtnX && mouseX <= backBtnX + 40 && mouseY >= backBtnY && mouseY <= backBtnY + 12) {
@@ -178,48 +197,104 @@ public class JIMView {
         String title = "Recipe " + (currentRecipePage + 1) + "/" + foundRecipes.size();
         
         if (currentRecipe instanceof Integer) title += " (Furnace)";
+        else if (currentRecipe instanceof ItemStack) title += " (Mining)";
         else title += " (Crafting)";
 
         minecraft.fontRenderer.drawStringWithShadow(title, panelLeft + 60, panelTop + 25, 0xFFFFFF);
 
+        int centerX = panelLeft + panelWidth / 2;
+        int centerY = panelTop + 80;
+
+        int navY = centerY + 60;
+        
         if (foundRecipes.size() > 1) {
              if (currentRecipePage > 0) {
-                 drawSimpleButton(minecraft, "<", panelLeft + 130, backBtnY, 15);
+                 int prevX = centerX - 30;
+                 drawGradientButton(minecraft, "<", prevX, navY, 20, 12, 0xFF555555, 0xFFAAAAAA);
                  if (mouseDown && !wasPreviouslyClicked && 
-                     mouseX >= panelLeft + 130 && mouseX <= panelLeft + 145 && 
-                     mouseY >= backBtnY && mouseY <= backBtnY + 12) {
+                     mouseX >= prevX && mouseX <= prevX + 20 && 
+                     mouseY >= navY && mouseY <= navY + 12) {
                      currentRecipePage--;
                  }
              }
              if (currentRecipePage < foundRecipes.size() - 1) {
-                 drawSimpleButton(minecraft, ">", panelLeft + 150, backBtnY, 15);
+                 int nextX = centerX + 10;
+                 drawGradientButton(minecraft, ">", nextX, navY, 20, 12, 0xFF555555, 0xFFAAAAAA);
                  if (mouseDown && !wasPreviouslyClicked && 
-                     mouseX >= panelLeft + 150 && mouseX <= panelLeft + 165 && 
-                     mouseY >= backBtnY && mouseY <= backBtnY + 12) {
+                     mouseX >= nextX && mouseX <= nextX + 20 && 
+                     mouseY >= navY && mouseY <= navY + 12) {
                      currentRecipePage++;
                  }
              }
         }
 
-        int centerX = panelLeft + panelWidth / 2;
-        int centerY = panelTop + 80;
-
         if (currentRecipe instanceof Integer) {
             int inputID = (Integer) currentRecipe;
             ItemStack inputStack = new ItemStack(inputID, 1, 0);
             
-            drawRect(centerX - 20, centerY - 20, centerX, centerY, 0x40000000);
+            drawSlot(centerX - 20, centerY - 20, 20, 20);
             drawItemSimple(minecraft, inputStack, centerX - 19, centerY - 19);
             
+            if (isMouseOverSlot(centerX - 20, centerY - 20, mouseX, mouseY, 20)) {
+                hoverText = getDisplayName(inputStack);
+                hoverX = mouseX + 10;
+                hoverY = mouseY;
+                if (rightClick && !wasRightClickDown) {
+                    findRecipes(inputStack);
+                    targetItem = inputStack;
+                }
+            }
+
             minecraft.fontRenderer.drawStringWithShadow("->", centerX + 5, centerY - 15, 0xFFFFFF);
             minecraft.fontRenderer.drawStringWithShadow("Fire", centerX - 15, centerY + 5, 0xFF5500);
 
-            drawRect(centerX + 20, centerY - 20, centerX + 40, centerY, 0x40000000);
+            drawSlot(centerX + 20, centerY - 20, 20, 20);
             drawItemSimple(minecraft, targetItem, centerX + 21, centerY - 19);
+            
+            if (isMouseOverSlot(centerX + 20, centerY - 20, mouseX, mouseY, 20)) {
+                hoverText = getDisplayName(targetItem);
+                hoverX = mouseX + 10;
+                hoverY = mouseY;
+            }
         } 
+        else if (currentRecipe instanceof ItemStack) {
+            ItemStack sourceStack = (ItemStack) currentRecipe;
+            
+            drawSlot(centerX - 20, centerY - 20, 20, 20);
+            drawItemSimple(minecraft, sourceStack, centerX - 19, centerY - 19);
+            
+            if (isMouseOverSlot(centerX - 20, centerY - 20, mouseX, mouseY, 20)) {
+                hoverText = getDisplayName(sourceStack);
+                hoverX = mouseX + 10;
+                hoverY = mouseY;
+                if (rightClick && !wasRightClickDown) {
+                    findRecipes(sourceStack);
+                    targetItem = sourceStack;
+                }
+            }
+
+            minecraft.fontRenderer.drawStringWithShadow("->", centerX + 5, centerY - 15, 0xFFFFFF);
+            minecraft.fontRenderer.drawStringWithShadow("Mined", centerX - 15, centerY + 5, 0xFF8888);
+
+            drawSlot(centerX + 20, centerY - 20, 20, 20);
+            drawItemSimple(minecraft, targetItem, centerX + 21, centerY - 19);
+            
+            if (isMouseOverSlot(centerX + 20, centerY - 20, mouseX, mouseY, 20)) {
+                hoverText = getDisplayName(targetItem);
+                hoverX = mouseX + 10;
+                hoverY = mouseY;
+            }
+        }
         else if (currentRecipe instanceof IRecipe) {
-            drawRect(centerX + 40, centerY - 10, centerX + 60, centerY + 10, 0x40000000);
+            drawSlot(centerX + 40, centerY - 10, 20, 20);
             drawItemSimple(minecraft, ((IRecipe)currentRecipe).getRecipeOutput(), centerX + 41, centerY - 9);
+            
+            if (isMouseOverSlot(centerX + 40, centerY - 10, mouseX, mouseY, 20)) {
+                hoverText = getDisplayName(((IRecipe)currentRecipe).getRecipeOutput());
+                hoverX = mouseX + 10;
+                hoverY = mouseY;
+            }
+            
             minecraft.fontRenderer.drawStringWithShadow("=", centerX + 28, centerY - 4, 0xFFFFFF);
 
             int startX = centerX - 40;
@@ -239,13 +314,23 @@ public class JIMView {
                                 if (index < items.length && items[index] != null) {
                                     int slotX = startX + x * 18;
                                     int slotY = startY + y * 18;
-                                    drawRect(slotX, slotY, slotX + 18, slotY + 18, 0x40000000);
+                                    drawSlot(slotX, slotY, 18, 18);
                                     drawItemSimple(minecraft, items[index], slotX + 1, slotY + 1);
+                                    
+                                    if (isMouseOverSlot(slotX, slotY, mouseX, mouseY, 18)) {
+                                        hoverText = getDisplayName(items[index]);
+                                        hoverX = mouseX + 10;
+                                        hoverY = mouseY;
+                                        if (rightClick && !wasRightClickDown) {
+                                            findRecipes(items[index]);
+                                            targetItem = items[index];
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
-                } catch (Exception e) { e.printStackTrace(); }
+                } catch (Exception e) {}
             } 
             else if (currentRecipe instanceof ShapelessRecipes) {
                 ShapelessRecipes shapeless = (ShapelessRecipes) currentRecipe;
@@ -265,15 +350,50 @@ public class JIMView {
                             if (stack != null) {
                                 int slotX = startX + x * 18;
                                 int slotY = startY + y * 18;
-                                drawRect(slotX, slotY, slotX + 18, slotY + 18, 0x40000000);
+                                drawSlot(slotX, slotY, 18, 18);
                                 drawItemSimple(minecraft, stack, slotX + 1, slotY + 1);
+                                
+                                if (isMouseOverSlot(slotX, slotY, mouseX, mouseY, 18)) {
+                                    hoverText = getDisplayName(stack);
+                                    hoverX = mouseX + 10;
+                                    hoverY = mouseY;
+                                    if (rightClick && !wasRightClickDown) {
+                                        findRecipes(stack);
+                                        targetItem = stack;
+                                    }
+                                }
                             }
                         }
                     }
-                } catch (Exception e) { e.printStackTrace(); }
+                } catch (Exception e) {}
                 minecraft.fontRenderer.drawStringWithShadow("Shapeless", startX, startY - 10, 0xAAAAAA);
             }
         }
+
+        if (hoverText != null) {
+            int textWidth = minecraft.fontRenderer.getStringWidth(hoverText);
+            drawGradientRect(hoverX, hoverY, hoverX + textWidth + 4, hoverY + 12, 0xFF000000, 0xFF333333);
+            minecraft.fontRenderer.drawStringWithShadow(hoverText, hoverX + 2, hoverY + 2, 0xFFFFFF);
+        }
+    }
+
+    private String getDisplayName(ItemStack stack) {
+        if (stack == null) return "Unknown";
+        String rawName = null;
+        try {
+            rawName = stack.getItem().getItemNameIS(stack);
+        } catch (Exception e) {}
+        
+        if (rawName == null) return "Unknown";
+
+        String translated = StatCollector.translateToLocal(rawName);
+        if (!translated.equals(rawName)) return translated;
+
+        String withName = rawName + ".name";
+        String translatedWithName = StatCollector.translateToLocal(withName);
+        if (!translatedWithName.equals(withName)) return translatedWithName;
+
+        return rawName.replace("item.", "").replace("tile.", "");
     }
 
     private int getPrivateInt(Object obj, String name1, String name2) {
@@ -349,7 +469,7 @@ public class JIMView {
             GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
             GL11.glDisable(GL11.GL_TEXTURE_2D);
-            drawRect(panelLeft, panelTop, panelLeft + panelWidth, panelTop + panelHeight, 0xA0000000);
+            drawGradientRect(panelLeft, panelTop, panelLeft + panelWidth, panelTop + panelHeight, 0xA0000000, 0xA0333333);
             drawBorder(panelLeft, panelTop, panelLeft + panelWidth, panelTop + panelHeight, 0xFFFFFFFF);
             GL11.glEnable(GL11.GL_TEXTURE_2D);
 
@@ -359,7 +479,7 @@ public class JIMView {
             boolean rightClick = Mouse.isButtonDown(1); 
 
             if (isRecipeView) {
-                drawRecipeView(minecraft, mouseX, mouseY, mouseDown);
+                drawRecipeView(minecraft, mouseX, mouseY, mouseDown, rightClick);
             } else {
                 drawMainInterface(minecraft, mouseX, mouseY, mouseDown, rightClick);
             }
@@ -379,14 +499,12 @@ public class JIMView {
             isRenderingJIM = false;
 
         } catch (Exception e) {
-            System.out.println("JIM: Render error: " + e.getMessage());
-            e.printStackTrace();
             isRenderingJIM = false;
         }
     }
 
     private void drawMainInterface(Minecraft minecraft, int mouseX, int mouseY, boolean mouseDown, boolean rightClick) {
-        drawRect(searchBoxX, searchBoxY, searchBoxX + searchBoxWidth, searchBoxY + searchBoxHeight, 0xFFFFFFFF);
+        drawGradientRect(searchBoxX, searchBoxY, searchBoxX + searchBoxWidth, searchBoxY + searchBoxHeight, 0xFFFFFFFF, 0xFFDDDDDD);
         drawBorder(searchBoxX, searchBoxY, searchBoxX + searchBoxWidth, searchBoxY + searchBoxHeight, 0xFF000000);
         String displayText = searchText.isEmpty() ? (isSearchBoxFocused ? "|" : "Search...") : searchText + (isSearchBoxFocused ? "|" : "");
         minecraft.fontRenderer.drawStringWithShadow(displayText, searchBoxX + 2, searchBoxY + 2, isSearchBoxFocused ? 0x000000 : 0x808080);
@@ -435,19 +553,27 @@ public class JIMView {
             filteredItems.clear(); filteredItems.addAll(allItems); searchText = ""; needsFiltering = false;
         }
 
+        hoverText = null;
+
         for (int i = 0; i < itemsPerPage && i + startIndex < filteredItems.size(); i++) {
             int row = i / 9;
             int col = i % 9;
             int x = panelLeft + 8 + col * 18;
             int y = gridStartY + row * 18;
 
-            drawRect(x - 1, y - 1, x + 17, y + 17, 0x40000000);
+            drawSlot(x - 1, y - 1, 18, 18);
             try {
                 ItemStack itemstack = filteredItems.get(i + startIndex);
                 drawItemSimple(minecraft, itemstack, x, y);
 
-                boolean mouseOver = isMouseOverSlot(x, y, mouseX, mouseY);
+                boolean mouseOver = isMouseOverSlot(x - 1, y - 1, mouseX, mouseY, 18);
                 
+                if (mouseOver) {
+                    hoverText = getDisplayName(itemstack);
+                    hoverX = mouseX + 10;
+                    hoverY = mouseY;
+                }
+
                 if (cheatMode && mouseDown && mouseOver) {
                     if (!wasPreviousItemClicked) {
                         int quantity = itemstack.getMaxStackSize() > 1 ? 64 : 1;
@@ -469,6 +595,12 @@ public class JIMView {
         }
         if (!mouseDown) wasPreviousItemClicked = false;
 
+        if (hoverText != null) {
+            int textWidth = minecraft.fontRenderer.getStringWidth(hoverText);
+            drawGradientRect(hoverX, hoverY, hoverX + textWidth + 4, hoverY + 12, 0xFF000000, 0xFF333333);
+            minecraft.fontRenderer.drawStringWithShadow(hoverText, hoverX + 2, hoverY + 2, 0xFFFFFF);
+        }
+
         drawControls(minecraft, mouseX, mouseY, mouseDown);
     }
 
@@ -476,8 +608,8 @@ public class JIMView {
         int controlsY = panelTop + panelHeight - 25;
         cheatModeX = panelLeft + 8; cheatModeY = controlsY;
         
-        drawRect(cheatModeX, cheatModeY, cheatModeX + 10, cheatModeY + 10, 0xFFFFFFFF);
-        if (cheatMode) drawRect(cheatModeX + 2, cheatModeY + 2, cheatModeX + 8, cheatModeY + 8, 0xFF00FF00);
+        drawGradientRect(cheatModeX, cheatModeY, cheatModeX + 10, cheatModeY + 10, 0xFFFFFFFF, 0xFFDDDDDD);
+        if (cheatMode) drawGradientRect(cheatModeX + 2, cheatModeY + 2, cheatModeX + 8, cheatModeY + 8, 0xFF00FF00, 0xFF00AA00);
         minecraft.fontRenderer.drawStringWithShadow("Cheat Mode", cheatModeX + 15, cheatModeY + 2, 0xFFFFFF);
         
         if (mouseDown && !wasPreviouslyClicked) {
@@ -491,20 +623,20 @@ public class JIMView {
         int spacing = 5;
         
         dayButtonX = panelLeft + 10; dayButtonY = buttonY;
-        drawSimpleButton(minecraft, "Day", dayButtonX, dayButtonY, buttonWidth);
+        drawGradientButton(minecraft, "Day", dayButtonX, dayButtonY, buttonWidth, 12, 0xFF555555, 0xFFAAAAAA);
         
         nightButtonX = dayButtonX + buttonWidth + spacing; nightButtonY = buttonY;
-        drawSimpleButton(minecraft, "Night", nightButtonX, nightButtonY, buttonWidth);
+        drawGradientButton(minecraft, "Night", nightButtonX, nightButtonY, buttonWidth, 12, 0xFF555555, 0xFFAAAAAA);
 
         healButtonX = nightButtonX + buttonWidth + spacing; healButtonY = buttonY;
-        drawSimpleButton(minecraft, "Heal", healButtonX, healButtonY, buttonWidth);
+        drawGradientButton(minecraft, "Heal", healButtonX, healButtonY, buttonWidth, 12, 0xFF555555, 0xFFAAAAAA);
         
         rainButtonX = healButtonX + buttonWidth + spacing; rainButtonY = buttonY;
-        drawSimpleButton(minecraft, "Rain", rainButtonX, rainButtonY, buttonWidth);
+        drawGradientButton(minecraft, "Rain", rainButtonX, rainButtonY, buttonWidth, 12, 0xFF555555, 0xFFAAAAAA);
 
         flyButtonX = rainButtonX + buttonWidth + spacing; flyButtonY = buttonY;
         String flyLabel = "Fly: " + (controller.getConfig() != null && controller.getConfig().isFlyEnabled() ? "ON" : "OFF");
-        drawSimpleButton(minecraft, flyLabel, flyButtonX, flyButtonY, buttonWidth);
+        drawGradientButton(minecraft, flyLabel, flyButtonX, flyButtonY, buttonWidth, 12, 0xFF555555, 0xFFAAAAAA);
 
         if (mouseDown && !wasPreviouslyClicked && cheatMode) {
              if (isMouseOver(mouseX, mouseY, dayButtonX, dayButtonY, buttonWidth, 12)) minecraft.theWorld.setWorldTime(6000);
@@ -521,7 +653,7 @@ public class JIMView {
                          info = (WorldInfo)f.get(minecraft.theWorld);
                      }
                      if (info != null) info.setRaining(!info.getRaining());
-                 } catch(Exception e) { System.out.println("JIM: Rain toggle failed"); }
+                 } catch(Exception e) {}
              }
              if (isMouseOver(mouseX, mouseY, flyButtonX, flyButtonY, buttonWidth, 12)) controller.toggleFly();
         }
@@ -551,11 +683,11 @@ public class JIMView {
         }
     }
 
-    private void drawSimpleButton(Minecraft minecraft, String text, int x, int y, int width) {
+    private void drawGradientButton(Minecraft minecraft, String text, int x, int y, int width, int height, int color1, int color2) {
         int textWidth = minecraft.fontRenderer.getStringWidth(text);
         int paddingX = (width - textWidth) / 2;
-        drawRect(x, y, x + width, y + 12, 0x80000000);
-        drawBorder(x, y, x + width, y + 12, 0xFF000000);
+        drawGradientRect(x, y, x + width, y + height, color1, color2);
+        drawBorder(x, y, x + width, y + height, 0xFF000000);
         minecraft.fontRenderer.drawStringWithShadow(text, x + paddingX, y + 2, 0xFFFFFF);
     }
 
@@ -567,8 +699,8 @@ public class JIMView {
     }
 
     private void drawRect(int left, int top, int right, int bottom, int color) {
-        if (left < right) { int i = left; left = right; right = i; }
-        if (top < bottom) { int j = top; top = bottom; bottom = j; }
+        if (left > right) { int i = left; left = right; right = i; }
+        if (top > bottom) { int j = top; top = bottom; bottom = j; }
         float f = (float)(color >> 24 & 255) / 255.0F;
         float f1 = (float)(color >> 16 & 255) / 255.0F;
         float f2 = (float)(color >> 8 & 255) / 255.0F;
@@ -587,8 +719,42 @@ public class JIMView {
         GL11.glEnable(GL11.GL_TEXTURE_2D);
     }
 
-    private boolean isMouseOverSlot(int x, int y, int mouseX, int mouseY) {
-        return mouseX >= x && mouseX < x + 16 && mouseY >= y && mouseY < y + 16;
+    private void drawGradientRect(int left, int top, int right, int bottom, int startColor, int endColor) {
+        float startA = (float)(startColor >> 24 & 255) / 255.0F;
+        float startR = (float)(startColor >> 16 & 255) / 255.0F;
+        float startG = (float)(startColor >> 8 & 255) / 255.0F;
+        float startB = (float)(startColor & 255) / 255.0F;
+        float endA = (float)(endColor >> 24 & 255) / 255.0F;
+        float endR = (float)(endColor >> 16 & 255) / 255.0F;
+        float endG = (float)(endColor >> 8 & 255) / 255.0F;
+        float endB = (float)(endColor & 255) / 255.0F;
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glDisable(GL11.GL_ALPHA_TEST);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        GL11.glShadeModel(GL11.GL_SMOOTH);
+        Tessellator tessellator = Tessellator.instance;
+        tessellator.startDrawingQuads();
+        tessellator.setColorRGBA_F(startR, startG, startB, startA);
+        tessellator.addVertex(right, top, 0.0D);
+        tessellator.addVertex(left, top, 0.0D);
+        tessellator.setColorRGBA_F(endR, endG, endB, endA);
+        tessellator.addVertex(left, bottom, 0.0D);
+        tessellator.addVertex(right, bottom, 0.0D);
+        tessellator.draw();
+        GL11.glShadeModel(GL11.GL_FLAT);
+        GL11.glDisable(GL11.GL_BLEND);
+        GL11.glEnable(GL11.GL_ALPHA_TEST);
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
+    }
+
+    private void drawSlot(int x, int y, int width, int height) {
+        drawGradientRect(x, y, x + width, y + height, 0xFFCCCCCC, 0xFF888888);
+        drawBorder(x, y, x + width, y + height, 0xFF000000);
+    }
+
+    private boolean isMouseOverSlot(int x, int y, int mouseX, int mouseY, int size) {
+        return mouseX >= x && mouseX < x + size && mouseY >= y && mouseY < y + size;
     }
 
     private void drawItemSimple(Minecraft minecraft, ItemStack itemstack, int x, int y) {

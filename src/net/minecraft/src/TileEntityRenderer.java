@@ -6,6 +6,8 @@ import net.minecraft.src.vaderetro.entity.tileentity.TileEntityNuclearBomb;
 import net.minecraft.src.vaderetro.render.TileEntityNuclearBombRenderer;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityAxleRod;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityAxleRodRenderer;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityMilitaryCase;
+import net.minecraft.src.vaderetro.render.RenderMilitaryCase;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -35,6 +37,7 @@ public class TileEntityRenderer {
 		this.specialRendererMap.put(TileEntityJohnMill.class, new TileEntityJohnMillRenderer());
 		this.specialRendererMap.put(TileEntityNuclearBomb.class, new TileEntityNuclearBombRenderer());
 		this.specialRendererMap.put(TileEntityAxleRod.class, new TileEntityAxleRodRenderer());
+		this.specialRendererMap.put(TileEntityMilitaryCase.class, new RenderMilitaryCase());
 		Iterator var1 = this.specialRendererMap.values().iterator();
 
 		while(var1.hasNext()) {

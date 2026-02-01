@@ -192,6 +192,7 @@ public class Item {
 	public static Item cookedMeal = (new ItemFood(178, 10, false)).setIconCoord(10, 14).setItemName("cookedMeal");
 	public static Item potato = (new ItemSeed(179, Block.potato.blockID)).setIconCoord(6, 11).setItemName("potato");
 	public static Item carrot = (new ItemSeed(180, Block.carrot.blockID)).setIconCoord(6, 12).setItemName("carrot");
+	public static Item doorSlideWood = (new net.minecraft.src.vaderetro.item.ItemSlideDoor(181)).setIconCoord(11, 2).setItemName("slideDoor");
 
 	public final int shiftedIndex;
 	protected int maxStackSize = 64;

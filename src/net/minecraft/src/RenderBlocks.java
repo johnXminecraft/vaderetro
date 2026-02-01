@@ -139,9 +139,12 @@ public class RenderBlocks {
 	}
 
 	public boolean renderBlockByRenderType(Block var1, int var2, int var3, int var4) {
-		int var5 = var1.getRenderType();
 		var1.setBlockBoundsBasedOnState(this.blockAccess, var2, var3, var4);
-		return var5 == 0 ? this.renderStandardBlock(var1, var2, var3, var4) : (var5 == 4 ? this.renderBlockFluids(var1, var2, var3, var4) : (var5 == 13 ? this.renderBlockCactus(var1, var2, var3, var4) : (var5 == 1 ? this.renderBlockReed(var1, var2, var3, var4) : (var5 == 6 ? this.renderBlockCrops(var1, var2, var3, var4) : (var5 == 2 ? this.renderBlockTorch(var1, var2, var3, var4) : (var5 == 3 ? this.renderBlockFire(var1, var2, var3, var4) : (var5 == 5 ? this.renderBlockRedstoneWire(var1, var2, var3, var4) : (var5 == 8 ? this.renderBlockLadder(var1, var2, var3, var4) : (var5 == 7 ? this.renderBlockDoor(var1, var2, var3, var4) : (var5 == 9 ? this.renderBlockMinecartTrack((BlockRail)var1, var2, var3, var4) : (var5 == 10 ? this.renderBlockStairs(var1, var2, var3, var4) : (var5 == 11 ? this.renderBlockFence(var1, var2, var3, var4) : (var5 == 12 ? this.renderBlockLever(var1, var2, var3, var4) : (var5 == 14 ? this.renderBlockBed(var1, var2, var3, var4) : (var5 == 15 ? this.renderBlockRepeater(var1, var2, var3, var4) : (var5 == 16 ? this.func_31074_b(var1, var2, var3, var4, false) : (var5 == 17 ? this.func_31080_c(var1, var2, var3, var4, true) : false)))))))))))))))));
+				if (var1.blockID == Block.slideDoor.blockID) {
+			return this.renderBlockSlideDoor(var1, var2, var3, var4);
+		}
+		int var5 = var1.getRenderType();
+		return var5 == 0 ? this.renderStandardBlock(var1, var2, var3, var4) : (var5 == 4 ? this.renderBlockFluids(var1, var2, var3, var4) : (var5 == 13 ? this.renderBlockCactus(var1, var2, var3, var4) : (var5 == 1 ? this.renderBlockReed(var1, var2, var3, var4) : (var5 == 6 ? this.renderBlockCrops(var1, var2, var3, var4) : (var5 == 2 ? this.renderBlockTorch(var1, var2, var3, var4) : (var5 == 3 ? this.renderBlockFire(var1, var2, var3, var4) : (var5 == 5 ? this.renderBlockRedstoneWire(var1, var2, var3, var4) : (var5 == 8 ? this.renderBlockLadder(var1, var2, var3, var4) : (var5 == 7 ? this.renderBlockDoor(var1, var2, var3, var4) : (var5 == 9 ? this.renderBlockMinecartTrack((BlockRail)var1, var2, var3, var4) : (var5 == 10 ? this.renderBlockStairs(var1, var2, var3, var4) : (var5 == 11 ? this.renderBlockFence(var1, var2, var3, var4) : (var5 == 12 ? this.renderBlockLever(var1, var2, var3, var4) : (var5 == 14 ? this.renderBlockBed(var1, var2, var3, var4) : (var5 == 15 ? this.renderBlockRepeater(var1, var2, var3, var4) : (var5 == 16 ? this.func_31074_b(var1, var2, var3, var4, false) : (var5 == 17 ? this.func_31080_c(var1, var2, var3, var4, true) : (var5 == 18 ? this.renderBlockSlideDoor(var1, var2, var3, var4) : false))))))))))))))))));
 	}
 
 	private boolean renderBlockBed(Block var1, int var2, int var3, int var4) {
@@ -2704,6 +2707,76 @@ public class RenderBlocks {
 		var7 = true;
 		this.flipTexture = false;
 		return var7;
+	}
+
+	
+public boolean renderBlockSlideDoor(Block var1, int var2, int var3, int var4) {
+		int savedL = this.field_31082_l;
+		int savedK = this.field_31083_k;
+		boolean savedFlip = this.flipTexture;
+		this.field_31082_l = 0;
+		this.field_31083_k = 0;
+		this.flipTexture = false;
+
+		Tessellator var5 = Tessellator.instance;
+		float var8 = 0.5F;
+		float var9 = 1.0F;
+		float var10 = 0.8F;
+		float var11 = 0.6F;
+		float var12 = var1.getBlockBrightness(this.blockAccess, var2, var3, var4);
+
+		int meta = this.blockAccess.getBlockMetadata(var2, var3, var4);
+		int tex = var1.blockIndexInTexture - (meta & 8) * 2;
+		int facing = meta & 3;
+
+		float var13 = var1.getBlockBrightness(this.blockAccess, var2, var3 - 1, var4);
+		if (var1.minY > 0.0D) var13 = var12;
+		if (Block.lightValue[var1.blockID] > 0) var13 = 1.0F;
+		var5.setColorOpaque_F(var8 * var13, var8 * var13, var8 * var13);
+		this.renderBottomFace(var1, (double)var2, (double)var3, (double)var4, tex);
+
+		var13 = var1.getBlockBrightness(this.blockAccess, var2, var3 + 1, var4);
+		if (var1.maxY < 1.0D) var13 = var12;
+		if (Block.lightValue[var1.blockID] > 0) var13 = 1.0F;
+		var5.setColorOpaque_F(var9 * var13, var9 * var13, var9 * var13);
+		this.renderTopFace(var1, (double)var2, (double)var3, (double)var4, tex);
+
+		var13 = var1.getBlockBrightness(this.blockAccess, var2, var3, var4 - 1);
+		if (var1.minZ > 0.0D) var13 = var12;
+		if (Block.lightValue[var1.blockID] > 0) var13 = 1.0F;
+		var5.setColorOpaque_F(var10 * var13, var10 * var13, var10 * var13);
+		if (facing == 2) this.flipTexture = true;
+		this.renderEastFace(var1, (double)var2, (double)var3, (double)var4, tex);
+		this.flipTexture = false;
+
+		var13 = var1.getBlockBrightness(this.blockAccess, var2, var3, var4 + 1);
+		if (var1.maxZ < 1.0D) var13 = var12;
+		if (Block.lightValue[var1.blockID] > 0) var13 = 1.0F;
+		var5.setColorOpaque_F(var10 * var13, var10 * var13, var10 * var13);
+		if (facing == 0) this.flipTexture = true;
+		this.renderWestFace(var1, (double)var2, (double)var3, (double)var4, tex);
+		this.flipTexture = false;
+
+		var13 = var1.getBlockBrightness(this.blockAccess, var2 - 1, var3, var4);
+		if (var1.minX > 0.0D) var13 = var12;
+		if (Block.lightValue[var1.blockID] > 0) var13 = 1.0F;
+		var5.setColorOpaque_F(var11 * var13, var11 * var13, var11 * var13);
+		if (facing == 3) this.flipTexture = true;
+		this.renderNorthFace(var1, (double)var2, (double)var3, (double)var4, tex);
+		this.flipTexture = false;
+
+		var13 = var1.getBlockBrightness(this.blockAccess, var2 + 1, var3, var4);
+		if (var1.maxX < 1.0D) var13 = var12;
+		if (Block.lightValue[var1.blockID] > 0) var13 = 1.0F;
+		var5.setColorOpaque_F(var11 * var13, var11 * var13, var11 * var13);
+		if (facing == 1) this.flipTexture = true;
+		this.renderSouthFace(var1, (double)var2, (double)var3, (double)var4, tex);
+		this.flipTexture = false;
+
+		this.field_31082_l = savedL;
+		this.field_31083_k = savedK;
+		this.flipTexture = savedFlip;
+		return true;
 	}
 
 	public void renderBottomFace(Block var1, double var2, double var4, double var6, int var8) {

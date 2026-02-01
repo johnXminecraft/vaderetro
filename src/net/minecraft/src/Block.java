@@ -152,7 +152,6 @@ public class Block {
 	public static final Block onion = (new BlockOnion(121, 227)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("onion").disableStats().disableNeighborNotifyOnMetadataChange();
 	public static final Block tobaccoPlant = (new BlockTobaccoPlant(122, 211)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("tobaccoPlant").disableStats().disableNeighborNotifyOnMetadataChange();
 	public static final Block cannabisPlant = (new BlockCannabisPlant(123, 196)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("cannabisPlant").disableStats().disableNeighborNotifyOnMetadataChange();
-	// unable to get
 	public static final Block oreUranium = (new BlockUraniumOre(124, 204)).setHardness(3.0F).setResistance(5.0F).setStepSound(soundStoneFootstep).setBlockName("oreUranium");
 	public static final Block dryerIdle = (new BlockDryer(125, false)).setHardness(2.0F).setStepSound(soundStoneFootstep).setBlockName("dryer").disableNeighborNotifyOnMetadataChange();
 	public static final Block dryerActive = (new BlockDryer(126, true)).setHardness(2.0F).setStepSound(soundStoneFootstep).setBlockName("dryer").disableNeighborNotifyOnMetadataChange();
@@ -166,6 +165,8 @@ public class Block {
 	public static final Block radioactiveWood = (new BlockRadioactiveWood(134)).setBlockName("radioactiveWood");
 	public static final Block carrot = (new BlockCarrot(135, 272)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("carrot").disableStats().disableNeighborNotifyOnMetadataChange();
 	public static final Block potato = (new BlockPotato(136, 256)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("potato").disableStats().disableNeighborNotifyOnMetadataChange();
+	public static final Block slideDoor = (new net.minecraft.src.vaderetro.block.BlockSlideDoor(137, Material.wood)).setHardness(3.0F).setStepSound(soundWoodFootstep).setBlockName("slideDoor").disableStats().disableNeighborNotifyOnMetadataChange();
+	public static final Block militaryCase = (new net.minecraft.src.vaderetro.block.BlockMilitaryCase(138, Material.wood)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("militaryCase").disableNeighborNotifyOnMetadataChange();
 
 	public int blockIndexInTexture;
 	public final int blockID;

@@ -99,6 +99,7 @@ import net.minecraft.src.WorldProvider;
 import net.minecraft.src.WorldRenderer;
 import net.minecraft.src.vaderetro.texture.oil.TextureOilFX;
 import net.minecraft.src.vaderetro.texture.oil.TextureOilFlowFX;
+import net.minecraft.src.vaderetro._JPM.IsometricScreenshotRenderer;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Controllers;
@@ -1253,6 +1254,7 @@ public abstract class Minecraft implements Runnable {
 	}
 
 	public void startWorld(String var1, String var2, long var3) {
+		net.minecraft.src.vaderetro.effects.DiseaseManager.getInstance().reset();
 		this.changeWorld1((World)null);
 		System.gc();
 		if(this.saveLoader.isOldMapFormat(var1)) {

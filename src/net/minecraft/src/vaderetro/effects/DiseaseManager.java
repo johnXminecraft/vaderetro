@@ -191,29 +191,29 @@ public final class DiseaseManager {
     }
 
     public void restoreFromNBT(NBTTagCompound nbt, EntityPlayer player) {
+        this.reset();
+
         if (!nbt.hasKey(NBT_DISEASE)) {
-            cureAll();
             return;
         }
+
         NBTTagCompound d = nbt.getCompoundTag(NBT_DISEASE);
         String id = d.getString(NBT_DISEASE_ID);
         int ticks = d.getInteger(NBT_TICKS);
         int max = d.getInteger(NBT_MAX_TICKS);
+
         if (id == null || id.length() == 0 || max <= 0) {
-            cureAll();
             return;
         }
+
         Class<? extends Disease> cls = diseaseRegistry.get(id);
-        if (cls == null) {
-            cureAll();
-            return;
-        }
-        try {
-            activeDisease = cls.newInstance();
-            activeDisease.restoreState(ticks, max);
-        } catch (Exception e) {
-            e.printStackTrace();
-            cureAll();
+        if (cls != null) {
+            try {
+                activeDisease = cls.newInstance();
+                activeDisease.restoreState(ticks, max);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
     

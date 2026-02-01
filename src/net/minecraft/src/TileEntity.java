@@ -7,7 +7,9 @@ import net.minecraft.src.vaderetro.entity.tileentity.TileEntityKeroseneLamp;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityOpenHearthFurnace;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityNuclearBomb;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityAxleRod;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntitySlideDoor;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityWheatGrinder;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityMilitaryCase;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -116,7 +118,6 @@ public class TileEntity {
 		addMapping(TileEntityNuclearBomb.class, "NuclearBomb");
 		addMapping(TileEntityAxleRod.class, "AxleRod");
 		addMapping(TileEntityWheatGrinder.class, "WheatGrinder");
-		// Legacy IDs from older saves
 		addMapping(TileEntityJohnMill.class, "Windmill");
 		addMapping(TileEntityJohnMill.class, "Millstone");
 		addMapping(TileEntityChest.class, "Chest");
@@ -126,5 +127,7 @@ public class TileEntity {
 		addMapping(TileEntityMobSpawner.class, "MobSpawner");
 		addMapping(TileEntityNote.class, "Music");
 		addMapping(TileEntityPiston.class, "Piston");
+		addMapping(TileEntitySlideDoor.class, "SlideDoor");
+		addMapping(TileEntityMilitaryCase.class, "MilitaryCase");
 	}
 }

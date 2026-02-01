@@ -1,0 +1,58 @@
+
+================================
+ALPHA 1.6.0
+================================
+
+Additions
+
+1. Added sliding door with side-opening animation;
+2. Added Military Crate block with TileEntity, model and renderer;
+3. Added new world structure: Radio Tower;
+4. Added isometric preview GUI improvements;
+5. John Items Mod rework;
+
+Reworks
+
+1. Reworked John Items Mod;
+2. Reworked isometric mod rendering and GUI;
+3. Reworked terrain and item textures layout;
+4. Fixed bugs related to Disease system logic;
+5. Fixed isometric rendering issues;
+
+Textures
+
+/resources/terrain.png add door texture 
+/resources/terrain/military_case.png Military case texture
+
+Added Vade Retro classes
+
+/vaderetro/block/BlockMilitaryCase.class
+/vaderetro/entity/tileentity/TileEntityMilitaryCase.class
+/vaderetro/model/ModelMilitaryCase.class
+/vaderetro/render/RenderMilitaryCase.class
+/vaderetro/block/BlockSlideDoor.class
+/vaderetro/entity/tileentity/TileEntitySlideDoor.class
+/vaderetro/item/ItemSlideDoor.class
+/vaderetro/gen/structures/StructureGenRadioTower.class
+/vaderetro/gen/world/WorldGenRadioTower.class
+/vaderetro/_JPM/GuiIsometricPreview.class
+
+Changed Vade Retro classes
+
+/vaderetro/_JPM/IsometricScreenshotRenderer.class
+/vaderetro/_JIM/JIMView.class
+/vaderetro/effects/DiseaseManager.class
+/vaderetro/recipes/creators/crafting/RecipesBuilding.class
+
+
+Changed Minecraft classes
+
+/net/minecraft/client/Minecraft.class
+/net/minecraft/src/Block.class
+/net/minecraft/src/ChunkProviderGenerate.class
+/net/minecraft/src/Item.class
+/net/minecraft/src/ItemAxe.class
+/net/minecraft/src/RenderBlocks.class
+/net/minecraft/src/TileEntity.class
+/net/minecraft/src/TileEntityRenderer.class
+
