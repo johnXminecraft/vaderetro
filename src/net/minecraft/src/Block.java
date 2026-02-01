@@ -70,8 +70,8 @@ public class Block {
 	public static final BlockFlower mushroomRed = (BlockFlower)(new BlockMushroom(40, 28)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("mushroom");
 	public static final Block blockGold = (new BlockOreStorage(41, 23)).setHardness(3.0F).setResistance(10.0F).setStepSound(soundMetalFootstep).setBlockName("blockGold");
 	public static final Block blockSteel = (new BlockOreStorage(42, 22)).setHardness(5.0F).setResistance(10.0F).setStepSound(soundMetalFootstep).setBlockName("blockIron");
-	public static final Block stairDouble = (new BlockStep(43, true)).setHardness(2.0F).setResistance(10.0F).setStepSound(soundStoneFootstep).setBlockName("stoneSlab");
-	public static final Block stairSingle = (new BlockStep(44, false)).setHardness(2.0F).setResistance(10.0F).setStepSound(soundStoneFootstep).setBlockName("stoneSlab");
+	public static final Block stairDouble = (new BlockStep(43, true, false)).setHardness(2.0F).setResistance(10.0F).setStepSound(soundStoneFootstep).setBlockName("stoneSlab");
+	public static final Block stairSingle = (new BlockStep(44, false, false)).setHardness(2.0F).setResistance(10.0F).setStepSound(soundStoneFootstep).setBlockName("stoneSlab");
 	public static final Block brick = (new Block(45, 7, Material.rock)).setHardness(2.0F).setResistance(10.0F).setStepSound(soundStoneFootstep).setBlockName("brick");
 	public static final Block tnt = (new BlockTNT(46, 8)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("tnt");
 	public static final Block bookShelf = (new BlockBookshelf(47, 35)).setHardness(1.5F).setStepSound(soundWoodFootstep).setBlockName("bookshelf");
@@ -167,6 +167,7 @@ public class Block {
 	public static final Block potato = (new BlockPotato(136, 256)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("potato").disableStats().disableNeighborNotifyOnMetadataChange();
 	public static final Block slideDoor = (new net.minecraft.src.vaderetro.block.BlockSlideDoor(137, Material.wood)).setHardness(3.0F).setStepSound(soundWoodFootstep).setBlockName("slideDoor").disableStats().disableNeighborNotifyOnMetadataChange();
 	public static final Block militaryCase = (new net.minecraft.src.vaderetro.block.BlockMilitaryCase(138, Material.wood)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("militaryCase").disableNeighborNotifyOnMetadataChange();
+	public static final Block slabReversed = (new BlockStep(139, false, true)).setHardness(2.0F).setResistance(10.0F).setStepSound(soundStoneFootstep).setBlockName("stoneSlab");
 
 	public int blockIndexInTexture;
 	public final int blockID;

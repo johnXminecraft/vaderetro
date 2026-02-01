@@ -5,19 +5,19 @@ import net.minecraft.src.vaderetro.gen.structures.StructureGenRadioTower;
 
 import java.util.Random;
 
+
 public class WorldGenRadioTower extends WorldGenerator {
 
     @Override
     public boolean generate(World world, Random random, int x, int y, int z) {
 
-        if (world.getBlockId(x, y - 1, z) != Block.grass.blockID)
+        if (
+                world.getBlockId(x, y - 1, z) != Block.grass.blockID ||
+                random.nextInt(500) != 0 ||
+                world.getWorldChunkManager().getBiomeGenAt(x, z) != BiomeGenBase.taiga
+        ) {
             return false;
-
-        if (random.nextInt(3000) != 0)
-            return false;
-
-        if (world.getWorldChunkManager().getBiomeGenAt(x, z) != BiomeGenBase.taiga)
-            return false;
+        }
 
         int[][][] blocks = StructureGenRadioTower.BLOCKS;
 
@@ -40,7 +40,7 @@ public class WorldGenRadioTower extends WorldGenerator {
                 }
             }
         }
-
+        System.out.println("Generated radio tower at " + x + " " + y + " " + z);
         return true;
     }
 

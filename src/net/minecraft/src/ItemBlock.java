@@ -9,48 +9,54 @@ public class ItemBlock extends Item {
 		this.setIconIndex(Block.blocksList[var1 + 256].getBlockTextureFromSide(2));
 	}
 
-	public boolean onItemUse(ItemStack var1, EntityPlayer var2, World var3, int var4, int var5, int var6, int var7) {
-		if(var3.getBlockId(var4, var5, var6) == Block.snow.blockID) {
-			var7 = 0;
+	public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side) {
+		if(world.getBlockId(x, y, z) == Block.snow.blockID) {
+			side = 0;
 		} else {
-			if(var7 == 0) {
-				--var5;
+			if(side == 0) {
+				--y;
 			}
 
-			if(var7 == 1) {
-				++var5;
+			if(side == 1) {
+				++y;
 			}
 
-			if(var7 == 2) {
-				--var6;
+			if(side == 2) {
+				--z;
 			}
 
-			if(var7 == 3) {
-				++var6;
+			if(side == 3) {
+				++z;
 			}
 
-			if(var7 == 4) {
-				--var4;
+			if(side == 4) {
+				--x;
 			}
 
-			if(var7 == 5) {
-				++var4;
+			if(side == 5) {
+				++x;
 			}
 		}
 
-		if(var1.stackSize == 0) {
+		if(itemStack.stackSize == 0) {
 			return false;
-		} else if(var5 == 127 && Block.blocksList[this.blockID].blockMaterial.isSolid()) {
+		} else if(y == 255 && Block.blocksList[this.blockID].blockMaterial.isSolid()) {
 			return false;
-		} else if(var3.canBlockBePlacedAt(this.blockID, var4, var5, var6, false, var7)) {
-			Block var8 = Block.blocksList[this.blockID];
-			if(var3.setBlockAndMetadataWithNotify(var4, var5, var6, this.blockID, this.getPlacedBlockMetadata(var1.getItemDamage()))) {
-				Block.blocksList[this.blockID].onBlockPlaced(var3, var4, var5, var6, var7);
-				Block.blocksList[this.blockID].onBlockPlacedBy(var3, var4, var5, var6, var2);
-				var3.playSoundEffect((double)((float)var4 + 0.5F), (double)((float)var5 + 0.5F), (double)((float)var6 + 0.5F), var8.stepSound.func_1145_d(), (var8.stepSound.getVolume() + 1.0F) / 2.0F, var8.stepSound.getPitch() * 0.8F);
-				--var1.stackSize;
+		} else if(world.canBlockBePlacedAt(this.blockID, x, y, z, false, side)) {
+			Block block = Block.blocksList[this.blockID];
+			if(world.setBlockAndMetadataWithNotify(x, y, z, this.blockID, this.getPlacedBlockMetadata(itemStack.getItemDamage()))) {
+				if(this.blockID == Block.stairSingle.blockID || this.blockID == Block.slabReversed.blockID) {
+					if(side == 0 || player.isSneaking()) {
+						this.blockID = Block.slabReversed.blockID;
+					} else {
+						this.blockID = Block.stairSingle.blockID;
+					}
+				}
+				Block.blocksList[this.blockID].onBlockPlaced(world, x, y, z, side);
+				Block.blocksList[this.blockID].onBlockPlacedBy(world, x, y, z, player);
+				world.playSoundEffect((double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), block.stepSound.func_1145_d(), (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
+				--itemStack.stackSize;
 			}
-
 			return true;
 		} else {
 			return false;

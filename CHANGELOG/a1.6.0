@@ -44,7 +44,6 @@ Changed Vade Retro classes
 /vaderetro/effects/DiseaseManager.class
 /vaderetro/recipes/creators/crafting/RecipesBuilding.class
 
-
 Changed Minecraft classes
 
 /net/minecraft/client/Minecraft.class

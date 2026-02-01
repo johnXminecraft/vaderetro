@@ -5,15 +5,21 @@ import java.util.Random;
 public class BlockStep extends Block {
 	public static final String[] field_22037_a = new String[]{"stone", "sand", "wood", "cobble"};
 	private boolean blockType;
+	private boolean isReversed;
 
-	public BlockStep(int var1, boolean var2) {
-		super(var1, 6, Material.rock);
-		this.blockType = var2;
-		if(!var2) {
-			this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
-		}
+	public BlockStep(int id, boolean isFullBlock, boolean isReversed) {
+		super(id, 6, Material.rock);
+		this.blockType = isFullBlock;
+		this.isReversed = isReversed;
+		if(!this.blockType) {
+            if(this.isReversed) {
+                this.setBlockBounds(0.0F, 0.5F, 0.0F, 1.0F, 1.0F, 1.0F);
+            } else {
+                this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
+            }
+        }
 
-		this.setLightOpacity(255);
+		this.setLightOpacity(0);
 	}
 
 	public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
@@ -67,5 +73,18 @@ public class BlockStep extends Block {
 		}
 
 		return var5 == 1 ? true : (!super.shouldSideBeRendered(var1, var2, var3, var4, var5) ? false : (var5 == 0 ? true : var1.getBlockId(var2, var3, var4) != this.blockID));
+	}
+
+	@Override
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World w, int x, int y, int z) {
+		if(this.isReversed) {
+			return AxisAlignedBB.getBoundingBox(x, y + 0.5F, z, x + 1, y + 1, z + 1);
+		}
+		return AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 0.5F, z + 1);
+	}
+
+	@Override
+	public AxisAlignedBB getSelectedBoundingBoxFromPool(World w, int x, int y, int z) {
+		return getCollisionBoundingBoxFromPool(w, x, y, z);
 	}
 }

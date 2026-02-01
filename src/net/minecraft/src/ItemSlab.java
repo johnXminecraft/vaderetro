@@ -1,8 +1,9 @@
 package net.minecraft.src;
 
 public class ItemSlab extends ItemBlock {
-	public ItemSlab(int var1) {
-		super(var1);
+
+	public ItemSlab(int id) {
+		super(id);
 		this.setMaxDamage(0);
 		this.setHasSubtypes(true);
 	}
