@@ -10,6 +10,8 @@ import net.minecraft.src.vaderetro.entity.tileentity.TileEntityAxleRod;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntitySlideDoor;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityWheatGrinder;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityMilitaryCase;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityComputer;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityCardReader;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -129,5 +131,7 @@ public class TileEntity {
 		addMapping(TileEntityPiston.class, "Piston");
 		addMapping(TileEntitySlideDoor.class, "SlideDoor");
 		addMapping(TileEntityMilitaryCase.class, "MilitaryCase");
+		addMapping(TileEntityComputer.class, "Computer");
+		addMapping(TileEntityCardReader.class, "CardReader");
 	}
 }

@@ -19,6 +19,12 @@ public final class NukeEffectsManager {
         epicenterZ = z;
         maxTicks = Math.max(1, durationTicks);
         ticksLeft = maxTicks;
+        try {
+            net.minecraft.client.Minecraft mc = net.minecraft.client.Minecraft.getMinecraft();
+            if (mc != null && mc.theWorld != null) {
+                persistToWorldInfo(mc.theWorld);
+            }
+        } catch (Throwable t) {}
     }
 
     public static void endNuke() {

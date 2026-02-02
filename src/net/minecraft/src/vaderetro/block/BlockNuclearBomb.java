@@ -2,7 +2,6 @@ package net.minecraft.src.vaderetro.block;
 
 import net.minecraft.src.*;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityNuclearBomb;
-import net.minecraft.src.vaderetro.render.NukeEffectsManager;
 
 import java.util.Random;
 
@@ -10,7 +9,7 @@ public class BlockNuclearBomb extends BlockContainer {
 	private static final int INVENTORY_ICON_INDEX = 240;
 	public BlockNuclearBomb(int id, int textureIndex) {
 		super(id, textureIndex, Material.rock);
-		this.setHardness(5.0F);
+		this.setHardness(50.0F);
 		this.blockResistance = 2000.0F;
 		this.stepSound = soundStoneFootstep;
 		this.setBlockName("nuclearBomb");
@@ -45,29 +44,7 @@ public class BlockNuclearBomb extends BlockContainer {
 	}
 
 	public boolean blockActivated(World world, int x, int y, int z, EntityPlayer player) {
-		if (world.multiplayerWorld) {
-			return true;
-		}
-
-		double bombX = (double)x + 0.5D;
-		double bombY = (double)y + 1.0D;
-		double bombZ = (double)z + 0.5D;
-		NukeEffectsManager.startFlash(60);
-
-		net.minecraft.src.vaderetro.entity.EntityObjModel mush = new net.minecraft.src.vaderetro.entity.EntityObjModel(
-			world,
-			bombX,
-			bombY,
-			bombZ,
-			"/models/test.obj",
-			"/textures/test.png"
-		);
-		int growTicks = 20 * 5; 
-		int holdTicks = 20 * 5; 
-		mush.enableGrowAndHoldAnimation(0.1f, 1.0f, growTicks, holdTicks);
-		mush.setRotationSpeed(0.0f);
-		world.entityJoinedWorld(mush);
-		return true;
+		return false;
 	}
 
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entity) {

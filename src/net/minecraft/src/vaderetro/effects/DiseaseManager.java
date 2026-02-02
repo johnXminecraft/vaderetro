@@ -27,6 +27,7 @@ public final class DiseaseManager {
     
     private DiseaseManager() {
         registerDisease("zombie_virus", ZombieVirusDisease.class);
+        registerDisease("radiation_sickness", RadiationSicknessDisease.class);
     }
     
     public static DiseaseManager getInstance() {
@@ -75,13 +76,15 @@ public final class DiseaseManager {
         
         if (activeDisease != null && activeDisease.isActive()) {
             activeDisease.update(player);
-            
-            if (activeDisease.shouldCauseDeath()) {
+            if (activeDisease != null && activeDisease.isActive() && activeDisease.shouldCauseDeath()) {
                 if (activeDisease instanceof ZombieVirusDisease) {
                     zombieVirusDeathPending = true;
                 }
                 shouldKillPlayer = true;
             }
+        }
+        if (activeDisease != null && activeDisease.isActive() && activeDisease instanceof RadiationSicknessDisease) {
+            RadiationSicknessSkinEffect.applyToPlayer(player);
         }
     }
     
@@ -128,6 +131,25 @@ public final class DiseaseManager {
         return 0.0f;
     }
     
+    public float getOverlayRed() {
+        if (activeDisease != null && activeDisease.isActive()) {
+            return activeDisease.getOverlayRed();
+        }
+        return 0.8f;
+    }
+    public float getOverlayGreen() {
+        if (activeDisease != null && activeDisease.isActive()) {
+            return activeDisease.getOverlayGreen();
+        }
+        return 0f;
+    }
+    public float getOverlayBlue() {
+        if (activeDisease != null && activeDisease.isActive()) {
+            return activeDisease.getOverlayBlue();
+        }
+        return 0f;
+    }
+    
     public float getBlurIntensity() {
         if (activeDisease != null && activeDisease.isActive()) {
             return activeDisease.getBlurIntensity();
@@ -164,6 +186,7 @@ public final class DiseaseManager {
             activeDisease = null;
         }
         ZombieBiteSkinEffect.clearFromLocalPlayer();
+        RadiationSicknessSkinEffect.clearFromLocalPlayer();
         shouldKillPlayer = false;
         zombieVirusDeathPending = false;
     }
@@ -178,6 +201,7 @@ public final class DiseaseManager {
     private static final String NBT_DISEASE_ID = "Id";
     private static final String NBT_TICKS = "Ticks";
     private static final String NBT_MAX_TICKS = "MaxTicks";
+    private static final String NBT_RADIATION_LEVEL = "RadiationLevel";
 
     public void writeToNBT(NBTTagCompound nbt) {
         if (activeDisease == null || !activeDisease.isActive()) {
@@ -187,6 +211,9 @@ public final class DiseaseManager {
         d.setString(NBT_DISEASE_ID, activeDisease.getDiseaseId());
         d.setInteger(NBT_TICKS, activeDisease.ticksInfected);
         d.setInteger(NBT_MAX_TICKS, activeDisease.maxDurationTicks);
+        if (activeDisease instanceof RadiationSicknessDisease) {
+            d.setFloat(NBT_RADIATION_LEVEL, ((RadiationSicknessDisease) activeDisease).getRadiationProgress());
+        }
         nbt.setCompoundTag(NBT_DISEASE, d);
     }
 
@@ -211,6 +238,9 @@ public final class DiseaseManager {
             try {
                 activeDisease = cls.newInstance();
                 activeDisease.restoreState(ticks, max);
+                if (activeDisease instanceof RadiationSicknessDisease && d.hasKey(NBT_RADIATION_LEVEL)) {
+                    ((RadiationSicknessDisease) activeDisease).restoreRadiationLevel(d.getFloat(NBT_RADIATION_LEVEL));
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

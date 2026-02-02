@@ -18,6 +18,10 @@ public abstract class Disease {
     
     public abstract float getRedOverlayIntensity();
     
+    public float getOverlayRed() { return 0.8f; }
+    public float getOverlayGreen() { return 0f; }
+    public float getOverlayBlue() { return 0f; }
+    
     public abstract float getBlurIntensity();
     
     public abstract float getCameraShakeIntensity();

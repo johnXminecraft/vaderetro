@@ -156,6 +156,10 @@ public class EntityPlayerSP extends EntityPlayer {
 		this.mc.displayGuiScreen(new GuiDryer(this.inventory, var1));
 	}
 
+	public void displayGUIComputer(net.minecraft.src.vaderetro.entity.tileentity.TileEntityComputer var1) {
+		this.mc.displayGuiScreen(new net.minecraft.src.vaderetro.gui.GuiComputer(this.inventory, var1));
+	}
+
 	public void displayGUIDispenser(TileEntityDispenser var1) {
 		this.mc.displayGuiScreen(new GuiDispenser(this.inventory, var1));
 	}

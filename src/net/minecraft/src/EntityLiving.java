@@ -119,7 +119,8 @@ public abstract class EntityLiving extends Entity {
 		}
 
 		int var1;
-		if(this.isEntityAlive() && (this.isInsideOfMaterial(Material.water) || this.isInsideOfMaterial(Material.oil)) && !this.canBreatheUnderwater()) {
+		boolean needsAir = (this.isInsideOfMaterial(Material.water) || this.isInsideOfMaterial(Material.oil) || this.isSuffocatingFromHazmat()) && !this.canBreatheUnderwater();
+		if(this.isEntityAlive() && needsAir) {
 			--this.air;
 			if(this.air == -20) {
 				this.air = 0;
@@ -589,6 +590,10 @@ public abstract class EntityLiving extends Entity {
 	}
 
 	public boolean canBreatheUnderwater() {
+		return false;
+	}
+
+	public boolean isSuffocatingFromHazmat() {
 		return false;
 	}
 

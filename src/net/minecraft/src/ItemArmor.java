@@ -17,4 +17,14 @@ public class ItemArmor extends Item {
 		this.setMaxDamage(maxDamageArray[armorType] * (armorLevel + 4));
 		this.maxStackSize = 1;
 	}
+
+	public ItemArmor(int id, int armorLevel, int renderIndex, int armorType, int customDamageReduceAmount) {
+		super(id);
+		this.armorLevel = armorLevel;
+		this.renderIndex = renderIndex;
+		this.armorType = armorType;
+		this.damageReduceAmount = customDamageReduceAmount;
+		this.setMaxDamage(maxDamageArray[armorType] * (armorLevel + 4));
+		this.maxStackSize = 1;
+	}
 }

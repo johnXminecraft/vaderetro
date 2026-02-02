@@ -24,7 +24,8 @@ public class EntityObjModel extends Entity {
     private boolean explosionBegan;
     private int explosionTicks;
     private boolean particleShutoff;
-    
+    private boolean uraniumOrePlaced;
+
     public EntityObjModel(World world) {
         super(world);
         this.setSize(1.0F, 1.0F);
@@ -48,8 +49,9 @@ public class EntityObjModel extends Entity {
         this.explosionBegan = false;
         this.explosionTicks = 0;
         this.particleShutoff = false;
+        this.uraniumOrePlaced = false;
     }
-    
+
     public EntityObjModel(World world, double x, double y, double z) {
         this(world);
         this.setPosition(x, y, z);
@@ -402,6 +404,33 @@ public class EntityObjModel extends Entity {
             }
         }
 
+        if (!this.uraniumOrePlaced && this.craterRadius >= 100 && this.craterDepth >= 8) {
+            int uraniumBlockId = Block.oreUranium.blockID;
+            final double centerRadius = 14.0D;
+            final float centerChance = 0.04F;
+            final float craterChance = 0.004F;
+            for (int dx = -craterRadius; dx <= craterRadius; dx++) {
+                for (int dz = -craterRadius; dz <= craterRadius; dz++) {
+                    double dist = Math.sqrt(dx * dx + dz * dz);
+                    if (dist > craterRadius) continue;
+                    double norm = dist / Math.max(1.0, craterRadius);
+                    int localDepth = (int) Math.max(1, Math.round((1.0 - norm * norm) * craterDepth));
+                    int floorY = baseY - localDepth;
+                    if (floorY < 0 || floorY >= 256) continue;
+                    int bx = cx + dx;
+                    int bz = cz + dz;
+                    if (!this.worldObj.blockExists(bx, floorY, bz)) continue;
+                    float roll = this.rand.nextFloat();
+                    boolean inCenter = dist <= centerRadius;
+                    if (inCenter && roll < centerChance) {
+                        this.worldObj.setBlockWithNotify(bx, floorY, bz, uraniumBlockId);
+                    } else if (!inCenter && roll < craterChance) {
+                        this.worldObj.setBlockWithNotify(bx, floorY, bz, uraniumBlockId);
+                    }
+                }
+            }
+            this.uraniumOrePlaced = true;
+        }
 
         int clearHeightMax = 30;
         for (int dx = -craterRadius; dx <= craterRadius; dx++) {

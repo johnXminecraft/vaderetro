@@ -440,6 +440,111 @@ public class RenderEngine {
 		}
 	}
 
+	private void paintRadiationOnSkin(BufferedImage img) {
+		if (img == null) return;
+		int w = img.getWidth(), h = img.getHeight();
+		if (w <= 0 || h <= 0) return;
+		for (int y = 0; y < h; y++) {
+			for (int x = 0; x < w; x++) {
+				int argb = img.getRGB(x, y);
+				int a = (argb >> 24) & 0xFF;
+				if (a == 0) continue;
+				int r = (argb >> 16) & 0xFF;
+				int g = (argb >> 8) & 0xFF;
+				int b = argb & 0xFF;
+				int gray = (r + g + b) / 3;
+				int newR = (int)(r * 0.5f + gray * 0.3f + 40);
+				int newG = (int)(g * 0.6f + gray * 0.35f + 60);
+				int newB = (int)(b * 0.5f + gray * 0.35f + 50);
+				if (newR > 255) newR = 255;
+				if (newG > 255) newG = 255;
+				if (newB > 255) newB = 255;
+				img.setRGB(x, y, (a << 24) | (newR << 16) | (newG << 8) | newB);
+			}
+		}
+	}
+
+	public void applyRadiationToPlayerSkin(String skinUrl, String fallbackTexturePath) {
+		boolean customSkinProcessed = false;
+		if (skinUrl != null && skinUrl.length() > 0) {
+			ThreadDownloadImageData data = (ThreadDownloadImageData)this.urlToImageDataMap.get(skinUrl);
+			if (data != null && data.image != null) {
+				String key = skinUrl;
+				BufferedImage base = (BufferedImage)this.originalSkinImages.get(key);
+				if (base == null) {
+					base = deepCopyImage(data.image);
+					if (base == null) return;
+					this.originalSkinImages.put(key, base);
+				}
+				BufferedImage working = deepCopyImage(base);
+				if (working == null) return;
+				paintRadiationOnSkin(working);
+				data.image = working;
+				if (data.textureName < 0) {
+					data.textureName = this.allocateAndSetupTexture(working);
+				} else {
+					this.setupTexture(working, data.textureName);
+				}
+				data.textureSetupComplete = true;
+				customSkinProcessed = true;
+				return;
+			}
+		}
+		if (!customSkinProcessed && fallbackTexturePath != null && fallbackTexturePath.length() > 0) {
+			try {
+				String key = fallbackTexturePath;
+				BufferedImage base = (BufferedImage)this.originalSkinImages.get(key);
+				if (base == null) {
+					TexturePackBase pack = this.texturePack.selectedTexturePack;
+					InputStream in = pack.getResourceAsStream(fallbackTexturePath);
+					if (in == null) return;
+					BufferedImage src = this.readTextureImage(in);
+					if (src == null) return;
+					base = deepCopyImage(src);
+					if (base == null) return;
+					this.originalSkinImages.put(key, base);
+				}
+				BufferedImage working = deepCopyImage(base);
+				if (working == null) return;
+				paintRadiationOnSkin(working);
+				int texId = this.getTexture(fallbackTexturePath);
+				this.setupTexture(working, texId);
+			} catch (Exception e) {
+			}
+		}
+	}
+
+	public void clearRadiationFromPlayerSkin(String skinUrl, String fallbackTexturePath) {
+		if (skinUrl != null && skinUrl.length() > 0) {
+			BufferedImage base = (BufferedImage)this.originalSkinImages.get(skinUrl);
+			ThreadDownloadImageData data = (ThreadDownloadImageData)this.urlToImageDataMap.get(skinUrl);
+			if (data != null && base != null) {
+				BufferedImage restored = deepCopyImage(base);
+				if (restored != null) {
+					data.image = restored;
+					if (data.textureName < 0) {
+						data.textureName = this.allocateAndSetupTexture(restored);
+					} else {
+						this.setupTexture(restored, data.textureName);
+					}
+					data.textureSetupComplete = true;
+				}
+			}
+			this.originalSkinImages.remove(skinUrl);
+		}
+		if (fallbackTexturePath != null && fallbackTexturePath.length() > 0) {
+			BufferedImage base = (BufferedImage)this.originalSkinImages.get(fallbackTexturePath);
+			if (base != null) {
+				try {
+					int texId = this.getTexture(fallbackTexturePath);
+					this.setupTexture(base, texId);
+				} catch (Exception ignored) {
+				}
+			}
+			this.originalSkinImages.remove(fallbackTexturePath);
+		}
+	}
+
 	public void func_28150_a(int[] var1, int var2, int var3, int var4) {
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, var4);
 		if(useMipmaps) {
@@ -512,6 +617,8 @@ public class RenderEngine {
 						net.minecraft.src.vaderetro.effects.Disease d = dm.getActiveDisease();
 						if (d != null && "zombie_virus".equals(d.getDiseaseId())) {
 							this.applyZombieBiteToPlayerSkin(var1, var2);
+						} else if (d != null && "radiation_sickness".equals(d.getDiseaseId())) {
+							this.applyRadiationToPlayerSkin(var1, var2);
 						}
 					}
 				}

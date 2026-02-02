@@ -339,6 +339,7 @@ tile.pistonBase.desc=
 tile.pistonStickyBase.name=Sticky Piston
 tile.pistonStickyBase.desc=
 
+
 # Vade Retro
 
 tile.parquet.name=Parquet
@@ -423,6 +424,10 @@ tile.nuclearBomb.name=Nuclear Bomb
 tile.nuclearBomb.desc=Vade Retro
 tile.johnMill.name=Mill
 tile.johnMill.desc=Vade Retro
+tile.computer.name=Computer
+tile.computer.desc=Vade Retro
+tile.cardReader.name=Reading device
+tile.cardReader.desc=Vade Retro
 
 item.shovelIron.name=Iron Shovel
 item.shovelIron.desc=
@@ -576,8 +581,6 @@ item.saddle.name=Saddle
 item.saddle.desc=
 item.doorIron.name=Iron Door
 item.doorIron.desc=
-item.slideDoor.name=Sliding Door
-item.slideDoor.desc=
 item.redstone.name=Redstone
 item.redstone.desc=
 item.snowball.name=Snowball
@@ -860,6 +863,20 @@ item.legsSchema.name=Schema Trousers
 item.legsSchema.desc=Vade Retro
 item.bootsSchema.name=Schema Boots
 item.bootsSchema.desc=Vade Retro
+item.helmetHazmat.name=Hazmat Helmet
+item.helmetHazmat.desc=Vade Retro
+item.plateHazmat.name=Hazmat Suit
+item.plateHazmat.desc=Vade Retro
+item.legsHazmat.name=Hazmat Leggings
+item.legsHazmat.desc=Vade Retro
+item.bootsHazmat.name=Hazmat Boots
+item.bootsHazmat.desc=Vade Retro
+item.oxygenTank.name=Oxygen Tank
+item.oxygenTank.desc=Vade Retro
+item.rawLatex.name=Raw Latex
+item.rawLatex.desc=Vade Retro
+item.rubber.name=Rubber
+item.rubber.desc=Vade Retro
 item.unobtainium.name=Unobtainium
 item.unobtainium.desc=Vade Retro
 item.dough.name=Dough
@@ -876,3 +893,7 @@ item.potato.name=Potato
 item.potato.desc=Vade Retro
 item.carrot.name=Carrot
 item.carrot.desc=Vade Retro
+item.slideDoor.name=Sliding Door
+item.slideDoor.desc=
+item.militaryKeycard.name=Military Keycard
+item.militaryKeycard.desc=

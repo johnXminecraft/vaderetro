@@ -193,6 +193,14 @@ public class Item {
 	public static Item potato = (new ItemSeed(179, Block.potato.blockID)).setIconCoord(6, 11).setItemName("potato");
 	public static Item carrot = (new ItemSeed(180, Block.carrot.blockID)).setIconCoord(6, 12).setItemName("carrot");
 	public static Item doorSlideWood = (new net.minecraft.src.vaderetro.item.ItemSlideDoor(181)).setIconCoord(11, 2).setItemName("slideDoor");
+	public static Item militaryKeycard = (new Item(182)).setIconIndex(244).setItemName("militaryKeycard");
+	public static Item helmetHazmat = (new ItemArmor(183, 0, 7, 0, 1)).setIconCoord(12, 6).setItemName("helmetHazmat");
+	public static Item plateHazmat = (new ItemArmor(184, 0, 7, 1, 1)).setIconCoord(12, 7).setItemName("plateHazmat");
+	public static Item legsHazmat = (new ItemArmor(185, 0, 7, 2, 1)).setIconCoord(12, 8).setItemName("legsHazmat");
+	public static Item bootsHazmat = (new ItemArmor(186, 0, 7, 3, 1)).setIconCoord(12, 9).setItemName("bootsHazmat");
+	public static Item oxygenTank = (new Item(187)).setIconIndex(245).setMaxDamage(384).setMaxStackSize(1).setItemName("oxygenTank");
+	public static Item rawLatex = (new Item(188)).setIconCoord(6, 15).setItemName("rawLatex");
+	public static Item rubber = (new Item(189)).setIconCoord(7, 15).setItemName("rubber");
 
 	public final int shiftedIndex;
 	protected int maxStackSize = 64;

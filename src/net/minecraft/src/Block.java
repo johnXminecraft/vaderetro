@@ -152,7 +152,7 @@ public class Block {
 	public static final Block onion = (new BlockOnion(121, 227)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("onion").disableStats().disableNeighborNotifyOnMetadataChange();
 	public static final Block tobaccoPlant = (new BlockTobaccoPlant(122, 211)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("tobaccoPlant").disableStats().disableNeighborNotifyOnMetadataChange();
 	public static final Block cannabisPlant = (new BlockCannabisPlant(123, 196)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("cannabisPlant").disableStats().disableNeighborNotifyOnMetadataChange();
-	public static final Block oreUranium = (new BlockUraniumOre(124, 204)).setHardness(3.0F).setResistance(5.0F).setStepSound(soundStoneFootstep).setBlockName("oreUranium");
+	public static final Block oreUranium = (new BlockUraniumOre(204, 204)).setHardness(3.0F).setResistance(5.0F).setStepSound(soundStoneFootstep).setBlockName("oreUranium");
 	public static final Block dryerIdle = (new BlockDryer(125, false)).setHardness(2.0F).setStepSound(soundStoneFootstep).setBlockName("dryer").disableNeighborNotifyOnMetadataChange();
 	public static final Block dryerActive = (new BlockDryer(126, true)).setHardness(2.0F).setStepSound(soundStoneFootstep).setBlockName("dryer").disableNeighborNotifyOnMetadataChange();
 	public static final Block nuclearBomb = (new BlockNuclearBomb(127, 0)).setHardness(5.0F).setResistance(2000.0F).setStepSound(soundStoneFootstep).setBlockName("nuclearBomb");
@@ -168,7 +168,9 @@ public class Block {
 	public static final Block slideDoor = (new net.minecraft.src.vaderetro.block.BlockSlideDoor(137, Material.wood)).setHardness(3.0F).setStepSound(soundWoodFootstep).setBlockName("slideDoor").disableStats().disableNeighborNotifyOnMetadataChange();
 	public static final Block militaryCase = (new net.minecraft.src.vaderetro.block.BlockMilitaryCase(138, Material.wood)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("militaryCase").disableNeighborNotifyOnMetadataChange();
 	public static final Block slabReversed = (new BlockStep(139, false, true)).setHardness(2.0F).setResistance(10.0F).setStepSound(soundStoneFootstep).setBlockName("stoneSlab");
-
+    public static final Block computer = (new net.minecraft.src.vaderetro.block.BlockComputer(140, 282)).setHardness(2.0F).setStepSound(soundMetalFootstep).setBlockName("computer").disableNeighborNotifyOnMetadataChange();
+ 	public static final Block cardReader = (new net.minecraft.src.vaderetro.block.BlockCardReader(141, 282)).setHardness(2.0F).setStepSound(soundMetalFootstep).setBlockName("cardReader").disableNeighborNotifyOnMetadataChange();
+ 
 	public int blockIndexInTexture;
 	public final int blockID;
 	protected float blockHardness;

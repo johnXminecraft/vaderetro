@@ -18,5 +18,6 @@ public class DryerRecipes implements IProcessorRecipes {
         this.addRecipe(Item.rottenFlesh.shiftedIndex, new ItemStack(Item.jerky, 1));
         this.addRecipe(Item.tobaccoLeaf.shiftedIndex, new ItemStack(Item.tobacco, 1));
         this.addRecipe(Item.leather.shiftedIndex, new ItemStack(Item.driedLeather, 1));
+        this.addRecipe(Item.rawLatex.shiftedIndex, new ItemStack(Item.rubber, 1));
     }
 }

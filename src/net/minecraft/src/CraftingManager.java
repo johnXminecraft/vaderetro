@@ -4,6 +4,7 @@ import net.minecraft.src.vaderetro.recipes.creators.crafting.RecipesBuilding;
 import net.minecraft.src.vaderetro.recipes.creators.crafting.RecipesChurch;
 import net.minecraft.src.vaderetro.recipes.creators.crafting.RecipesFarming;
 import net.minecraft.src.vaderetro.recipes.creators.crafting.RecipesMill;
+import net.minecraft.src.vaderetro.recipes.creators.crafting.RecipesHazmat;
 import net.minecraft.src.vaderetro.recipes.creators.crafting.RecipesMusket;
 import net.minecraft.src.vaderetro.recipes.creators.crafting.RecipesCircuitry;
 
@@ -34,6 +35,7 @@ public class CraftingManager {
 		(new RecipesChurch()).addRecipes(this);
 		(new RecipesFarming()).addRecipes(this);
 		(new RecipesMill()).addRecipes(this);
+		(new RecipesHazmat()).addRecipes(this);
 		this.addRecipe(new ItemStack(Item.paper, 3), new Object[]{"###", Character.valueOf('#'), Item.reed});
 		this.addRecipe(new ItemStack(Item.book, 1), new Object[]{"#", "#", "#", Character.valueOf('#'), Item.paper});
 		this.addRecipe(new ItemStack(Block.fence, 2), new Object[]{"###", "###", Character.valueOf('#'), Item.stick});

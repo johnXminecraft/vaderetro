@@ -1,0 +1,54 @@
+================================
+ALPHA 1.7.0
+================================
+
+Additions:
+1. Added Radiation Sickness disease;
+2. Added Hazmat Suit;
+3. Added Oxygen Tank;
+4. Added Rubber and Latex;
+5. Added Computer block;
+6. Added Card Reader block;
+7. Added Uranium Ore;
+
+Reworks:
+1. Fixed terrain texture bugs and incorrect texture mapping;
+2. Reworked Nuclear Bomb mechanics effects;
+
+Textures:
+- /resources/armor/hazmat_1.png – ADDED
+- /resources/armor/hazmat_2.png – ADDED 
+- /resources/misc/hglass.png – ADDED (Hazmat helmet glass)
+- /resources/gui/items.png – UPDATED (added silicone, rubber, oxygen tank, hazmat items)
+- /resources/terrain.png – UPDATED 
+
+Added Vade Retro classes:
+- BlockCardReader
+- BlockComputer
+- ContainerComputer
+- RadiationSicknessDisease
+- RadiationSicknessSkinEffect
+- TileEntityCardReader
+- TileEntityComputer
+- RecipesHazmat
+
+Changed Vade Retro classes:
+- BlockNuclearBomb
+- TileEntityNuclearBomb
+- Disease / DiseaseManager
+- WorldGenRadioTower 
+- NukeEffectsManager 
+
+Changed Minecraft classes:
+- Block
+- CraftingManager
+- EntityLiving
+- EntityPlayer
+- EntityPlayerSP
+- GuiIngame
+- Item
+- ItemArmor
+- RenderBlocks
+- RenderEngine
+- RenderPlayer
+- TileEntity

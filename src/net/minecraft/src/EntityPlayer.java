@@ -192,6 +192,9 @@ public abstract class EntityPlayer extends EntityLiving {
 
 		if(!this.worldObj.multiplayerWorld) {
 			DiseaseManager diseaseManager = DiseaseManager.getInstance();
+			if(!diseaseManager.hasActiveDisease() && !isWearingFullHazmatSuit() && (hasUraniumInInventory() || isInNuclearWasteland())) {
+				diseaseManager.infect(this, "radiation_sickness");
+			}
 			diseaseManager.update(this);
 			updateInfectionAnimation();
 
@@ -205,6 +208,18 @@ public abstract class EntityPlayer extends EntityLiving {
 		this.inventory.decrementAnimations();
 		this.field_775_e = this.field_774_f;
 		super.onLivingUpdate();
+		if(!this.worldObj.multiplayerWorld && this.isEntityAlive()) {
+			ItemStack helmet = this.inventory.armorItemInSlot(3);
+			if(helmet != null && helmet.getItem() == Item.helmetHazmat) {
+				ItemStack tank = findOxygenTankInInventory();
+				if(tank != null) {
+					if(this.ticksExisted % 2 == 0) {
+						tank.damageItem(1, this);
+					}
+					this.air = this.maxAir;
+				}
+			}
+		}
 		float var1 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
 		float var2 = (float)Math.atan(-this.motionY * (double)0.2F) * 15.0F;
 		if(var1 > 0.1F) {
@@ -286,6 +301,56 @@ public abstract class EntityPlayer extends EntityLiving {
 		this.infectionAnimationId = "";
 		this.infectionAnimationTicks = -1;
 		this.infectionAnimationDuration = 0;
+	}
+
+	public boolean hasUraniumInInventory() {
+		if (this.inventory == null || this.inventory.mainInventory == null) return false;
+		for (int i = 0; i < this.inventory.mainInventory.length; i++) {
+			ItemStack stack = this.inventory.mainInventory[i];
+			if (stack != null) {
+				if (stack.itemID == Item.uraniumDust.shiftedIndex) return true;
+				if (stack.itemID == Block.oreUranium.blockID) return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean isInNuclearWasteland() {
+		if (this.worldObj == null || this.worldObj.getWorldChunkManager() == null) return false;
+		BiomeGenBase biome = this.worldObj.getWorldChunkManager().getBiomeGenAt((int) this.posX, (int) this.posZ);
+		return biome == BiomeGenBase.nuclearWasteland;
+	}
+
+	@Override
+	public boolean isSuffocatingFromHazmat() {
+		ItemStack helmet = this.inventory.armorItemInSlot(3);
+		if(helmet == null || helmet.getItem() != Item.helmetHazmat) {
+			return false;
+		}
+		return findOxygenTankInInventory() == null;
+	}
+
+	private ItemStack findOxygenTankInInventory() {
+		if(this.inventory == null || this.inventory.mainInventory == null) return null;
+		for(int i = 0; i < this.inventory.mainInventory.length; i++) {
+			ItemStack stack = this.inventory.mainInventory[i];
+			if(stack != null && stack.getItem() == Item.oxygenTank && stack.getItemDamage() < stack.getMaxDamage()) {
+				return stack;
+			}
+		}
+		return null;
+	}
+
+	public boolean isWearingFullHazmatSuit() {
+		if(this.inventory == null || this.inventory.armorInventory == null) return false;
+		ItemStack boots = this.inventory.armorItemInSlot(0);
+		ItemStack legs = this.inventory.armorItemInSlot(1);
+		ItemStack plate = this.inventory.armorItemInSlot(2);
+		ItemStack helmet = this.inventory.armorItemInSlot(3);
+		return boots != null && boots.getItem() == Item.bootsHazmat
+			&& legs != null && legs.getItem() == Item.legsHazmat
+			&& plate != null && plate.getItem() == Item.plateHazmat
+			&& helmet != null && helmet.getItem() == Item.helmetHazmat;
 	}
 
 	private void updateInfectionAnimation() {
@@ -569,6 +634,9 @@ public abstract class EntityPlayer extends EntityLiving {
 	}
 
 	public void displayGUIDryer(TileEntityDryer var1) {
+	}
+
+	public void displayGUIComputer(net.minecraft.src.vaderetro.entity.tileentity.TileEntityComputer var1) {
 	}
 
 	public void displayGUIDispenser(TileEntityDispenser var1) {

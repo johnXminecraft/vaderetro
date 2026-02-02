@@ -44,6 +44,12 @@ public class GuiIngame extends Gui {
 		if(!this.mc.gameSettings.thirdPersonView && var9 != null && var9.itemID == Block.pumpkin.blockID) {
 			this.renderPumpkinBlur(var6, var7);
 		}
+		if(!this.mc.gameSettings.thirdPersonView && var9 != null && var9.getItem() instanceof ItemArmor) {
+			ItemArmor armor = (ItemArmor)var9.getItem();
+			if(armor == Item.helmetHazmat) {
+				this.renderGlassOverlay(var6, var7);
+			}
+		}
 
 		float var10 = this.mc.thePlayer.prevTimeInPortal + (this.mc.thePlayer.timeInPortal - this.mc.thePlayer.prevTimeInPortal) * var1;
 		if(var10 > 0.0F) {
@@ -135,6 +141,17 @@ public class GuiIngame extends Gui {
 					}
 				}
 			} else if(this.mc.thePlayer.isInsideOfMaterial(Material.oil)) {
+				var16 = (int)Math.ceil((double)(this.mc.thePlayer.air - 2) * 10.0D / 300.0D);
+				var17 = (int)Math.ceil((double)this.mc.thePlayer.air * 10.0D / 300.0D) - var16;
+
+				for(var18 = 0; var18 < var16 + var17; ++var18) {
+					if(var18 < var16) {
+						this.drawTexturedModalRect(var6 / 2 - 91 + var18 * 8, var7 - 32 - 9, 16, 18, 9, 9);
+					} else {
+						this.drawTexturedModalRect(var6 / 2 - 91 + var18 * 8, var7 - 32 - 9, 25, 18, 9, 9);
+					}
+				}
+			} else if(this.mc.thePlayer.isSuffocatingFromHazmat()) {
 				var16 = (int)Math.ceil((double)(this.mc.thePlayer.air - 2) * 10.0D / 300.0D);
 				var17 = (int)Math.ceil((double)this.mc.thePlayer.air * 10.0D / 300.0D) - var16;
 
@@ -379,6 +396,27 @@ public class GuiIngame extends Gui {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 	}
 
+	private void renderGlassOverlay(int var1, int var2) {
+		GL11.glDisable(GL11.GL_DEPTH_TEST);
+		GL11.glDepthMask(false);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.6F);
+		GL11.glDisable(GL11.GL_ALPHA_TEST);
+		int glassTexId = this.mc.renderEngine.getTexture("/misc/hglass.png");
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, glassTexId);
+		Tessellator var3 = Tessellator.instance;
+		var3.startDrawingQuads();
+		var3.addVertexWithUV(0.0D, (double)var2, -90.0D, 0.0D, 1.0D);
+		var3.addVertexWithUV((double)var1, (double)var2, -90.0D, 1.0D, 1.0D);
+		var3.addVertexWithUV((double)var1, 0.0D, -90.0D, 1.0D, 0.0D);
+		var3.addVertexWithUV(0.0D, 0.0D, -90.0D, 0.0D, 0.0D);
+		var3.draw();
+		GL11.glDepthMask(true);
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
+		GL11.glEnable(GL11.GL_ALPHA_TEST);
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+	}
+
 	private void renderInventorySlot(int var1, int var2, int var3, float var4) {
 		ItemStack var5 = this.mc.thePlayer.inventory.mainInventory[var1];
 		if(var5 != null) {
@@ -467,9 +505,12 @@ public class GuiIngame extends Gui {
         Tessellator var3 = Tessellator.instance;
         
         float centerAlpha = redIntensity * 0.70f;
-        float edgeAlpha   = redIntensity * 1.2f;   
+        float edgeAlpha   = redIntensity * 1.2f;
+        float or = diseaseManager.getOverlayRed();
+        float og = diseaseManager.getOverlayGreen();
+        float ob = diseaseManager.getOverlayBlue();
         
-        GL11.glColor4f(0.8f, 0.0f, 0.0f, centerAlpha);
+        GL11.glColor4f(or, og, ob, centerAlpha);
         var3.startDrawingQuads();
         var3.addVertex(0.0D, (double)screenHeight, -90.0D);
         var3.addVertex((double)screenWidth, (double)screenHeight, -90.0D);
@@ -479,7 +520,7 @@ public class GuiIngame extends Gui {
         
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         GL11.glBlendFunc(GL11.GL_ZERO, GL11.GL_ONE_MINUS_SRC_COLOR);
-        GL11.glColor4f(edgeAlpha, edgeAlpha * 0.2f, edgeAlpha * 0.2f, 1.0f);
+        GL11.glColor4f(edgeAlpha * or, edgeAlpha * og, edgeAlpha * ob, 1.0f);
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.mc.renderEngine.getTexture("%blur%/misc/vignette.png"));
         var3.startDrawingQuads();
         var3.addVertexWithUV(0.0D, (double)screenHeight, -90.0D, 0.0D, 1.0D);
