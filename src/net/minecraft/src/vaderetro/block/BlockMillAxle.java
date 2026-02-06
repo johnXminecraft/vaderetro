@@ -11,6 +11,7 @@ public class BlockMillAxle extends Block {
     }
 
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving placer) {
+        if (world.getBlockMetadata(x, y, z) != 0) return;
         int yawIdx = MathHelper.floor_double((double)(placer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
         int meta = 2;
         if (yawIdx == 0) meta = 2;
@@ -21,7 +22,7 @@ public class BlockMillAxle extends Block {
     }
 
     public void onBlockPlaced(World world, int x, int y, int z, int side) {
-        int meta = side;
+        int meta = getOpposite(side);
         world.setBlockMetadataWithNotify(x, y, z, meta);
     }
 

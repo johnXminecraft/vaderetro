@@ -281,9 +281,13 @@ public class Chunk {
 		} else {
 			int var8 = this.xPosition * 16 + var1;
 			int var9 = this.zPosition * 16 + var3;
+			boolean logMillBreak = (var4 == 0 && (var7 == Block.waterWheel.blockID || var7 == Block.johnMill.blockID));
+			long tChunkStart = logMillBreak ? System.currentTimeMillis() : 0L;
 			this.blocks[var1 << 11 | var3 << 7 | var2] = (byte)(var5 & 255);
 			if(var7 != 0) {
+				long t0 = logMillBreak ? System.currentTimeMillis() : 0L;
 				Block.blocksList[var7].onBlockRemoval(this.worldObj, var8, var2, var9);
+				if (logMillBreak) System.out.println("[MILL_BREAK] Chunk.onBlockRemoval blockId=" + var7 + " at " + var8 + "," + var2 + "," + var9 + " took " + (System.currentTimeMillis() - t0) + " ms");
 			}
 
 			this.data.setNibble(var1, var2, var3, 0);
@@ -302,6 +306,7 @@ public class Chunk {
 				Block.blocksList[var4].onBlockAdded(this.worldObj, var8, var2, var9);
 			}
 
+			if (logMillBreak) System.out.println("[MILL_BREAK] Chunk.setBlockID total (lighting+heightmap) took " + (System.currentTimeMillis() - tChunkStart) + " ms");
 			this.isModified = true;
 			return true;
 		}

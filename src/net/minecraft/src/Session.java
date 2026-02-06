@@ -55,6 +55,7 @@ public class Session {
 		registeredBlocksList.add(Block.axleRod);
 		registeredBlocksList.add(Block.gearbox);
 		registeredBlocksList.add(Block.wheatGrinder);
+		registeredBlocksList.add(Block.waterWheel);
 	}
 }
 

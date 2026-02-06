@@ -29,6 +29,8 @@ public class FurnaceRecipes {
 		this.addSmelting(Item.egg.shiftedIndex, new ItemStack(Item.eggFried));
 		this.addSmelting(Block.oreTin.blockID, new ItemStack(Item.ingotTin));
 		this.addSmelting(Item.bucketWater.shiftedIndex, new ItemStack(Item.salt));
+		this.addSmelting(Item.dustIron.shiftedIndex, new ItemStack(Item.ingotIron));
+		this.addSmelting(Item.dustGold.shiftedIndex, new ItemStack(Item.ingotGold));
 	}
 
 	public void addSmelting(int var1, ItemStack var2) {

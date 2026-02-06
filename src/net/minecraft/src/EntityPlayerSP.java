@@ -11,6 +11,10 @@ import net.minecraft.src.vaderetro.entity.tileentity.TileEntityKeroseneLamp;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityOpenHearthFurnace;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityWheatGrinder;
 import net.minecraft.src.vaderetro.gui.GuiWheatGrinder;
+import net.minecraft.src.vaderetro.gui.GuiSteamGenerator;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntitySteamGenerator;
+import net.minecraft.src.vaderetro.gui.GuiBattery;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityBattery;
 
 public class EntityPlayerSP extends EntityPlayer {
 	public MovementInput movementInput;
@@ -140,6 +144,10 @@ public class EntityPlayerSP extends EntityPlayer {
 		this.mc.displayGuiScreen(new GuiOpenHearthFurnace(this.inventory, var1));
 	}
 
+	public void displayGUISteamGenerator(TileEntitySteamGenerator var1) {
+		this.mc.displayGuiScreen(new GuiSteamGenerator(this.inventory, var1));
+	}
+
 	public void displayGUICrtTvSet(TileEntityCrtTvSet var1) {
 		this.mc.displayGuiScreen(new GuiCrtTvSet(this.inventory, var1));
 	}
@@ -159,6 +167,15 @@ public class EntityPlayerSP extends EntityPlayer {
 	public void displayGUIComputer(net.minecraft.src.vaderetro.entity.tileentity.TileEntityComputer var1) {
 		this.mc.displayGuiScreen(new net.minecraft.src.vaderetro.gui.GuiComputer(this.inventory, var1));
 	}
+
+	public void displayGUIMacerator(net.minecraft.src.vaderetro.entity.tileentity.TileEntityMacerator var1) {
+		this.mc.displayGuiScreen(new net.minecraft.src.vaderetro.gui.GuiMacerator(this.inventory, var1));
+	}
+
+	public void displayGUIBattery(net.minecraft.src.vaderetro.entity.tileentity.TileEntityBattery var1) {
+		this.mc.displayGuiScreen(new GuiBattery(this.inventory, var1));
+	}
+
 
 	public void displayGUIDispenser(TileEntityDispenser var1) {
 		this.mc.displayGuiScreen(new GuiDispenser(this.inventory, var1));

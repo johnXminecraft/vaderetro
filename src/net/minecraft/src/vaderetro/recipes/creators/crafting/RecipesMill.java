@@ -14,5 +14,10 @@ public class RecipesMill {
                 Character.valueOf('W'), Block.cloth,
                 Character.valueOf('S'), Item.stick
         });
+        craftingManager.addRecipe(new ItemStack(Block.waterWheel), new Object[]{
+                " P ", "PSP", " P ",
+                Character.valueOf('P'), Block.planks,
+                Character.valueOf('S'), Item.stick
+        });
     }
 }

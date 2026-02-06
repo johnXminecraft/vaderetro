@@ -17,6 +17,21 @@ public class BlockGearbox extends Block {
         world.setBlockMetadataWithNotify(x, y, z, meta);
     }
 
+    public void onNeighborBlockChange(World world, int x, int y, int z, int neighborId) {
+        int[][] neighbors = new int[][] { {-1,0,0}, {1,0,0}, {0,-1,0}, {0,1,0}, {0,0,-1}, {0,0,1} };
+        for (int i = 0; i < neighbors.length; i++) {
+            int nx = x + neighbors[i][0];
+            int ny = y + neighbors[i][1];
+            int nz = z + neighbors[i][2];
+            if (world.getBlockId(nx, ny, nz) == Block.axleRod.blockID) {
+                 TileEntity te = world.getBlockTileEntity(nx, ny, nz);
+                 if (te instanceof net.minecraft.src.vaderetro.entity.tileentity.TileEntityAxleRod) {
+                     ((net.minecraft.src.vaderetro.entity.tileentity.TileEntityAxleRod) te).forceUpdate();
+                 }
+            }
+        }
+    }
+
     public void onBlockPlaced(World world, int x, int y, int z, int side) {
         int meta = 0;
         if (side == 2) meta = 0;

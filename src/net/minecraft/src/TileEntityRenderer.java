@@ -2,12 +2,16 @@ package net.minecraft.src;
 
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityJohnMill;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityJohnMillRenderer;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityWaterWheel;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityWaterWheelRenderer;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityNuclearBomb;
 import net.minecraft.src.vaderetro.render.TileEntityNuclearBombRenderer;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityAxleRod;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityAxleRodRenderer;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityMilitaryCase;
 import net.minecraft.src.vaderetro.render.RenderMilitaryCase;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityCable;
+import net.minecraft.src.vaderetro.render.TileEntityCableRenderer;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -38,6 +42,8 @@ public class TileEntityRenderer {
 		this.specialRendererMap.put(TileEntityNuclearBomb.class, new TileEntityNuclearBombRenderer());
 		this.specialRendererMap.put(TileEntityAxleRod.class, new TileEntityAxleRodRenderer());
 		this.specialRendererMap.put(TileEntityMilitaryCase.class, new RenderMilitaryCase());
+        this.specialRendererMap.put(TileEntityWaterWheel.class, new TileEntityWaterWheelRenderer());
+        this.specialRendererMap.put(TileEntityCable.class, new TileEntityCableRenderer());
 		Iterator var1 = this.specialRendererMap.values().iterator();
 
 		while(var1.hasNext()) {

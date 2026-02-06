@@ -6,6 +6,7 @@ import net.minecraft.src.vaderetro.entity.tileentity.TileEntityCrtTvSet;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityKeroseneLamp;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityOpenHearthFurnace;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityWheatGrinder;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityMacerator;
 import net.minecraft.src.vaderetro.effects.DiseaseManager;
 import net.minecraft.src.vaderetro.effects.InfectionAnimationRegistry;
 import net.minecraft.src.vaderetro.effects.ZombieBiteAnimation;
@@ -624,6 +625,12 @@ public abstract class EntityPlayer extends EntityLiving {
 	public void displayGUIOpenHearthFurnace(TileEntityOpenHearthFurnace var1) {
 	}
 
+	public void displayGUISteamGenerator(net.minecraft.src.vaderetro.entity.tileentity.TileEntitySteamGenerator var1) {
+    }
+
+    public void displayGUIBattery(net.minecraft.src.vaderetro.entity.tileentity.TileEntityBattery var1) {
+    }
+
 	public void displayGUICrtTvSet(TileEntityCrtTvSet var1) {
 	}
 
@@ -631,6 +638,9 @@ public abstract class EntityPlayer extends EntityLiving {
 	}
 
 	public void displayGUIWheatGrinder(TileEntityWheatGrinder var1) {
+	}
+
+	public void displayGUIMacerator(TileEntityMacerator var1) {
 	}
 
 	public void displayGUIDryer(TileEntityDryer var1) {

@@ -7,11 +7,14 @@ import net.minecraft.src.Tessellator;
 public class TileEntityAxleRodRenderer extends TileEntitySpecialRenderer {
 	public void renderTileEntityAxleRodAt(TileEntityAxleRod te, double x, double y, double z, float partial) {
         int meta = te.worldObj.getBlockMetadata(te.xCoord, te.yCoord, te.zCoord) & 3;
-        boolean powered = isPowered(te.worldObj, te.xCoord, te.yCoord, te.zCoord);
-        float ticks = (float)(te.worldObj.getWorldTime() & 0x7FFFFFFF) + partial;
-        float speedDegPerTick = powered ? 1.0f : 0.0f; 
-        float angle = (-ticks * speedDegPerTick) % 360.0f;
-        if (angle < 0.0f) angle += 360.0f;
+        float angle;
+        if (te.rotationSpeed != 0.0f) {
+            double worldTime = (double)te.worldObj.getWorldTime() + (double)partial;
+            angle = (float)(worldTime * (double)te.rotationSpeed) % 360.0f;
+            if (angle < 0.0f) angle += 360.0f;
+        } else {
+            angle = te.prevRotation + (te.rotation - te.prevRotation) * partial;
+        }
         
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float)x + 0.5F, (float)y + 0.5F, (float)z + 0.5F);
@@ -108,7 +111,7 @@ public class TileEntityAxleRodRenderer extends TileEntitySpecialRenderer {
 					int inputSide = world.getBlockMetadata(cx, cy, cz) & 7;
 					int outputSide = getOpposite(inputSide);
 					int fromAxleTowardRod = getOpposite(sideToward);
-                    if (fromAxleTowardRod == outputSide && isMillAxlePoweredAt(world, cx, cy, cz)) {
+					if (fromAxleTowardRod == outputSide && isMillAxlePoweredAt(world, cx, cy, cz)) {
 						return true;
 					}
 					break;
@@ -144,7 +147,14 @@ public class TileEntityAxleRodRenderer extends TileEntitySpecialRenderer {
 		int oy = ay + (inputSide == 1 ? 1 : inputSide == 0 ? -1 : 0);
 		int oz = az + (inputSide == 3 ? 1 : inputSide == 2 ? -1 : 0);
 		int nid = world.getBlockId(ox, oy, oz);
-		return nid == Block.johnMill.blockID;
+		if (nid == Block.johnMill.blockID) return true;
+		if (nid == Block.waterWheel.blockID) {
+			TileEntity te = world.getBlockTileEntity(ox, oy, oz);
+			if (te instanceof TileEntityWaterWheel) {
+				return ((TileEntityWaterWheel) te).providingPower;
+			}
+		}
+		return false;
 	}
 
 	private boolean isGearboxPoweredAt(World world, int gx, int gy, int gz) {

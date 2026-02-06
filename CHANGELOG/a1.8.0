@@ -1,0 +1,68 @@
+================================
+ALPHA 1.8.0
+================================
+
+Additions:
+1. Added water mill and rotation physics, depending on the water threshold
+2. logic of axes and mechanical energy has been reworked
+3. Added a new block Macerator added gold and iron dust
+4. added the mechanics of electricity
+5. cable added
+6. added steam generator and battery
+
+Reworks:
+1. mill axes logic
+
+Textures:
+resources\VRE\battare.png ADDED
+resources\VRE\generator.png  ADDED
+terrain.png UPDATED (added gold and iron dust)
+items.png UPDATED
+
+Added Vade Retro classes:
+- vaderetro.block.BlockBattery
+- vaderetro.block.BlockCable
+- vaderetro.block.BlockMacerator
+- vaderetro.block.BlockSteamGenerator
+- vaderetro.block.BlockWaterWheel
+- vaderetro.container.ContainerBattery
+- vaderetro.container.ContainerMacerator
+- vaderetro.container.ContainerSteamGenerator
+- vaderetro.energy.IEnergyEmitter
+- vaderetro.energy.IEnergySink
+- vaderetro.entity.tileentity.TileEntityBattery
+- vaderetro.entity.tileentity.TileEntityCable
+- vaderetro.entity.tileentity.TileEntityMacerator
+- vaderetro.entity.tileentity.TileEntitySteamGenerator
+- vaderetro.entity.tileentity.TileEntityWaterWheel
+- vaderetro.entity.tileentity.TileEntityWaterWheelRenderer
+- vaderetro.gui.GuiBattery
+- vaderetro.gui.GuiMacerator
+- vaderetro.gui.GuiSteamGenerator
+- vaderetro.recipes.processors.MaceratorRecipes
+- vaderetro.render.TileEntityCableRenderer
+
+Changed Vade Retro classes:
+- vaderetro.__config.mod_JIM
+- vaderetro.block.BlockAxleRod
+- vaderetro.block.BlockGearbox
+- vaderetro.block.BlockMillAxle
+- vaderetro.entity.tileentity.TileEntityAxleRod
+- vaderetro.entity.tileentity.TileEntityAxleRodRenderer
+- vaderetro.entity.tileentity.TileEntityWheatGrinder
+- vaderetro.gui.GuiWheatGrinder
+- vaderetro.recipes.creators.crafting.RecipesCircuitry
+- vaderetro.recipes.creators.crafting.RecipesMill
+
+Changed Minecraft classes:
+- net.minecraft.src.Block
+- net.minecraft.src.Chunk
+- net.minecraft.src.EntityPlayer
+- net.minecraft.src.EntityPlayerSP
+- net.minecraft.src.FurnaceRecipes
+- net.minecraft.src.Item
+- net.minecraft.src.Session
+- net.minecraft.src.TileEntity
+- net.minecraft.src.TileEntityRenderer
+- net.minecraft.src.World
+- resources.lang.en_US.lang UPDATED

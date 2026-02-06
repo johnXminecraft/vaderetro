@@ -44,6 +44,18 @@ public class mod_JIM {
         return false;
     }
 
+    private void addSoundSafe(Minecraft minecraft, String name, java.io.File file) {
+        if (minecraft == null || minecraft.sndManager == null || name == null || file == null) {
+            return;
+        }
+        try {
+            minecraft.sndManager.addSound(name, file);
+        } catch (Throwable t) {
+            System.err.println("JIM: Failed to add sound " + name + ": " + t.getMessage());
+            t.printStackTrace();
+        }
+    }
+
     private void initSoundsOnce(Minecraft minecraft) {
         if (this.soundInitDone || minecraft == null || minecraft.sndManager == null) {
             return;
@@ -66,8 +78,8 @@ public class mod_JIM {
         }
 
         if (reloadFile != null) {
-            minecraft.sndManager.addSound("random/reload.ogg", reloadFile);
-            minecraft.sndManager.addSound("weaponmod/reload.ogg", reloadFile);
+            addSoundSafe(minecraft, "random/reload.ogg", reloadFile);
+            addSoundSafe(minecraft, "weaponmod/reload.ogg", reloadFile);
         }
 
         // Register AR15 sounds
@@ -86,7 +98,7 @@ public class mod_JIM {
         }
 
         if (ar15ShootFile != null) {
-            minecraft.sndManager.addSound("weaponmod/ar15shoot.ogg", ar15ShootFile);
+            addSoundSafe(minecraft, "weaponmod/ar15shoot.ogg", ar15ShootFile);
         }
 
         String[] ar15ReloadCandidates = new String[] {
@@ -104,7 +116,7 @@ public class mod_JIM {
         }
 
         if (ar15ReloadFile != null) {
-            minecraft.sndManager.addSound("weaponmod/ar15reload.ogg", ar15ReloadFile);
+            addSoundSafe(minecraft, "weaponmod/ar15reload.ogg", ar15ReloadFile);
         }
 
         String[] ar15HndCandidates = new String[] {
@@ -122,7 +134,7 @@ public class mod_JIM {
         }
 
         if (ar15HndFile != null) {
-            minecraft.sndManager.addSound("weaponmod/ar15hnd.ogg", ar15HndFile);
+            addSoundSafe(minecraft, "weaponmod/ar15hnd.ogg", ar15HndFile);
         }
 
         // Register bullet hit sound
@@ -141,7 +153,7 @@ public class mod_JIM {
         }
 
         if (bullethitFile != null) {
-            minecraft.sndManager.addSound("weaponmod/bullethit.ogg", bullethitFile);
+            addSoundSafe(minecraft, "weaponmod/bullethit.ogg", bullethitFile);
         }
 
         // Register nuclear explosion sound
@@ -160,7 +172,7 @@ public class mod_JIM {
         }
 
         if (nukeFile != null) {
-            minecraft.sndManager.addSound("bomb/nuclearExplosion.ogg", nukeFile);
+            addSoundSafe(minecraft, "bomb/nuclearExplosion.ogg", nukeFile);
         }
 
         String[] geigerCandidates = new String[] {
@@ -178,7 +190,7 @@ public class mod_JIM {
         }
 
         if (geigerFile != null) {
-            minecraft.sndManager.addSound("bomb/geiger.ogg", geigerFile);
+            addSoundSafe(minecraft, "bomb/geiger.ogg", geigerFile);
         }
 
         String[] windCandidates = new String[] {
@@ -196,7 +208,7 @@ public class mod_JIM {
         }
 
         if (windFile != null) {
-            minecraft.sndManager.addSound("bomb/wind.ogg", windFile);
+            addSoundSafe(minecraft, "bomb/wind.ogg", windFile);
         }
 
         this.soundInitDone = true;

@@ -2,8 +2,14 @@ package net.minecraft.src.vaderetro.block;
 
 import net.minecraft.src.*;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityAxleRod;
+import java.util.HashSet;
+import java.util.Set;
 
 public class BlockAxleRod extends BlockContainer {
+
+	private static String posKey(int x, int y, int z) {
+		return x + "," + y + "," + z;
+	}
 	private static final float THICKNESS = 0.25F;
 
 	public BlockAxleRod(int id, int textureIndex) {
@@ -55,6 +61,13 @@ public class BlockAxleRod extends BlockContainer {
 		}
 	}
 
+
+	public void onNeighborBlockChange(World world, int x, int y, int z, int neighborId) {
+		TileEntity te = world.getBlockTileEntity(x, y, z);
+		if (te instanceof TileEntityAxleRod) {
+			((TileEntityAxleRod) te).forceUpdate();
+		}
+	}
 
 	public void onBlockPlaced(World world, int x, int y, int z, int side) {
 		int meta = axisFromSide(side);
@@ -180,6 +193,11 @@ public class BlockAxleRod extends BlockContainer {
 	}
 
 	private boolean isPowered(World world, int x, int y, int z) {
+		Set<String> visited = new HashSet<String>();
+		return isPoweredImpl(world, x, y, z, visited);
+	}
+
+	private boolean isPoweredImpl(World world, int x, int y, int z, Set<String> visited) {
 		int axis = world.getBlockMetadata(x, y, z) & 3;
 		int[][] dirs;
 		if (axis == 1) dirs = new int[][] { {0,-1,0,0}, {0,1,0,1} }; 
@@ -203,7 +221,7 @@ public class BlockAxleRod extends BlockContainer {
 					}
 					break;
 				} else if (id == Block.gearbox.blockID) {
-					if (isGearboxPoweredAt(world, cx, cy, cz)) {
+					if (isGearboxPoweredAt(world, cx, cy, cz, visited)) {
 						return true;
 					}
 					break;
@@ -212,54 +230,85 @@ public class BlockAxleRod extends BlockContainer {
 				}
 			}
 		}
-		return false;
-	}
-
-	private boolean isGearboxPoweredAt(World world, int gx, int gy, int gz) {
-		int meta = world.getBlockMetadata(gx, gy, gz) & 3;
-		int inputSide = meta == 0 ? 2 : meta == 1 ? 5 : meta == 2 ? 3 : 4;
-		
-		int nx = gx + (inputSide == 4 ? 1 : inputSide == 5 ? -1 : 0);
-		int ny = gy + (inputSide == 1 ? -1 : inputSide == 0 ? 1 : 0);
-		int nz = gz + (inputSide == 2 ? 1 : inputSide == 3 ? -1 : 0);
-		
-		int nid = world.getBlockId(nx, ny, nz);
-		if (nid == Block.axleRod.blockID) {
-			return isAxleRodPowered(world, nx, ny, nz);
-		}
-		return false;
-	}
-
-	private boolean isAxleRodPowered(World world, int x, int y, int z) {
-		int axis = world.getBlockMetadata(x, y, z) & 3;
-		int[][] dirs;
-		if (axis == 1) dirs = new int[][] { {0,-1,0,0}, {0,1,0,1} };
-		else if (axis == 2) dirs = new int[][] { {0,0,-1,2}, {0,0,1,3} };
-		else dirs = new int[][] { {-1,0,0,4}, {1,0,0,5} };
-		
-		for (int d = 0; d < 2; d++) {
-			int dx = dirs[d][0], dy = dirs[d][1], dz = dirs[d][2];
-			int sideToward = dirs[d][3];
-			int cx = x, cy = y, cz = z;
-			while (true) {
-				cx += dx; cy += dy; cz += dz;
-				int id = world.getBlockId(cx, cy, cz);
-				if (id == Block.axleRod.blockID) {
-					continue;
-				} else if (id == Block.millAxle.blockID) {
-					int inputSide = world.getBlockMetadata(cx, cy, cz) & 7;
-					int outputSide = getOpposite(inputSide);
-					int fromAxleTowardRod = getOpposite(sideToward);
-					if (fromAxleTowardRod == outputSide && isMillAxlePoweredAt(world, cx, cy, cz)) {
-						return true;
-					}
-					break;
-				} else {
-					break;
-				}
+		int[][] neighbors = new int[][] { {-1,0,0}, {1,0,0}, {0,-1,0}, {0,1,0}, {0,0,-1}, {0,0,1} };
+		for (int i = 0; i < neighbors.length; i++) {
+			int dx = neighbors[i][0], dy = neighbors[i][1], dz = neighbors[i][2];
+			int gx = x + dx, gy = y + dy, gz = z + dz;
+			if (world.getBlockId(gx, gy, gz) != Block.gearbox.blockID) continue;
+			int gmeta = world.getBlockMetadata(gx, gy, gz) & 3;
+			int inputSide = gmeta == 0 ? 2 : gmeta == 1 ? 5 : gmeta == 2 ? 3 : 4;
+			int sideOfGearboxFacingRod = sideFromOffset(-dx, -dy, -dz);
+			if (sideOfGearboxFacingRod != inputSide && isGearboxPoweredAt(world, gx, gy, gz, visited)) {
+				return true;
 			}
 		}
 		return false;
+	}
+
+	private boolean isGearboxPoweredAt(World world, int gx, int gy, int gz, Set<String> visited) {
+		String key = posKey(gx, gy, gz);
+		if (visited.contains(key)) return false;
+		visited.add(key);
+		try {
+			int meta = world.getBlockMetadata(gx, gy, gz) & 3;
+			int inputSide = meta == 0 ? 2 : meta == 1 ? 5 : meta == 2 ? 3 : 4;
+			int nx = gx + (inputSide == 4 ? 1 : inputSide == 5 ? -1 : 0);
+			int ny = gy + (inputSide == 1 ? -1 : inputSide == 0 ? 1 : 0);
+			int nz = gz + (inputSide == 2 ? 1 : inputSide == 3 ? -1 : 0);
+			int nid = world.getBlockId(nx, ny, nz);
+			if (nid == Block.axleRod.blockID) {
+				return isAxleRodPowered(world, nx, ny, nz, visited);
+			}
+			return false;
+		} finally {
+			visited.remove(key);
+		}
+	}
+
+	private boolean isAxleRodPowered(World world, int x, int y, int z, Set<String> visited) {
+		String key = posKey(x, y, z);
+		if (visited.contains(key)) return false;
+		visited.add(key);
+		try {
+			int axis = world.getBlockMetadata(x, y, z) & 3;
+			int[][] dirs;
+			if (axis == 1) dirs = new int[][] { {0,-1,0,0}, {0,1,0,1} };
+			else if (axis == 2) dirs = new int[][] { {0,0,-1,2}, {0,0,1,3} };
+			else dirs = new int[][] { {-1,0,0,4}, {1,0,0,5} };
+			for (int d = 0; d < 2; d++) {
+				int dx = dirs[d][0], dy = dirs[d][1], dz = dirs[d][2];
+				int sideToward = dirs[d][3];
+				int cx = x, cy = y, cz = z;
+				while (true) {
+					cx += dx; cy += dy; cz += dz;
+					int id = world.getBlockId(cx, cy, cz);
+					if (id == Block.axleRod.blockID) {
+						continue;
+					} else if (id == Block.millAxle.blockID) {
+						int inputSide = world.getBlockMetadata(cx, cy, cz) & 7;
+						int outputSide = getOpposite(inputSide);
+						int fromAxleTowardRod = getOpposite(sideToward);
+						if (fromAxleTowardRod == outputSide && isMillAxlePoweredAt(world, cx, cy, cz)) {
+							return true;
+						}
+						break;
+					} else if (id == Block.gearbox.blockID) {
+						int gmeta = world.getBlockMetadata(cx, cy, cz) & 3;
+						int inputSide = gmeta == 0 ? 2 : gmeta == 1 ? 5 : gmeta == 2 ? 3 : 4;
+						int sideOfGearboxFacingRod = sideFromOffset(-dx, -dy, -dz);
+						if (sideOfGearboxFacingRod != inputSide && isGearboxPoweredAt(world, cx, cy, cz, visited)) {
+							return true;
+						}
+						break;
+					} else {
+						break;
+					}
+				}
+			}
+			return false;
+		} finally {
+			visited.remove(key);
+		}
 	}
 
 	public void randomDisplayTick(World world, int x, int y, int z, java.util.Random rand) {

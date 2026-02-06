@@ -39,12 +39,14 @@ public class GuiWheatGrinder extends GuiContainer {
         
         
         if (associatedTileEntityWheatGrinder.isPowered()) {
-            drawTexturedModalRect(xPos + 80,									// screen x pos 
-            		yPos + 18, 													// screen y pos
-            		176, 														// bitmap source x
-            		0, 															// bitmap source y
-            		iPulleyMachineIconWidth, 									// width
-        			iPulleyMachineIconHeight);									// height
-        }        
+            boolean waterPowered = associatedTileEntityWheatGrinder.isPoweredByWaterWheel();
+            int iconHeight = waterPowered ? iPulleyMachineIconHeight / 2 : iPulleyMachineIconHeight;
+            drawTexturedModalRect(xPos + 80,
+                    yPos + 18,
+                    176,
+                    0,
+                    iPulleyMachineIconWidth,
+                    iconHeight);
+        }
     }    
 }

@@ -465,10 +465,10 @@ public class World implements IBlockAccess {
 	}
 
 	public void markBlockNeedsUpdate(int var1, int var2, int var3) {
-		for(int var4 = 0; var4 < this.worldAccesses.size(); ++var4) {
+		int n = this.worldAccesses.size();
+		for(int var4 = 0; var4 < n; ++var4) {
 			((IWorldAccess)this.worldAccesses.get(var4)).markBlockAndNeighborsNeedsUpdate(var1, var2, var3);
 		}
-
 	}
 
 	protected void notifyBlockChange(int var1, int var2, int var3, int var4) {
@@ -1618,19 +1618,13 @@ public class World implements IBlockAccess {
 
 	public void removeBlockTileEntity(int var1, int var2, int var3) {
 		TileEntity var4 = this.getBlockTileEntity(var1, var2, var3);
-		if(var4 != null && this.field_31055_L) {
+		if(var4 != null) {
 			var4.func_31005_i();
-		} else {
-			if(var4 != null) {
-				this.loadedTileEntityList.remove(var4);
-			}
-
 			Chunk var5 = this.getChunkFromChunkCoords(var1 >> 4, var3 >> 4);
 			if(var5 != null) {
 				var5.removeChunkBlockTileEntity(var1 & 15, var2, var3 & 15);
 			}
 		}
-
 	}
 
 	public boolean isBlockOpaqueCube(int var1, int var2, int var3) {

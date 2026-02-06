@@ -201,6 +201,8 @@ public class Item {
 	public static Item oxygenTank = (new Item(187)).setIconIndex(245).setMaxDamage(384).setMaxStackSize(1).setItemName("oxygenTank");
 	public static Item rawLatex = (new Item(188)).setIconCoord(6, 15).setItemName("rawLatex");
 	public static Item rubber = (new Item(189)).setIconCoord(7, 15).setItemName("rubber");
+	public static Item dustIron = (new Item(190)).setIconCoord(8, 15).setItemName("dustIron");
+	public static Item dustGold = (new Item(191)).setIconCoord(9, 15).setItemName("dustGold");
 
 	public final int shiftedIndex;
 	protected int maxStackSize = 64;

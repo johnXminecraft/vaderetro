@@ -97,7 +97,8 @@ public class TileEntityWheatGrinder extends TileEntity implements IInventory {
 	}
 	
 	public int getCookProgressScaled(int scale) {
-		return this.grinderCookTime * scale / 50;
+		int required = getRequiredCookTime();
+		return required == 0 ? 0 : this.grinderCookTime * scale / required;
 	}
 	
 	public int getBurnTimeRemainingScaled(int scale) {
@@ -111,22 +112,34 @@ public class TileEntityWheatGrinder extends TileEntity implements IInventory {
 		return this.grinderBurnTime > 0;
 	}
 	
-	public boolean isPowered() {
+	public int getPowerSourceType() {
 		int id = this.worldObj.getBlockId(this.xCoord, this.yCoord + 1, this.zCoord);
 		if (id == Block.axleRod.blockID) {
-			return isAxleRodPowered(this.worldObj, this.xCoord, this.yCoord + 1, this.zCoord);
+			return getAxleRodPowerType(this.worldObj, this.xCoord, this.yCoord + 1, this.zCoord);
 		}
-		return false;
+		return 0;
+	}
+
+	public boolean isPowered() {
+		return getPowerSourceType() != 0;
+	}
+
+	public boolean isPoweredByWaterWheel() {
+		return getPowerSourceType() == 2;
+	}
+
+	public int getRequiredCookTime() {
+		return isPoweredByWaterWheel() ? 100 : 50;
 	}
 	
-	private boolean isAxleRodPowered(World world, int x, int y, int z) {
-		return isAxleRodPowered(world, x, y, z, new java.util.HashSet<String>());
+	private int getAxleRodPowerType(World world, int x, int y, int z) {
+		return getAxleRodPowerType(world, x, y, z, new java.util.HashSet<String>());
 	}
 	
-	private boolean isAxleRodPowered(World world, int x, int y, int z, java.util.Set<String> visited) {
+	private int getAxleRodPowerType(World world, int x, int y, int z, java.util.Set<String> visited) {
 		String key = x + "," + y + "," + z;
 		if (visited.contains(key)) {
-			return false;
+			return 0;
 		}
 		visited.add(key);
 		
@@ -149,41 +162,49 @@ public class TileEntityWheatGrinder extends TileEntity implements IInventory {
 					int inputSide = world.getBlockMetadata(cx, cy, cz) & 7;
 					int outputSide = getOpposite(inputSide);
 					int fromAxleTowardRod = getOpposite(sideToward);
-					if (fromAxleTowardRod == outputSide && isMillAxlePoweredAt(world, cx, cy, cz)) {
-						return true;
+					if (fromAxleTowardRod == outputSide) {
+						int powerType = getMillAxlePowerType(world, cx, cy, cz);
+						if (powerType != 0) return powerType;
 					}
 					break;
 				} else if (id == Block.gearbox.blockID) {
-					if (isGearboxPoweredAt(world, cx, cy, cz, visited)) {
-						return true;
-					}
+					int powerType = getGearboxPowerTypeAt(world, cx, cy, cz, visited);
+					if (powerType != 0) return powerType;
 					break;
 				} else {
 					break;
 				}
 			}
 		}
-		return false;
+		return 0;
 	}
 	
-	private boolean isMillAxlePoweredAt(World world, int ax, int ay, int az) {
+	private int getMillAxlePowerType(World world, int ax, int ay, int az) {
 		int millMeta = world.getBlockMetadata(ax, ay, az) & 7;
 		int inputSide = millMeta;
 		int ox = ax + (inputSide == 5 ? 1 : inputSide == 4 ? -1 : 0);
 		int oy = ay + (inputSide == 1 ? 1 : inputSide == 0 ? -1 : 0);
 		int oz = az + (inputSide == 3 ? 1 : inputSide == 2 ? -1 : 0);
 		int nid = world.getBlockId(ox, oy, oz);
-		return nid == Block.johnMill.blockID;
+		if (nid == Block.johnMill.blockID) return 1;
+		if (nid == Block.waterWheel.blockID) {
+			if (world.getBlockId(ox, oy, oz) != Block.waterWheel.blockID) return 0;
+			TileEntity te = world.getBlockTileEntity(ox, oy, oz);
+			if (te instanceof TileEntityWaterWheel && ((TileEntityWaterWheel) te).providingPower) {
+				return 2;
+			}
+		}
+		return 0;
 	}
 	
-	private boolean isGearboxPoweredAt(World world, int gx, int gy, int gz) {
-		return isGearboxPoweredAt(world, gx, gy, gz, new java.util.HashSet<String>());
+	private int getGearboxPowerTypeAt(World world, int gx, int gy, int gz) {
+		return getGearboxPowerTypeAt(world, gx, gy, gz, new java.util.HashSet<String>());
 	}
 	
-	private boolean isGearboxPoweredAt(World world, int gx, int gy, int gz, java.util.Set<String> visited) {
+	private int getGearboxPowerTypeAt(World world, int gx, int gy, int gz, java.util.Set<String> visited) {
 		String key = gx + "," + gy + "," + gz;
 		if (visited.contains(key)) {
-			return false;
+			return 0;
 		}
 		visited.add(key);
 		
@@ -196,9 +217,9 @@ public class TileEntityWheatGrinder extends TileEntity implements IInventory {
 		
 		int nid = world.getBlockId(nx, ny, nz);
 		if (nid == Block.axleRod.blockID) {
-			return isAxleRodPowered(world, nx, ny, nz, visited);
+			return getAxleRodPowerType(world, nx, ny, nz, visited);
 		}
-		return false;
+		return 0;
 	}
 	
 	private int getOpposite(int side) {
@@ -213,7 +234,6 @@ public class TileEntityWheatGrinder extends TileEntity implements IInventory {
 		}
 	}
 
-	// rework
 	@Override
 	public void updateEntity() {
 		boolean wasBurning = this.isBurning();
@@ -221,7 +241,8 @@ public class TileEntityWheatGrinder extends TileEntity implements IInventory {
 		
 		if (powered && this.grinderItemStacks[0] != null && canProcess()) {
 			this.grinderCookTime++;
-			if (this.grinderCookTime >= 50) {
+			int required = getRequiredCookTime();
+			if (this.grinderCookTime >= required) {
 				if(canProcess()) {
 					this.grinderCookTime = 0;
 					this.processItem();

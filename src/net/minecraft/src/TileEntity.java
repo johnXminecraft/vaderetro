@@ -9,9 +9,14 @@ import net.minecraft.src.vaderetro.entity.tileentity.TileEntityNuclearBomb;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityAxleRod;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntitySlideDoor;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityWheatGrinder;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityMacerator;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityMilitaryCase;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityComputer;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntityCardReader;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityWaterWheel;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntitySteamGenerator;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityCable;
+import net.minecraft.src.vaderetro.entity.tileentity.TileEntityBattery;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -133,5 +138,10 @@ public class TileEntity {
 		addMapping(TileEntityMilitaryCase.class, "MilitaryCase");
 		addMapping(TileEntityComputer.class, "Computer");
 		addMapping(TileEntityCardReader.class, "CardReader");
+		addMapping(TileEntityWaterWheel.class, "WaterWheel");
+		addMapping(TileEntityMacerator.class, "Macerator");
+		addMapping(TileEntitySteamGenerator.class, "SteamGenerator");
+		addMapping(TileEntityCable.class, "Cable");
+		addMapping(TileEntityBattery.class, "Battery");
 	}
 }
