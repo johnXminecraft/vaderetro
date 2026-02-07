@@ -12,7 +12,11 @@ public class ItemPickaxe extends ItemTool {
 			Block.dispenser, Block.glowStone, Block.pressurePlateStone, Block.stairCompactCobblestone,
 			Block.oreRedstone, Block.oreRedstoneGlowing, Block.pistonExtension, Block.pistonBase, Block.pistonStickyBase,
 			Block.pistonMoving, Block.brick, Block.obsidian, Block.mobSpawner, Block.doorSteel, Block.tiles,
-			Block.tilesGreen, Block.slabReversed
+			Block.tilesGreen, Block.slabReversed, Block.ovenIdle, Block.ovenActive, Block.ceramicFurnaceIdle,
+			Block.ceramicFurnaceActive, Block.cookingTable, Block.terracotta, Block.terracottaColored,
+			Block.wheatGrinder, Block.dryerActive, Block.dryerIdle, Block.militaryCase, Block.computer,
+			Block.cardReader, Block.testBlock, Block.cable, Block.battery, Block.steamGeneratorActive,
+			Block.steamGeneratorIdle
 	};
 
 	protected ItemPickaxe(int var1, EnumToolMaterial var2) {

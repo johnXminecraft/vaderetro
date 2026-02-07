@@ -7,72 +7,67 @@ import net.minecraft.src.ItemStack;
 
 public class RecipesCircuitry {
 
-    public void addRecipes(CraftingManager var1) {
-        var1.addRecipe(new ItemStack(Item.wire, 32), new Object[]{"#", Character.valueOf('#'), Item.ingotCopper});
-        var1.addRecipe(new ItemStack(Block.cable, 1), new Object[]{
-                "R", "W",
-                Character.valueOf('W'), Item.wire,
-                Character.valueOf('R'), Item.rubber
-        });
-        var1.addRecipe(new ItemStack(Item.detailPlastic, 32), new Object[]{"#", Character.valueOf('#'), Item.ingotPlastic});
-        var1.addRecipe(new ItemStack(Item.stainedSteelCompound), new Object[]{
+    public void addRecipes(CraftingManager craftingManager) {
+        craftingManager.addRecipe(new ItemStack(Item.wire, 32), new Object[]{"#", Character.valueOf('#'), Item.ingotCopper});
+        craftingManager.addRecipe(new ItemStack(Item.detailPlastic, 32), new Object[]{"#", Character.valueOf('#'), Item.ingotPlastic});
+        craftingManager.addRecipe(new ItemStack(Item.stainedSteelCompound), new Object[]{
                 "CDI", "CDI", " B ",
                 Character.valueOf('C'), Item.coal,
                 Character.valueOf('D'), Item.diamond,
                 Character.valueOf('I'), Item.ingotIron,
                 Character.valueOf('B'), Item.bucketEmpty
         });
-        var1.addRecipe(new ItemStack(Item.chain, 32), new Object[]{
+        craftingManager.addRecipe(new ItemStack(Item.chain, 32), new Object[]{
                 " # ", "# #", " # ",
                 Character.valueOf('#'), Item.ingotStainedSteel
         });
-        var1.addRecipe(new ItemStack(Item.anodeCathode), new Object[]{
+        craftingManager.addRecipe(new ItemStack(Item.anodeCathode), new Object[]{
                 "TRT", "WSW",
                 Character.valueOf('T'), Block.torchRedstoneActive,
                 Character.valueOf('R'), Item.redstone,
                 Character.valueOf('W'), Item.wire,
                 Character.valueOf('S'), Block.stone
         });
-        var1.addRecipe(new ItemStack(Item.resistor), new Object[]{
+        craftingManager.addRecipe(new ItemStack(Item.resistor), new Object[]{
                 "PRP", "W W",
                 Character.valueOf('P'), Item.detailPlastic,
                 Character.valueOf('R'), Item.redstoneRepeater,
                 Character.valueOf('W'), Item.wire
         });
-        var1.addRecipe(new ItemStack(Item.capacitor), new Object[]{
+        craftingManager.addRecipe(new ItemStack(Item.capacitor), new Object[]{
                 "PSP", "W W",
                 Character.valueOf('P'), Item.detailPlastic,
                 Character.valueOf('S'), Item.ingotStainedSteel,
                 Character.valueOf('W'), Item.wire
         });
-        var1.addRecipe(new ItemStack(Item.vacuumTube), new Object[]{
+        craftingManager.addRecipe(new ItemStack(Item.vacuumTube), new Object[]{
                 "SSS", "GAG", "SWS",
                 Character.valueOf('S'), Item.ingotStainedSteel,
                 Character.valueOf('G'), Block.glass,
                 Character.valueOf('A'), Item.anodeCathode,
                 Character.valueOf('W'), Item.wire
         });
-        var1.addRecipe(new ItemStack(Item.circuitryPlateEmpty), new Object[]{
+        craftingManager.addRecipe(new ItemStack(Item.circuitryPlateEmpty), new Object[]{
                 "DDD", "WWW", "SSS",
                 Character.valueOf('D'), Item.detailPlastic,
                 Character.valueOf('W'), Item.wire,
                 Character.valueOf('S'), Block.stone
         });
-        var1.addRecipe(new ItemStack(Item.circuitryPlate), new Object[]{
+        craftingManager.addRecipe(new ItemStack(Item.circuitryPlate), new Object[]{
                 "RRR", "CCC", "VPV",
                 Character.valueOf('R'), Item.resistor,
                 Character.valueOf('C'), Item.capacitor,
                 Character.valueOf('V'), Item.vacuumTube,
                 Character.valueOf('P'), Item.circuitryPlateEmpty
         });
-        var1.addRecipe(new ItemStack(Item.cathodeRayTube), new Object[]{
+        craftingManager.addRecipe(new ItemStack(Item.cathodeRayTube), new Object[]{
                 "PPP", "DAG", "PPP",
                 Character.valueOf('P'), Item.detailPlastic,
                 Character.valueOf('D'), Block.dispenser,
                 Character.valueOf('A'), Item.anodeCathode,
                 Character.valueOf('G'), Block.glass
         });
-        var1.addRecipe(new ItemStack(Block.crtTvSetIdle), new Object[]{
+        craftingManager.addRecipe(new ItemStack(Block.crtTvSetIdle), new Object[]{
                 "PPP", "JKJ", "WCW",
                 Character.valueOf('P'), Item.detailPlastic,
                 Character.valueOf('J'), Block.jukebox,
@@ -80,25 +75,26 @@ public class RecipesCircuitry {
                 Character.valueOf('W'), Block.planks,
                 Character.valueOf('C'), Item.circuitryPlate
         });
-        var1.addRecipe(new ItemStack(Block.lampKeroseneIdle), new Object[]{
+        craftingManager.addRecipe(new ItemStack(Block.lampKeroseneIdle), new Object[]{
                 "SSS", "G G", "SSS",
                 Character.valueOf('S'), Item.ingotStainedSteel,
                 Character.valueOf('G'), Block.glass
         });
-        var1.addRecipe(new ItemStack(Block.macerator), new Object[]{
-                "FIF", "SMS", "FFF",
-                Character.valueOf('F'), Item.flint,
-                Character.valueOf('I'), Item.ingotIron,
-                Character.valueOf('S'), Block.stone,
-                Character.valueOf('M'), Item.ingotStainedSteel,
+        craftingManager.addRecipe(new ItemStack(Block.openHearthFurnaceIdle), new Object[]{
+                "N N", "NLN", "BBB",
+                'L', Item.bucketEmpty,
+                'N', Block.netherrack,
+                'B', Block.brick,
         });
-        var1.addRecipe(new ItemStack(Block.steamGeneratorIdle, 1), new Object[]{
-                "IRI", "WAW", "IVI",
-                Character.valueOf('I'), Item.ingotIron,
-                Character.valueOf('R'), Item.resistor,
-                Character.valueOf('W'), Item.wire,
-                Character.valueOf('A'), Item.anodeCathode,
-                Character.valueOf('V'), Item.vacuumTube
+        craftingManager.addRecipe(new ItemStack(Item.objSpawner, 1), new Object[]{
+                "###", "#X#", "###",
+                Character.valueOf('#'), Item.diamond,
+                Character.valueOf('X'), Item.redstone
+        });
+        craftingManager.addRecipe(new ItemStack(Item.uvMapGenerator, 1), new Object[]{
+                "###", "#X#", "###",
+                Character.valueOf('#'), Item.paper,
+                Character.valueOf('X'), Item.redstone
         });
     }
 }

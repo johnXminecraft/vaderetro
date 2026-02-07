@@ -26,5 +26,14 @@ public class RecipesFarming {
                 "D",
                 Character.valueOf('D'), Item.driedLeather
         });
+        craftingManager.addRecipe(new ItemStack(Block.ovenIdle), new Object[]{
+                "BB", "BB",
+                Character.valueOf('B'), Block.brick
+        });
+        craftingManager.addRecipe(new ItemStack(Block.cookingTable), new Object[]{
+                "PP", "CC",
+                Character.valueOf('P'), Block.planks,
+                Character.valueOf('C'), Block.cobblestone,
+        });
     }
 }

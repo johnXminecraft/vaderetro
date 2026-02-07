@@ -15,7 +15,7 @@ public class Item {
 	public static Item pickaxeSteel = (new ItemPickaxe(1, EnumToolMaterial.IRON)).setIconCoord(2, 6).setItemName("pickaxeIron");
 	public static Item axeSteel = (new ItemAxe(2, EnumToolMaterial.IRON)).setIconCoord(2, 7).setItemName("hatchetIron");
 	public static Item flintAndSteel = (new ItemFlintAndSteel(3)).setIconCoord(5, 0).setItemName("flintAndSteel");
-	public static Item appleRed = (new ItemFood(4, 4, false)).setIconCoord(10, 0).setItemName("apple");
+	public static Item appleRed = (new ItemFood(4, 1, false)).setIconCoord(10, 0).setItemName("apple");
 	public static Item bow = (new ItemBow(5)).setIconCoord(5, 1).setItemName("bow");
 	public static Item arrow = (new Item(6)).setIconCoord(5, 2).setItemName("arrow");
 	public static Item coal = (new Item(7)).setIconCoord(7, 0).setItemName("coal");
@@ -74,8 +74,8 @@ public class Item {
 	public static Item legsGold = (new ItemArmor(60, 1, 4, 2)).setIconCoord(4, 2).setItemName("leggingsGold");
 	public static Item bootsGold = (new ItemArmor(61, 1, 4, 3)).setIconCoord(4, 3).setItemName("bootsGold");
 	public static Item flint = (new Item(62)).setIconCoord(6, 0).setItemName("flint");
-	public static Item porkRaw = (new ItemFood(63, 3, true)).setIconCoord(7, 5).setItemName("porkchopRaw");
-	public static Item porkCooked = (new ItemFood(64, 8, true)).setIconCoord(8, 5).setItemName("porkchopCooked");
+	public static Item porkRaw = (new ItemFood(63, 1, true)).setIconCoord(7, 5).setItemName("porkchopRaw");
+	public static Item porkCooked = (new ItemFood(64, 6, true)).setIconCoord(8, 5).setItemName("porkchopCooked");
 	public static Item painting = (new ItemPainting(65)).setIconCoord(10, 1).setItemName("painting");
 	public static Item appleGold = (new ItemFood(66, 42, false)).setIconCoord(11, 0).setItemName("appleGold");
 	public static Item sign = (new ItemSign(67)).setIconCoord(10, 2).setItemName("sign");
@@ -104,8 +104,8 @@ public class Item {
 	public static Item fishingRod = (new ItemFishingRod(90)).setIconCoord(5, 4).setItemName("fishingRod");
 	public static Item pocketSundial = (new Item(91)).setIconCoord(6, 4).setItemName("clock");
 	public static Item lightStoneDust = (new Item(92)).setIconCoord(9, 4).setItemName("yellowDust");
-	public static Item fishRaw = (new ItemFood(93, 2, false)).setIconCoord(9, 5).setItemName("fishRaw");
-	public static Item fishCooked = (new ItemFood(94, 5, false)).setIconCoord(10, 5).setItemName("fishCooked");
+	public static Item fishRaw = (new ItemFood(93, 1, false)).setIconCoord(9, 5).setItemName("fishRaw");
+	public static Item fishCooked = (new ItemFood(94, 6, false)).setIconCoord(10, 5).setItemName("fishCooked");
 	public static Item dyePowder = (new ItemDye(95)).setIconCoord(14, 4).setItemName("dyePowder");
 	public static Item bone = (new Item(96)).setIconCoord(12, 1).setItemName("bone").setFull3D();
 	public static Item sugar = (new Item(97)).setIconCoord(13, 0).setItemName("sugar").setFull3D();
@@ -142,7 +142,7 @@ public class Item {
 	public static Item resistor = (new Item(125)).setIconCoord(4, 10).setItemName("resistor");
 	public static Item capacitor = (new Item(126)).setIconCoord(4, 11).setItemName("capacitor");
 	public static Item cathodeRayTube = (new Item(127)).setIconCoord(3, 13).setItemName("cathodeRayTube");
-	public static Item eggFried = (new ItemFood(128, 6, false)).setIconCoord(4, 13).setItemName("eggFried");
+	public static Item eggFried = (new ItemFood(128, 4, false)).setIconCoord(4, 13).setItemName("eggFried");
 	public static Item ingotTin = (new Item(129)).setIconCoord(5, 11).setItemName("ingotTin");
 	public static Item ingotSulfur = (new Item(130)).setIconCoord(5, 6).setItemName("ingotSulfur");
 	public static Item musket = (new ItemMusket(131)).setIconCoord(5, 10).setItemName("musket");
@@ -201,8 +201,16 @@ public class Item {
 	public static Item oxygenTank = (new Item(187)).setIconIndex(245).setMaxDamage(384).setMaxStackSize(1).setItemName("oxygenTank");
 	public static Item rawLatex = (new Item(188)).setIconCoord(6, 15).setItemName("rawLatex");
 	public static Item rubber = (new Item(189)).setIconCoord(7, 15).setItemName("rubber");
-	public static Item dustIron = (new Item(190)).setIconCoord(8, 15).setItemName("dustIron");
-	public static Item dustGold = (new Item(191)).setIconCoord(9, 15).setItemName("dustGold");
+	public static Item helmetClay = (new Item(190)).setIconCoord(11, 10).setItemName("helmetClay");
+	public static Item plateClay = (new Item(191)).setIconCoord(11, 11).setItemName("plateClay");
+	public static Item legsClay = (new Item(192)).setIconCoord(11, 12).setItemName("legsClay");
+	public static Item bootsClay = (new Item(193)).setIconCoord(11, 13).setItemName("bootsClay");
+	public static Item helmetCeramic = (new ItemArmor(194, 2, 8, 0)).setIconCoord(12, 10).setItemName("helmetCeramic");
+	public static Item plateCeramic = (new ItemArmor(195, 2, 8, 1)).setIconCoord(12, 11).setItemName("plateCeramic");
+	public static Item legsCeramic = (new ItemArmor(196, 2, 8, 2)).setIconCoord(12, 12).setItemName("legsCeramic");
+	public static Item bootsCeramic = (new ItemArmor(197, 2, 8, 3)).setIconCoord(12, 13).setItemName("bootsCeramic");
+	public static Item dustIron = (new Item(198)).setIconCoord(8, 15).setItemName("dustIron");
+	public static Item dustGold = (new Item(199)).setIconCoord(9, 15).setItemName("dustGold");
 
 	public final int shiftedIndex;
 	protected int maxStackSize = 64;

@@ -4,7 +4,7 @@ public class ItemSpade extends ItemTool {
 
 	private static Block[] blocksEffectiveAgainst = new Block[]{
 			Block.grass, Block.dirt, Block.sand, Block.gravel, Block.snow, Block.blockSnow, Block.blockClay,
-			Block.tilledField, Block.web, Block.slowSand
+			Block.tilledField, Block.web, Block.slowSand, Block.radioactiveDirt
 	};
 
 	public ItemSpade(int var1, EnumToolMaterial var2) {

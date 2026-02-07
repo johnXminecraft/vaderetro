@@ -15,22 +15,13 @@ public class FurnaceRecipes {
 		this.addSmelting(Block.oreIron.blockID, new ItemStack(Item.ingotIron));
 		this.addSmelting(Block.oreGold.blockID, new ItemStack(Item.ingotGold));
 		this.addSmelting(Block.oreDiamond.blockID, new ItemStack(Item.diamond));
-		this.addSmelting(Block.sand.blockID, new ItemStack(Block.glass));
-		this.addSmelting(Item.porkRaw.shiftedIndex, new ItemStack(Item.porkCooked));
-		this.addSmelting(Item.fishRaw.shiftedIndex, new ItemStack(Item.fishCooked));
 		this.addSmelting(Block.cobblestone.blockID, new ItemStack(Block.stone));
-		this.addSmelting(Item.clay.shiftedIndex, new ItemStack(Item.brick));
-		this.addSmelting(Block.cactus.blockID, new ItemStack(Item.dyePowder, 1, 2));
 		this.addSmelting(Block.wood.blockID, new ItemStack(Item.charcoal));
 
 		// custom
 		this.addSmelting(Block.oreCopper.blockID, new ItemStack(Item.ingotCopper));
 		this.addSmelting(Item.bucketOil.shiftedIndex, new ItemStack(Item.bucketKerosene));
-		this.addSmelting(Item.egg.shiftedIndex, new ItemStack(Item.eggFried));
 		this.addSmelting(Block.oreTin.blockID, new ItemStack(Item.ingotTin));
-		this.addSmelting(Item.bucketWater.shiftedIndex, new ItemStack(Item.salt));
-		this.addSmelting(Item.dustIron.shiftedIndex, new ItemStack(Item.ingotIron));
-		this.addSmelting(Item.dustGold.shiftedIndex, new ItemStack(Item.ingotGold));
 	}
 
 	public void addSmelting(int var1, ItemStack var2) {

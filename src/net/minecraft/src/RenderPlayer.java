@@ -15,7 +15,8 @@ public class RenderPlayer extends RenderLiving {
 			"gold",
 			"stained_steel",
 			"schema",
-			"hazmat"
+			"hazmat",
+			"ceramic"
 	};
 
 	public RenderPlayer() {

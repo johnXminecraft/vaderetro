@@ -6,7 +6,7 @@ import net.minecraft.src.vaderetro.block.BlockCannabisPlant;
 import net.minecraft.src.vaderetro.block.BlockDryer;
 import net.minecraft.src.vaderetro.block.BlockOnion;
 import net.minecraft.src.vaderetro.block.BlockTobaccoPlant;
-import net.minecraft.src.vaderetro.block.BlockSteamGenerator;
+import net.minecraft.src.vaderetro.item.ItemTerracottaColored;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -166,17 +166,24 @@ public class Block {
 	public static final Block radioactiveWood = (new BlockRadioactiveWood(134)).setBlockName("radioactiveWood");
 	public static final Block carrot = (new BlockCarrot(135, 272)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("carrot").disableStats().disableNeighborNotifyOnMetadataChange();
 	public static final Block potato = (new BlockPotato(136, 256)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("potato").disableStats().disableNeighborNotifyOnMetadataChange();
-	public static final Block slideDoor = (new net.minecraft.src.vaderetro.block.BlockSlideDoor(137, Material.wood)).setHardness(3.0F).setStepSound(soundWoodFootstep).setBlockName("slideDoor").disableStats().disableNeighborNotifyOnMetadataChange();
-	public static final Block macerator = (new net.minecraft.src.vaderetro.block.BlockMacerator(143, 0)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("macerator");
-	public static final Block militaryCase = (new net.minecraft.src.vaderetro.block.BlockMilitaryCase(138, Material.wood)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("militaryCase").disableNeighborNotifyOnMetadataChange();
+	public static final Block slideDoor = (new BlockSlideDoor(137, Material.wood)).setHardness(3.0F).setStepSound(soundWoodFootstep).setBlockName("slideDoor").disableStats().disableNeighborNotifyOnMetadataChange();
+	public static final Block militaryCase = (new BlockMilitaryCase(138, Material.wood)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("militaryCase").disableNeighborNotifyOnMetadataChange();
 	public static final Block slabReversed = (new BlockStep(139, false, true)).setHardness(2.0F).setResistance(10.0F).setStepSound(soundStoneFootstep).setBlockName("stoneSlab");
-    public static final Block computer = (new net.minecraft.src.vaderetro.block.BlockComputer(140, 282)).setHardness(2.0F).setStepSound(soundMetalFootstep).setBlockName("computer").disableNeighborNotifyOnMetadataChange();
- 	public static final Block cardReader = (new net.minecraft.src.vaderetro.block.BlockCardReader(141, 282)).setHardness(2.0F).setStepSound(soundMetalFootstep).setBlockName("cardReader").disableNeighborNotifyOnMetadataChange();
-	public static final Block waterWheel = (new net.minecraft.src.vaderetro.block.BlockWaterWheel(142, 283)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("waterWheel");
-    public static final Block steamGeneratorIdle = (new BlockSteamGenerator(144, false)).setHardness(3.5F).setStepSound(soundMetalFootstep).setBlockName("steamGenerator").disableNeighborNotifyOnMetadataChange();
-    public static final Block steamGeneratorActive = (new BlockSteamGenerator(145, true)).setHardness(3.5F).setStepSound(soundMetalFootstep).setLightValue(0.875F).setBlockName("steamGenerator").disableNeighborNotifyOnMetadataChange();
-    public static final Block cable = (new BlockCable(146)).setHardness(0.1F).setStepSound(soundMetalFootstep).setBlockName("cable").disableNeighborNotifyOnMetadataChange();
-    public static final Block battery = (new BlockBattery(147)).setHardness(2.0F).setStepSound(soundMetalFootstep).setBlockName("battery");
+    public static final Block computer = (new BlockComputer(140, 282)).setHardness(2.0F).setStepSound(soundMetalFootstep).setBlockName("computer").disableNeighborNotifyOnMetadataChange();
+ 	public static final Block cardReader = (new BlockCardReader(141, 282)).setHardness(2.0F).setStepSound(soundMetalFootstep).setBlockName("cardReader").disableNeighborNotifyOnMetadataChange();
+	public static final Block ovenIdle = (new BlockOven(142, false)).setHardness(2.0F).setStepSound(soundStoneFootstep).setBlockName("oven").disableNeighborNotifyOnMetadataChange();
+	public static final Block ovenActive = (new BlockOven(143, true)).setHardness(2.0F).setStepSound(soundStoneFootstep).setLightValue(1.0F).setBlockName("oven").disableNeighborNotifyOnMetadataChange();
+	public static final Block cookingTable = (new BlockCookingTable(144)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("cookingTable");
+	public static final Block ceramicFurnaceIdle = (new BlockCeramicFurnace(145, false)).setHardness(2.0F).setStepSound(soundStoneFootstep).setBlockName("ceramicFurnace").disableNeighborNotifyOnMetadataChange();
+	public static final Block ceramicFurnaceActive = (new BlockCeramicFurnace(146, true)).setHardness(2.0F).setStepSound(soundStoneFootstep).setLightValue(1.0F).setBlockName("ceramicFurnace").disableNeighborNotifyOnMetadataChange();
+	public static final Block terracotta = (new Block(147, 288, Material.rock)).setHardness(2.0F).setStepSound(soundStoneFootstep).setBlockName("terracotta").disableNeighborNotifyOnMetadataChange();
+	public static final Block terracottaColored = (new BlockTerracottaColored(148, 304)).setHardness(2.0F).setStepSound(soundStoneFootstep).setBlockName("terracottaColored").disableNeighborNotifyOnMetadataChange();
+	public static final Block waterWheel = (new net.minecraft.src.vaderetro.block.BlockWaterWheel(149, 283)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("waterWheel");
+	public static final Block steamGeneratorIdle = (new BlockSteamGenerator(150, false)).setHardness(3.5F).setStepSound(soundMetalFootstep).setBlockName("steamGenerator").disableNeighborNotifyOnMetadataChange();
+	public static final Block steamGeneratorActive = (new BlockSteamGenerator(151, true)).setHardness(3.5F).setStepSound(soundMetalFootstep).setLightValue(0.875F).setBlockName("steamGenerator").disableNeighborNotifyOnMetadataChange();
+	public static final Block cable = (new BlockCable(152)).setHardness(0.1F).setStepSound(soundMetalFootstep).setBlockName("cable").disableNeighborNotifyOnMetadataChange();
+	public static final Block battery = (new BlockBattery(153)).setHardness(2.0F).setStepSound(soundMetalFootstep).setBlockName("battery");
+
 	public int blockIndexInTexture;
 	public final int blockID;
 	protected float blockHardness;
@@ -627,6 +634,7 @@ public class Block {
 		Item.itemsList[leaves.blockID] = (new ItemLeaves(leaves.blockID - 256)).setItemName("leaves");
 		Item.itemsList[pistonBase.blockID] = new ItemPiston(pistonBase.blockID - 256);
 		Item.itemsList[pistonStickyBase.blockID] = new ItemPiston(pistonStickyBase.blockID - 256);
+		Item.itemsList[terracottaColored.blockID] = (new ItemTerracottaColored(terracottaColored.blockID - 256)).setItemName("terracottaColored");
 
 		for(int var0 = 0; var0 < 256; ++var0) {
 			if(blocksList[var0] != null && Item.itemsList[var0] == null) {

@@ -1,12 +1,20 @@
 package net.minecraft.src;
 
+import net.minecraft.src.vaderetro.recipes.creators.cooking.CookingManager;
+
 import java.util.Comparator;
 
-class RecipeSorter implements Comparator {
-	final CraftingManager craftingManager;
+public class RecipeSorter implements Comparator {
 
-	RecipeSorter(CraftingManager var1) {
-		this.craftingManager = var1;
+	CraftingManager craftingManager;
+	CookingManager cookingManager;
+
+	public RecipeSorter(CraftingManager craftingManager) {
+		this.craftingManager = craftingManager;
+	}
+
+	public RecipeSorter(CookingManager cookingManager) {
+		this.cookingManager = cookingManager;
 	}
 
 	public int compareRecipes(IRecipe var1, IRecipe var2) {

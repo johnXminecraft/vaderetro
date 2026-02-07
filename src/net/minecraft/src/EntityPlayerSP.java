@@ -1,16 +1,8 @@
 package net.minecraft.src;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.src.vaderetro.gui.GuiCrtTvSet;
-import net.minecraft.src.vaderetro.entity.tileentity.TileEntityDryer;
-import net.minecraft.src.vaderetro.gui.GuiDryer;
-import net.minecraft.src.vaderetro.gui.GuiKeroseneLamp;
-import net.minecraft.src.vaderetro.gui.GuiOpenHearthFurnace;
-import net.minecraft.src.vaderetro.entity.tileentity.TileEntityCrtTvSet;
-import net.minecraft.src.vaderetro.entity.tileentity.TileEntityKeroseneLamp;
-import net.minecraft.src.vaderetro.entity.tileentity.TileEntityOpenHearthFurnace;
-import net.minecraft.src.vaderetro.entity.tileentity.TileEntityWheatGrinder;
-import net.minecraft.src.vaderetro.gui.GuiWheatGrinder;
+import net.minecraft.src.vaderetro.entity.tileentity.*;
+import net.minecraft.src.vaderetro.gui.*;
 import net.minecraft.src.vaderetro.gui.GuiSteamGenerator;
 import net.minecraft.src.vaderetro.entity.tileentity.TileEntitySteamGenerator;
 import net.minecraft.src.vaderetro.gui.GuiBattery;
@@ -136,6 +128,10 @@ public class EntityPlayerSP extends EntityPlayer {
 		this.mc.displayGuiScreen(new GuiCrafting(this.inventory, this.worldObj, var1, var2, var3));
 	}
 
+	public void displayCookingTableGUI(int x, int y, int z) {
+		this.mc.displayGuiScreen(new GuiCooking(this.inventory, this.worldObj, x, y, z));
+	}
+
 	public void displayGUIFurnace(TileEntityFurnace var1) {
 		this.mc.displayGuiScreen(new GuiFurnace(this.inventory, var1));
 	}
@@ -146,6 +142,14 @@ public class EntityPlayerSP extends EntityPlayer {
 
 	public void displayGUISteamGenerator(TileEntitySteamGenerator var1) {
 		this.mc.displayGuiScreen(new GuiSteamGenerator(this.inventory, var1));
+	}
+
+	public void displayGUIOven(TileEntityOven var1) {
+		this.mc.displayGuiScreen(new GuiOven(this.inventory, var1));
+	}
+
+	public void displayGUICeramicFurnace(TileEntityCeramicFurnace var1) {
+		this.mc.displayGuiScreen(new GuiCeramicFurnace(this.inventory, var1));
 	}
 
 	public void displayGUICrtTvSet(TileEntityCrtTvSet var1) {

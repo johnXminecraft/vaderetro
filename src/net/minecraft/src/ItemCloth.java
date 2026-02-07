@@ -1,6 +1,7 @@
 package net.minecraft.src;
 
 public class ItemCloth extends ItemBlock {
+
 	public ItemCloth(int var1) {
 		super(var1);
 		this.setMaxDamage(0);
