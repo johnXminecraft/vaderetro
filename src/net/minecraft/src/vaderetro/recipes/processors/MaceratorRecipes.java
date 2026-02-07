@@ -1,5 +1,6 @@
 package net.minecraft.src.vaderetro.recipes.processors;
 
+import net.minecraft.src.Block;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 
@@ -17,8 +18,10 @@ public class MaceratorRecipes implements IProcessorRecipes {
     private Map processingList = new HashMap();
 
     public MaceratorRecipes() {
-        this.addRecipe(Item.ingotIron.shiftedIndex, new ItemStack(Item.dustIron, 2));
-        this.addRecipe(Item.ingotGold.shiftedIndex, new ItemStack(Item.dustGold, 2));
+        // to add: copper dust, tin dust, sulfur dust
+        this.addRecipe(Block.oreGold.blockID, new ItemStack(Item.dustGold, 2));
+        this.addRecipe(Block.oreGoldHell.blockID, new ItemStack(Item.dustGold, 4));
+        this.addRecipe(Block.oreIron.blockID, new ItemStack(Item.dustIron, 2));
     }
     
     public void addRecipe(int itemID, ItemStack itemStack) {

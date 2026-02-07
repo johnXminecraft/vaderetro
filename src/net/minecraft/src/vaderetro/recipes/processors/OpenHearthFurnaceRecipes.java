@@ -17,5 +17,7 @@ public class OpenHearthFurnaceRecipes implements IProcessorRecipes {
         this.addRecipe(Item.bucketOil.shiftedIndex, new ItemStack(Item.ingotPlastic, 1));
         this.addRecipe(Block.oreGoldHell.blockID, new ItemStack(Item.ingotGold, 1));
         this.addRecipe(Block.oreSulfurHell.blockID, new ItemStack(Item.ingotSulfur, 1));
+        this.addRecipe(Item.dustIron.shiftedIndex, new ItemStack(Item.ingotIron, 1));
+        this.addRecipe(Item.dustGold.shiftedIndex, new ItemStack(Item.ingotGold, 1));
     }
 }
