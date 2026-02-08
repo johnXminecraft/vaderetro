@@ -5,6 +5,7 @@ import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.World;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 import net.minecraft.src.vaderetro.effects.ZombieBiteSkinEffect;
 
@@ -25,7 +26,7 @@ public final class DiseaseManager {
     private boolean shouldKillPlayer = false;
     private boolean zombieVirusDeathPending = false;
     
-    private DiseaseManager() {
+    public DiseaseManager() {
         registerDisease("zombie_virus", ZombieVirusDisease.class);
         registerDisease("radiation_sickness", RadiationSicknessDisease.class);
     }
@@ -187,6 +188,16 @@ public final class DiseaseManager {
         }
         ZombieBiteSkinEffect.clearFromLocalPlayer();
         RadiationSicknessSkinEffect.clearFromLocalPlayer();
+        shouldKillPlayer = false;
+        zombieVirusDeathPending = false;
+    }
+
+    public void cureZombieDisease() {
+        if (activeDisease != null && Objects.equals(activeDisease.getDiseaseId(), "zombie_virus")) {
+            activeDisease.cure();
+            activeDisease.active = false;
+        }
+        ZombieBiteSkinEffect.clearFromLocalPlayer();
         shouldKillPlayer = false;
         zombieVirusDeathPending = false;
     }

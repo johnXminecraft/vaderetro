@@ -183,6 +183,7 @@ public class Block {
 	public static final Block steamGeneratorActive = (new BlockSteamGenerator(151, true)).setHardness(3.5F).setStepSound(soundMetalFootstep).setLightValue(0.875F).setBlockName("steamGenerator").disableNeighborNotifyOnMetadataChange();
 	public static final Block cable = (new BlockCable(152)).setHardness(0.1F).setStepSound(soundMetalFootstep).setBlockName("cable").disableNeighborNotifyOnMetadataChange();
 	public static final Block battery = (new BlockBattery(153)).setHardness(2.0F).setStepSound(soundMetalFootstep).setBlockName("battery");
+	public static final Block macerator = (new BlockMacerator(154, 0)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("macerator");
 
 	public int blockIndexInTexture;
 	public final int blockID;

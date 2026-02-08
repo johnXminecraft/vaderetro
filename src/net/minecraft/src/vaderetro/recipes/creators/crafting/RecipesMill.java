@@ -38,5 +38,12 @@ public class RecipesMill {
                 Character.valueOf('#'), Block.cobblestone,
                 Character.valueOf('X'), Item.ingotIron
         });
+        craftingManager.addRecipe(new ItemStack(Block.macerator), new Object[]{
+                "FIF", "SMS", "FFF",
+                Character.valueOf('F'), Item.flint,
+                Character.valueOf('I'), Item.ingotIron,
+                Character.valueOf('S'), Block.stone,
+                Character.valueOf('M'), Item.ingotStainedSteel,
+        });
     }
 }

@@ -211,6 +211,9 @@ public class Item {
 	public static Item bootsCeramic = (new ItemArmor(197, 2, 8, 3)).setIconCoord(12, 13).setItemName("bootsCeramic");
 	public static Item dustIron = (new Item(198)).setIconCoord(8, 15).setItemName("dustIron");
 	public static Item dustGold = (new Item(199)).setIconCoord(9, 15).setItemName("dustGold");
+	public static Item dustCopper = (new Item(200)).setIconCoord(10, 15).setItemName("dustCopper");
+	public static Item dustSulfur = (new Item(201)).setIconCoord(11, 15).setItemName("dustSulfur");
+	public static Item dustTin = (new Item(202)).setIconCoord(12, 15).setItemName("dustTin");
 
 	public final int shiftedIndex;
 	protected int maxStackSize = 64;
