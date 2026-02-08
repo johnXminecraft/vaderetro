@@ -40,7 +40,7 @@ public class RecipesCeramic {
                 "C C", "C C",
                 Character.valueOf('C'), Item.clay
         });
-        craftingManager.addRecipe(new ItemStack(Item.legsClay), new Object[]{
+        craftingManager.addRecipe(new ItemStack(Block.turntable), new Object[]{
                 "PPP", "CIC", "CIC",
                 Character.valueOf('P'), Block.planks,
                 Character.valueOf('C'), Block.cobblestone,
