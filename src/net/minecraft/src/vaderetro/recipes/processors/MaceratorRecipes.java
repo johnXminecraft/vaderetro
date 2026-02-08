@@ -14,7 +14,7 @@ public class MaceratorRecipes implements IProcessorRecipes {
     public static MaceratorRecipes processing() {
         return base;
     }
-    
+
     private Map processingList = new HashMap();
 
     public MaceratorRecipes() {
@@ -22,14 +22,14 @@ public class MaceratorRecipes implements IProcessorRecipes {
         this.addRecipe(Block.oreGoldHell.blockID, new ItemStack(Item.dustGold, 3));
         this.addRecipe(Block.oreIron.blockID, new ItemStack(Item.dustIron, 2));
         this.addRecipe(Block.oreCopper.blockID, new ItemStack(Item.dustCopper, 2));
-        this.addRecipe(Block.oreSulfurHell.blockID, new ItemStack(Item.dustSulfur, 3));
         this.addRecipe(Block.oreTin.blockID, new ItemStack(Item.dustTin, 2));
+        this.addRecipe(Block.oreSulfurHell.blockID, new ItemStack(Item.dustSulfur, 3));
     }
-    
+
     public void addRecipe(int itemID, ItemStack itemStack) {
         this.processingList.put(itemID, itemStack);
     }
-    
+
     public ItemStack getResult(int itemID) {
         return (ItemStack)this.processingList.get(itemID);
     }

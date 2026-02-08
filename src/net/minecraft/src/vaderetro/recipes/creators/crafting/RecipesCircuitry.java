@@ -9,6 +9,11 @@ public class RecipesCircuitry {
 
     public void addRecipes(CraftingManager craftingManager) {
         craftingManager.addRecipe(new ItemStack(Item.wire, 32), new Object[]{"#", Character.valueOf('#'), Item.ingotCopper});
+        craftingManager.addRecipe(new ItemStack(Block.cable, 1), new Object[]{
+            "R", "W",
+            Character.valueOf('W'), Item.wire,
+            Character.valueOf('R'), Item.rubber
+        });
         craftingManager.addRecipe(new ItemStack(Item.detailPlastic, 32), new Object[]{"#", Character.valueOf('#'), Item.ingotPlastic});
         craftingManager.addRecipe(new ItemStack(Item.stainedSteelCompound), new Object[]{
                 "CDI", "CDI", " B ",
@@ -95,6 +100,21 @@ public class RecipesCircuitry {
                 "###", "#X#", "###",
                 Character.valueOf('#'), Item.paper,
                 Character.valueOf('X'), Item.redstone
+        });
+        craftingManager.addRecipe(new ItemStack(Block.macerator), new Object[]{
+            "FIF", "SMS", "FFF",
+            Character.valueOf('F'), Item.flint,
+            Character.valueOf('I'), Item.ingotIron,
+            Character.valueOf('S'), Block.stone,
+            Character.valueOf('M'), Item.ingotStainedSteel
+        });
+        craftingManager.addRecipe(new ItemStack(Block.steamGeneratorIdle, 1), new Object[]{
+            "IRI", "WAW", "IVI",
+            Character.valueOf('I'), Item.ingotIron,
+            Character.valueOf('R'), Item.resistor,
+            Character.valueOf('W'), Item.wire,
+            Character.valueOf('A'), Item.anodeCathode,
+            Character.valueOf('V'), Item.vacuumTube
         });
     }
 }

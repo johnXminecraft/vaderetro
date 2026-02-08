@@ -18,7 +18,7 @@ public class BlockSteamGenerator extends BlockContainer {
     public BlockSteamGenerator(int id, boolean isLit) {
         super(id, Material.iron);
         this.isLit = isLit;
-        this.blockIndexInTexture = 62; // Default furnace texture for now
+        this.blockIndexInTexture = 62;
     }
 
     @Override
@@ -54,8 +54,9 @@ public class BlockSteamGenerator extends BlockContainer {
         if (var5 == 1) return TEXTURE_TOP;
         if (var5 == 0) return TEXTURE_SIDES;
         int var6 = var1.getBlockMetadata(var2, var3, var4);
-        if (var5 != var6) return TEXTURE_SIDES;
-        return this.isLit ? TEXTURE_FRONT_ACTIVE : TEXTURE_FRONT_IDLE;
+        int var7 = var6 & 7;
+        if (var5 != var7) return TEXTURE_SIDES;
+        return (var6 & 8) != 0 ? TEXTURE_FRONT_ACTIVE : TEXTURE_FRONT_IDLE;
     }
 
     @Override
@@ -81,19 +82,12 @@ public class BlockSteamGenerator extends BlockContainer {
     }
 
     public static void updateBlockState(boolean var0, World var1, int var2, int var3, int var4) {
-        int var5 = var1.getBlockMetadata(var2, var3, var4);
-        TileEntity var6 = var1.getBlockTileEntity(var2, var3, var4);
-        keepGeneratorInventory = true;
-        if(var0) {
-            var1.setBlockWithNotify(var2, var3, var4, Block.steamGeneratorActive.blockID);
-        } else {
-            var1.setBlockWithNotify(var2, var3, var4, Block.steamGeneratorIdle.blockID);
+        int var5 = var1.getBlockMetadata(var2, var3, var4) & 7;
+        int var6 = var0 ? (var5 | 8) : var5;
+        if (var1.getBlockMetadata(var2, var3, var4) != var6) {
+            var1.setBlockMetadataWithNotify(var2, var3, var4, var6);
+            var1.notifyBlocksOfNeighborChange(var2, var3, var4, var1.getBlockId(var2, var3, var4));
         }
-        keepGeneratorInventory = false;
-        var1.setBlockMetadataWithNotify(var2, var3, var4, var5);
-        var6.func_31004_j();
-        var1.setBlockTileEntity(var2, var3, var4, var6);
-        var1.notifyBlocksOfNeighborChange(var2, var3, var4, var1.getBlockId(var2, var3, var4));
     }
 
     @Override

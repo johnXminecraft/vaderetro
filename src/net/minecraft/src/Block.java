@@ -7,6 +7,8 @@ import net.minecraft.src.vaderetro.block.BlockDryer;
 import net.minecraft.src.vaderetro.block.BlockOnion;
 import net.minecraft.src.vaderetro.block.BlockTobaccoPlant;
 import net.minecraft.src.vaderetro.item.ItemTerracottaColored;
+import net.minecraft.src.vaderetro.block.BlockSteamGenerator;
+
 
 import java.util.ArrayList;
 import java.util.Random;

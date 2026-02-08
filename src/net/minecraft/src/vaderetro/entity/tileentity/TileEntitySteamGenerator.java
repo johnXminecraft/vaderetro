@@ -81,31 +81,32 @@ public class TileEntitySteamGenerator extends TileEntity implements IInventory, 
 
     @Override
     public boolean emitsEnergy(int side) {
-        return side == 1; // Top
+        return side == 1;
     }
 
     @Override
     public void updateEntity() {
-        boolean var1 = this.generatorBurnTime > 0;
+        boolean var1 = this.generatorBurnTime > 0 && this.waterStored > 0;
         boolean var2 = false;
 
         if (this.generatorBurnTime > 0) {
             --this.generatorBurnTime;
         }
 
-        // Always drain a small amount of water per tick if available
         if (this.waterStored > 0) {
-            this.waterStored--;
+            if (this.generatorBurnTime > 0) {
+                this.waterStored--;
+            } else {
+                this.waterStored--;
+            }
             if (this.waterStored < 0) this.waterStored = 0;
         }
 
         // Energy generation or decay depending on water availability
         if (!this.worldObj.multiplayerWorld) {
             if (this.waterStored > 0 && this.generatorBurnTime > 0) {
-                if (this.vreStored < this.maxVre) {
-                    this.vreStored += 5;
-                    if (this.vreStored > this.maxVre) this.vreStored = this.maxVre;
-                }
+                this.vreStored += 5;
+                if (this.vreStored > this.maxVre) this.vreStored = this.maxVre;
             } else {
                 if (this.vreStored > 0) {
                     this.vreStored -= 5;
@@ -129,7 +130,6 @@ public class TileEntitySteamGenerator extends TileEntity implements IInventory, 
         }
 
         if (!this.worldObj.multiplayerWorld) {
-            // Handle Water Input
             if (this.steamGenItemStacks[1] != null && this.steamGenItemStacks[1].itemID == Item.bucketWater.shiftedIndex) {
                 if (this.waterStored + 1000 <= this.maxWater) {
                     this.waterStored += 1000;
@@ -151,9 +151,10 @@ public class TileEntitySteamGenerator extends TileEntity implements IInventory, 
                 }
             }
 
-            if (var1 != this.generatorBurnTime > 0) {
+            boolean isGeneratingNow = this.generatorBurnTime > 0 && this.waterStored > 0;
+            if (var1 != isGeneratingNow) {
                 var2 = true;
-                BlockSteamGenerator.updateBlockState(this.generatorBurnTime > 0, this.worldObj, this.xCoord, this.yCoord, this.zCoord);
+                BlockSteamGenerator.updateBlockState(isGeneratingNow, this.worldObj, this.xCoord, this.yCoord, this.zCoord);
             }
         }
 
@@ -164,7 +165,6 @@ public class TileEntitySteamGenerator extends TileEntity implements IInventory, 
 
     private boolean canGenerate() {
         if (this.waterStored <= 0) return false;
-        if (this.vreStored >= this.maxVre) return false;
         return this.getItemBurnTime(this.steamGenItemStacks[0]) > 0;
     }
 

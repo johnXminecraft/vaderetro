@@ -8,42 +8,49 @@ import net.minecraft.src.ItemStack;
 public class RecipesMill {
 
     public void addRecipes(CraftingManager craftingManager) {
+
         craftingManager.addRecipe(new ItemStack(Block.johnMill), new Object[]{
                 "WSW", "SPS", "WSW",
-                Character.valueOf('P'), Block.planks,
-                Character.valueOf('W'), Block.cloth,
-                Character.valueOf('S'), Item.stick
+                'P', Block.planks,
+                'W', Block.cloth,
+                'S', Item.stick
         });
+
         craftingManager.addRecipe(new ItemStack(Block.waterWheel), new Object[]{
                 " P ", "PSP", " P ",
-                Character.valueOf('P'), Block.planks,
-                Character.valueOf('S'), Item.stick
+                'P', Block.planks,
+                'S', Item.stick
         });
+
         craftingManager.addRecipe(new ItemStack(Block.millAxle, 1), new Object[]{
                 "###", "#X#", "###",
-                Character.valueOf('#'), Block.planks,
-                Character.valueOf('X'), Item.stick
+                '#', Block.planks,
+                'X', Item.stick
         });
+
         craftingManager.addRecipe(new ItemStack(Block.axleRod, 4), new Object[]{
                 "#", "#", "#",
-                Character.valueOf('#'), Item.stick
+                '#', Item.stick
         });
+
         craftingManager.addRecipe(new ItemStack(Block.gearbox, 1), new Object[]{
                 "###", "#X#", "###",
-                Character.valueOf('#'), Block.planks,
-                Character.valueOf('X'), Item.ingotIron
+                '#', Block.planks,
+                'X', Item.ingotIron
         });
+
         craftingManager.addRecipe(new ItemStack(Block.wheatGrinder, 1), new Object[]{
                 "###", "#X#", "###",
-                Character.valueOf('#'), Block.cobblestone,
-                Character.valueOf('X'), Item.ingotIron
+                '#', Block.cobblestone,
+                'X', Item.ingotIron
         });
+
         craftingManager.addRecipe(new ItemStack(Block.macerator), new Object[]{
                 "FIF", "SMS", "FFF",
-                Character.valueOf('F'), Item.flint,
-                Character.valueOf('I'), Item.ingotIron,
-                Character.valueOf('S'), Block.stone,
-                Character.valueOf('M'), Item.ingotStainedSteel,
+                'F', Item.flint,
+                'I', Item.ingotIron,
+                'S', Block.stone,
+                'M', Item.ingotStainedSteel
         });
     }
 }
