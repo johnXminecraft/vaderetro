@@ -184,6 +184,7 @@ public class Block {
 	public static final Block cable = (new BlockCable(152)).setHardness(0.1F).setStepSound(soundMetalFootstep).setBlockName("cable").disableNeighborNotifyOnMetadataChange();
 	public static final Block battery = (new BlockBattery(153)).setHardness(2.0F).setStepSound(soundMetalFootstep).setBlockName("battery");
 	public static final Block macerator = (new BlockMacerator(154, 0)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("macerator");
+	public static final Block turntable = (new BlockTurntable(155, 0)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("turntable");
 
 	public int blockIndexInTexture;
 	public final int blockID;

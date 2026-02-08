@@ -176,6 +176,10 @@ public class EntityPlayerSP extends EntityPlayer {
 		this.mc.displayGuiScreen(new net.minecraft.src.vaderetro.gui.GuiMacerator(this.inventory, var1));
 	}
 
+	public void displayGUITurntable(TileEntityTurntable tileEntity) {
+		this.mc.displayGuiScreen(new GuiTurntable(this.inventory, tileEntity));
+	}
+
 	public void displayGUIBattery(net.minecraft.src.vaderetro.entity.tileentity.TileEntityBattery var1) {
 		this.mc.displayGuiScreen(new GuiBattery(this.inventory, var1));
 	}

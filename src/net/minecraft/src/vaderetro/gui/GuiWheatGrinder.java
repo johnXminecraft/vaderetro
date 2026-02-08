@@ -20,11 +20,6 @@ public class GuiWheatGrinder extends GuiContainer {
         associatedTileEntityWheatGrinder = tileEntityWheatGrinder;
     }
 
-    protected void drawGuiContainerForegroundLayer(int i, int j) {
-        fontRenderer.drawString("Wheat Grinder", 75, 6, 0x404040);
-        fontRenderer.drawString("Inventory", 8, (ySize - 96) + 2, 0x404040);
-    }
-
     protected void drawGuiContainerBackgroundLayer(float f) {
     	
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);

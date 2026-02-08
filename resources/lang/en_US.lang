@@ -480,6 +480,8 @@ tile.cable.name=Cable
 tile.cable.desc=Vade Retro
 tile.battery.name=Battery
 tile.battery.desc=Vade Retro
+tile.turntable.name=Turntable
+tile.turntable.desc=Vade Retro
 
 item.shovelIron.name=Iron Shovel
 item.shovelIron.desc=

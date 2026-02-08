@@ -163,7 +163,7 @@ public class EntityMusketBullet extends Entity {
             float var19;
             if(var3 != null) {
                 if(var3.entityHit != null) {
-                    if(var3.entityHit.attackEntityFrom(this.owner, 8)) {
+                    if(var3.entityHit.attackEntityFrom(this.owner, 12)) {
                         this.worldObj.playSoundAtEntity(this, "random.drr", 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
                         this.setEntityDead();
                     } else {

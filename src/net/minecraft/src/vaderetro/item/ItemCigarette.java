@@ -17,7 +17,10 @@ public class ItemCigarette extends Item {
 
     public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer player) {
         --itemstack.stackSize;
-        player.heal(-2);
+        player.heal(-1);
+        if(player.health <= 0) {
+            player.onDeath(null);
+        }
         diseaseManager.cureZombieDisease();
         return itemstack;
     }

@@ -129,5 +129,6 @@ public class TileEntity {
 		addMapping(TileEntitySteamGenerator.class, "SteamGenerator");
 		addMapping(TileEntityCable.class, "Cable");
 		addMapping(TileEntityBattery.class, "Battery");
+		addMapping(TileEntityTurntable.class, "Turntable");
 	}
 }

@@ -163,7 +163,7 @@ public class EntityAR15Bullet extends Entity {
             float var19;
             if(var3 != null) {
                 if(var3.entityHit != null) {
-                    if(var3.entityHit.attackEntityFrom(this.owner, 6)) { // AR15 deals less damage than musket
+                    if(var3.entityHit.attackEntityFrom(this.owner, 6)) {
                         this.worldObj.playSoundAtEntity(this, "weaponmod.bullethit", 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
                         this.setEntityDead();
                     } else {

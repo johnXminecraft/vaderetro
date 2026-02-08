@@ -24,10 +24,6 @@ public class RecipesCeramic {
                 "###",
                 Character.valueOf('#'), Block.sandStone
         });
-        craftingManager.addRecipe(new ItemStack(Item.rawClayPlate), new Object[]{
-                "C C", "C",
-                Character.valueOf('C'), Item.clay
-        });
         craftingManager.addRecipe(new ItemStack(Item.helmetClay), new Object[]{
                 "CCC", "C C",
                 Character.valueOf('C'), Item.clay
@@ -43,6 +39,12 @@ public class RecipesCeramic {
         craftingManager.addRecipe(new ItemStack(Item.bootsClay), new Object[]{
                 "C C", "C C",
                 Character.valueOf('C'), Item.clay
+        });
+        craftingManager.addRecipe(new ItemStack(Item.legsClay), new Object[]{
+                "PPP", "CIC", "CIC",
+                Character.valueOf('P'), Block.planks,
+                Character.valueOf('C'), Block.cobblestone,
+                Character.valueOf('I'), Item.ingotIron
         });
 
         // Colored Terracotta

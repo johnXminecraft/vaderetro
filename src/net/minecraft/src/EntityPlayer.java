@@ -629,7 +629,7 @@ public abstract class EntityPlayer extends EntityLiving {
 		}
 	}
 
-	protected void damageEntity(int var1) {
+	public void damageEntity(int var1) {
 		if(isWearingFullCeramicArmor()) {
 			this.inventory.damageArmor(var1);
 			return;
@@ -682,6 +682,9 @@ public abstract class EntityPlayer extends EntityLiving {
 	}
 
 	public void displayGUIMacerator(TileEntityMacerator var1) {
+	}
+
+	public void displayGUITurntable(TileEntityTurntable tileEntity) {
 	}
 
 	public void useCurrentItemOnEntity(Entity var1) {

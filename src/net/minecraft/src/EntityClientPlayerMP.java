@@ -125,7 +125,7 @@ public class EntityClientPlayerMP extends EntityPlayerSP {
 		this.sendQueue.addToSendQueue(new Packet9Respawn((byte)this.dimension));
 	}
 
-	protected void damageEntity(int var1) {
+	public void damageEntity(int var1) {
 		this.health -= var1;
 	}
 

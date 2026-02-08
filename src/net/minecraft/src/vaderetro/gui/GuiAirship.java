@@ -13,13 +13,6 @@ public class GuiAirship extends GuiContainer {
 		this.airship = air;
 	}
 
-	protected void drawGuiContainerForegroundLayer() {
-		this.fontRenderer.drawString("Airship Inventory", 8, 4, 4210752);
-		this.fontRenderer.drawString("Arrows:", 89, 55, 4210752);
-		this.fontRenderer.drawString("Fuel:", 105, 20, 4210752);
-		this.fontRenderer.drawString("Inventory", 8, this.ySize - 96 + 2, 4210752);
-	}
-
 	protected void drawGuiContainerBackgroundLayer(float f) {
 		int i = this.mc.renderEngine.getTexture("/gui/airshipgui.png");
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -27,7 +20,6 @@ public class GuiAirship extends GuiContainer {
 		int j = (this.width - this.xSize) / 2;
 		int k = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(j, k, 0, 0, this.xSize, this.ySize);
-
 
 		int fuelLevel = this.airship.getFuelScaled(32);
 
