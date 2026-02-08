@@ -17,13 +17,13 @@ public class Explosion {
 	public float explosionSize;
 	public Set destroyedBlockPositions = new HashSet();
 
-	public Explosion(World var1, Entity var2, double var3, double var5, double var7, float var9) {
-		this.worldObj = var1;
-		this.exploder = var2;
-		this.explosionSize = var9;
-		this.explosionX = var3;
-		this.explosionY = var5;
-		this.explosionZ = var7;
+	public Explosion(World world, Entity exploder, double x, double y, double z, float size) {
+		this.worldObj = world;
+		this.exploder = exploder;
+		this.explosionSize = size;
+		this.explosionX = x;
+		this.explosionY = y;
+		this.explosionZ = z;
 	}
 
 	public void doExplosionA() {

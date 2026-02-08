@@ -349,6 +349,27 @@ public abstract class EntityPlayer extends EntityLiving {
 			&& helmet != null && helmet.getItem() == Item.helmetHazmat;
 	}
 
+	public boolean isWearingFullCeramicArmor() {
+		if(this.inventory == null || this.inventory.armorInventory == null) return false;
+		ItemStack boots = this.inventory.armorItemInSlot(0);
+		ItemStack legs = this.inventory.armorItemInSlot(1);
+		ItemStack plate = this.inventory.armorItemInSlot(2);
+		ItemStack helmet = this.inventory.armorItemInSlot(3);
+		return boots != null && boots.getItem() == Item.bootsCeramic
+				&& legs != null && legs.getItem() == Item.legsCeramic
+				&& plate != null && plate.getItem() == Item.plateCeramic
+				&& helmet != null && helmet.getItem() == Item.helmetCeramic;
+	}
+
+	public boolean isWearingFullArmor() {
+		if(this.inventory == null || this.inventory.armorInventory == null) return false;
+		ItemStack boots = this.inventory.armorItemInSlot(0);
+		ItemStack legs = this.inventory.armorItemInSlot(1);
+		ItemStack plate = this.inventory.armorItemInSlot(2);
+		ItemStack helmet = this.inventory.armorItemInSlot(3);
+		return boots != null && legs != null && plate != null && helmet != null;
+	}
+
 	private void updateInfectionAnimation() {
 		if (infectionAnimationTicks < 0) return;
 		infectionAnimationTicks++;
@@ -609,6 +630,10 @@ public abstract class EntityPlayer extends EntityLiving {
 	}
 
 	protected void damageEntity(int var1) {
+		if(isWearingFullCeramicArmor()) {
+			this.inventory.damageArmor(var1);
+			return;
+		}
 		int var2 = 25 - this.inventory.getTotalArmorValue();
 		int var3 = var1 * var2 + this.damageRemainder;
 		this.inventory.damageArmor(var1);

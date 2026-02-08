@@ -13,8 +13,13 @@ public class ItemArmor extends Item {
 		this.armorLevel = armorLevel;
 		this.renderIndex = renderIndex;
 		this.armorType = armorType;
-		this.damageReduceAmount = damageReduceAmountArray[armorType];
-		this.setMaxDamage(maxDamageArray[armorType] * (armorLevel + 4));
+		if(this.renderIndex == 8) {
+			this.damageReduceAmount = 100;
+			this.setMaxDamage(maxDamageArray[armorType]);
+		} else {
+			this.damageReduceAmount = damageReduceAmountArray[armorType];
+			this.setMaxDamage(maxDamageArray[armorType] * (armorLevel + 4));
+		}
 		this.maxStackSize = 1;
 	}
 
