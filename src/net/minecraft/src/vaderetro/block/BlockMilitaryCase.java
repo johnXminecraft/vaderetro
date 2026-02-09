@@ -8,10 +8,16 @@ import java.util.Random;
 public class BlockMilitaryCase extends BlockContainer {
 
     private Random random = new Random();
+    private final boolean isSupply;
 
-    public BlockMilitaryCase(int id, Material material) {
+    public BlockMilitaryCase(int id, Material material, boolean isSupply) {
         super(id, material);
         this.blockIndexInTexture = 0;
+        this.isSupply = isSupply;
+    }
+
+    public String getTexturePath() {
+        return this.isSupply ? "/terrain/military_supcase.png" : "/terrain/military_case.png";
     }
 
     @Override
@@ -55,16 +61,28 @@ public class BlockMilitaryCase extends BlockContainer {
         }
 
         if (militaryCase.isOpen && !militaryCase.isEmpty) {
-            float offsetX = this.random.nextFloat() * 0.8F + 0.1F;
-            float offsetY = this.random.nextFloat() * 0.8F + 0.1F;
-            float offsetZ = this.random.nextFloat() * 0.8F + 0.1F;
+            if (this.isSupply) {
+                Item dropItem = this.random.nextFloat() < 0.3F ? Item.ar15 : Item.antiRadin;
+                float offsetX = this.random.nextFloat() * 0.8F + 0.1F;
+                float offsetY = this.random.nextFloat() * 0.8F + 0.1F;
+                float offsetZ = this.random.nextFloat() * 0.8F + 0.1F;
+                EntityItem entityItem = new EntityItem(world, (double) ((float) x + offsetX), (double) ((float) y + offsetY), (double) ((float) z + offsetZ), new ItemStack(dropItem, 1, 0));
+                entityItem.motionX = (double) ((float) this.random.nextGaussian() * 0.05F);
+                entityItem.motionY = (double) ((float) this.random.nextGaussian() * 0.05F + 0.2F);
+                entityItem.motionZ = (double) ((float) this.random.nextGaussian() * 0.05F);
+                world.entityJoinedWorld(entityItem);
+            } else {
+                float offsetX = this.random.nextFloat() * 0.8F + 0.1F;
+                float offsetY = this.random.nextFloat() * 0.8F + 0.1F;
+                float offsetZ = this.random.nextFloat() * 0.8F + 0.1F;
 
-            EntityItem entityItem = new EntityItem(world, (double) ((float) x + offsetX), (double) ((float) y + offsetY), (double) ((float) z + offsetZ), new ItemStack(Item.diamond, 1, 0));
-            entityItem.motionX = (double) ((float) this.random.nextGaussian() * 0.05F);
-            entityItem.motionY = (double) ((float) this.random.nextGaussian() * 0.05F + 0.2F);
-            entityItem.motionZ = (double) ((float) this.random.nextGaussian() * 0.05F);
+                EntityItem entityItem = new EntityItem(world, (double) ((float) x + offsetX), (double) ((float) y + offsetY), (double) ((float) z + offsetZ), new ItemStack(Item.militaryKeycard, 1, 0));
+                entityItem.motionX = (double) ((float) this.random.nextGaussian() * 0.05F);
+                entityItem.motionY = (double) ((float) this.random.nextGaussian() * 0.05F + 0.2F);
+                entityItem.motionZ = (double) ((float) this.random.nextGaussian() * 0.05F);
 
-            world.entityJoinedWorld(entityItem);
+                world.entityJoinedWorld(entityItem);
+            }
             militaryCase.isEmpty = true;
             return true;
         }

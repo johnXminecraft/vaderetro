@@ -27,4 +27,8 @@ public class TurntableRecipes implements IProcessorRecipes {
     public ItemStack getResult(int itemID) {
         return (ItemStack)this.processingList.get(itemID);
     }
+
+    public Map getProcessingList() {
+        return this.processingList;
+    }
 }

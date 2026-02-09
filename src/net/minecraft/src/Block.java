@@ -169,7 +169,8 @@ public class Block {
 	public static final Block carrot = (new BlockCarrot(135, 272)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("carrot").disableStats().disableNeighborNotifyOnMetadataChange();
 	public static final Block potato = (new BlockPotato(136, 256)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("potato").disableStats().disableNeighborNotifyOnMetadataChange();
 	public static final Block slideDoor = (new BlockSlideDoor(137, Material.wood)).setHardness(3.0F).setStepSound(soundWoodFootstep).setBlockName("slideDoor").disableStats().disableNeighborNotifyOnMetadataChange();
-	public static final Block militaryCase = (new BlockMilitaryCase(138, Material.wood)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("militaryCase").disableNeighborNotifyOnMetadataChange();
+	public static final Block militaryCase = (new BlockMilitaryCase(138, Material.wood, false)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("militaryCrate").disableNeighborNotifyOnMetadataChange();
+	public static final Block militarySupplyCase = (new BlockMilitaryCase(156, Material.wood, true)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("militarySupplyCrate").disableNeighborNotifyOnMetadataChange();
 	public static final Block slabReversed = (new BlockStep(139, false, true)).setHardness(2.0F).setResistance(10.0F).setStepSound(soundStoneFootstep).setBlockName("stoneSlab");
     public static final Block computer = (new BlockComputer(140, 282)).setHardness(2.0F).setStepSound(soundMetalFootstep).setBlockName("computer").disableNeighborNotifyOnMetadataChange();
  	public static final Block cardReader = (new BlockCardReader(141, 282)).setHardness(2.0F).setStepSound(soundMetalFootstep).setBlockName("cardReader").disableNeighborNotifyOnMetadataChange();

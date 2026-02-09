@@ -482,6 +482,11 @@ tile.battery.name=Battery
 tile.battery.desc=Vade Retro
 tile.turntable.name=Turntable
 tile.turntable.desc=Vade Retro
+tile.militaryCrate.name=Military Crate
+tile.militaryCrate.desc=Vade Retro
+tile.militarySupplyCrate.name=Military Supply Crate
+tile.militarySupplyCrate.desc=Vade Retro
+
 
 item.shovelIron.name=Iron Shovel
 item.shovelIron.desc=
@@ -977,3 +982,5 @@ item.dustSulfur.name=Sulfur Dust
 item.dustSulfur.desc=Vade Retro
 item.dustTin.name=Tin Dust
 item.dustTin.desc=Vade Retro
+item.antiRadin.name=RadAway
+item.antiRadin.desc=Vade Retro

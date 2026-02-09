@@ -16,7 +16,7 @@ public class BlockCable extends BlockContainer {
     };
 
     public BlockCable(int id) {
-        super(id, Material.iron);
+        super(id, Material.cloth);
         this.setBlockBounds(0.3F, 0.3F, 0.3F, 0.7F, 0.7F, 0.7F);
         this.setHardness(0.1F);
         this.setStepSound(Block.soundMetalFootstep);

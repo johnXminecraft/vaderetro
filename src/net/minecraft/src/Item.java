@@ -214,6 +214,7 @@ public class Item {
 	public static Item dustCopper = (new Item(200)).setIconCoord(10, 15).setItemName("dustCopper");
 	public static Item dustSulfur = (new Item(201)).setIconCoord(11, 15).setItemName("dustSulfur");
 	public static Item dustTin = (new Item(202)).setIconCoord(12, 15).setItemName("dustTin");
+	public static Item antiRadin = (new Item(203)).setIconCoord(0, 16).setItemName("antiRadin");
 
 	public final int shiftedIndex;
 	protected int maxStackSize = 64;

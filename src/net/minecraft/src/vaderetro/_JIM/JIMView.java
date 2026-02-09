@@ -4,6 +4,8 @@ import java.util.*;
 import java.lang.reflect.Field;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.*;
+import net.minecraft.src.vaderetro.recipes.creators.cooking.CookingManager;
+import net.minecraft.src.vaderetro.recipes.processors.*;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
@@ -36,12 +38,13 @@ public class JIMView {
     private int flyButtonX, flyButtonY;
 
     private boolean isRecipeView = false;
-    private List<Object> foundRecipes = new ArrayList<Object>();
+    private List<RecipeEntry> foundRecipes = new ArrayList<RecipeEntry>();
     private int currentRecipePage = 0;
     private ItemStack targetItem = null;
 
     private static final int FONT_HEIGHT = 9;
     private boolean needsFiltering = true;
+    private static final int MAX_FOUND_RECIPES = 200;
 
     private long lastRenderTime = 0;
     private boolean renderingEnabled = true;
@@ -50,6 +53,34 @@ public class JIMView {
 
     private String hoverText = null;
     private int hoverX, hoverY;
+
+    private static class ItemStackDepth {
+        ItemStack stack;
+        int depth;
+
+        ItemStackDepth(ItemStack stack, int depth) {
+            this.stack = stack;
+            this.depth = depth;
+        }
+    }
+
+    private static class RecipeEntry {
+        String kind;
+        String machine;
+        Object recipe;
+        ItemStack input;
+        ItemStack output;
+        int depth;
+
+        RecipeEntry(String kind, String machine, Object recipe, ItemStack input, ItemStack output, int depth) {
+            this.kind = kind;
+            this.machine = machine;
+            this.recipe = recipe;
+            this.input = input;
+            this.output = output;
+            this.depth = depth;
+        }
+    }
 
     public JIMView(JIMController controller) {
         this.controller = controller;
@@ -130,46 +161,14 @@ public class JIMView {
         this.foundRecipes.clear();
         this.currentRecipePage = 0;
 
-        List recipes = CraftingManager.getInstance().getRecipeList();
-        for (Object obj : recipes) {
-            if (obj instanceof IRecipe) {
-                IRecipe recipe = (IRecipe) obj;
-                ItemStack output = recipe.getRecipeOutput();
-                if (output != null && output.itemID == target.itemID && 
-                   (output.getItemDamage() == target.getItemDamage() || target.getItemDamage() == -1)) {
-                    foundRecipes.add(recipe);
-                }
-            }
-        }
-
-        Map smelting = FurnaceRecipes.smelting().getSmeltingList();
-        for (Object key : smelting.keySet()) {
-            ItemStack result = (ItemStack) smelting.get(key);
-            if (result != null && result.itemID == target.itemID) {
-                foundRecipes.add(key); 
-            }
-        }
-
-        for (int i = 0; i < Block.blocksList.length; i++) {
-            Block b = Block.blocksList[i];
-            if (b != null) {
-                try {
-                    for (int meta = 0; meta < 16; meta++) {
-                        int droppedId = b.idDropped(meta, new Random());
-                        if (droppedId == target.itemID) {
-                            if (b.blockID == target.itemID && meta == target.getItemDamage()) continue;
-                            ItemStack sourceBlock = new ItemStack(b, 1, meta);
-                            boolean exists = false;
-                            for (Object r : foundRecipes) {
-                                if (r instanceof ItemStack && ((ItemStack)r).isItemEqual(sourceBlock)) {
-                                    exists = true; break;
-                                }
-                            }
-                            if (!exists) foundRecipes.add(sourceBlock);
-                            break; 
-                        }
-                    }
-                } catch (Exception e) {}
+        Set<String> recipeKeys = new HashSet<String>();
+        List<RecipeEntry> direct = collectDirectRecipes(target, 0);
+        for (int i = 0; i < direct.size() && foundRecipes.size() < MAX_FOUND_RECIPES; i++) {
+            RecipeEntry entry = direct.get(i);
+            String key = getRecipeKey(entry);
+            if (!recipeKeys.contains(key)) {
+                recipeKeys.add(key);
+                foundRecipes.add(entry);
             }
         }
     }
@@ -193,14 +192,14 @@ public class JIMView {
             return;
         }
 
-        Object currentRecipe = foundRecipes.get(currentRecipePage);
+        RecipeEntry currentRecipe = foundRecipes.get(currentRecipePage);
         String title = "Recipe " + (currentRecipePage + 1) + "/" + foundRecipes.size();
-        
-        if (currentRecipe instanceof Integer) title += " (Furnace)";
-        else if (currentRecipe instanceof ItemStack) title += " (Mining)";
-        else title += " (Crafting)";
+        String typeLabel = getRecipeTypeLabel(currentRecipe);
 
         minecraft.fontRenderer.drawStringWithShadow(title, panelLeft + 60, panelTop + 25, 0xFFFFFF);
+        if (typeLabel != null && typeLabel.length() > 0) {
+            minecraft.fontRenderer.drawStringWithShadow(typeLabel, panelLeft + 60, panelTop + 35, 0xAAAAAA);
+        }
 
         int centerX = panelLeft + panelWidth / 2;
         int centerY = panelTop + 80;
@@ -228,9 +227,9 @@ public class JIMView {
              }
         }
 
-        if (currentRecipe instanceof Integer) {
-            int inputID = (Integer) currentRecipe;
-            ItemStack inputStack = new ItemStack(inputID, 1, 0);
+        if ("smelting".equals(currentRecipe.kind) || "processing".equals(currentRecipe.kind)) {
+            ItemStack inputStack = currentRecipe.input;
+            ItemStack outputStack = currentRecipe.output;
             
             drawSlot(centerX - 20, centerY - 20, 20, 20);
             drawItemSimple(minecraft, inputStack, centerX - 19, centerY - 19);
@@ -246,19 +245,23 @@ public class JIMView {
             }
 
             minecraft.fontRenderer.drawStringWithShadow("->", centerX + 5, centerY - 15, 0xFFFFFF);
-            minecraft.fontRenderer.drawStringWithShadow("Fire", centerX - 15, centerY + 5, 0xFF5500);
+            String machineLabel = currentRecipe.machine != null ? currentRecipe.machine : "Process";
+            minecraft.fontRenderer.drawStringWithShadow(machineLabel, centerX - 20, centerY + 5, 0xFFAAAAAA);
 
             drawSlot(centerX + 20, centerY - 20, 20, 20);
-            drawItemSimple(minecraft, targetItem, centerX + 21, centerY - 19);
+            drawItemSimple(minecraft, outputStack, centerX + 21, centerY - 19);
             
             if (isMouseOverSlot(centerX + 20, centerY - 20, mouseX, mouseY, 20)) {
-                hoverText = getDisplayName(targetItem);
+                hoverText = getDisplayName(outputStack);
                 hoverX = mouseX + 10;
                 hoverY = mouseY;
             }
+
+            drawFuelList(minecraft, centerX, centerY + 28, currentRecipe.machine, mouseX, mouseY);
         } 
-        else if (currentRecipe instanceof ItemStack) {
-            ItemStack sourceStack = (ItemStack) currentRecipe;
+        else if ("mining".equals(currentRecipe.kind)) {
+            ItemStack sourceStack = currentRecipe.input;
+            ItemStack outputStack = currentRecipe.output;
             
             drawSlot(centerX - 20, centerY - 20, 20, 20);
             drawItemSimple(minecraft, sourceStack, centerX - 19, centerY - 19);
@@ -277,20 +280,22 @@ public class JIMView {
             minecraft.fontRenderer.drawStringWithShadow("Mined", centerX - 15, centerY + 5, 0xFF8888);
 
             drawSlot(centerX + 20, centerY - 20, 20, 20);
-            drawItemSimple(minecraft, targetItem, centerX + 21, centerY - 19);
+            drawItemSimple(minecraft, outputStack, centerX + 21, centerY - 19);
             
             if (isMouseOverSlot(centerX + 20, centerY - 20, mouseX, mouseY, 20)) {
-                hoverText = getDisplayName(targetItem);
+                hoverText = getDisplayName(outputStack);
                 hoverX = mouseX + 10;
                 hoverY = mouseY;
             }
         }
-        else if (currentRecipe instanceof IRecipe) {
+        else if ("crafting".equals(currentRecipe.kind) || "cooking".equals(currentRecipe.kind)) {
+            IRecipe recipe = currentRecipe.recipe instanceof IRecipe ? (IRecipe) currentRecipe.recipe : null;
+            if (recipe == null) return;
             drawSlot(centerX + 40, centerY - 10, 20, 20);
-            drawItemSimple(minecraft, ((IRecipe)currentRecipe).getRecipeOutput(), centerX + 41, centerY - 9);
+            drawItemSimple(minecraft, recipe.getRecipeOutput(), centerX + 41, centerY - 9);
             
             if (isMouseOverSlot(centerX + 40, centerY - 10, mouseX, mouseY, 20)) {
-                hoverText = getDisplayName(((IRecipe)currentRecipe).getRecipeOutput());
+                hoverText = getDisplayName(recipe.getRecipeOutput());
                 hoverX = mouseX + 10;
                 hoverY = mouseY;
             }
@@ -300,8 +305,8 @@ public class JIMView {
             int startX = centerX - 40;
             int startY = centerY - 28;
             
-            if (currentRecipe instanceof ShapedRecipes) {
-                ShapedRecipes shaped = (ShapedRecipes) currentRecipe;
+            if (recipe instanceof ShapedRecipes) {
+                ShapedRecipes shaped = (ShapedRecipes) recipe;
                 try {
                     int width = getPrivateInt(shaped, "recipeWidth", "b"); 
                     int height = getPrivateInt(shaped, "recipeHeight", "c");
@@ -332,8 +337,8 @@ public class JIMView {
                     }
                 } catch (Exception e) {}
             } 
-            else if (currentRecipe instanceof ShapelessRecipes) {
-                ShapelessRecipes shapeless = (ShapelessRecipes) currentRecipe;
+            else if (recipe instanceof ShapelessRecipes) {
+                ShapelessRecipes shapeless = (ShapelessRecipes) recipe;
                 try {
                     List items = (List) getPrivateValue(shapeless, "recipeItems", "b");
                     
@@ -419,6 +424,221 @@ public class JIMView {
             f.setAccessible(true);
             return f.get(obj);
         } catch(Exception e) { return null; }
+    }
+
+    private List<RecipeEntry> collectDirectRecipes(ItemStack target, int depth) {
+        List<RecipeEntry> results = new ArrayList<RecipeEntry>();
+
+        List crafting = CraftingManager.getInstance().getRecipeList();
+        for (Object obj : crafting) {
+            if (obj instanceof IRecipe) {
+                IRecipe recipe = (IRecipe) obj;
+                ItemStack output = recipe.getRecipeOutput();
+                if (matchesTarget(output, target)) {
+                    results.add(new RecipeEntry("crafting", "Crafting", recipe, null, output, depth));
+                }
+            }
+        }
+
+        List cooking = CookingManager.getInstance().getRecipeList();
+        for (Object obj : cooking) {
+            if (obj instanceof IRecipe) {
+                IRecipe recipe = (IRecipe) obj;
+                ItemStack output = recipe.getRecipeOutput();
+                if (matchesTarget(output, target)) {
+                    results.add(new RecipeEntry("cooking", "Cooking Table", recipe, null, output, depth));
+                }
+            }
+        }
+
+        Map smelting = FurnaceRecipes.smelting().getSmeltingList();
+        for (Object key : smelting.keySet()) {
+            ItemStack result = (ItemStack) smelting.get(key);
+            if (matchesTarget(result, target)) {
+                ItemStack input = new ItemStack(((Integer) key).intValue(), 1, 0);
+                results.add(new RecipeEntry("smelting", "Furnace", null, input, result, depth));
+            }
+        }
+
+        addProcessorRecipes(results, target, depth, "Oven", getProcessorMap(OvenRecipes.processing()));
+        addProcessorRecipes(results, target, depth, "Ceramic Furnace", getProcessorMap(CeramicFurnaceRecipes.processing()));
+        addProcessorRecipes(results, target, depth, "Open Hearth", getProcessorMap(OpenHearthFurnaceRecipes.processing()));
+        addProcessorRecipes(results, target, depth, "Wheat Grinder", getProcessorMap(WheatGrinderRecipes.processing()));
+        addProcessorRecipes(results, target, depth, "Macerator", getProcessorMap(MaceratorRecipes.processing()));
+        addProcessorRecipes(results, target, depth, "Dryer", getProcessorMap(DryerRecipes.processing()));
+        addProcessorRecipes(results, target, depth, "Turntable", getProcessorMap(TurntableRecipes.processing()));
+        addProcessorRecipes(results, target, depth, "Kerosene Lamp", getProcessorMap(KeroseneLampRecipes.processing()));
+
+        for (int i = 0; i < Block.blocksList.length; i++) {
+            Block b = Block.blocksList[i];
+            if (b != null) {
+                try {
+                    for (int meta = 0; meta < 16; meta++) {
+                        int droppedId = b.idDropped(meta, new Random());
+                        if (droppedId == target.itemID) {
+                            if (b.blockID == Block.oreLapis.blockID && target.itemID == Item.dyePowder.shiftedIndex && target.getItemDamage() != 4) {
+                                continue;
+                            }
+                            if (b.blockID == target.itemID && meta == target.getItemDamage()) continue;
+                            ItemStack sourceBlock = new ItemStack(b, 1, meta);
+                            results.add(new RecipeEntry("mining", "Mining", null, sourceBlock, target, depth));
+                            break;
+                        }
+                    }
+                } catch (Exception e) {}
+            }
+        }
+
+        return results;
+    }
+
+    private void addProcessorRecipes(List<RecipeEntry> results, ItemStack target, int depth, String machine, Map map) {
+        if (map == null) return;
+        for (Object key : map.keySet()) {
+            Object value = map.get(key);
+            if (!(value instanceof ItemStack)) continue;
+            ItemStack output = (ItemStack) value;
+            if (matchesTarget(output, target)) {
+                int inputId = key instanceof Integer ? ((Integer) key).intValue() : -1;
+                if (inputId >= 0) {
+                    ItemStack input = new ItemStack(inputId, 1, 0);
+                    results.add(new RecipeEntry("processing", machine, null, input, output, depth));
+                }
+            }
+        }
+    }
+
+    private Map getProcessorMap(Object processor) {
+        if (processor == null) return null;
+        try {
+            Field f = processor.getClass().getDeclaredField("processingList");
+            f.setAccessible(true);
+            Object v = f.get(processor);
+            if (v instanceof Map) return (Map) v;
+        } catch (Exception e) {}
+        try {
+            if (processor instanceof IProcessorRecipes) {
+                return ((IProcessorRecipes) processor).getProcessingList();
+            }
+        } catch (Exception e) {}
+        return null;
+    }
+
+    private boolean matchesTarget(ItemStack output, ItemStack target) {
+        if (output == null || target == null) return false;
+        if (output.itemID != target.itemID) return false;
+        int targetDamage = target.getItemDamage();
+        return targetDamage == -1 || output.getItemDamage() == targetDamage;
+    }
+
+    private String getRecipeTypeLabel(RecipeEntry entry) {
+        if (entry == null) return "";
+        if ("crafting".equals(entry.kind)) return "Crafting";
+        if ("cooking".equals(entry.kind)) return "Cooking Table";
+        if ("smelting".equals(entry.kind)) return "Furnace";
+        if ("mining".equals(entry.kind)) return "Mining";
+        if ("processing".equals(entry.kind)) return entry.machine != null ? entry.machine : "Processing";
+        return "";
+    }
+
+    private String getRecipeKey(RecipeEntry entry) {
+        if (entry == null) return "";
+        if (entry.recipe != null) {
+            return entry.kind + "|" + entry.machine + "|" + System.identityHashCode(entry.recipe);
+        }
+        return entry.kind + "|" + entry.machine + "|" + getStackKey(entry.input) + "|" + getStackKey(entry.output);
+    }
+
+    private String getStackKey(ItemStack stack) {
+        if (stack == null) return "null";
+        return stack.itemID + ":" + stack.getItemDamage();
+    }
+
+    private List<ItemStack> getRecipeIngredients(RecipeEntry entry) {
+        List<ItemStack> items = new ArrayList<ItemStack>();
+        if (entry == null) return items;
+        if ("smelting".equals(entry.kind) || "processing".equals(entry.kind)) {
+            if (entry.input != null) items.add(entry.input);
+            return items;
+        }
+        if ("crafting".equals(entry.kind) || "cooking".equals(entry.kind)) {
+            if (!(entry.recipe instanceof IRecipe)) return items;
+            IRecipe recipe = (IRecipe) entry.recipe;
+            if (recipe instanceof ShapedRecipes) {
+                try {
+                    ItemStack[] stacks = (ItemStack[]) getPrivateValue(recipe, "recipeItems", "d");
+                    if (stacks != null) {
+                        for (int i = 0; i < stacks.length; i++) {
+                            if (stacks[i] != null) items.add(stacks[i]);
+                        }
+                    }
+                } catch (Exception e) {}
+            } else if (recipe instanceof ShapelessRecipes) {
+                try {
+                    List list = (List) getPrivateValue(recipe, "recipeItems", "b");
+                    if (list != null) {
+                        for (int i = 0; i < list.size(); i++) {
+                            Object obj = list.get(i);
+                            if (obj instanceof ItemStack) items.add((ItemStack) obj);
+                            else if (obj instanceof Item) items.add(new ItemStack((Item) obj));
+                            else if (obj instanceof Block) items.add(new ItemStack((Block) obj));
+                        }
+                    }
+                } catch (Exception e) {}
+            }
+        }
+        return items;
+    }
+
+    private void drawFuelList(Minecraft minecraft, int centerX, int startY, String machine, int mouseX, int mouseY) {
+        List<ItemStack> fuels = getFuelItemsForMachine(machine);
+        if (fuels.isEmpty()) return;
+        int perRow = 7;
+        int total = fuels.size();
+        int rows = (total + perRow - 1) / perRow;
+        int rowWidth = Math.min(perRow, total) * 18;
+        int startX = centerX - rowWidth / 2;
+        minecraft.fontRenderer.drawStringWithShadow("Fuel", centerX - 12, startY - 10, 0xAAAAAA);
+        for (int i = 0; i < total; i++) {
+            int row = i / perRow;
+            int col = i % perRow;
+            int x = startX + col * 18;
+            int y = startY + row * 18;
+            drawSlot(x, y, 18, 18);
+            ItemStack fuel = fuels.get(i);
+            drawItemSimple(minecraft, fuel, x + 1, y + 1);
+            if (isMouseOverSlot(x, y, mouseX, mouseY, 18)) {
+                hoverText = getDisplayName(fuel);
+                hoverX = mouseX + 10;
+                hoverY = mouseY;
+            }
+        }
+    }
+
+    private List<ItemStack> getFuelItemsForMachine(String machine) {
+        List<ItemStack> fuels = new ArrayList<ItemStack>();
+        if (machine == null) return fuels;
+        if ("Furnace".equals(machine)) {
+            fuels.add(new ItemStack(Block.planks));
+            fuels.add(new ItemStack(Block.wood));
+            fuels.add(new ItemStack(Item.stick));
+            fuels.add(new ItemStack(Item.coal));
+            fuels.add(new ItemStack(Item.charcoal));
+            fuels.add(new ItemStack(Block.sapling));
+            fuels.add(new ItemStack(Block.blockCoal));
+            fuels.add(new ItemStack(Item.bucketLava));
+        } else if ("Oven".equals(machine) || "Ceramic Furnace".equals(machine)) {
+            fuels.add(new ItemStack(Block.planks));
+            fuels.add(new ItemStack(Block.wood));
+            fuels.add(new ItemStack(Item.stick));
+            fuels.add(new ItemStack(Item.coal));
+            fuels.add(new ItemStack(Item.charcoal));
+            fuels.add(new ItemStack(Block.sapling));
+            fuels.add(new ItemStack(Block.blockCoal));
+        } else if ("Open Hearth".equals(machine)) {
+            fuels.add(new ItemStack(Item.bucketLava));
+        }
+        return fuels;
     }
 
     public void draw(Minecraft minecraft) {
@@ -605,7 +825,7 @@ public class JIMView {
     }
 
     private void drawControls(Minecraft minecraft, int mouseX, int mouseY, boolean mouseDown) {
-        int controlsY = panelTop + panelHeight - 25;
+        int controlsY = panelTop + panelHeight - 40;
         cheatModeX = panelLeft + 8; cheatModeY = controlsY;
         
         drawGradientRect(cheatModeX, cheatModeY, cheatModeX + 10, cheatModeY + 10, 0xFFFFFFFF, 0xFFDDDDDD);
@@ -618,7 +838,7 @@ public class JIMView {
              }
         }
 
-        int buttonY = controlsY + 25;
+        int buttonY = controlsY + 15;
         int buttonWidth = 25;
         int spacing = 5;
         
@@ -635,7 +855,7 @@ public class JIMView {
         drawGradientButton(minecraft, "Rain", rainButtonX, rainButtonY, buttonWidth, 12, 0xFF555555, 0xFFAAAAAA);
 
         flyButtonX = rainButtonX + buttonWidth + spacing; flyButtonY = buttonY;
-        String flyLabel = "Fly: " + (controller.getConfig() != null && controller.getConfig().isFlyEnabled() ? "ON" : "OFF");
+        String flyLabel = "Fly " + (controller.getConfig() != null && controller.getConfig().isFlyEnabled() ? "ON" : "OFF");
         drawGradientButton(minecraft, flyLabel, flyButtonX, flyButtonY, buttonWidth, 12, 0xFF555555, 0xFFAAAAAA);
 
         if (mouseDown && !wasPreviouslyClicked && cheatMode) {
@@ -684,11 +904,23 @@ public class JIMView {
     }
 
     private void drawGradientButton(Minecraft minecraft, String text, int x, int y, int width, int height, int color1, int color2) {
-        int textWidth = minecraft.fontRenderer.getStringWidth(text);
+        String fitted = fitText(minecraft, text, width - 4);
+        int textWidth = minecraft.fontRenderer.getStringWidth(fitted);
         int paddingX = (width - textWidth) / 2;
         drawGradientRect(x, y, x + width, y + height, color1, color2);
         drawBorder(x, y, x + width, y + height, 0xFF000000);
-        minecraft.fontRenderer.drawStringWithShadow(text, x + paddingX, y + 2, 0xFFFFFF);
+        minecraft.fontRenderer.drawStringWithShadow(fitted, x + paddingX, y + 2, 0xFFFFFF);
+    }
+
+    private String fitText(Minecraft minecraft, String text, int maxWidth) {
+        if (text == null) return "";
+        if (maxWidth <= 0) return "";
+        if (minecraft.fontRenderer.getStringWidth(text) <= maxWidth) return text;
+        String trimmed = text;
+        while (trimmed.length() > 0 && minecraft.fontRenderer.getStringWidth(trimmed) > maxWidth) {
+            trimmed = trimmed.substring(0, trimmed.length() - 1);
+        }
+        return trimmed;
     }
 
     private void drawBorder(int left, int top, int right, int bottom, int color) {

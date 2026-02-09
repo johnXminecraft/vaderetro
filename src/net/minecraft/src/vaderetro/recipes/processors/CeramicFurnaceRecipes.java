@@ -3,10 +3,13 @@ package net.minecraft.src.vaderetro.recipes.processors;
 import net.minecraft.src.Block;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CeramicFurnaceRecipes implements IProcessorRecipes {
 
     private static final CeramicFurnaceRecipes base = new CeramicFurnaceRecipes();
+    private Map processingList = new HashMap();
 
     public static CeramicFurnaceRecipes processing() {
         return base;
@@ -21,5 +24,17 @@ public class CeramicFurnaceRecipes implements IProcessorRecipes {
         this.addRecipe(Item.legsClay.shiftedIndex, new ItemStack(Item.legsCeramic));
         this.addRecipe(Item.bootsClay.shiftedIndex, new ItemStack(Item.bootsCeramic));
         this.addRecipe(Block.blockClay.blockID, new ItemStack(Block.terracotta));
+    }
+
+    public void addRecipe(int itemID, ItemStack itemStack) {
+        this.processingList.put(itemID, itemStack);
+    }
+
+    public ItemStack getResult(int itemID) {
+        return (ItemStack)this.processingList.get(itemID);
+    }
+
+    public Map getProcessingList() {
+        return this.processingList;
     }
 }
